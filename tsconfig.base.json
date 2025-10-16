@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@workletjs/ngx-openlayers": ["packages/ngx-openlayers/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

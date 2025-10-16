@@ -1,0 +1,31 @@
+{
+  "name": "@workletjs/ngx-openlayers",
+  "license": "MIT",
+  "description": "A modern map component library built with Angular and OpenLayers",
+  "author": "Workletjs Team <workletjs-team@gmail.com>",
+  "homepage": "https://github.com/workletjs/workletjs#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/workletjs/workletjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/workletjs/workletjs/issues"
+  },
+  "keywords": [
+    "angular",
+    "openlayers",
+    "ngx-openlayers",
+    "map",
+    "gis",
+    "webgis",
+    "component",
+    "library",
+    "workletjs"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^20.2.0",
+    "@angular/core": "^20.2.0",
+    "ol": "^10.6.1"
+  },
+  "sideEffects": false
+}
