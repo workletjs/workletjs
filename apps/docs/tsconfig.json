@@ -10,11 +10,7 @@
     "moduleResolution": "bundler",
     "isolatedModules": true,
     "emitDecoratorMetadata": false,
-    "module": "preserve",
-    "paths": {
-      "@ng-doc/generated": ["ng-doc/docs/index.ts"],
-      "@ng-doc/generated/*": ["ng-doc/docs/*"]
-    }
+    "module": "preserve"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

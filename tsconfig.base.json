@@ -15,6 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@ng-doc/generated": ["ng-doc/docs/index.ts"],
+      "@ng-doc/generated/*": ["ng-doc/docs/*"],
       "@workletjs/ngx-openlayers/*": ["packages/ngx-openlayers/*"]
     }
   },
