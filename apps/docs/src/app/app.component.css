@@ -1,0 +1,7 @@
+:host {
+  .workletjs-brand-title {
+    font-family: 'Alimama FangYuanTi VF Bold', var(--ng-doc-heading-font-family);
+    font-weight: 700;
+    font-variation-settings: 'BEVL' 80, 'wght' 700;
+  }
+}

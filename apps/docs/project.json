@@ -7,7 +7,7 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular/build:application",
+      "executor": "@ng-doc/builder:application",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/docs",
@@ -17,10 +17,30 @@
         "assets": [
           {
             "glob": "**/*",
+            "input": "node_modules/@ng-doc/ui-kit/assets",
+            "output": "assets/ng-doc/ui-kit"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@ng-doc/app/assets",
+            "output": "assets/ng-doc/app"
+          },
+          {
+            "glob": "**/*",
+            "input": "ng-doc/docs/assets",
+            "output": "assets/ng-doc"
+          },
+          {
+            "glob": "**/*",
             "input": "apps/docs/public"
           }
         ],
-        "styles": ["apps/docs/src/styles.css"]
+        "styles": [
+          "apps/docs/src/custom-theme.scss",
+          "node_modules/@ng-doc/app/styles/global.css",
+          "node_modules/ol/ol.css",
+          "apps/docs/src/styles.css"
+        ]
       },
       "configurations": {
         "production": {
@@ -48,7 +68,7 @@
     },
     "serve": {
       "continuous": true,
-      "executor": "@angular/build:dev-server",
+      "executor": "@ng-doc/builder:dev-server",
       "configurations": {
         "production": {
           "buildTarget": "docs:build:production"

@@ -1,0 +1,30 @@
+<ng-doc-root [footerContent]="footerContent">
+  <ng-doc-navbar>
+    <a class="no-underline text-slate-800" routerLink="/" ngDocNavbarLeft>
+      <h3 class="flex items-center m-0 text-2xl">
+        <img class="h-9 mr-2" src="workletjs.png" alt="workletjs logo" />
+        <span class="workletjs-brand-title">Workletjs</span>
+      </h3>
+    </a>
+    <div class="flex items-center" ngDocNavbarRight @preventInitialChild>
+      <ng-doc-theme-toggle class="ms-4" />
+      <a
+        class="ms-4"
+        href="https://github.com/workletjs/workletjs"
+        ng-doc-button-icon
+        ngDocTooltip="Repository on GitHub"
+        size="large"
+        target="_blank"
+      >
+        <ng-doc-icon [size]="24" customIcon="github" />
+      </a>
+    </div>
+  </ng-doc-navbar>
+  <ng-doc-sidebar />
+  <router-outlet />
+  <ng-template #footerContent>
+    <div class="flex items-center justify-center p-6 text-xs text-gray-400">
+      MIT © 2025 WORKLETJS Contributors
+    </div>
+  </ng-template>
+</ng-doc-root>
