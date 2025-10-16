@@ -11,6 +11,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
 import { NearestDirectionFunction } from 'ol/array';
 import { ObjectEvent } from 'ol/Object';
 import { AttributionLike } from 'ol/source/Source';
@@ -20,7 +21,6 @@ import { EventsKey } from 'ol/events';
 import { unByKey } from 'ol/Observable';
 import BaseEvent from 'ol/events/Event';
 import OSM from 'ol/source/OSM';
-import { useTileSourceHostRef } from '../tile';
 
 @Component({
   selector: 'wol-osm-source',
