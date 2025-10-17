@@ -11,7 +11,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
+import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
 import { NearestDirectionFunction } from 'ol/array';
 import { ObjectEvent } from 'ol/Object';
 import { Size } from 'ol/size';
@@ -64,6 +64,8 @@ export class WolTileJSONSourceComponent implements OnChanges {
     const host = useTileSourceHostRef<TileJSON>('TileJSON');
     const eventsKey: Record<string, EventsKey> = {};
 
+    let disposeRef: DisposeRef;
+
     afterNextRender(() => {
       const tileJSON = new TileJSON({
         attributions: this.wolAttributions(),
@@ -106,14 +108,14 @@ export class WolTileJSONSourceComponent implements OnChanges {
       /**
        * Adding control to the map must be done after the map is rendered,
        * if used with control flow of Angular.
-       * 
-       * In Angular, when rendering a component's template, the control flow statements, 
-       * such as @if, @else, @else if, @for, and @switch, are evaluated during the template 
-       * rendering process. This evaluation happens before the actual content within the blocks 
+       *
+       * In Angular, when rendering a component's template, the control flow statements,
+       * such as @if, @else, @else if, @for, and @switch, are evaluated during the template
+       * rendering process. This evaluation happens before the actual content within the blocks
        * is rendered to the DOM.
        */
       Promise.resolve().then(() => {
-        host.setSource(tileJSON);
+        disposeRef = host.setSource(tileJSON);
       });
 
       this.instance = tileJSON;
@@ -121,7 +123,7 @@ export class WolTileJSONSourceComponent implements OnChanges {
 
     destroyRef.onDestroy(() => {
       unByKey(Object.values(eventsKey));
-      host.getInstance()?.setSource(null);
+      disposeRef && disposeRef();
       this.instance = undefined;
     });
   }
