@@ -60,8 +60,18 @@
     }
   },
   "release": {
+    "changelog": {
+      "projectChangelogsn": false,
+      "workspaceChangelogs": true
+    },
     "version": {
-      "preVersionCommand": "pnpm dlx nx run-many -t build"
+      "conventionalCommits": true,
+      "preVersionCommand": "pnpm dlx nx build ngx-openlayers"
+    },
+    "releaseTagPattern": "v{version}",
+    "git": {
+      "commitMessage": "chore(release): release v{version}",
+      "tagName": "v{version}"
     }
   }
 }
