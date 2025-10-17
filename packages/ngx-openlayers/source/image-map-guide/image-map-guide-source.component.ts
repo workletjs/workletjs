@@ -11,7 +11,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
-import { useImageSourceHostRef } from '@workletjs/ngx-openlayers/source/image';
+import { DisposeRef, useImageSourceHostRef } from '@workletjs/ngx-openlayers/source/image';
 import { LoadFunction } from 'ol/Image';
 import { ObjectEvent } from 'ol/Object';
 import { ProjectionLike } from 'ol/proj';
@@ -62,6 +62,8 @@ export class WolImageMapGuideSourceComponent implements OnChanges {
     const destroyRef = inject(DestroyRef);
     const hostRef = useImageSourceHostRef<ImageMapGuide>('ImageMapGuide');
     const eventsKey: Record<string, EventsKey> = {};
+
+    let disposeRef: DisposeRef;
 
     afterNextRender(() => {
       const imageMapGuide = new ImageMapGuide({
@@ -117,7 +119,7 @@ export class WolImageMapGuideSourceComponent implements OnChanges {
        * is rendered to the DOM.
        */
       Promise.resolve().then(() => {
-        hostRef.setSource(imageMapGuide);
+        disposeRef = hostRef.setSource(imageMapGuide);
       });
 
       this.instance = imageMapGuide;
@@ -126,7 +128,7 @@ export class WolImageMapGuideSourceComponent implements OnChanges {
     destroyRef.onDestroy(() => {
       if (this.instance) {
         unByKey(Object.values(eventsKey));
-        hostRef.setSource(null);
+        disposeRef && disposeRef();
         this.instance = undefined;
       }
     });
