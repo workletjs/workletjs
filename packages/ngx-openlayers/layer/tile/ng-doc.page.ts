@@ -7,7 +7,7 @@ import LayersCategory from '../ng-doc.category';
 const TileLayerPage: NgDocPage = {
   title: 'TileLayer',
   mdFile: './docs/index.md',
-  order: 1,
+  order: 2,
   category: LayersCategory,
   route: 'tile',
   demos: {},
