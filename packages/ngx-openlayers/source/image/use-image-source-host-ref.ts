@@ -1,22 +1,45 @@
-import { inject } from '@angular/core';
+import { inject, InjectOptions } from '@angular/core';
 import { WolImageLayerComponent } from '@workletjs/ngx-openlayers/layer/image';
+import { WolRasterSourceComponent } from '@workletjs/ngx-openlayers/source/raster';
 import ImageLayer from 'ol/layer/Image';
 import ImageSource from 'ol/source/Image';
+import RasterSource from 'ol/source/Raster';
+
+export interface DisposeRef {
+  (): void;
+}
 
 export interface ImageSourceHostRef<T extends ImageSource> {
-  setSource(source: T | null): void;
-  getInstance(): ImageLayer<T> | undefined;
+  setSource(source: T): DisposeRef;
+  getInstance(): ImageLayer<T> | RasterSource | undefined;
 }
 
 export function useImageSourceHostRef<T extends ImageSource>(
   sourceName: string,
 ): ImageSourceHostRef<T> {
-  const imageLayer = inject(WolImageLayerComponent, { host: true, optional: true });
+  const options: InjectOptions = { host: true, optional: true };
+  const rasterSource = inject(WolRasterSourceComponent, options);
+  const imageLayer = inject(WolImageLayerComponent, options);
+
+  if (rasterSource) {
+    return {
+      setSource: (source) => {
+        rasterSource.addSource(source);
+        return () => {
+          rasterSource.removeSource(source);
+        };
+      },
+      getInstance: () => rasterSource.getInstance(),
+    };
+  }
 
   if (imageLayer) {
     return {
       setSource: (source) => {
         imageLayer.getInstance()?.setSource(source);
+        return () => {
+          imageLayer.getInstance()?.setSource(null);
+        };
       },
       getInstance: () => imageLayer.getInstance() as ImageLayer<T> | undefined,
     };
