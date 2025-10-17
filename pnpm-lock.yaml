@@ -50,6 +50,9 @@ importers:
       ol:
         specifier: ^10.6.1
         version: 10.6.1
+      proj4:
+        specifier: ^2.19.10
+        version: 2.19.10
       rxjs:
         specifier: ~7.8.0
         version: 7.8.2
@@ -6387,6 +6390,9 @@ packages:
     resolution: {integrity: sha512-iclAHeNqNm68zFtnZ0e+1L2yUIdvzNoauKU4WBA3VvH/vPFieF7qfRlwUZU+DA9P9bPXIS90ulxoUoCH23sV2w==}
     engines: {node: '>= 0.6'}
 
+  mgrs@1.0.0:
+    resolution: {integrity: sha512-awNbTOqCxK1DBGjalK3xqWIstBZgN6fxsMSiXLs9/spqWkF2pAhb2rrYCFSsr1/tT7PhcDGjZndG8SWYn0byYA==}
+
   micromark-core-commonmark@1.1.0:
     resolution: {integrity: sha512-BgHO1aRbolh2hcrzL2d1La37V0Aoz73ymF8rAcKnohLy93titmv62E0gP8Hrx9PKcKrqCZ1BbLGbP3bEhoXYlw==}
 
@@ -7477,6 +7483,9 @@ packages:
   process@0.11.10:
     resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
     engines: {node: '>= 0.6.0'}
+
+  proj4@2.19.10:
+    resolution: {integrity: sha512-uL6/C6kA8+ncJAEDmUeV8PmNJcTlRLDZZa4/87CzRpb8My4p+Ame4LhC4G3H/77z2icVqcu3nNL9h5buSdnY+g==}
 
   promise-retry@2.0.1:
     resolution: {integrity: sha512-y+WKFlBR8BGXnsNlIHFGPZmyDf3DFMoLhaflAnyZgV6rG6xu+JwesTo2Q9R6XwYmtmwAFCkAk3e35jEdoeh/3g==}
@@ -9091,6 +9100,9 @@ packages:
 
   wildcard@2.0.1:
     resolution: {integrity: sha512-CC1bOL87PIWSBhDcTrdeLo6eGT7mCFtrg0uIJtqJUFyK+eJnzl8A1niH56uu7KMa5XFrtiV+AQuHO3n7DsHnLQ==}
+
+  wkt-parser@1.5.2:
+    resolution: {integrity: sha512-1ZUiV1FTwSiSrgWzV9KXJuOF2BVW91KY/mau04BhnmgOdroRQea7Q0s5TVqwGLm0D2tZwObd/tBYXW49sSxp3Q==}
 
   word-wrap@1.2.5:
     resolution: {integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==}
@@ -17221,6 +17233,8 @@ snapshots:
 
   methods@1.1.2: {}
 
+  mgrs@1.0.0: {}
+
   micromark-core-commonmark@1.1.0:
     dependencies:
       decode-named-character-reference: 1.2.0
@@ -18394,6 +18408,11 @@ snapshots:
   process-warning@5.0.0: {}
 
   process@0.11.10: {}
+
+  proj4@2.19.10:
+    dependencies:
+      mgrs: 1.0.0
+      wkt-parser: 1.5.2
 
   promise-retry@2.0.1:
     dependencies:
@@ -20564,6 +20583,8 @@ snapshots:
       stackback: 0.0.2
 
   wildcard@2.0.1: {}
+
+  wkt-parser@1.5.2: {}
 
   word-wrap@1.2.5: {}
 
