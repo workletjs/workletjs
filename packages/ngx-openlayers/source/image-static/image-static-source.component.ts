@@ -11,7 +11,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useImageSourceHostRef } from '@workletjs/ngx-openlayers/source/image';
+import { DisposeRef, useImageSourceHostRef } from '@workletjs/ngx-openlayers/source/image';
 import { Extent } from 'ol/extent';
 import { LoadFunction } from 'ol/Image';
 import { ProjectionLike } from 'ol/proj';
@@ -57,6 +57,8 @@ export class WolImageStaticSourceComponent implements OnChanges {
     const hostRef = useImageSourceHostRef<Static>('ImageStatic');
     const eventsKey: Record<string, EventsKey> = {};
 
+    let disposeRef: DisposeRef;
+
     afterNextRender(() => {
       const staticSource = new Static({
         attributions: this.wolAttributions(),
@@ -95,14 +97,14 @@ export class WolImageStaticSourceComponent implements OnChanges {
       /**
        * Adding control to the map must be done after the map is rendered,
        * if used with control flow of Angular.
-       * 
-       * In Angular, when rendering a component's template, the control flow statements, 
-       * such as @if, @else, @else if, @for, and @switch, are evaluated during the template 
-       * rendering process. This evaluation happens before the actual content within the blocks 
+       *
+       * In Angular, when rendering a component's template, the control flow statements,
+       * such as @if, @else, @else if, @for, and @switch, are evaluated during the template
+       * rendering process. This evaluation happens before the actual content within the blocks
        * is rendered to the DOM.
        */
       Promise.resolve().then(() => {
-        hostRef.setSource(staticSource);
+        disposeRef = hostRef.setSource(staticSource);
       });
 
       this.instance = staticSource;
@@ -111,7 +113,7 @@ export class WolImageStaticSourceComponent implements OnChanges {
     destroyRef.onDestroy(() => {
       if (this.instance) {
         unByKey(Object.values(eventsKey));
-        hostRef.setSource(null);
+        disposeRef && disposeRef();
         this.instance = undefined;
       }
     });
