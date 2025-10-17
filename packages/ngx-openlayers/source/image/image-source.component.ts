@@ -19,7 +19,7 @@ import { EventsKey } from 'ol/events';
 import { unByKey } from 'ol/Observable';
 import ImageSource, { ImageSourceEvent } from 'ol/source/Image';
 import BaseEvent from 'ol/events/Event';
-import { useImageSourceHostRef } from './use-image-source-host-ref';
+import { DisposeRef, useImageSourceHostRef } from './use-image-source-host-ref';
 
 @Component({
   selector: 'wol-image-source',
@@ -54,6 +54,8 @@ export class WolImageSourceComponent implements OnChanges {
     const destroyRef = inject(DestroyRef);
     const host = useImageSourceHostRef<ImageSource>('ImageSource');
     const eventsKey: Record<string, EventsKey> = {};
+
+    let disposeRef: DisposeRef;
 
     afterNextRender(() => {
       const imageSource = new ImageSource({
@@ -99,7 +101,7 @@ export class WolImageSourceComponent implements OnChanges {
        * is rendered to the DOM.
        */
       Promise.resolve().then(() => {
-        host.setSource(imageSource);
+        disposeRef = host.setSource(imageSource);
       });
 
       this.instanece = imageSource;
@@ -108,7 +110,7 @@ export class WolImageSourceComponent implements OnChanges {
     destroyRef.onDestroy(() => {
       if (this.instanece) {
         unByKey(Object.values(eventsKey));
-        host.setSource(null);
+        disposeRef && disposeRef();
         this.instanece = undefined;
       }
     });
