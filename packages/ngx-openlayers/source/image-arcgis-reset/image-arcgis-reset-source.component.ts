@@ -11,7 +11,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
-import { useImageSourceHostRef } from '@workletjs/ngx-openlayers/source/image';
+import { DisposeRef, useImageSourceHostRef } from '@workletjs/ngx-openlayers/source/image';
 import { LoadFunction } from 'ol/Image';
 import { ObjectEvent } from 'ol/Object';
 import { ProjectionLike } from 'ol/proj';
@@ -59,6 +59,8 @@ export class WolImageArcGISResetSourceComponent implements OnChanges {
     const host = useImageSourceHostRef<ImageArcGISRest>('ImageArcGISRest');
     const eventsKey: Record<string, EventsKey> = {};
 
+    let disposeRef: DisposeRef;
+
     afterNextRender(() => {
       const imageSource = new ImageArcGISRest({
         attributions: this.wolAttributions(),
@@ -96,23 +98,23 @@ export class WolImageArcGISResetSourceComponent implements OnChanges {
       /**
        * Adding control to the map must be done after the map is rendered,
        * if used with control flow of Angular.
-       * 
-       * In Angular, when rendering a component's template, the control flow statements, 
-       * such as @if, @else, @else if, @for, and @switch, are evaluated during the template 
-       * rendering process. This evaluation happens before the actual content within the blocks 
+       *
+       * In Angular, when rendering a component's template, the control flow statements,
+       * such as @if, @else, @else if, @for, and @switch, are evaluated during the template
+       * rendering process. This evaluation happens before the actual content within the blocks
        * is rendered to the DOM.
        */
       Promise.resolve().then(() => {
-        host.setSource(imageSource);
+        disposeRef = host.setSource(imageSource);
       });
-      
+
       this.instance = imageSource;
     });
 
     destroyRef.onDestroy(() => {
       if (this.instance) {
         unByKey(Object.values(eventsKey));
-        host.setSource(null);
+        disposeRef && disposeRef();
         this.instance = undefined;
       }
     });
