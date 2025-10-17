@@ -1,5 +1,6 @@
 import { NgDocPage } from '@ng-doc/core';
 import LayersCategory from '../ng-doc.category';
+import { WolLayerGroupsExampleComponent } from './examples';
 
 /**
  * @status:info NEW
@@ -10,7 +11,9 @@ const LayerGroupPage: NgDocPage = {
   order: 1,
   category: LayersCategory,
   route: 'group',
-  demos: {},
+  demos: {
+    WolLayerGroupsExampleComponent,
+  },
 };
 
 export default LayerGroupPage;
