@@ -1,5 +1,6 @@
 import { NgDocPage } from '@ng-doc/core';
 import LayersCategory from '../ng-doc.category';
+import { WolPreloadTilesExampleComponent } from './examples';
 
 /**
  * @status:info NEW
@@ -10,7 +11,9 @@ const TileLayerPage: NgDocPage = {
   order: 2,
   category: LayersCategory,
   route: 'tile',
-  demos: {},
+  demos: {
+    WolPreloadTilesExampleComponent,
+  },
 };
 
 export default TileLayerPage;

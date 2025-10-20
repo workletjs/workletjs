@@ -1,0 +1,1 @@
+export * from './preload-tiles-example.component';
