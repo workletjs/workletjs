@@ -50,6 +50,9 @@ importers:
       ol:
         specifier: ^10.6.1
         version: 10.6.1
+      pmtiles:
+        specifier: ^4.3.0
+        version: 4.3.0
       proj4:
         specifier: ^2.19.10
         version: 2.19.10
@@ -7147,6 +7150,9 @@ packages:
   pkg-dir@8.0.0:
     resolution: {integrity: sha512-4peoBq4Wks0riS0z8741NVv+/8IiTvqnZAr8QGgtdifrtpdXbNw/FxRS1l6NFqm4EMzuS0EDqNNx4XGaz8cuyQ==}
     engines: {node: '>=18'}
+
+  pmtiles@4.3.0:
+    resolution: {integrity: sha512-wnzQeSiYT/MyO63o7AVxwt7+uKqU0QUy2lHrivM7GvecNy0m1A4voVyGey7bujnEW5Hn+ZzLdvHPoFaqrOzbPA==}
 
   portfinder@1.0.38:
     resolution: {integrity: sha512-rEwq/ZHlJIKw++XtLAO8PPuOQA/zaPJOZJ37BVuN97nLpMJeuDVLVGRwbFoBgLudgdTMP2hdRJP++H+8QOA3vg==}
@@ -18109,6 +18115,10 @@ snapshots:
   pkg-dir@8.0.0:
     dependencies:
       find-up-simple: 1.0.1
+
+  pmtiles@4.3.0:
+    dependencies:
+      fflate: 0.8.2
 
   portfinder@1.0.38:
     dependencies:
