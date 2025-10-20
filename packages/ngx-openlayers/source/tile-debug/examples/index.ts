@@ -1,0 +1,1 @@
+export * from './canvas-tiles-example.component';
