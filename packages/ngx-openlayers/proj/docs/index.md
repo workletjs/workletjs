@@ -2,7 +2,7 @@
 keyword: ProjPage
 ---
 
-## wolFromLonLat
+## wolFromLonLat Pipe
 
 Angular pipe that converts geographic coordinates from longitude/latitude ([lon, lat] in degrees, EPSG:4326) to projected map coordinates using OpenLayers [*fromLonLat*](https://openlayers.org/en/latest/apidoc/module-ol_proj.html#.fromLonLat).
 
@@ -11,11 +11,9 @@ When the input is null or undefined, the pipe returns null for safe binding.
 
 **Example usage:**
 
-```typescript {11} name="from-lon-lat-pipe.component.ts" file="../examples/from-lon-lat-pipe.component.ts" icon="angular"
+{{ NgDocActions.demo("WolFromLonLatPipeExampleComponent") }}
 
-```
-
-## wolToLonLat
+## wolToLonLat Pipe
 
 Angular pipe that transforms coordinates from a given projection to longitude/latitude (EPSG:4326).
 
@@ -24,6 +22,24 @@ to WGS84 longitude/latitude coordinates. It handles null and undefined values gr
 
 **Example usage:**
 
-```typescript {11} name="to-lon-lat-pipe.component.ts" file="../examples/to-lon-lat-pipe.component.ts" icon="angular"
+{{ NgDocActions.demo("WolToLonLatPipeExampleComponent") }}
 
-```
+## wolTransform Pipe
+
+Angular pipe that transforms a coordinate from source projection to destination projection. This returns a new coordinate (and does not modify the original). If there is no available transform between the two projection, the pipe will throw an error.
+
+When the coordinate input is null or undefined, the pipe returns null for safe binding.
+
+**Example usage:**
+
+{{ NgDocActions.demo("WolTransformExampleComponent") }}
+
+## wolTransformExtent Pipe
+
+Angular pipe that transforms an extent from source projection to destination projection. This returns a new extent (and does not modify the original).
+
+When the extent input is null or undefined, the pipe returns null for safe binding.
+
+**Example usage:**
+
+{{ NgDocActions.demo("WolTransformExtentExampleComponent") }}

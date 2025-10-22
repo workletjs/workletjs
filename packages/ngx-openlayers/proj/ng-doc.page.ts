@@ -1,6 +1,11 @@
 import { NgDocPage } from '@ng-doc/core';
 import GeneralCategory from '../ng-doc.category';
-import { WolFromLonLatPipeExampleComponent, WolToLonLatPipeExampleComponent } from './examples';
+import {
+  WolFromLonLatPipeExampleComponent,
+  WolToLonLatPipeExampleComponent,
+  WolTransformExampleComponent,
+  WolTransformExtentExampleComponent,
+} from './examples';
 
 /**
  * @status:info NEW
@@ -14,6 +19,8 @@ const ProjPage: NgDocPage = {
   demos: {
     WolFromLonLatPipeExampleComponent,
     WolToLonLatPipeExampleComponent,
+    WolTransformExampleComponent,
+    WolTransformExtentExampleComponent,
   },
 };
 
