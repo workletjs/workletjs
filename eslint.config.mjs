@@ -13,13 +13,13 @@ export default [
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    ignores: ['**/examples/*.component.ts'],
     rules: {
       '@nx/enforce-module-boundaries': [
         'error',
         {
           enforceBuildableLibDependency: true,
           allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
-          ignores: ['**/examples/*.component.ts'],
           depConstraints: [
             {
               sourceTag: '*',
