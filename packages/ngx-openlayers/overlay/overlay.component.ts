@@ -90,19 +90,19 @@ export class WolOverlayComponent implements OnChanges {
 
       eventsKey['change'] = overlay.on('change', (event) => this.wolChange.emit(event));
 
-      eventsKey['change:element'] = overlay.on('change:element', (event) =>
+      eventsKey['change:element'] = overlay.on('change:element', () =>
         this.wolElement.set(overlay.getElement()),
       );
 
-      eventsKey['change:offset'] = overlay.on('change:offset', (event) =>
+      eventsKey['change:offset'] = overlay.on('change:offset', () =>
         this.wolOffset.set(overlay.getOffset()),
       );
 
-      eventsKey['change:position'] = overlay.on('change:position', (event) =>
+      eventsKey['change:position'] = overlay.on('change:position', () =>
         this.wolPosition.set(overlay.getPosition()),
       );
 
-      eventsKey['change:positioning'] = overlay.on('change:positioning', (event) =>
+      eventsKey['change:positioning'] = overlay.on('change:positioning', () =>
         this.wolPositioning.set(overlay.getPositioning()),
       );
 
