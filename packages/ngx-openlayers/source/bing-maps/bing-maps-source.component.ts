@@ -127,8 +127,12 @@ export class WolBingMapsSourceComponent implements OnChanges {
     });
 
     destroyRef.onDestroy(() => {
+      if (disposeRef) {
+        disposeRef();
+      }
+
       unByKey(Object.values(eventsKey));
-      disposeRef && disposeRef();
+
       this.instance = undefined;
     });
   }
