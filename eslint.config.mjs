@@ -9,11 +9,11 @@ export default [
       '**/dist',
       '**/vite.config.*.timestamp*',
       '**/vitest.config.*.timestamp*',
+      '**/examples/*.component.ts'
     ],
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-    ignores: ['**/examples/*.component.ts'],
     rules: {
       '@nx/enforce-module-boundaries': [
         'error',
