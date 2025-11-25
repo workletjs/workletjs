@@ -109,8 +109,12 @@ export class WolImageSourceComponent implements OnChanges {
 
     destroyRef.onDestroy(() => {
       if (this.instanece) {
+        if (disposeRef) {
+          disposeRef();
+        }
+
         unByKey(Object.values(eventsKey));
-        disposeRef && disposeRef();
+
         this.instanece = undefined;
       }
     });
