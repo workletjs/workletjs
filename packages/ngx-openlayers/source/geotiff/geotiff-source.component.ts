@@ -114,8 +114,12 @@ export class WolGeoTIFFSourceComponent implements OnChanges {
     });
 
     destroyRef.onDestroy(() => {
+      if (disposeRef) {
+        disposeRef();
+      }
+
       unByKey(Object.values(eventsKey));
-      disposeRef && disposeRef();
+      
       this.instance = undefined;
     });
   }
