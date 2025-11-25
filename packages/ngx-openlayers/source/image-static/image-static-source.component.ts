@@ -112,8 +112,12 @@ export class WolImageStaticSourceComponent implements OnChanges {
 
     destroyRef.onDestroy(() => {
       if (this.instance) {
+        if (disposeRef) {
+          disposeRef();
+        }
+
         unByKey(Object.values(eventsKey));
-        disposeRef && disposeRef();
+        
         this.instance = undefined;
       }
     });
