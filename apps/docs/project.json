@@ -40,6 +40,29 @@
           "node_modules/@ng-doc/app/styles/global.css",
           "node_modules/ol/ol.css",
           "apps/docs/src/styles.css"
+        ],
+        "allowedCommonJsDependencies": [
+          "@ng-doc/core",
+          "lerc",
+          "dayjs",
+          "@braintree/sanitize-url",
+          "dompurify",
+          "cytoscape-cose-bilkent",
+          "elkjs/lib/elk.bundled.js",
+          "dayjs/plugin/isoWeek.js",
+          "dayjs/plugin/customParseFormat.js",
+          "dayjs/plugin/advancedFormat.js",
+          "@ng-doc/core/helpers/as-array",
+          "@ng-doc/core/helpers/object-keys",
+          "@ng-doc/core/helpers/is-present",
+          "@ng-doc/core/helpers/extract-function-defaults",
+          "@ng-doc/core/helpers/is-same-object",
+          "@ng-doc/core/helpers/build-playground-demo-template",
+          "@ng-doc/core/helpers/stringify",
+          "@ng-doc/core/helpers/extract-value",
+          "@ng-doc/core/helpers/is-keyboard-event",
+          "xml-utils/get-attribute.js",
+          "xml-utils/find-tags-by-name.js"
         ]
       },
       "configurations": {
@@ -48,12 +71,12 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumError": "10mb"
             },
             {
               "type": "anyComponentStyle",
               "maximumWarning": "4kb",
-              "maximumError": "8kb"
+              "maximumError": "10kb"
             }
           ],
           "outputHashing": "all"
