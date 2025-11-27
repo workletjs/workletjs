@@ -1,0 +1,39 @@
+# Workflow for building and deploying docs site to GitHub Pages
+name: Deploy Docs Site
+
+on:
+  push:
+    branches:
+      - main # Trigger on pushes to the main branch
+  pull_request:
+    branches:
+      - main # Trigger on PRs to the main branch
+
+permissions:
+  contents: write # Allow the workflow to push to the repository
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22' # Specify Node.js version
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build documentation site
+        run: pnpm run build:docs
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }} # Use the default GITHUB_TOKEN
+          publish_dir: ./dist/apps/docs/browser
