@@ -1,0 +1,1 @@
+export * from './wmts-source-example.component';
