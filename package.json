@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "build": "nx build ngx-openlayers",
-    "build:docs": "nx build docs"
+    "build:docs": "nx build docs --base-href=/workletjs/"
   },
   "private": true,
   "dependencies": {
