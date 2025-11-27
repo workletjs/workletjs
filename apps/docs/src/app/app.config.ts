@@ -35,7 +35,7 @@ export const appConfig: ApplicationConfig = {
     provideNgDocApp({
       uiKit: {
         assetsPath: 'assets/ng-doc/ui-kit',
-        customIconsPath: '/icons',
+        customIconsPath: 'icons',
       },
     }),
     provideSearchEngine(NgDocDefaultSearchEngine),
