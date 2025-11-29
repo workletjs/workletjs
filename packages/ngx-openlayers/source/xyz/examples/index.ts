@@ -1,0 +1,1 @@
+export * from './xyz-source-example.component';
