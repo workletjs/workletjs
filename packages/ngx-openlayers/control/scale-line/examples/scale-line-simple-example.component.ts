@@ -78,12 +78,6 @@ import { Units } from 'ol/control/ScaleLine';
       </div>
     </div>
   `,
-  styles: `
-    :host {
-      --mat-form-field-container-vertical-padding: 4px;
-      --mat-form-field-container-height: 32px;
-    }
-  `,
 })
 export class WolScaleLineSimpleExampleComponent {
   private readonly renderer = inject(Renderer2);

@@ -76,13 +76,6 @@ import { AuthConfig, Evalscript, ProcessRequestInputDataItem, Sample } from 'ol/
       }
     </div>
   `,
-  styles: `
-    :host {
-      --mat-form-field-container-height: 32px;
-      --mat-form-field-container-vertical-padding: 6px;
-      --mat-icon-button-state-layer-size: 32px;
-    }
-  `,
 })
 export class WolSentinelHubDatePickerExampleComponent {
   readonly date = signal<Date>(new Date('2024-06-01'));

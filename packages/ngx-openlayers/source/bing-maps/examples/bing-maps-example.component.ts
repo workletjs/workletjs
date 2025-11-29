@@ -42,12 +42,6 @@ import { WolBingMapsSourceModule } from '@workletjs/ngx-openlayers/source/bing-m
       </mat-form-field>
     </div>
   `,
-  styles: `
-    :host {
-      --mat-form-field-container-height: 32px;
-      --mat-form-field-container-vertical-padding: 4px;
-    }
-  `,
 })
 export class WolBingMapsExampleComponent {
   readonly styles = [

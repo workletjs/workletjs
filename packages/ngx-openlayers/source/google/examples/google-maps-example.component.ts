@@ -44,12 +44,6 @@ import { WolGoogleSourceModule } from '@workletjs/ngx-openlayers/source/google';
       </form>
     }
   `,
-  styles: `
-    :host {
-      --mat-form-field-container-height: 40px;
-      --mat-form-field-container-vertical-padding: 8px;
-    }
-  `,
 })
 export class WolGoogleMapsExampleComponent {
   readonly key = signal<string | null>(null);

@@ -66,12 +66,6 @@ import { AuthConfig, Evalscript, ProcessRequestInputDataItem, Sample } from 'ol/
       }
     </div>
   `,
-  styles: `
-    :host {
-      --mat-form-field-container-height: 32px;
-      --mat-form-field-container-vertical-padding: 6px;
-    }
-  `,
 })
 export class WolSentinelHubExampleComponent {
   readonly auth = signal<AuthConfig | undefined>(undefined);

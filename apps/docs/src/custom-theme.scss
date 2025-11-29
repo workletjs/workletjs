@@ -33,3 +33,8 @@ body {
   // Reset the user agent margin.
   margin: 0;
 }
+
+:root {
+  --mat-form-field-container-vertical-padding: 4px;
+  --mat-form-field-container-height: 32px;
+}
