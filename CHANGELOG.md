@@ -1,3 +1,36 @@
+## 0.4.0 (2025-12-05)
+
+### 🚀 Features
+
+- **lint:** add lint script to package.json ([92dffc2](https://github.com/workletjs/workletjs/commit/92dffc2))
+- **module:cluster:** add Cluster source component ([4003ab7](https://github.com/workletjs/workletjs/commit/4003ab7))
+- **module:cluster:** add clustered features example ([7289c7d](https://github.com/workletjs/workletjs/commit/7289c7d))
+- **module:graticule-layer:** add Graticule layer component ([6017bf1](https://github.com/workletjs/workletjs/commit/6017bf1))
+- **module:heatmap-layer:** add HeatmapLayer component ([e6be277](https://github.com/workletjs/workletjs/commit/e6be277))
+- **module:heatmap-layer:** add examples for heatmap layer ([8a039f6](https://github.com/workletjs/workletjs/commit/8a039f6))
+- **module:image-vector-layer:** add example for image vector layer ([d57912f](https://github.com/workletjs/workletjs/commit/d57912f))
+- **module:ogc-vector-tile:** add OGCVectorTile source component ([1818ca9](https://github.com/workletjs/workletjs/commit/1818ca9))
+- **module:vector-image-layer:** add VectorImageLayer component and documentation ([4d25d3d](https://github.com/workletjs/workletjs/commit/4d25d3d))
+- **module:vector-layer:** add VectorLayer component and documentation ([7592ae7](https://github.com/workletjs/workletjs/commit/7592ae7))
+- **module:vector-layer:** add example and update documentation ([84c4e3a](https://github.com/workletjs/workletjs/commit/84c4e3a))
+- **module:vector-source:** add VectorSource component ([f899f20](https://github.com/workletjs/workletjs/commit/f899f20))
+- **module:vector-source:** support VectorImageLayer ([4a1b0bb](https://github.com/workletjs/workletjs/commit/4a1b0bb))
+- **module:vector-source:** extend VectorSourceHostRef to include VectorLayer support ([fceb1d3](https://github.com/workletjs/workletjs/commit/fceb1d3))
+- **module:vector-source:** add support for WebGLVectorLayer in useVectorSourceHostRef ([1c5163d](https://github.com/workletjs/workletjs/commit/1c5163d))
+- **module:vector-source:** add support for Cluster source in useVectorSourceHostRef ([7f4c5f9](https://github.com/workletjs/workletjs/commit/7f4c5f9))
+- **module:vector-tile:** add VectorTileSource component and documentation ([ed86545](https://github.com/workletjs/workletjs/commit/ed86545))
+- **module:vector-tile-layer:** add VectorTileLayer component and documentation ([b2864ad](https://github.com/workletjs/workletjs/commit/b2864ad))
+- **module:webgl-vector-layer:** add WebGLVectorLayer component and documentation ([653a755](https://github.com/workletjs/workletjs/commit/653a755))
+- **module:webgl-vector-layer:** add example component and documentation ([cfe3917](https://github.com/workletjs/workletjs/commit/cfe3917))
+
+### 🩹 Fixes
+
+- **docs:** add eslint-disable comments for generated imports ([0c46896](https://github.com/workletjs/workletjs/commit/0c46896))
+
+### ❤️ Thank You
+
+- Jonnytoshen @Jonnytoshen
+
 ## 0.3.0 (2025-12-03)
 
 ### 🚀 Features
