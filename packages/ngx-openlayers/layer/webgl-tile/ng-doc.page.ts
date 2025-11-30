@@ -1,5 +1,5 @@
 import { NgDocPage } from '@ng-doc/core';
-import LayersCategory from '../ng-doc.category';
+import LayersCategory from '../../ng-doc/layers/ng-doc.category';
 import {
   WolWebGLLayerSwipeExampleComponent,
   WolWebGLSeaLevelExampleComponent,

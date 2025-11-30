@@ -1,5 +1,5 @@
 import { NgDocPage } from '@ng-doc/core';
-import SourcesCategory from '../ng-doc.category';
+import SourcesCategory from '../../ng-doc/sources/ng-doc.category';
 import { WolBingMapsExampleComponent } from './examples';
 
 /**

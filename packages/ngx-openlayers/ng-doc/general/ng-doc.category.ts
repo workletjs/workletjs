@@ -1,8 +1,10 @@
 import { NgDocCategory } from '@ng-doc/core';
+import ComponentsCategory from '../ng-doc.category';
 
 const GeneralCategory: NgDocCategory = {
   title: 'General',
   route: 'general',
+  category: ComponentsCategory,
   expanded: true,
   order: 1,
 };
