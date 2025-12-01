@@ -40,7 +40,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.ACTIONS_DEPLOY_KEY }} # Use the default GITHUB_TOKEN
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }} # Use the default GITHUB_TOKEN
           external_repository: workletjs/workletjs.github.io
           publish_dir: ./dist/apps/docs/browser
           publish_branch: main
