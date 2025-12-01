@@ -41,4 +41,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }} # Use the default GITHUB_TOKEN
+          external_repository: workletjs/workletjs.github.io
           publish_dir: ./dist/apps/docs/browser
