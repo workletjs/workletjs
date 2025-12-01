@@ -38,6 +38,7 @@
         "styles": [
           "apps/docs/src/custom-theme.scss",
           "node_modules/@ng-doc/app/styles/global.css",
+          "node_modules/@ng-doc/app/styles/themes/dark.css",
           "node_modules/ol/ol.css",
           "apps/docs/src/styles.css"
         ],
