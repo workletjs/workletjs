@@ -37,6 +37,9 @@ jobs:
       - name: Build documentation site
         run: pnpm run build:docs
 
+      - name: Add SPA fallback # Copy index.html to 404.html for GitHub Pages SPA support
+        run: cp ./dist/apps/docs/browser/index.html ./dist/apps/docs/browser/404.html
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
