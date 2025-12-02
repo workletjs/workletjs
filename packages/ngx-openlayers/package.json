@@ -3,7 +3,7 @@
   "license": "MIT",
   "description": "A modern map component library built with Angular and OpenLayers",
   "author": "Workletjs Team <workletjs-team@gmail.com>",
-  "homepage": "https://github.com/workletjs/workletjs#readme",
+  "homepage": "https://workletjs.github.io",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/workletjs/workletjs.git"
