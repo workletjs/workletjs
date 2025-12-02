@@ -1,10 +1,12 @@
 @layer theme, base, components, utilities;
 
-@import "tailwindcss/theme.css" layer(theme);
-@import "tailwindcss/preflight.css" layer(base);
-@import "tailwindcss/utilities.css" layer(utilities);
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css' layer(utilities);
 
 @theme {
   --font-nunito-sans: 'Nunito Sans', sans-serif;
   --font-nunito: 'Nunito', sans-serif;
+
+  --color-ng-doc-primary: var(--ng-doc-primary);
 }
