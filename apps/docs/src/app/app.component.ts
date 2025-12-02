@@ -2,9 +2,9 @@ import { Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import {
+  NgDocCustomSidebarDirective,
   NgDocNavbarComponent,
   NgDocRootComponent,
-  NgDocSidebarComponent,
   NgDocThemeToggleComponent,
 } from '@ng-doc/app';
 import {
@@ -14,6 +14,7 @@ import {
   preventInitialChildAnimations,
 } from '@ng-doc/ui-kit';
 import { filter } from 'rxjs/operators';
+import { SidebarComponent } from './components';
 
 @Component({
   selector: 'app-root',
@@ -23,11 +24,12 @@ import { filter } from 'rxjs/operators';
     RouterOutlet,
     NgDocRootComponent,
     NgDocNavbarComponent,
-    NgDocSidebarComponent,
+    NgDocCustomSidebarDirective,
     NgDocButtonIconComponent,
     NgDocThemeToggleComponent,
     NgDocTooltipDirective,
     NgDocIconComponent,
+    SidebarComponent,
   ],
   animations: [preventInitialChildAnimations],
   templateUrl: './app.component.html',

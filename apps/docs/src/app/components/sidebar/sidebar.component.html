@@ -1,0 +1,34 @@
+<div class="ng-doc-side-bar-wrapper">
+  @for (item of navigations(); track item.route) {
+    <ng-container
+      *ngTemplateOutlet="sidebarTemplate; context: { item: item, root: true }"
+    ></ng-container>
+  }
+
+  <ng-template #sidebarTemplate let-item="item" let-root="root">
+    @if (item.children?.length) {
+      @if (!item.hidden) {
+        <app-sidebar-category
+          [category]="item"
+          [expandable]="!!item?.expandable"
+          [expanded]="
+            !!item?.expanded || !item?.expandable || (matchRoute | bind: this | execute: item.route)
+          "
+          [isRoot]="!!root"
+          [content]="categoryContent"
+        />
+      }
+      <ng-template #categoryContent>
+        @for (child of item.children; track child.route) {
+          <ng-container
+            *ngTemplateOutlet="sidebarTemplate; context: { item: child, root: false }"
+          ></ng-container>
+        }
+      </ng-template>
+    } @else {
+      @if (!item.hidden) {
+        <app-sidebar-item [item]="item" />
+      }
+    }
+  </ng-template>
+</div>

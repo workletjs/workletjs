@@ -1,0 +1,60 @@
+@use '../../../../styles/mixins' as mixins;
+
+:host {
+  display: block;
+}
+
+.ng-doc-sidebar-link {
+  @include mixins.ng-doc-heading-font();
+  display: flex;
+  align-items: center;
+  gap: var(--ng-doc-base-gutter);
+  padding: var(--ng-doc-sidebar-vetical-padding) var(--ng-doc-sidebar-horizontal-padding)
+    var(--ng-doc-sidebar-vetical-padding) var(--ng-doc-sidebar-item-indent);
+  text-decoration: inherit;
+  cursor: pointer;
+  border-radius: var(--ng-doc-base-gutter);
+
+  --ng-doc-icon-color: var(--ng-doc-text);
+  --ng-doc-dot-background: var(--ng-doc-base-4);
+  --ng-doc-font-weight: 400;
+
+  ng-doc-dot {
+    margin-right: var(--ng-doc-base-gutter);
+    z-index: 1;
+  }
+
+  &:hover:not(.active) {
+    background: var(--ng-doc-base-1);
+  }
+
+  &.active {
+    background: color-mix(in srgb, var(--ng-doc-primary) 7%, transparent);
+    --ng-doc-text: var(--ng-doc-primary);
+    --ng-doc-dot-background: var(--ng-doc-primary);
+
+    ng-doc-dot {
+      animation: animation 0.5s ease-out;
+
+      @keyframes animation {
+        0% {
+          transform: scale(1);
+        }
+
+        50% {
+          transform: scale(2);
+        }
+
+        100% {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+
+  ng-doc-tag {
+    vertical-align: middle;
+    margin-left: var(--ng-doc-base-gutter);
+    font-weight: 600;
+  }
+}
