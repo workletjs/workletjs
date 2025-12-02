@@ -1,0 +1,38 @@
+<section class="py-24 px-6">
+  <div class="flex flex-col items-center justify-between gap-14 lg:flex-row">
+    <div class="w-full max-w-md text-center lg:text-left">
+      <h1 class="font-nunito font-black text-4xl">Angular Components for OpenLayers</h1>
+      <p class="mt-6 text-2xl text-gray-700">
+        A modern map component library built with Angular and OpenLayers!
+      </p>
+      <div class="workletjs-hero-greeting-buttons">
+        <a [rounded]="true" [routerLink]="['docs']" ng-doc-button-flat size="large">
+          <span ng-doc-text>
+            Get Started
+            <ng-doc-icon [size]="24" customIcon="right" ngDocTextRight />
+          </span>
+        </a>
+      </div>
+      <div class="inline-flex items-center gap-2 mt-20">
+        @for (badge of badges; track $index) {
+          <a [href]="badge.link" target="_blank">
+            <img [src]="badge.img" [alt]="badge.name" />
+          </a>
+        }
+      </div>
+    </div>
+    <div class="w-full max-w-[900px]">
+      <app-hero-banner class="block h-108 rounded-2xl shadow-2xl overflow-hidden" />
+    </div>
+  </div>
+</section>
+<section class="px-6 py-24 border-t border-gray-200">
+  <div class="flex flex-col items-start gap-8 lg:flex-row">
+    @for (feature of features; track $index) {
+      <div class="w-full text-center lg:w-1/3">
+        <h2 class="font-bold font-nunito text-xl">{{ feature.title }}</h2>
+        <p class="mt-4 text-base text-gray-500">{{ feature.description }}</p>
+      </div>
+    }
+  </div>
+</section>
