@@ -2,7 +2,7 @@ import { NgDocConfiguration } from '@ng-doc/builder';
 import { ngKeywordsLoader } from '@ng-doc/keywords-loaders';
 
 const config: NgDocConfiguration = {
-  docsPath: 'packages/ngx-openlayers',
+  docsPath: './',
   keywords: {
     loaders: [ngKeywordsLoader({})],
   },
