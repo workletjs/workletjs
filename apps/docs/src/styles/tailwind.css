@@ -5,7 +5,6 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 
 @theme {
-  // Define custom fonts for the application.
   --font-nunito-sans: 'Nunito Sans', sans-serif;
   --font-nunito: 'Nunito', sans-serif;
 }
