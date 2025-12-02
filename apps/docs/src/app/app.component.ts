@@ -1,7 +1,6 @@
-import { Location } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import {
   NgDocNavbarComponent,
   NgDocRootComponent,
@@ -19,7 +18,9 @@ import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   imports: [
-    RouterModule,
+    RouterLink,
+    RouterLinkActive,
+    RouterOutlet,
     NgDocRootComponent,
     NgDocNavbarComponent,
     NgDocSidebarComponent,
@@ -32,8 +33,8 @@ import { filter } from 'rxjs/operators';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   host: {
-    '[class.workletjs-landing-page]': `this.isLandingPage()`
-  }
+    '[class.workletjs-landing-page]': `this.isLandingPage()`,
+  },
 })
 export class AppComponent {
   protected readonly isLandingPage = signal(true);
