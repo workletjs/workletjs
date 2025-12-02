@@ -1,9 +1,9 @@
-<ng-doc-root [footerContent]="footerContent">
+<ng-doc-root [sidebar]="!isLandingPage()" [footerContent]="footerContent">
   <ng-doc-navbar>
     <a class="no-underline text-slate-800" routerLink="/" ngDocNavbarLeft>
       <h3 class="flex items-center m-0 text-2xl">
         <img class="h-9 mr-2" src="workletjs.png" alt="workletjs logo" />
-        <span class="workletjs-brand-title">Workletjs</span>
+        <span class="font-nunito font-extrabold">Workletjs</span>
       </h3>
     </a>
     <div class="flex items-center" ngDocNavbarRight @preventInitialChild>

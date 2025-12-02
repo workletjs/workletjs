@@ -1,0 +1,19 @@
+:host {
+  &.workletjs-landing-page {
+    --ng-doc-page-max-width: auto;
+    --ng-doc-page-padding: 0;
+    --ng-doc-main-padding: 0;
+
+    ng-doc-navbar {
+      transition: 300ms ease-in-out;
+
+      &:before {
+        transition: 300ms ease-in-out;
+      }
+
+      &:not(.has-shadow) {
+        --ng-doc-navbar-background: transparent;
+      }
+    }
+  }
+}

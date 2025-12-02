@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Location } from '@angular/common';
+import { Component, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import {
   NgDocNavbarComponent,
   NgDocRootComponent,
@@ -12,6 +14,7 @@ import {
   NgDocTooltipDirective,
   preventInitialChildAnimations,
 } from '@ng-doc/ui-kit';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +30,24 @@ import {
   ],
   animations: [preventInitialChildAnimations],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrl: './app.component.scss',
+  host: {
+    '[class.workletjs-landing-page]': `this.isLandingPage()`
+  }
 })
-export class AppComponent {}
+export class AppComponent {
+  protected readonly isLandingPage = signal(true);
+
+  constructor() {
+    const router = inject(Router);
+
+    router.events
+      .pipe(
+        takeUntilDestroyed(),
+        filter((event) => event instanceof NavigationEnd),
+      )
+      .subscribe((event) => {
+        this.isLandingPage.set(event.url === '/');
+      });
+  }
+}
