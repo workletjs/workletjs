@@ -47,6 +47,9 @@ importers:
       '@ng-doc/ui-kit':
         specifier: ^20.1.0
         version: 20.1.0(112b4f9c09f54f99f4a7d438d2a7b67a)
+      '@tinkoff/ng-polymorpheus':
+        specifier: ^4.3.0
+        version: 4.3.0(@angular/core@20.3.5(@angular/compiler@20.3.5)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.3.5(@angular/animations@20.3.5(@angular/core@20.3.5(@angular/compiler@20.3.5)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.3.5(@angular/core@20.3.5(@angular/compiler@20.3.5)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.3.5(@angular/compiler@20.3.5)(rxjs@7.8.2)(zone.js@0.15.1)))
       ol:
         specifier: ^10.6.1
         version: 10.6.1

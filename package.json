@@ -21,6 +21,7 @@
     "@ng-doc/core": "^20.1.0",
     "@ng-doc/keywords-loaders": "^20.1.0",
     "@ng-doc/ui-kit": "^20.1.0",
+    "@tinkoff/ng-polymorpheus": "^4.3.0",
     "ol": "^10.6.1",
     "pmtiles": "^4.3.0",
     "proj4": "^2.19.10",
