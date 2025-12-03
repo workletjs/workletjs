@@ -1,19 +1,28 @@
 This guide will help you get started with `@workletjs/ngx-openlayers` in your Angular project.
 
+## Prerequisites
+
+This library depends on the following peer dependencies:
+
+- `@angular/cdk`: ^20.2.0  
+- `ol`: ^10.6.1
+
+Make sure these dependencies are installed in your project.
+
 ## Installation
 
 ```bash group="Installation" name="npm"
-npm install ol --save                        # install the peerDependencies
+npm install ol @angular/cdk --save           # install the peerDependencies
 npm install @workletjs/ngx-openlayers --save # install this library
 ```
 
 ```bash group="Installation" name="yarn"
-yarn add ol                        # install the peerDependencies
+yarn add ol @angular/cdk           # install the peerDependencies
 yarn add @workletjs/ngx-openlayers # install this library
 ```
 
 ```bash group="Installation" name="pnpm"
-pnpm add ol                        # install the peerDependencies
+pnpm add ol @angular/cdk           # install the peerDependencies
 pnpm add @workletjs/ngx-openlayers # install this library
 ```
 

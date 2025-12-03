@@ -15,12 +15,35 @@
 
 ---
 
+## 🛠 Prerequisites
+
+This library depends on the following peer dependencies:
+
+- [`@angular/cdk`](https://material.angular.dev/cdk): ^20.2.0  
+- [`ol`](https://openlayers.org/): ^10.6.1
+
+Make sure these dependencies are installed in your project.
+
 ## 📦 Installation
+
+Install the peerDependencies.
+
+```bash
+npm install ol @angular/cdk --save  
+// or
+yarn add ol @angular/cdk
+// or
+pnpm add ol @angular/cdk
+```
+
+Install this library.
 
 ```bash
 npm install @workletjs/ngx-openlayers --save
 // or
 yarn add @workletjs/ngx-openlayers
+// or 
+pnpm add @workletjs/ngx-openlayers
 ```
 
 ## 🔨 Usage
