@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import {
   NgDocCustomSidebarDirective,
@@ -21,7 +21,6 @@ import { SidebarComponent } from './components';
   selector: 'app-root',
   imports: [
     RouterLink,
-    RouterLinkActive,
     RouterOutlet,
     NgDocRootComponent,
     NgDocNavbarComponent,
