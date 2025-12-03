@@ -10,3 +10,5 @@
 
   --color-ng-doc-primary: var(--ng-doc-primary);
 }
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
