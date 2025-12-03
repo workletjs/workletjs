@@ -2,7 +2,7 @@
   "name": "@workletjs/ngx-openlayers",
   "license": "MIT",
   "description": "A modern map component library built with Angular and OpenLayers",
-  "author": "Workletjs Team <workletjs-team@gmail.com>",
+  "author": "Workletjs Team <workletjs@gmail.com>",
   "homepage": "https://workletjs.github.io",
   "repository": {
     "type": "git",
