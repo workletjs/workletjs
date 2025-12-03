@@ -1,6 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import {
   NgDocCustomSidebarDirective,
   NgDocNavbarComponent,
@@ -40,9 +41,12 @@ import { SidebarComponent } from './components';
 })
 export class AppComponent {
   protected readonly isLandingPage = signal(true);
+  protected readonly isSmallScreen = signal(true);
+  protected readonly showSidebar = computed(() => !this.isLandingPage() || this.isSmallScreen());
 
   constructor() {
     const router = inject(Router);
+    const breakpointObserver = inject(BreakpointObserver);
 
     router.events
       .pipe(
@@ -51,6 +55,13 @@ export class AppComponent {
       )
       .subscribe((event) => {
         this.isLandingPage.set(event.url === '/');
+      });
+
+    breakpointObserver
+      .observe(['(max-width: 1024px)'])
+      .pipe(takeUntilDestroyed())
+      .subscribe((result) => {
+        this.isSmallScreen.set(result.matches);
       });
   }
 }

@@ -18,14 +18,4 @@
       }
     }
   }
-
-  .workletjs-nav {
-    height: var(--ng-doc-navbar-height);
-    line-height: var(--ng-doc-navbar-height);
-    @apply inline-block px-3 border-b border-transparent font-medium text-gray-700 hover:text-ng-doc-primary transition-colors;
-
-    &.active {
-      @apply border-ng-doc-primary text-ng-doc-primary;
-    }
-  }
 }

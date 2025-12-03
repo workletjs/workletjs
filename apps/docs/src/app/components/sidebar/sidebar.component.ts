@@ -23,21 +23,10 @@ import { SidebarItemComponent } from './sidebar-item';
 })
 export class SidebarComponent {
   readonly context = inject(NG_DOC_CONTEXT);
-  readonly router = inject(Router);
   readonly location = inject(Location);
-  readonly navigations = signal<NgDocNavigation[]>([]);
 
-  constructor() {
-    this.router.events
-      .pipe(
-        takeUntilDestroyed(),
-        filter((event) => event instanceof NavigationEnd),
-      )
-      .subscribe((event) => {
-        this.navigations.set(
-          this.context.navigation.find((item) => event.url.startsWith(item.route))?.children ?? [],
-        );
-      });
+  getNavigation(nav?: NgDocNavigation): NgDocNavigation[] {
+    return nav ? (nav.children ?? []) : this.context.navigation;
   }
 
   matchRoute(route: string): boolean {

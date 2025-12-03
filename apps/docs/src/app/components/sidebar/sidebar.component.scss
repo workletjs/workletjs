@@ -1,3 +1,5 @@
+@use '../../../styles/mixins' as mixins;
+
 :host {
   display: block;
   height: calc(100vh - var(--ng-doc-navbar-height));
@@ -8,11 +10,24 @@
   box-shadow: var(--ng-doc-sidebar-shadow);
   --ng-doc-sidebar-category-indent: var(--ng-doc-sidebar-horizontal-padding);
   --ng-doc-sidebar-item-indent: var(--ng-doc-sidebar-horizontal-padding);
-  //--ng-doc-font-family: var(--ng-doc-heading-font-family);
+  // --ng-doc-font-family: var(--ng-doc-heading-font-family);
 
   .ng-doc-side-bar-wrapper {
     position: relative;
     overflow: auto;
     max-height: 100%;
+  }
+
+  .ng-doc-side-bar-section {
+    padding-bottom: 16px;
+
+    > h3 {
+      @include mixins.ng-doc-heading-font();
+      padding: var(--ng-doc-sidebar-vetical-padding) var(--ng-doc-sidebar-horizontal-padding)
+        var(--ng-doc-sidebar-vetical-padding) var(--ng-doc-sidebar-item-indent);
+      opacity: 0.65;
+      font-size: 14px;
+      font-weight: 500;
+    }
   }
 }

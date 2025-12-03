@@ -1,16 +1,12 @@
-<ng-doc-root [sidebar]="!isLandingPage()" [footerContent]="footerContent">
+<ng-doc-root [sidebar]="showSidebar()" [footerContent]="footerContent">
   <ng-doc-navbar>
-    <div class="flex items-center justify-between gap-10 w-full" ngDocNavbarLeft>
+    <div ngDocNavbarLeft>
       <a class="no-underline text-slate-800" routerLink="/">
         <h3 class="flex items-center m-0 text-2xl">
           <img class="h-9 mr-2" src="workletjs.png" alt="workletjs logo" />
           <span class="font-nunito font-extrabold">Workletjs</span>
         </h3>
       </a>
-      <div class="flex items-center pr-12 hidden lg:block">
-        <a class="workletjs-nav" routerLink="./guide" routerLinkActive="active">Guide</a>
-        <a class="workletjs-nav" routerLink="./components" routerLinkActive="active">Components</a>
-      </div>
     </div>
     <div class="flex items-center" ngDocNavbarRight @preventInitialChild>
       <ng-doc-theme-toggle class="ms-4" />
