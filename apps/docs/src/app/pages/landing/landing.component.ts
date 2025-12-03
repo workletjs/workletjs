@@ -26,9 +26,9 @@ import { HeroBannerComponent } from './components';
 export class LandingComponent {
   readonly badges = [
     {
-      name: 'release',
-      img: 'https://img.shields.io/github/v/release/workletjs/workletjs?style=for-the-badge',
-      link: 'https://github.com/workletjs/workletjs/releases',
+      name: 'version',
+      img: 'https://img.shields.io/npm/v/@workletjs/ngx-openlayers.svg?style=for-the-badge',
+      link: 'https://www.npmjs.com/package/@workletjs/ngx-openlayers',
     },
     {
       name: 'stars',
