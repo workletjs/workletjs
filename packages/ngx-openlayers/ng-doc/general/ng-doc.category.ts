@@ -5,7 +5,7 @@ const GeneralCategory: NgDocCategory = {
   title: 'General',
   route: 'general',
   category: ComponentsCategory,
-  expanded: true,
+  expanded: false,
   order: 1,
 };
 

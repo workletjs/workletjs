@@ -5,7 +5,7 @@ const LayersCategory: NgDocCategory = {
   title: 'Layers',
   route: 'layers',
   category: ComponentsCategory,
-  expanded: true,
+  expanded: false,
   order: 2,
 };
 

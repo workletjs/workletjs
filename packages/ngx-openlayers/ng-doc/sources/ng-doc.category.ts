@@ -5,7 +5,7 @@ const SourcesCategory: NgDocCategory = {
   title: 'Sources',
   route: 'sources',
   category: ComponentsCategory,
-  expanded: true,
+  expanded: false,
   order: 3,
 };
 

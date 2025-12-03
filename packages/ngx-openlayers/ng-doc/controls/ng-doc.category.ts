@@ -5,7 +5,7 @@ const ControlsCategory: NgDocCategory = {
   title: 'Controls',
   route: 'controls',
   category: ComponentsCategory,
-  expanded: true,
+  expanded: false,
   order: 4,
 };
 
