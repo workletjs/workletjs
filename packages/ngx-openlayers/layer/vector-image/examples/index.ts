@@ -1,0 +1,1 @@
+export * from './image-vector-layer-example.component';
