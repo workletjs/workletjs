@@ -3,12 +3,14 @@ import { WolHeatmapLayerComponent } from '@workletjs/ngx-openlayers/layer/heatma
 import { WolVectorLayerComponent } from '@workletjs/ngx-openlayers/layer/vector';
 import { WolVectorImageLayerComponent } from '@workletjs/ngx-openlayers/layer/vector-image';
 import { WolWebGLVectorLayerComponent } from '@workletjs/ngx-openlayers/layer/webgl-vector';
+import { WolClusterSourceComponent } from '@workletjs/ngx-openlayers/source/cluster';
 import { FeatureLike } from 'ol/Feature';
 import Heatmap from 'ol/layer/Heatmap';
 import VectorLayer from 'ol/layer/Vector';
 import VectorImageLayer from 'ol/layer/VectorImage';
 import WebGLVectorLayer from 'ol/layer/WebGLVector';
 import VectorSource from 'ol/source/Vector';
+import Cluster from 'ol/source/Cluster';
 
 export type DisposeRef = () => void;
 
@@ -19,6 +21,7 @@ export interface VectorSourceHostRef<T extends VectorSource<FeatureLike>> {
     | VectorImageLayer
     | VectorLayer
     | WebGLVectorLayer
+    | Cluster<FeatureLike>
     | undefined;
 }
 
@@ -30,8 +33,19 @@ export function useVectorSourceHostRef<T extends VectorSource<FeatureLike>>(
   const vectorImageLayer = inject(WolVectorImageLayerComponent, options);
   const vectorLayer = inject(WolVectorLayerComponent, options);
   const webglVectorLayer = inject(WolWebGLVectorLayerComponent, options);
+  const clusterSource = inject(WolClusterSourceComponent, options);
 
-  if (heatmapLayer) {
+  if (clusterSource) {
+    return {
+      setSource: (source) => {
+        clusterSource.getInstance()?.setSource(source);
+        return () => {
+          clusterSource.getInstance()?.setSource(null);
+        };
+      },
+      getInstance: () => clusterSource.getInstance(),
+    };
+  } else if (heatmapLayer) {
     return {
       setSource: (source) => {
         heatmapLayer.getInstance()?.setSource(source);
