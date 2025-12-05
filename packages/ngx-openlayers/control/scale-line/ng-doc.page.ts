@@ -8,7 +8,6 @@ import { WolScaleLineSimpleExampleComponent } from './examples';
 const ScaleLineControlPage: NgDocPage = {
   title: 'ScaleLine',
   mdFile: './docs/index.md',
-  order: 20,
   category: ControlsCategory,
   route: 'scale-line',
   demos: {
