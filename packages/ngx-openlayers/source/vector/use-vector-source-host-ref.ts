@@ -1,8 +1,10 @@
 import { inject } from '@angular/core';
 import { WolHeatmapLayerComponent } from '@workletjs/ngx-openlayers/layer/heatmap';
+import { WolVectorLayerComponent } from '@workletjs/ngx-openlayers/layer/vector';
 import { WolVectorImageLayerComponent } from '@workletjs/ngx-openlayers/layer/vector-image';
 import { FeatureLike } from 'ol/Feature';
 import Heatmap from 'ol/layer/Heatmap';
+import VectorLayer from 'ol/layer/Vector';
 import VectorImageLayer from 'ol/layer/VectorImage';
 import VectorSource from 'ol/source/Vector';
 
@@ -10,7 +12,7 @@ export type DisposeRef = () => void;
 
 export interface VectorSourceHostRef<T extends VectorSource<FeatureLike>> {
   setSource(source: T): DisposeRef;
-  getInstance(): Heatmap<FeatureLike> | VectorImageLayer | undefined;
+  getInstance(): Heatmap<FeatureLike> | VectorImageLayer | VectorLayer | undefined;
 }
 
 export function useVectorSourceHostRef<T extends VectorSource<FeatureLike>>(
@@ -19,6 +21,7 @@ export function useVectorSourceHostRef<T extends VectorSource<FeatureLike>>(
   const options = { host: true, optional: true };
   const heatmapLayer = inject(WolHeatmapLayerComponent, options);
   const vectorImageLayer = inject(WolVectorImageLayerComponent, options);
+  const vectorLayer = inject(WolVectorLayerComponent, options);
 
   if (heatmapLayer) {
     return {
@@ -40,10 +43,20 @@ export function useVectorSourceHostRef<T extends VectorSource<FeatureLike>>(
       },
       getInstance: () => vectorImageLayer.getInstance(),
     };
+  } else if (vectorLayer) {
+    return {
+      setSource: (source) => {
+        vectorLayer.getInstance()?.setSource(source);
+        return () => {
+          vectorLayer.getInstance()?.setSource(null);
+        };
+      },
+      getInstance: () => vectorLayer.getInstance(),
+    };
   }
 
   throw new Error(
     `No VectorSource host found. Please wrap the ${sourceName} component in a ` +
-      `HeatmapLayer, VectorImageLayer component.`,
+      `HeatmapLayer, VectorImageLayer and VectorLayer component.`,
   );
 }
