@@ -10,6 +10,7 @@ const VectorImageLayerPage: NgDocPage = {
   mdFile: './docs/index.md',
   category: LayersCategory,
   route: 'vector-image-layer',
+  order: 7,
   demos: {
     WolImageVectorLayerExampleComponent,
   },

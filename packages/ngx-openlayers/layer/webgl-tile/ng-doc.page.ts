@@ -13,9 +13,9 @@ import {
 const WebGLTileLayerPage: NgDocPage = {
   title: 'WebGLTileLayer',
   mdFile: './docs/index.md',
-  order: 2,
   category: LayersCategory,
   route: 'webgl-tile',
+  order: 9,
   demos: {
     WolWebGLLayerSwipeExampleComponent,
     WolWebGLSeaLevelExampleComponent,

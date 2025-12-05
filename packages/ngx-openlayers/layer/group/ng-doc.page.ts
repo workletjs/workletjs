@@ -8,9 +8,9 @@ import { WolLayerGroupsExampleComponent } from './examples';
 const LayerGroupPage: NgDocPage = {
   title: 'Group',
   mdFile: './docs/index.md',
-  order: 1,
   category: LayersCategory,
   route: 'group',
+  order: 1,
   demos: {
     WolLayerGroupsExampleComponent,
   },

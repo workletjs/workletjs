@@ -10,6 +10,7 @@ const GraticuleLayerPage: NgDocPage = {
   mdFile: './docs/index.md',
   category: LayersCategory,
   route: 'graticule-layer',
+  order: 2,
   demos: {
     WolGraticuleLayerExampleComponent,
     WolSphereMollweideExampleComponent,

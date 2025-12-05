@@ -13,6 +13,7 @@ const HeatmapLayerPage: NgDocPage = {
   mdFile: './docs/index.md',
   category: LayersCategory,
   route: 'heatmap-layer',
+  order: 3,
   demos: {
     WolHeatmapEarthquakesExampleComponent,
     WolHeatmapTrajectoriesExampleComponent,

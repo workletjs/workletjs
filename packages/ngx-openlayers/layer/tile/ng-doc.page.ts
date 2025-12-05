@@ -8,9 +8,9 @@ import { WolPreloadTilesExampleComponent } from './examples';
 const TileLayerPage: NgDocPage = {
   title: 'TileLayer',
   mdFile: './docs/index.md',
-  order: 2,
   category: LayersCategory,
   route: 'tile',
+  order: 5,
   demos: {
     WolPreloadTilesExampleComponent,
   },

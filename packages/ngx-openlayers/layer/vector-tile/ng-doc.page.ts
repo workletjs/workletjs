@@ -9,6 +9,7 @@ const VectorTileLayerPage: NgDocPage = {
   mdFile: './docs/index.md',
   category: LayersCategory,
   route: 'vector-tile-layer',
+  order: 8,
   demos: {},
 };
 

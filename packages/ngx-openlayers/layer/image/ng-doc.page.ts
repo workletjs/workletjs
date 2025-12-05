@@ -7,9 +7,9 @@ import LayersCategory from '../../ng-doc/layers/ng-doc.category';
 const ImageLayerPage: NgDocPage = {
   title: 'ImageLayer',
   mdFile: './docs/index.md',
-  order: 3,
   category: LayersCategory,
   route: 'image',
+  order: 4,
   demos: {},
 };
 
