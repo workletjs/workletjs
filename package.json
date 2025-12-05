@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "build": "nx build ngx-openlayers",
-    "build:docs": "nx build docs"
+    "build:docs": "nx build docs",
+    "lint": "nx lint ngx-openlayers && nx lint docs"
   },
   "private": true,
   "dependencies": {
