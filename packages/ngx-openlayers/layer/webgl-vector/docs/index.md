@@ -8,4 +8,12 @@ keyword: WebGLVectorLayerPage
 
 Layer optimized for rendering large vector datasets.
 
+## Examples
+
+### WebGL Vector Layer
+
+This example uses the WebGLVectorLayer component to render a large ecoregion vector dataset loaded from a GeoJSON file.
+
+{{ NgDocActions.demo("WolWebGLVectorLayerExampleComponent") }}
+
 {{ NgDocApi.api("packages/ngx-openlayers/layer/webgl-vector/webgl-vector-layer.component.ts#WolWebGLVectorLayerComponent") }}
