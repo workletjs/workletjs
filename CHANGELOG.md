@@ -1,3 +1,23 @@
+## 0.5.0 (2025-12-09)
+
+### 🚀 Features
+
+- **module:attribution:** add attribution control component ([6a2d768](https://github.com/workletjs/workletjs/commit/6a2d768))
+- **module:fullscreen:** add fullscreen control component ([2f6417b](https://github.com/workletjs/workletjs/commit/2f6417b))
+- **module:layer:** enhance LayerHostRef to support OverviewMap control ([1393439](https://github.com/workletjs/workletjs/commit/1393439))
+- **module:layer-group:** integrate OverviewMap control into LayerGroup functionality ([414da5a](https://github.com/workletjs/workletjs/commit/414da5a))
+- **module:mouse-position:** add mouse position control component ([7f1c2ee](https://github.com/workletjs/workletjs/commit/7f1c2ee))
+- **module:overview-map:** add overview map control component ([fb231ef](https://github.com/workletjs/workletjs/commit/fb231ef))
+- **module:overview-map:** add example component for overview map control ([2db4d1a](https://github.com/workletjs/workletjs/commit/2db4d1a))
+- **module:rotate:** add Rotate control component and documentation ([75796a7](https://github.com/workletjs/workletjs/commit/75796a7))
+- **module:zoom:** add Zoom control component with documentation and examples ([a66218c](https://github.com/workletjs/workletjs/commit/a66218c))
+- **module:zoom-slider:** add ZoomSlider control component with examples and documentation ([cb6276f](https://github.com/workletjs/workletjs/commit/cb6276f))
+- **module:zoom-to-extent:** add ZoomToExtent control component with examples and documentation ([c38ae7f](https://github.com/workletjs/workletjs/commit/c38ae7f))
+
+### ❤️ Thank You
+
+- Jonnytoshen @Jonnytoshen
+
 ## 0.4.0 (2025-12-05)
 
 ### 🚀 Features
