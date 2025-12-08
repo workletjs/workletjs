@@ -1,0 +1,1 @@
+export * from './rotate-control-example.component';
