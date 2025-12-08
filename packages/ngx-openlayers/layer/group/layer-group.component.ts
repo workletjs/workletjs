@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
+import { WolOverviewMapControlComponent } from '@workletjs/ngx-openlayers/control/overview-map';
 import { Extent } from 'ol/extent';
 import { ObjectEvent } from 'ol/Object';
 import { EventsKey } from 'ol/events';
@@ -23,6 +24,7 @@ import Collection from 'ol/Collection';
 import BaseEvent from 'ol/events/Event';
 import BaseLayer from 'ol/layer/Base';
 import LayerGroup from 'ol/layer/Group';
+import OverviewMap from 'ol/control/OverviewMap';
 
 @Component({
   selector: 'wol-layer-group',
@@ -191,12 +193,13 @@ export class WolLayerGroupComponent implements OnChanges {
 export interface LayerGroupHostRef {
   addLayer: (layer: LayerGroup) => void;
   removeLayer: (layer: LayerGroup) => LayerGroup | undefined;
-  getInstance: () => Map | LayerGroup | undefined;
+  getInstance: () => Map | OverviewMap | LayerGroup | undefined;
 }
 
 export function useLayerGroupHostRef(): LayerGroupHostRef {
   const options: InjectOptions = { host: true, optional: true };
   const mapHost = inject(WolMapComponent, options);
+  const overviewMap = inject(WolOverviewMapControlComponent, options);
   const layerGroupHost = inject(WolLayerGroupComponent, { ...options, skipSelf: true });
 
   if (layerGroupHost) {
@@ -208,6 +211,20 @@ export function useLayerGroupHostRef(): LayerGroupHostRef {
         return layerGroupHost.getInstance()?.getLayers().remove(layer) as typeof layer;
       },
       getInstance: () => layerGroupHost.getInstance(),
+    };
+  }
+
+  if (overviewMap) {
+    return {
+      addLayer: (layer) => {
+        overviewMap.getInstance()?.getOverviewMap().getLayers().push(layer);
+      },
+      removeLayer: (layer) => {
+        return overviewMap.getInstance()?.getOverviewMap().getLayers().remove(layer) as
+          | LayerGroup
+          | undefined;
+      },
+      getInstance: () => overviewMap.getInstance(),
     };
   }
 
@@ -224,6 +241,6 @@ export function useLayerGroupHostRef(): LayerGroupHostRef {
   }
 
   throw new Error(
-    `No LayerGroup host found. Please wrap the LayerGroup component in a Map or LayerGroup component.`,
+    `No LayerGroup host found. Please wrap the LayerGroup component in a Map, OverviewMap or LayerGroup component.`,
   );
 }
