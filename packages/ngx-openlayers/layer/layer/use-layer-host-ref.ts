@@ -1,19 +1,22 @@
 import { inject, InjectOptions } from '@angular/core';
 import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 import { WolLayerGroupComponent } from '@workletjs/ngx-openlayers/layer/group';
+import { WolOverviewMapControlComponent } from '@workletjs/ngx-openlayers/control/overview-map';
 import BaseLayer from 'ol/layer/Base';
 import LayerGroup from 'ol/layer/Group';
 import Map from 'ol/Map';
+import OverviewMap from 'ol/control/OverviewMap';
 
 export interface LayerHostRef<T extends BaseLayer> {
   addLayer(layer: T): void;
   removeLayer(layer: T): T | undefined;
-  getInstance(): Map | LayerGroup | undefined;
+  getInstance(): Map | OverviewMap | LayerGroup | undefined;
 }
 
 export function useLayerHostRef<T extends BaseLayer>(layerName: string): LayerHostRef<T> {
   const options: InjectOptions = { host: true, optional: true };
   const mapHost = inject(WolMapComponent, options);
+  const overviewMap = inject(WolOverviewMapControlComponent, options);
   const layerGroupHost = inject(WolLayerGroupComponent, options);
 
   if (layerGroupHost) {
@@ -25,6 +28,20 @@ export function useLayerHostRef<T extends BaseLayer>(layerName: string): LayerHo
         return layerGroupHost.getInstance()?.getLayers().remove(layer) as typeof layer;
       },
       getInstance: () => layerGroupHost.getInstance(),
+    };
+  }
+
+  if (overviewMap) {
+    return {
+      addLayer: (layer) => {
+        overviewMap.getInstance()?.getOverviewMap().getLayers().push(layer);
+      },
+      removeLayer: (layer) => {
+        return overviewMap.getInstance()?.getOverviewMap().getLayers().remove(layer) as
+          | T
+          | undefined;
+      },
+      getInstance: () => overviewMap.getInstance(),
     };
   }
 
