@@ -60,15 +60,17 @@
     }
   },
   "release": {
-    "changelog": {
-      "projectChangelogsn": false,
-      "workspaceChangelogs": true
-    },
+    "projects": ["packages/*"],
+    "releaseTagPattern": "v{version}",
     "version": {
+      "useLegacyVersioning": true,
       "conventionalCommits": true,
       "preVersionCommand": "pnpm dlx nx build ngx-openlayers"
     },
-    "releaseTagPattern": "v{version}",
+    "changelog": {
+      "projectChangelogs": false,
+      "workspaceChangelogs": true
+    },
     "git": {
       "commitMessage": "chore(release): release v{version}",
       "tagName": "v{version}"
