@@ -38,7 +38,7 @@ jobs:
       - name: Publish package
         run: |
           cd dist/packages/ngx-openlayers
-          npm publish --access public
+          pnpm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
           NPM_CONFIG_PROVENANCE: true # Enable provenance data generation
