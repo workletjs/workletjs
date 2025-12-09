@@ -10,7 +10,7 @@ permissions:
   contents: write # Allow the workflow to push to the repository
 
 jobs:
-  deploy-tag:
+  deploy-latest:
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
@@ -44,3 +44,42 @@ jobs:
           external_repository: workletjs/workletjs.github.io
           publish_dir: ./dist/apps/docs/browser
           publish_branch: main
+
+  deploy-version:
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22' # Specify Node.js version
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - uses: actions-ecosystem/action-get-latest-tag@v1
+        id: latest_tag
+
+      - name: Build documentation site
+        run: pnpm dlx nx build docs --base-href=/${{ steps.latest_tag.outputs.tag }}/
+
+      - name: Add SPA fallback # Copy index.html to 404.html for GitHub Pages SPA support
+        run: cp ./dist/apps/docs/browser/index.html ./dist/apps/docs/browser/404.html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }} # Use the default GITHUB_TOKEN
+          external_repository: workletjs/workletjs.github.io
+          publish_dir: ./dist/apps/docs/browser
+          publish_branch: main
+          destination_dir: ${{ steps.latest_tag.outputs.tag }}
