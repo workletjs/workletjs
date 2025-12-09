@@ -45,3 +45,4 @@ jobs:
           publish_dir: ./dist/apps/docs/browser
           publish_branch: main
           destination_dir: preview
+          commit_message: 'chore(release): Deploy preview website'
