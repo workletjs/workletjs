@@ -45,6 +45,7 @@ jobs:
           external_repository: workletjs/workletjs.github.io
           publish_dir: ./dist/apps/docs/browser
           publish_branch: main
+          commit_message: "chore(release): Deploy latest website"
 
   deploy-version:
     if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
@@ -86,3 +87,4 @@ jobs:
           publish_dir: ./dist/apps/docs/browser
           publish_branch: main
           destination_dir: ${{ steps.latest_tag.outputs.tag }}
+          commit_message: "chore(release): Deploy website for version ${{ steps.latest_tag.outputs.tag }}"
