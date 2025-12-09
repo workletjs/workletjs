@@ -26,6 +26,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22' # Specify Node.js version
+          registry-url: 'https://registry.npmjs.org' # Set npm registry URL
           cache: 'pnpm'
 
       - name: Install dependencies
