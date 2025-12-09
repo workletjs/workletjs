@@ -1,6 +1,7 @@
 name: Publish Package
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - 'v*.*.*' # Trigger on version tags like v1.0.0
