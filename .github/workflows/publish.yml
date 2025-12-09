@@ -37,9 +37,8 @@ jobs:
         run: pnpm dlx nx build ngx-openlayers
 
       - name: Publish package
-        run: |
-          cd dist/packages/ngx-openlayers
-          pnpm publish --provenance --access public
+        working-directory: ./dist/packages/ngx-openlayers # Set working directory to the built package
+        run: pnpm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
           NPM_CONFIG_PROVENANCE: true # Enable provenance data generation
