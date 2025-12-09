@@ -1,0 +1,47 @@
+# Workflow for building and deploying website to GitHub Pages
+name: Deploy Website (Preview)
+
+on:
+  push:
+    branches:
+      - main # Trigger on pushes to the main branch
+
+permissions:
+  contents: write # Allow the workflow to push to the repository
+
+jobs:
+  deploy-tag:
+    if: startsWith(github.ref, 'refs/heads/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22' # Specify Node.js version
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build documentation site
+        run: pnpm run build:docs
+
+      - name: Add SPA fallback # Copy index.html to 404.html for GitHub Pages SPA support
+        run: cp ./dist/apps/docs/browser/index.html ./dist/apps/docs/browser/404.html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }} # Use the default GITHUB_TOKEN
+          external_repository: workletjs/workletjs.github.io
+          publish_dir: ./dist/apps/docs/browser
+          publish_branch: main
+          destination_dir: preview
