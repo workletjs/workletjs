@@ -10,7 +10,7 @@ permissions:
   contents: write # Allow the workflow to push to the repository
 
 jobs:
-  deploy-tag:
+  deploy-preview:
     if: startsWith(github.ref, 'refs/heads/')
     runs-on: ubuntu-latest
     steps:
