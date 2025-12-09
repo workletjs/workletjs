@@ -32,7 +32,7 @@ jobs:
         run: pnpm install
 
       - name: Build documentation site
-        run: pnpm run build:docs
+        run: pnpm run build:docs-preview
 
       - name: Add SPA fallback # Copy index.html to 404.html for GitHub Pages SPA support
         run: cp ./dist/apps/docs/browser/index.html ./dist/apps/docs/browser/404.html
