@@ -2,6 +2,7 @@
 name: Deploy Website
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - 'v*.*.*' # Trigger on version tags
@@ -11,7 +12,7 @@ permissions:
 
 jobs:
   deploy-latest:
-    if: startsWith(github.ref, 'refs/tags/')
+    if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -46,7 +47,7 @@ jobs:
           publish_branch: main
 
   deploy-version:
-    if: startsWith(github.ref, 'refs/tags/')
+    if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
