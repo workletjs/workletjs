@@ -1,0 +1,1 @@
+export * from './keyboard-pan-interaction-example.component';
