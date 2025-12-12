@@ -1,0 +1,155 @@
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  input,
+  model,
+  OnChanges,
+  output,
+  SimpleChanges,
+  ViewEncapsulation,
+} from '@angular/core';
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
+import { EventsKey } from 'ol/events';
+import { Condition } from 'ol/events/condition';
+import { ObjectEvent } from 'ol/Object';
+import { unByKey } from 'ol/Observable';
+import { StyleLike } from 'ol/style/Style';
+import BaseEvent from 'ol/events/Event';
+import Collection from 'ol/Collection';
+import Feature from 'ol/Feature';
+import Layer from 'ol/layer/Layer';
+import Select, { FilterFunction, SelectEvent } from 'ol/interaction/Select';
+
+@Component({
+  selector: 'wol-select-interaction',
+  exportAs: 'wolSelectInteraction',
+  template: `<ng-content />`,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class WolSelectInteractionComponent implements OnChanges {
+  readonly wolActive = model(true);
+  readonly wolAddCondition = input<Condition>();
+  readonly wolCondition = input<Condition>();
+  readonly wolLayers = input<Layer[] | ((layer: Layer) => boolean)>();
+  readonly wolStyle = input<StyleLike | null>();
+  readonly wolRemoveCondition = input<Condition>();
+  readonly wolToggleCondition = input<Condition>();
+  readonly wolMulti = input<boolean>();
+  readonly wolFeatures = input<Collection<Feature>>();
+  readonly wolFilter = input<FilterFunction>();
+  readonly wolHitTolerance = input<number>();
+  readonly wolProperties = input<WolProperties>();
+
+  readonly wolChange = output<BaseEvent>();
+  readonly wolError = output<BaseEvent>();
+  readonly wolPropertyChange = output<ObjectEvent>();
+  readonly wolSelect = output<SelectEvent>();
+
+  private instance?: Select;
+
+  /**
+   * @internal
+   */
+  constructor() {
+    const destroyRef = inject(DestroyRef);
+    const hostRef = useInteractionHostRef<Select>('Select');
+    const eventsKeyMap: Record<string, EventsKey> = {};
+
+    afterNextRender(() => {
+      const select = new Select({
+        addCondition: this.wolAddCondition(),
+        condition: this.wolCondition(),
+        layers: this.wolLayers(),
+        style: this.wolStyle(),
+        removeCondition: this.wolRemoveCondition(),
+        toggleCondition: this.wolToggleCondition(),
+        multi: this.wolMulti(),
+        features: this.wolFeatures(),
+        filter: this.wolFilter(),
+        hitTolerance: this.wolHitTolerance(),
+      });
+
+      select.setActive(this.wolActive());
+
+      if (this.wolProperties()) {
+        select.setProperties(this.wolProperties() ?? {}, true);
+      }
+
+      eventsKeyMap['change'] = select.on('change', (event) => this.wolChange.emit(event));
+
+      eventsKeyMap['change:active'] = select.on('change:active', () =>
+        this.wolActive.set(select.getActive()),
+      );
+
+      eventsKeyMap['error'] = select.on('error', (event) => this.wolError.emit(event));
+
+      eventsKeyMap['propertychange'] = select.on('propertychange', (event) =>
+        this.wolPropertyChange.emit(event),
+      );
+
+      eventsKeyMap['select'] = select.on('select', (event) => this.wolSelect.emit(event));
+
+      /**
+       * Adding control to the map must be done after the map is rendered,
+       * if used with control flow of Angular.
+       *
+       * In Angular, when rendering a component's template, the control flow statements,
+       * such as @if, @else, @else if, @for, and @switch, are evaluated during the template
+       * rendering process. This evaluation happens before the actual content within the blocks
+       * is rendered to the DOM.
+       */
+      Promise.resolve().then(() => {
+        hostRef.addInteraction(select);
+      });
+
+      this.instance = select;
+    });
+
+    destroyRef.onDestroy(() => {
+      if (this.instance) {
+        unByKey(Object.values(eventsKeyMap));
+        hostRef.removeInteraction(this.instance);
+        this.instance.dispose();
+        this.instance = undefined;
+      }
+    });
+  }
+
+  /**
+   * Respond to input changes.
+   * @param changes The changed inputs
+   * @internal
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!this.instance) {
+      return;
+    }
+
+    for (const [key, change] of Object.entries(changes)) {
+      switch (key) {
+        case 'wolActive':
+          this.instance.setActive(change.currentValue);
+          break;
+        case 'wolHitTolerance':
+          this.instance.setHitTolerance(change.currentValue);
+          break;
+        case 'wolProperties':
+          this.instance.setProperties(change.currentValue ?? {});
+          break;
+      }
+    }
+  }
+
+  /**
+   * Get the underlying OpenLayers Select control instance.
+   * @returns The Select control instance
+   */
+  getInstance(): Select | undefined {
+    return this.instance;
+  }
+}
