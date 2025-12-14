@@ -1,0 +1,1 @@
+export * from './drag-rotate-and-zoom-example.component';
