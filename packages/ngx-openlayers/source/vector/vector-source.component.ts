@@ -7,6 +7,7 @@ import {
   input,
   OnChanges,
   output,
+  signal,
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
@@ -56,7 +57,7 @@ export class WolVectorSourceComponent<FeatureType extends FeatureLike = Feature<
   readonly wolPropertyChange = output<ObjectEvent>();
   readonly wolRemoveFeature = output<VectorSourceEvent<FeatureType>>();
 
-  private instance?: VectorSource<FeatureType>;
+  readonly vectorSourceInstance = signal<VectorSource<FeatureType> | undefined>(undefined);
 
   /**
    * @internal
@@ -138,7 +139,7 @@ export class WolVectorSourceComponent<FeatureType extends FeatureLike = Feature<
         disposeRef = hostRef.setSource(vectorSource);
       });
 
-      this.instance = vectorSource;
+      this.vectorSourceInstance.set(vectorSource);
     });
 
     destroyRef.onDestroy(() => {
@@ -148,7 +149,7 @@ export class WolVectorSourceComponent<FeatureType extends FeatureLike = Feature<
         disposeRef();
       }
 
-      this.instance = undefined;
+      this.vectorSourceInstance.set(undefined);
     });
   }
 
@@ -158,23 +159,25 @@ export class WolVectorSourceComponent<FeatureType extends FeatureLike = Feature<
    * @internal
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (!this.instance) {
+    const vectorSource = this.vectorSourceInstance();
+
+    if (!vectorSource) {
       return;
     }
 
     for (const [key, change] of Object.entries(changes)) {
       switch (key) {
         case 'wolAttributions':
-          this.instance.setAttributions(change.currentValue);
+          vectorSource.setAttributions(change.currentValue);
           break;
         case 'wolLoader':
-          this.instance.setLoader(change.currentValue);
+          vectorSource.setLoader(change.currentValue);
           break;
         case 'wolProperties':
-          this.instance.setProperties(change.currentValue ?? {});
+          vectorSource.setProperties(change.currentValue ?? {});
           break;
         case 'wolUrl':
-          this.instance.setUrl(change.currentValue);
+          vectorSource.setUrl(change.currentValue);
           break;
       }
     }
@@ -185,6 +188,6 @@ export class WolVectorSourceComponent<FeatureType extends FeatureLike = Feature<
    * @returns The VectorSource instance or undefined if not yet created.
    */
   getInstance(): VectorSource<FeatureType> | undefined {
-    return this.instance;
+    return this.vectorSourceInstance();
   }
 }
