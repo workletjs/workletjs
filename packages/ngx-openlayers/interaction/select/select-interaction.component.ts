@@ -8,6 +8,7 @@ import {
   model,
   OnChanges,
   output,
+  signal,
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
@@ -50,7 +51,7 @@ export class WolSelectInteractionComponent implements OnChanges {
   readonly wolPropertyChange = output<ObjectEvent>();
   readonly wolSelect = output<SelectEvent>();
 
-  private instance?: Select;
+  readonly selectInstance = signal<Select | undefined>(undefined);
 
   /**
    * @internal
@@ -107,15 +108,16 @@ export class WolSelectInteractionComponent implements OnChanges {
         hostRef.addInteraction(select);
       });
 
-      this.instance = select;
+      this.selectInstance.set(select);
     });
 
     destroyRef.onDestroy(() => {
-      if (this.instance) {
+      const selectInstance = this.selectInstance();
+      if (selectInstance) {
         unByKey(Object.values(eventsKeyMap));
-        hostRef.removeInteraction(this.instance);
-        this.instance.dispose();
-        this.instance = undefined;
+        hostRef.removeInteraction(selectInstance);
+        selectInstance.dispose();
+        this.selectInstance.set(undefined);
       }
     });
   }
@@ -126,30 +128,30 @@ export class WolSelectInteractionComponent implements OnChanges {
    * @internal
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (!this.instance) {
+    if (!this.selectInstance()) {
       return;
     }
 
     for (const [key, change] of Object.entries(changes)) {
       switch (key) {
         case 'wolActive':
-          this.instance.setActive(change.currentValue);
+          this.selectInstance()?.setActive(change.currentValue);
           break;
         case 'wolHitTolerance':
-          this.instance.setHitTolerance(change.currentValue);
+          this.selectInstance()?.setHitTolerance(change.currentValue);
           break;
         case 'wolProperties':
-          this.instance.setProperties(change.currentValue ?? {});
+          this.selectInstance()?.setProperties(change.currentValue ?? {});
           break;
       }
     }
   }
 
   /**
-   * Get the underlying OpenLayers Select control instance.
-   * @returns The Select control instance
+   * Get the underlying OpenLayers Select interaction instance.
+   * @returns The Select interaction instance
    */
   getInstance(): Select | undefined {
-    return this.instance;
+    return this.selectInstance();
   }
 }
