@@ -1,3 +1,36 @@
+## 0.6.0 (2025-12-19)
+
+### 🚀 Features
+
+- **module:dbl-click-drag-zoom:** add DblClickDragZoom interaction component ([f7fe563](https://github.com/workletjs/workletjs/commit/f7fe563))
+- **module:double-click-zoom:** add DoubleClickZoom interaction component ([ccab6b9](https://github.com/workletjs/workletjs/commit/ccab6b9))
+- **module:drag-and-drop:** add DragAndDrop interaction component ([0257f9e](https://github.com/workletjs/workletjs/commit/0257f9e))
+- **module:drag-box:** add DragBox interaction component ([2b4a95b](https://github.com/workletjs/workletjs/commit/2b4a95b))
+- **module:drag-pan:** add DragPan interaction component ([f5f9662](https://github.com/workletjs/workletjs/commit/f5f9662))
+- **module:drag-rotate:** add DragRotate interaction component ([edbde5d](https://github.com/workletjs/workletjs/commit/edbde5d))
+- **module:drag-rotate-and-zoom:** add DragRotateAndZoom interaction component ([20969a4](https://github.com/workletjs/workletjs/commit/20969a4))
+- **module:drag-zoom:** add DragZoom interaction component ([ad41ec3](https://github.com/workletjs/workletjs/commit/ad41ec3))
+- **module:draw:** add Draw interaction component ([0f3e19e](https://github.com/workletjs/workletjs/commit/0f3e19e))
+- **module:extent:** add Extent interaction component ([bd8d990](https://github.com/workletjs/workletjs/commit/bd8d990))
+- **module:interaction:** add interaction module with public API and host reference ([d23aa60](https://github.com/workletjs/workletjs/commit/d23aa60))
+- **module:keyboard-pan:** add KeyboardPan interaction component ([810f9b8](https://github.com/workletjs/workletjs/commit/810f9b8))
+- **module:keyboard-zoom:** add KeyboardZoom interaction component ([980e1e5](https://github.com/workletjs/workletjs/commit/980e1e5))
+- **module:link:** add Link interaction component and documentation ([36ef44c](https://github.com/workletjs/workletjs/commit/36ef44c))
+- **module:modify:** add Modify interaction component ([8602e7d](https://github.com/workletjs/workletjs/commit/8602e7d))
+- **module:mouse-wheel-zoom:** add MouseWheelZoom interaction component ([5d4851f](https://github.com/workletjs/workletjs/commit/5d4851f))
+- **module:pinch-rotate:** add PinchRotate interaction component ([f612216](https://github.com/workletjs/workletjs/commit/f612216))
+- **module:pinch-zoom:** add PinchZoom interaction component ([1b1b18a](https://github.com/workletjs/workletjs/commit/1b1b18a))
+- **module:pointer:** add Pointer interaction component and documentation ([4c44ca8](https://github.com/workletjs/workletjs/commit/4c44ca8))
+- **module:select:** add Select interaction component and examples ([7ab8766](https://github.com/workletjs/workletjs/commit/7ab8766))
+- **module:select:** refactor to use signal for select instance management ([3da6eec](https://github.com/workletjs/workletjs/commit/3da6eec))
+- **module:snap:** add Snap interaction component ([376697a](https://github.com/workletjs/workletjs/commit/376697a))
+- **module:translate:** add Translate interaction component ([85ea1d9](https://github.com/workletjs/workletjs/commit/85ea1d9))
+- **module:vector-source:** refactor to use signal for vector source instance management ([97433fb](https://github.com/workletjs/workletjs/commit/97433fb))
+
+### ❤️ Thank You
+
+- Jonnytoshen @Jonnytoshen
+
 ## 0.5.0 (2025-12-09)
 
 ### 🚀 Features
