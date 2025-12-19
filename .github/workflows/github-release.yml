@@ -1,0 +1,78 @@
+name: Github Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      # Optional input to specify a custom tag for the release
+      tag:
+        description: 'Tag for the release (e.g., v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+        type: string
+
+permissions:
+  contents: write # 允许创建 Release
+
+jobs:
+  github-release:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22' # Specify Node.js version
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check version
+        run: |
+          TAG_NAME=${{ inputs.tag }}
+          TAG_VERSION=${TAG_NAME#v}
+          PKG_VERSION=$(node -p "require('./packages/ngx-openlayers/package.json').version")
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "❌ Tag version ($TAG_VERSION) does not match lib version ($PKG_VERSION)"
+            exit 1
+          fi
+
+      - name: Extract release notes
+        id: notes
+        run: |
+          TAG_NAME=${{ inputs.tag }}
+          VERSION=${TAG_NAME#v}
+
+          OUTPUT=$(node scripts/extract-release-notes.mjs \
+            --file CHANGELOG.md \
+            --version $VERSION)
+
+          RELEASE_DATE=$(echo "$OUTPUT" | head -n1 | cut -d' ' -f3)
+          NOTES=$(echo "$OUTPUT" | tail -n +3)
+
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo "$NOTES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          echo "release_date=$RELEASE_DATE" >> $GITHUB_OUTPUT
+
+      - name: Build library
+        run: pnpm nx build ngx-openlayers
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.tag }}
+          name: ${{ inputs.tag }}
+          body: |
+            `${{ steps.notes.outputs.release_date }}`
+
+            ${{ steps.notes.outputs.body }}
