@@ -30,6 +30,7 @@ jobs:
           cache: 'pnpm' # 开启 pnpm 缓存，加速构建
 
       # 升级 npm 以确保最新功能和修复
+      # Note: Trusted publishing requires npm CLI version 11.5.1 or later.
       - name: Upgrade npm
         run: npm install -g npm@latest
 
