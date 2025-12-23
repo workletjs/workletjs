@@ -151,7 +151,7 @@ export class WolLayerGroupComponent implements OnChanges {
           this.instance.setExtent(change.currentValue);
           break;
         case 'wolLayers':
-          this.instance.setLayers(change.currentValue);
+          this.instance.setLayers(this.wrapLayers(change.currentValue));
           break;
         case 'wolMaxResolution':
           this.instance.setMaxResolution(change.currentValue);
@@ -187,6 +187,21 @@ export class WolLayerGroupComponent implements OnChanges {
    */
   getInstance(): LayerGroup | undefined {
     return this.instance;
+  }
+
+  /**
+   * Wrap layers in a Collection if necessary.
+   * @param layers The layers to wrap
+   * @returns The layers as a Collection
+   */
+  private wrapLayers(
+    layers: BaseLayer[] | Collection<BaseLayer> | undefined,
+  ): Collection<BaseLayer> {
+    if (layers instanceof Collection) {
+      return layers;
+    } else {
+      return new Collection(layers ?? []);
+    }
   }
 }
 
