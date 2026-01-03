@@ -1,3 +1,26 @@
+## 0.7.0 (2026-01-05)
+
+### 🚀 Features
+
+- **module:circle-geometry:** add circle geometry component ([025c1b8](https://github.com/workletjs/workletjs/commit/025c1b8))
+- **module:feature:** add Feature component ([eb0acb7](https://github.com/workletjs/workletjs/commit/eb0acb7))
+- **module:geometry:** add geometry host reference and public API ([06c383f](https://github.com/workletjs/workletjs/commit/06c383f))
+- **module:line-string-geometry:** add LineString geometry component ([58d34e6](https://github.com/workletjs/workletjs/commit/58d34e6))
+- **module:multi-line-string-geometry:** add MultiLineString geometry component ([607d217](https://github.com/workletjs/workletjs/commit/607d217))
+- **module:multi-point-geometry:** add MultiPoint geometry component ([6e20067](https://github.com/workletjs/workletjs/commit/6e20067))
+- **module:multi-polygon-geometry:** add MultiPolygon geometry component ([087c135](https://github.com/workletjs/workletjs/commit/087c135))
+- **module:point-geometry:** add Point geometry component ([47711e0](https://github.com/workletjs/workletjs/commit/47711e0))
+- **module:polygon-geometry:** add Polygon geometry component ([e832536](https://github.com/workletjs/workletjs/commit/e832536))
+- **module:utils:** add isNotNil util ([8e71bc1](https://github.com/workletjs/workletjs/commit/8e71bc1))
+
+### 🩹 Fixes
+
+- **module:layer-group:** wrap layers in a Collection when setting layers ([2840f6a](https://github.com/workletjs/workletjs/commit/2840f6a))
+
+### ❤️ Thank You
+
+- Jonnytoshen @Jonnytoshen
+
 ## 0.6.0 (2025-12-19)
 
 ### 🚀 Features
