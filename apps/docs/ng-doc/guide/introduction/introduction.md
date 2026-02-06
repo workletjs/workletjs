@@ -97,6 +97,14 @@ Workletjs is developed using the **[Nx](https://nx.dev)** monorepo architecture,
 
 - **@workletjs/ngx-openlayers**: The core package containing all map components.
 
+## Version Compatibility Matrix 
+
+Workletjs | Angular | OpenLayers
+---|---|---
+<=0.7.0 | ^20.2.0 | ^10.6.1
+~21.0.0 | ^21.0.9 | ^10.7.0
+
+
 ## License
 
 Workletjs is open-source software licensed under the [MIT License](https://opensource.org/licenses/MIT).
