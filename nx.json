@@ -27,14 +27,14 @@
         "{workspaceRoot}/eslint.config.mjs"
       ]
     },
-    "@nx/vite:test": {
-      "cache": true,
-      "inputs": ["default", "^production"]
-    },
     "@nx/angular:package": {
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
+    },
+    "@nx/vitest:test": {
+      "cache": true,
+      "inputs": ["default", "^production"]
     }
   },
   "generators": {
@@ -42,11 +42,11 @@
       "e2eTestRunner": "none",
       "linter": "eslint",
       "style": "css",
-      "unitTestRunner": "vitest"
+      "unitTestRunner": "vitest-analog"
     },
     "@nx/angular:library": {
       "linter": "eslint",
-      "unitTestRunner": "vitest"
+      "unitTestRunner": "vitest-analog"
     },
     "@nx/angular:component": {
       "style": "scss",
@@ -61,7 +61,6 @@
   },
   "release": {
     "projects": ["packages/*"],
-    "releaseTagPattern": "v{version}",
     "version": {
       "useLegacyVersioning": true,
       "conventionalCommits": true,
@@ -74,6 +73,9 @@
     "git": {
       "commitMessage": "chore(release): release v{version}",
       "tagName": "v{version}"
+    },
+    "releaseTag": {
+      "pattern": "v{version}"
     }
   }
 }

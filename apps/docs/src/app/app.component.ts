@@ -12,7 +12,6 @@ import {
   NgDocButtonIconComponent,
   NgDocIconComponent,
   NgDocTooltipDirective,
-  preventInitialChildAnimations,
 } from '@ng-doc/ui-kit';
 import { filter } from 'rxjs/operators';
 import { SidebarComponent } from './components';
@@ -31,7 +30,6 @@ import { SidebarComponent } from './components';
     NgDocIconComponent,
     SidebarComponent,
   ],
-  animations: [preventInitialChildAnimations],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   host: {
