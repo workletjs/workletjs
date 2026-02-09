@@ -1090,14 +1090,17 @@ export class BasicMultiPolygonGeometryComponent {
   properties = signal<WolProperties | undefined>(undefined);
   enabled = signal(true);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onChange(event: BaseEvent): void {
     // Event handler for testing
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onError(event: BaseEvent): void {
     // Event handler for testing
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onPropertyChange(event: ObjectEvent): void {
     // Event handler for testing
   }
