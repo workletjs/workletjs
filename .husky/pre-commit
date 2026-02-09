@@ -1,1 +1,1 @@
-nx affected -t lint
+pnpm lint-staged
