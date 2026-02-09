@@ -450,7 +450,7 @@ describe('WolFeatureComponent', () => {
         new Point([50, 50]),
       ];
 
-      geometries.forEach((geom, index) => {
+      geometries.forEach((geom) => {
         testComponent.geometry.set(geom);
         fixture.detectChanges();
 
