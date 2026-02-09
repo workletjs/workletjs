@@ -70,6 +70,7 @@
     "jiti": "2.4.2",
     "jsdom": "~22.1.0",
     "jsonc-eslint-parser": "^2.1.0",
+    "lint-staged": "^16.2.7",
     "ng-packagr": "21.0.1",
     "nx": "22.3.0",
     "postcss": "^8.5.6",
@@ -87,5 +88,11 @@
   },
   "nx": {
     "includedScripts": []
+  },
+  "lint-staged": {
+    "*.{ts,html,scss,css,json,md}": [
+      "nx affected --target=lint --uncommitted",
+      "nx format:write --uncommitted"
+    ]
   }
 }
