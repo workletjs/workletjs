@@ -39,8 +39,8 @@ import RenderEvent from 'ol/render/Event';
         />
       </wol-webgl-tile-layer>
     </wol-map>
-    <div class="px-6 mt-4">
-      <mat-slider class="!w-full !m-0" min="0" max="100" step="1">
+    <div class="mt-4 px-6">
+      <mat-slider class="!m-0 !w-full" min="0" max="100" step="1">
         <input matSliderThumb [ngModel]="swipeValue()" (ngModelChange)="onSwipeChange($event)" />
       </mat-slider>
     </div>

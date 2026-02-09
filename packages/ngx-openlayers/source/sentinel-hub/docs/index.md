@@ -16,7 +16,7 @@ This example renders a tile layer with a source that uses the Sentinel Hub [Proc
 
 ### Sentinel Hub Date Picker
 
-This example renders tiles from Sentinel Hub based on imagery in a user-selected date range. Changing the date picker to update `wolData` property with time range. 
+This example renders tiles from Sentinel Hub based on imagery in a user-selected date range. Changing the date picker to update `wolData` property with time range.
 
 {{ NgDocActions.demo("WolSentinelHubDatePickerExampleComponent") }}
 

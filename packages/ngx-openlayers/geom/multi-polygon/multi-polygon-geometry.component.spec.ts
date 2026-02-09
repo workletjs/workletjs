@@ -421,7 +421,9 @@ describe('WolMultiPolygonGeometryComponent', () => {
 
   describe('wolEndss Binding', () => {
     it('should create multi-polygon with flat coordinates and endss', fakeAsync(() => {
-      testComponent.coordinates.set([0, 0, 10, 0, 10, 10, 0, 10, 0, 0, 20, 20, 30, 20, 30, 30, 20, 30, 20, 20]);
+      testComponent.coordinates.set([
+        0, 0, 10, 0, 10, 10, 0, 10, 0, 0, 20, 20, 30, 20, 30, 30, 20, 30, 20, 20,
+      ]);
       testComponent.layout.set('XY');
       testComponent.endss.set([[10], [20]]);
       fixture.detectChanges();
@@ -436,11 +438,29 @@ describe('WolMultiPolygonGeometryComponent', () => {
     it('should handle multiple rings with endss', fakeAsync(() => {
       // Polygon with hole using flat coordinates
       testComponent.coordinates.set([
-        0, 0, 20, 0, 20, 20, 0, 20, 0, 0,  // Outer ring
-        5, 5, 15, 5, 15, 15, 5, 15, 5, 5   // Inner ring (hole)
+        0,
+        0,
+        20,
+        0,
+        20,
+        20,
+        0,
+        20,
+        0,
+        0, // Outer ring
+        5,
+        5,
+        15,
+        5,
+        15,
+        15,
+        5,
+        15,
+        5,
+        5, // Inner ring (hole)
       ]);
       testComponent.layout.set('XY');
-      testComponent.endss.set([[10, 20]]);  // First polygon has 2 rings
+      testComponent.endss.set([[10, 20]]); // First polygon has 2 rings
       fixture.detectChanges();
 
       flush();

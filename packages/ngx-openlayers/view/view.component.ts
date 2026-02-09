@@ -121,10 +121,10 @@ export class WolViewComponent implements OnChanges {
       /**
        * Adding control to the map must be done after the map is rendered,
        * if used with control flow of Angular.
-       * 
-       * In Angular, when rendering a component's template, the control flow statements, 
-       * such as @if, @else, @else if, @for, and @switch, are evaluated during the template 
-       * rendering process. This evaluation happens before the actual content within the blocks 
+       *
+       * In Angular, when rendering a component's template, the control flow statements,
+       * such as @if, @else, @else if, @for, and @switch, are evaluated during the template
+       * rendering process. This evaluation happens before the actual content within the blocks
        * is rendered to the DOM.
        */
       Promise.resolve().then(() => {

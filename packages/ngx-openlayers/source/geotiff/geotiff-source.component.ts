@@ -119,7 +119,7 @@ export class WolGeoTIFFSourceComponent implements OnChanges {
       }
 
       unByKey(Object.values(eventsKey));
-      
+
       this.instance = undefined;
     });
   }

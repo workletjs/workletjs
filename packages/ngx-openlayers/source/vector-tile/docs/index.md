@@ -2,7 +2,7 @@
 keyword: VectorTileSourcePage
 ---
 
-Component for layer sources providing vector data divided into a tile grid, to be used with [VectorTileLayer](components/layers/vector-tile-layer) component. Although this source receives tiles with vector features from the server, it is not meant for feature editing. Features are optimized for rendering, their geometries are clipped at or near tile boundaries and simplified for a view resolution. 
+Component for layer sources providing vector data divided into a tile grid, to be used with [VectorTileLayer](components/layers/vector-tile-layer) component. Although this source receives tiles with vector features from the server, it is not meant for feature editing. Features are optimized for rendering, their geometries are clipped at or near tile boundaries and simplified for a view resolution.
 
 ## Examples
 

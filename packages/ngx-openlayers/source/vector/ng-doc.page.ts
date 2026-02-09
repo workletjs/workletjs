@@ -9,8 +9,7 @@ const VectorSourcePage: NgDocPage = {
   mdFile: './docs/index.md',
   category: SourcesCategory,
   route: 'vector',
-  demos: {
-  },
+  demos: {},
 };
 
 export default VectorSourcePage;

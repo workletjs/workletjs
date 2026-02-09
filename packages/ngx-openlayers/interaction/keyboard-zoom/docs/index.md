@@ -2,7 +2,7 @@
 keyword: KeyboardZoomInteractionPage
 ---
 
-Interaction component that allows the user to zoom the map using keyboard `+` and `-`. 
+Interaction component that allows the user to zoom the map using keyboard `+` and `-`.
 
 By default, this is the map div, though you can change this with the `wolKeyboardEventTarget` property in [Map](components/general/map) component. `document` never loses focus but, for any other element, focus will have to be on, and returned to, this element if the keys are to function. See also [KeyboardPan](components/interactions/keyboard-pan) component.
 

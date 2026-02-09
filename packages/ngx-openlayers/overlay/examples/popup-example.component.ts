@@ -42,22 +42,22 @@ import MapBrowserEvent from 'ol/MapBrowserEvent';
           }"
         >
           <div
-            class="absolute bottom-3 -left-12.5 min-w-70 p-4 border border-neutral-300 rounded-lg bg-white shadow-lg"
+            class="absolute bottom-3 -left-12.5 min-w-70 rounded-lg border border-neutral-300 bg-white p-4 shadow-lg"
           >
-            <div class="absolute top-full left-12 w-5 h-5 -translate-x-1/2">
+            <div class="absolute top-full left-12 h-5 w-5 -translate-x-1/2">
               <span
                 class="absolute bottom-0 border-10 border-transparent border-t-neutral-300"
               ></span>
               <span class="absolute bottom-px border-10 border-transparent border-t-white"></span>
             </div>
             <a
-              class="absolute top-0.5 right-2 text-blue-500 no-underline cursor-pointer hover:focus:underline"
+              class="absolute top-0.5 right-2 cursor-pointer text-blue-500 no-underline hover:focus:underline"
               (click)="onClickCloser()"
               >✖</a
             >
             <div>
               <p class="mb-4">You clicked here:</p>
-              <code class="rounded-sm py-0.5 px-1 text-sm bg-neutral-100">{{
+              <code class="rounded-sm bg-neutral-100 px-1 py-0.5 text-sm">{{
                 pos | wolToLonLat | wolToStringHDMS
               }}</code>
             </div>

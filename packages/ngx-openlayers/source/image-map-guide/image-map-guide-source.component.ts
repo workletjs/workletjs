@@ -132,7 +132,7 @@ export class WolImageMapGuideSourceComponent implements OnChanges {
         }
 
         unByKey(Object.values(eventsKey));
-        
+
         this.instance = undefined;
       }
     });

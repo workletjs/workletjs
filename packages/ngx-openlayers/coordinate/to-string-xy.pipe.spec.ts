@@ -9,7 +9,7 @@ describe('WolToStringXYPipe', () => {
   });
 
   it('should be able to convert coordinate to string', () => {
-      const coordinate: Coordinate = [80.638765, 7.294854];
+    const coordinate: Coordinate = [80.638765, 7.294854];
     const result = pipe.transform(coordinate);
     expect(result).toBeDefined();
     expect(result).toBe('81, 7');

@@ -107,9 +107,7 @@ export class WolMapComponent implements OnChanges {
         this.wolLayerGroupChange.emit(event),
       );
 
-      eventsKey['change:size'] = map.on('change:size', (event) =>
-        this.wolSizeChange.emit(event),
-      );
+      eventsKey['change:size'] = map.on('change:size', (event) => this.wolSizeChange.emit(event));
 
       eventsKey['change:target'] = map.on('change:target', () =>
         this.wolTarget.set(this.instance?.getTarget()),
@@ -131,15 +129,11 @@ export class WolMapComponent implements OnChanges {
 
       eventsKey['loadend'] = map.on('loadend', (event) => this.wolLoadEnd.emit(event));
 
-      eventsKey['loadstart'] = map.on('loadstart', (event) =>
-        this.wolLoadStart.emit(event),
-      );
+      eventsKey['loadstart'] = map.on('loadstart', (event) => this.wolLoadStart.emit(event));
 
       eventsKey['moveend'] = map.on('moveend', (event) => this.wolMoveEnd.emit(event));
 
-      eventsKey['movestart'] = map.on('movestart', (event) =>
-        this.wolMoveStart.emit(event),
-      );
+      eventsKey['movestart'] = map.on('movestart', (event) => this.wolMoveStart.emit(event));
 
       eventsKey['pointerdrag'] = map.on('pointerdrag', (event) =>
         this.wolPointerDrag.emit(event as MapBrowserEvent<PointerEvent>),
@@ -149,17 +143,11 @@ export class WolMapComponent implements OnChanges {
         this.wolPointerMove.emit(event as MapBrowserEvent<PointerEvent>),
       );
 
-      eventsKey['postcompose'] = map.on('postcompose', (event) =>
-        this.wolPostCompose.emit(event),
-      );
+      eventsKey['postcompose'] = map.on('postcompose', (event) => this.wolPostCompose.emit(event));
 
-      eventsKey['postrender'] = map.on('postrender', (event) =>
-        this.wolPostRender.emit(event),
-      );
+      eventsKey['postrender'] = map.on('postrender', (event) => this.wolPostRender.emit(event));
 
-      eventsKey['precompose'] = map.on('precompose', (event) =>
-        this.wolPreCompose.emit(event),
-      );
+      eventsKey['precompose'] = map.on('precompose', (event) => this.wolPreCompose.emit(event));
 
       eventsKey['propertychange'] = map.on('propertychange', (event) =>
         this.wolPropertyChange.emit(event),

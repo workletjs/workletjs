@@ -139,7 +139,7 @@ export class WolFeatureComponent implements OnChanges {
       const feature = this.featureInstance();
 
       unByKey(Object.values(eventsKeyMap));
-      
+
       if (feature) {
         hostRef.removeFeature(feature);
         this.featureInstance.set(undefined);

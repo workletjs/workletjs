@@ -113,9 +113,9 @@ export class WolTileDebugSourceComponent implements OnChanges {
       if (disposeRef) {
         disposeRef();
       }
-      
+
       unByKey(Object.values(eventsKey));
-      
+
       this.instance = undefined;
     });
   }

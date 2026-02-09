@@ -22,7 +22,7 @@ import View from 'ol/View';
         <wol-osm-source />
       </wol-tile-layer>
     </wol-map>
-    <wol-map class="h-96 mt-4" [wolView]="view()">
+    <wol-map class="mt-4 h-96" [wolView]="view()">
       <wol-tile-layer [wolPreload]="0">
         <wol-osm-source />
       </wol-tile-layer>

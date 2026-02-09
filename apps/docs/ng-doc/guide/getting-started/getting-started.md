@@ -4,7 +4,7 @@ This guide will help you get started with `@workletjs/ngx-openlayers` in your An
 
 This library depends on the following peer dependencies:
 
-- `@angular/cdk`: ^20.2.0  
+- `@angular/cdk`: ^20.2.0
 - `ol`: ^10.6.1
 
 Make sure these dependencies are installed in your project.
@@ -35,7 +35,7 @@ import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
-  imports: [WolMapModule, WolViewModule]
+  imports: [WolMapModule, WolViewModule],
 })
 export class AppComponent {}
 ```

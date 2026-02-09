@@ -35,7 +35,7 @@ import { WolGoogleSourceModule } from '@workletjs/ngx-openlayers/source/google';
         </wol-webgl-tile-layer>
       </wol-map>
     } @else {
-      <form class="flex items-center justify-center flex-wrap gap-2 h-96">
+      <form class="flex h-96 flex-wrap items-center justify-center gap-2">
         <label for="">Your API key</label>
         <mat-form-field appearance="outline" subscriptSizing="dynamic">
           <input matInput [formControl]="keyFormControl" />

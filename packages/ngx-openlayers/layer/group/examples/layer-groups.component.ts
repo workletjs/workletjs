@@ -58,13 +58,13 @@ import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
       </wol-layer-group>
     </wol-map>
     <div class="mt-4">
-      <h5 class="text-lg font-medium mb-2">
+      <h5 class="mb-2 text-lg font-medium">
         Click on layer nodes below to change their properties.
       </h5>
-      <ul class="ps-8 list-disc">
+      <ul class="list-disc ps-8">
         <li>
           <span class="cursor-pointer" (click)="toggleFieldset($event)">OSM layer</span>
-          <fieldset class="flex items-center gap-4 hidden">
+          <fieldset class="flex hidden items-center gap-4">
             <label for="osm-layer-visible">
               <span>Visible</span>
               <mat-checkbox id="osm-layer-visible" [(ngModel)]="osmLayerVisible" />
@@ -79,7 +79,7 @@ import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
         </li>
         <li>
           <span class="cursor-pointer" (click)="toggleFieldset($event)">Layer group</span>
-          <fieldset class="flex items-center gap-4 hidden">
+          <fieldset class="flex hidden items-center gap-4">
             <label for="layer-group-visible">
               <span>Visible</span>
               <mat-checkbox id="layer-group-visible" [(ngModel)]="layerGroupVisible" />
@@ -91,12 +91,12 @@ import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
               </mat-slider>
             </label>
           </fieldset>
-          <ul class="ps-8 list-[circle]">
+          <ul class="list-[circle] ps-8">
             <li>
               <span class="cursor-pointer" (click)="toggleFieldset($event)"
                 >Food Insecurity Layer</span
               >
-              <fieldset class="flex items-center gap-4 hidden">
+              <fieldset class="flex hidden items-center gap-4">
                 <label for="food-insecurity-layer-visible">
                   <span>Visible</span>
                   <mat-checkbox
@@ -116,7 +116,7 @@ import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
               <span class="cursor-pointer" (click)="toggleFieldset($event)"
                 >Country Borders Layer</span
               >
-              <fieldset class="flex items-center gap-4 hidden">
+              <fieldset class="flex hidden items-center gap-4">
                 <label for="country-borders-layer-visible">
                   <span>Visible</span>
                   <mat-checkbox

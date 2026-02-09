@@ -28,7 +28,9 @@ describe('WolPointGeometryComponent', () => {
     fixture.detectChanges();
 
     testComponent = fixture.componentInstance;
-    featureComponent = fixture.debugElement.query(By.directive(WolFeatureComponent)).componentInstance;
+    featureComponent = fixture.debugElement.query(
+      By.directive(WolFeatureComponent),
+    ).componentInstance;
     pointGeometryComponent = fixture.debugElement.query(
       By.directive(WolPointGeometryComponent),
     ).componentInstance;
