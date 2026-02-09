@@ -34,12 +34,14 @@ import OSM from 'ol/source/OSM';
   selector: 'app-root',
   imports: [],
   template: `<div id="map" class="map"></div>`,
-  styles: [`
-    :host > .map {
-      width: 100%;
-      height: 100%;
-    }
-  `],
+  styles: [
+    `
+      :host > .map {
+        width: 100%;
+        height: 100%;
+      }
+    `,
+  ],
 })
 export class AppComponent {
   constructor() {
@@ -75,7 +77,7 @@ import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
   imports: [],
   template: `
     <wol-map>
-      <wol-view [wolCenter]="[0, 0]" [wolZoom]="2"/>
+      <wol-view [wolCenter]="[0, 0]" [wolZoom]="2" />
       <wol-tile-layer>
         <wol-osm-source />
       </wol-tile-layer>
@@ -97,13 +99,12 @@ Workletjs is developed using the **[Nx](https://nx.dev)** monorepo architecture,
 
 - **@workletjs/ngx-openlayers**: The core package containing all map components.
 
-## Version Compatibility Matrix 
+## Version Compatibility Matrix
 
-Workletjs | Angular | OpenLayers
----|---|---
-<=0.7.0 | ^20.2.0 | ^10.6.1
-~21.0.0 | ^21.0.9 | ^10.7.0
-
+| Workletjs | Angular | OpenLayers |
+| --------- | ------- | ---------- |
+| <=0.7.0   | ^20.2.0 | ^10.6.1    |
+| ~21.0.0   | ^21.0.9 | ^10.7.0    |
 
 ## License
 

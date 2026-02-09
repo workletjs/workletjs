@@ -180,7 +180,6 @@ export class WolOverlayComponent implements OnChanges {
     return this.instance;
   }
 
-  
   /**
    * Attaches the configured overlay portal to the element returned by the current instance,
    * disposing any previously attached portal outlet before creating a new one.

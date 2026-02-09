@@ -409,8 +409,26 @@ describe('WolPolygonGeometryComponent', () => {
 
     it('should handle polygon with hole using flat coordinates and ends', fakeAsync(() => {
       testComponent.coordinates.set([
-        0, 0, 20, 0, 20, 20, 0, 20, 0, 0,  // Outer ring
-        5, 5, 15, 5, 15, 15, 5, 15, 5, 5   // Inner ring (hole)
+        0,
+        0,
+        20,
+        0,
+        20,
+        20,
+        0,
+        20,
+        0,
+        0, // Outer ring
+        5,
+        5,
+        15,
+        5,
+        15,
+        15,
+        5,
+        15,
+        5,
+        5, // Inner ring (hole)
       ]);
       testComponent.layout.set('XY');
       testComponent.ends.set([10, 20]);
@@ -424,9 +442,36 @@ describe('WolPolygonGeometryComponent', () => {
 
     it('should handle multiple holes with ends', fakeAsync(() => {
       testComponent.coordinates.set([
-        0, 0, 30, 0, 30, 30, 0, 30, 0, 0,      // Outer ring
-        5, 5, 10, 5, 10, 10, 5, 10, 5, 5,      // Hole 1
-        15, 15, 25, 15, 25, 25, 15, 25, 15, 15 // Hole 2
+        0,
+        0,
+        30,
+        0,
+        30,
+        30,
+        0,
+        30,
+        0,
+        0, // Outer ring
+        5,
+        5,
+        10,
+        5,
+        10,
+        10,
+        5,
+        10,
+        5,
+        5, // Hole 1
+        15,
+        15,
+        25,
+        15,
+        25,
+        25,
+        15,
+        25,
+        15,
+        15, // Hole 2
       ]);
       testComponent.layout.set('XY');
       testComponent.ends.set([10, 20, 30]);

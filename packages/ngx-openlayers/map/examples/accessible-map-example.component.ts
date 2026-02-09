@@ -21,7 +21,7 @@ import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
     <wol-map
       tabindex="0"
       id="accessible-map-fragment"
-      class="h-96 m-0.5 focus:outline focus:outline-2 outline-blue-700"
+      class="m-0.5 h-96 outline-blue-700 focus:outline focus:outline-2"
     >
       <wol-view [wolCenter]="[0, 0]" [(wolZoom)]="zoom" />
       <wol-tile-layer>

@@ -33,13 +33,13 @@ import MapBrowserEvent from 'ol/MapBrowserEvent';
         [wolPositioning]="'center-center'"
         [wolStopEvent]="false"
       >
-        <div class="w-5 h-5 rounded-full border border-cyan-500 bg-cyan-300 opacity-50"></div>
+        <div class="h-5 w-5 rounded-full border border-cyan-500 bg-cyan-300 opacity-50"></div>
       </wol-overlay>
       <!-- Vienna label -->
       <wol-overlay [wolPosition]="viennaPos | wolFromLonLat">
         <!-- Clickable label for Vienna -->
         <a
-          class="text-white no-underline text-[11pt] font-bold text-shadow-black text-shadow-sm"
+          class="text-[11pt] font-bold text-white no-underline text-shadow-black text-shadow-sm"
           target="_blank"
           href="https://en.wikipedia.org/wiki/Vienna"
           >Vienna</a
@@ -49,15 +49,23 @@ import MapBrowserEvent from 'ol/MapBrowserEvent';
       @if (clickedPos(); as pos) {
         <wol-overlay [wolPosition]="pos" [wolPositioning]="'bottom-center'">
           <div class="pb-2">
-            <div class="border border-neutral-300 rounded-lg bg-white relative max-w-64">
-              <div class="absolute w-4 h-2 -bottom-4 left-1/2 -translate-x-1/2">
-                <span class="absolute border-8 border-transparent bottom-0 border-t-neutral-300"></span>
+            <div class="relative max-w-64 rounded-lg border border-neutral-300 bg-white">
+              <div class="absolute -bottom-4 left-1/2 h-2 w-4 -translate-x-1/2">
+                <span
+                  class="absolute bottom-0 border-8 border-transparent border-t-neutral-300"
+                ></span>
                 <span class="absolute bottom-px border-8 border-transparent border-t-white"></span>
               </div>
-              <h3 class="py-2 px-4 text-base bg-neutral-100 border-b border-b-neutral-300 rounded-t-lg">Welcome to OpenLayers</h3>
+              <h3
+                class="rounded-t-lg border-b border-b-neutral-300 bg-neutral-100 px-4 py-2 text-base"
+              >
+                Welcome to OpenLayers
+              </h3>
               <div class="p-4 text-neutral-800">
                 <p class="mb-4">The location you clicked was:</p>
-                <code class="rounded-sm py-0.5 px-1 text-sm bg-neutral-100">{{ pos | wolToLonLat | wolToStringHDMS }}</code>
+                <code class="rounded-sm bg-neutral-100 px-1 py-0.5 text-sm">{{
+                  pos | wolToLonLat | wolToStringHDMS
+                }}</code>
               </div>
             </div>
           </div>

@@ -54,7 +54,7 @@ import { Units } from 'ol/control/ScaleLine';
         }
       }
     </wol-map>
-    <div class="flex items-center gap-4 mt-4">
+    <div class="mt-4 flex items-center gap-4">
       <div>
         <label for="units">Units:</label>
         <mat-form-field appearance="outline" subscriptSizing="dynamic">

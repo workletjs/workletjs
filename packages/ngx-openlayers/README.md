@@ -21,7 +21,7 @@ This library developed under the **[Nx monorepo](https://nx.dev/docs/getting-sta
 
 This library depends on the following peer dependencies:
 
-- [`@angular/cdk`](https://material.angular.dev/cdk): ^20.2.0  
+- [`@angular/cdk`](https://material.angular.dev/cdk): ^20.2.0
 - [`ol`](https://openlayers.org/): ^10.6.1
 
 Make sure these dependencies are installed in your project.
@@ -31,7 +31,7 @@ Make sure these dependencies are installed in your project.
 Install the peerDependencies.
 
 ```bash
-npm install ol @angular/cdk --save  
+npm install ol @angular/cdk --save
 // or
 yarn add ol @angular/cdk
 // or
@@ -44,7 +44,7 @@ Install this library.
 npm install @workletjs/ngx-openlayers --save
 // or
 yarn add @workletjs/ngx-openlayers
-// or 
+// or
 pnpm add @workletjs/ngx-openlayers
 ```
 
@@ -57,7 +57,7 @@ import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
-  imports: [WolMapModule, WolViewModule]
+  imports: [WolMapModule, WolViewModule],
 })
 export class AppComponent {}
 ```

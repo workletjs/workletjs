@@ -19,10 +19,7 @@ import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
     <wol-map class="h-96">
       <wol-view [wolCenter]="[24.750645, 59.444351] | wolFromLonLat" [wolZoom]="14" />
       <wol-tile-layer>
-        <wol-stadia-maps-source
-          wolLayer="alidade_smooth_dark"
-          [wolRetina]="true" 
-        />
+        <wol-stadia-maps-source wolLayer="alidade_smooth_dark" [wolRetina]="true" />
       </wol-tile-layer>
     </wol-map>
   `,

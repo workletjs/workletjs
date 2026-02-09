@@ -31,7 +31,7 @@ import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
         <wol-carto-db-source [wolAccount]="'documentation'" [wolConfig]="mapConfig()" />
       </wol-tile-layer>
     </wol-map>
-    <div class="flex items-center gap-2 mt-4">
+    <div class="mt-4 flex items-center gap-2">
       <span>Show european countries larger than</span>
       <mat-form-field appearance="outline" [subscriptSizing]="'dynamic'">
         <mat-select [(ngModel)]="area">

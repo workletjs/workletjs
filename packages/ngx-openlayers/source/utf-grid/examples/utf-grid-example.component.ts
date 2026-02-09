@@ -53,7 +53,9 @@ import { Coordinate } from 'ol/coordinate';
           [wolStopEvent]="false"
           [wolClassName]="'abc'"
         >
-          <div class="text-black text-[12pt] font-bold text-shadow-white text-shadow-md">{{ data.name }}</div>
+          <div class="text-[12pt] font-bold text-black text-shadow-md text-shadow-white">
+            {{ data.name }}
+          </div>
           <img [src]="data.flag" />
         </wol-overlay>
       }

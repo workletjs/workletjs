@@ -57,7 +57,7 @@ import { AuthConfig, Evalscript, ProcessRequestInputDataItem, Sample } from 'ol/
           [formGroup]="authFormGroup"
           class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         >
-          <div class="p-4 border-2 border-gray-900 bg-white rounded-md">
+          <div class="rounded-md border-2 border-gray-900 bg-white p-4">
             <div>
               <label class="block">Client ID</label>
               <mat-form-field appearance="outline">

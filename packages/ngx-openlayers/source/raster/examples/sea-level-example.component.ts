@@ -51,7 +51,7 @@ import { Coordinate } from 'ol/coordinate';
         </wol-raster-source>
       </wol-image-layer>
     </wol-map>
-    <div class="flex items-center gap-2 mt-4">
+    <div class="mt-4 flex items-center gap-2">
       <label for="sea-level-slider">Sea Level: </label>
       <mat-slider id="sea-level-slider" min="0" max="100" step="1">
         <input

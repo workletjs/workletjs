@@ -8,7 +8,7 @@ Interaction component that allows the user to zoom by double-clicking on the map
 
 ### Double Click Zoom
 
-A single interaction to zoom in/out by double-clicking. 
+A single interaction to zoom in/out by double-clicking.
 
 {{ NgDocActions.demo("WolDoubleClickZoomExampleComponent") }}
 

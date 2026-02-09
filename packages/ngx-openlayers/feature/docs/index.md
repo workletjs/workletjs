@@ -6,5 +6,4 @@ A component wrapped with [Feature](https://openlayers.org/en/latest/apidoc/modul
 
 Typically, a feature component requires a single child `Geometry` component. At the same time, use a [Style](components/style/style) component to define the styling for `Geometry`.
 
-
 {{ NgDocApi.api("packages/ngx-openlayers/feature/feature.component.ts#WolFeatureComponent") }}

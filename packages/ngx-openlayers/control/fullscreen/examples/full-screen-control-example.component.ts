@@ -21,7 +21,7 @@ import { defaults } from 'ol/control/defaults';
       <wol-view [wolCenter]="[-9101767, 2822912]" [wolZoom]="14" />
       <wol-fullscreen-control />
       <wol-webgl-tile-layer>
-        <wol-image-tile-source 
+        <wol-image-tile-source
           [wolAttributions]="attributions"
           [wolUrl]="'https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=' + key"
           [wolTileSize]="512"
