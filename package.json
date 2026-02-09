@@ -6,7 +6,9 @@
     "build": "nx build ngx-openlayers",
     "build:docs": "nx build docs",
     "build:docs-preview": "nx build docs --base-href=/preview/",
-    "lint": "nx lint ngx-openlayers && nx lint docs"
+    "lint": "nx lint ngx-openlayers && nx lint docs",
+    "format": "nx format:write --projects=ngx-openlayers,docs",
+    "format:check": "nx format:check --projects=ngx-openlayers,docs"
   },
   "private": true,
   "dependencies": {
