@@ -1,3 +1,13 @@
+# 21.0.0 (2026-02-10)
+
+### 🚀 Features
+
+- migrate Angular to v21 ([7a59da6](https://github.com/workletjs/workletjs/commit/7a59da6))
+
+### ❤️ Thank You
+
+- Jonnytoshen @Jonnytoshen
+
 ## 0.7.0 (2026-01-05)
 
 ### 🚀 Features
