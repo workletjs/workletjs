@@ -62,9 +62,7 @@
   "release": {
     "projects": ["packages/*"],
     "version": {
-      "useLegacyVersioning": true,
-      "conventionalCommits": true,
-      "preVersionCommand": "pnpm dlx nx build ngx-openlayers"
+      "conventionalCommits": true
     },
     "changelog": {
       "projectChangelogs": false,
@@ -75,7 +73,8 @@
       "tagName": "v{version}"
     },
     "releaseTag": {
-      "pattern": "v{version}"
+      "pattern": "v{version}",
+      "requireSemver": true
     }
   }
 }
