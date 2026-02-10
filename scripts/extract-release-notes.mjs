@@ -4,45 +4,57 @@ import path from 'node:path';
 import process from 'node:process';
 
 /**
- * 提取 Release Notes 和日期
- * @param {string} content CHANGELOG 内容
- * @param {string} version 版本号
- * @returns {{ notes: string, date: string|null }}
+ * Parses a CHANGELOG.md file and extracts release information.
+ * @param {string} contents The contents of the CHANGELOG.md file.
+ * @returns {{ releases: { version: string, body: string, date: string|null }[] }}
  */
-export function extractReleaseNotes(content, version) {
-  const lines = content.split(/\r?\n/);
-
-  const versionEscaped = version.replace(/\./g, '\\.');
-  // 匹配 header: 0.5.0 或 [0.5.0] 以及可选日期 (YYYY-MM-DD)
-  const headerRegex = new RegExp(
-    `^##\\s*\\[?${versionEscaped}\\]?\\s*(?:\\((\\d{4}-\\d{2}-\\d{2})\\))?\\s*$`,
+function parseChangelogMarkdown(contents) {
+  /**
+   * The release header may include prerelease identifiers (e.g., -alpha.13),
+   * and major releases may use a single #, instead of the standard ## used
+   * for minor and patch releases. This regex matches all of these cases.
+   */
+  const CHANGELOG_RELEASE_HEAD_RE = new RegExp(
+    '^#+\\s*\\[?(\\d+\\.\\d+\\.\\d+(?:-[a-zA-Z0-9\\.]+)?)\\]?',
+    'gm'
   );
 
-  let collecting = false;
-  const result = [];
-  let releaseDate = null;
+  const headings = [...contents.matchAll(CHANGELOG_RELEASE_HEAD_RE)];
+  const releases = [];
 
-  for (const line of lines) {
-    const match = headerRegex.exec(line);
-    if (match) {
-      collecting = true;
-      releaseDate = match[1] || null; // 如果有日期就保存
-      continue;
+  for (let i = 0; i < headings.length; i++) {
+    const heading = headings[i];
+    const nextHeading = headings[i + 1];
+    const version = heading[1];
+    let body = contents
+      .slice(
+        heading.index + heading[0].length,
+        nextHeading ? nextHeading.index : contents.length
+      )
+      .trim();
+    const date = extractReleaseDate(body);
+
+    if (date) {
+      body = body.replace(`(${date})`, '').trim();
     }
 
-    // 遇到下一个版本 header 停止收集
-    if (collecting && /^##\s+/.test(line)) {
-      break;
-    }
-
-    if (collecting) {
-      result.push(line);
-    }
+    releases.push({ version, body, date });
   }
 
-  const notes = result.join('\n').replace(/^\s+|\s+$/g, '');
+  return {
+    releases,
+  };
+}
 
-  return { notes, date: releaseDate };
+/**
+ * Extracts the release date from the first line of the release body, if present.
+ * @param {string} content The release body content.
+ * @returns {string|null} The extracted date in YYYY-MM-DD format, or null if not found.
+ */
+function extractReleaseDate(content) {
+  const firstLine = content.split(/\r?\n/)[0];
+  const dateMatch = firstLine.match(/\((\d{4}-\d{2}-\d{2})\)/)
+  return dateMatch ? dateMatch[1] : null;
 }
 
 function parseArgs() {
@@ -74,16 +86,18 @@ function main() {
   }
 
   const content = fs.readFileSync(changelogPath, 'utf8');
-  const { notes, date } = extractReleaseNotes(content, version);
 
-  if (!notes) {
-    console.error(`❌ No changelog entry found for version ${version}`);
+  const { releases } = parseChangelogMarkdown(content);
+  const release = releases.find((r) => r.version === version);
+
+  if (!release) {
+    console.error(`❌ No changelog entry found for version ${release.version}`);
     process.exit(1);
   }
 
-  console.log(`Release Date: ${date || 'N/A'}`);
+  console.log(`Release Date: ${release.date || 'N/A'}`);
   console.log('---');
-  console.log(notes);
+  console.log(release.body);
 }
 
 main();
