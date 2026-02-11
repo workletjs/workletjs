@@ -14,7 +14,8 @@ This example generates RGBA tile data from scratch.
 
 ### PMTiles Shaded Relief
 
-This example shows a shaded relief rendering of elevation data from a [PMTiles](https://github.com/protomaps/PMTiles) source.
+This example shows a shaded relief rendering of elevation data from a
+[PMTiles](https://github.com/protomaps/PMTiles) source.
 
 {{ NgDocActions.demo("WolPMTilesShadedReliefExampleComponent") }}
 

@@ -2,7 +2,9 @@
 keyword: CoordinatePage
 ---
 
-Angular pipes for processing and formatting geographic coordinates. These pipes wrap [Coordinate](https://openlayers.org/en/latest/apidoc/module-ol_coordinate.html) manipulation functions from OpenLayers, making them easily accessible within Angular templates.
+Angular pipes for processing and formatting geographic coordinates. These pipes wrap
+[Coordinate](https://openlayers.org/en/latest/apidoc/module-ol_coordinate.html) manipulation
+functions from OpenLayers, making them easily accessible within Angular templates.
 
 ## Pipes
 
@@ -16,7 +18,9 @@ Add `delta` to `coordinate`. `coordinate` is modified in place and returned by t
 
 ### wolFormat
 
-Transforms the given [Coordinate](https://openlayers.org/en/latest/apidoc/module-ol_coordinate.html) to a string using the given string template. The strings `{x}` and `{y}` in the template will be replaced with the first and second coordinate values respectively.
+Transforms the given [Coordinate](https://openlayers.org/en/latest/apidoc/module-ol_coordinate.html)
+to a string using the given string template. The strings `{x}` and `{y}` in the template will be
+replaced with the first and second coordinate values respectively.
 
 {{ NgDocActions.demo("WolCoordinateFormatExampleComponent") }}
 

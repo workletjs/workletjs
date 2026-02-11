@@ -1,10 +1,17 @@
-**Workletjs** is a powerful **[Angular](https://angular.dev/)** component library designed to provide a seamless and idiomatic integration with **[OpenLayers](https://openlayers.org/)**. It allows developers to build complex, interactive maps using declarative Angular components and directives, abstracting away much of the imperative boilerplate code typically associated with OpenLayers.
+**Workletjs** is a powerful **[Angular](https://angular.dev/)** component library designed to
+provide a seamless and idiomatic integration with **[OpenLayers](https://openlayers.org/)**. It
+allows developers to build complex, interactive maps using declarative Angular components and
+directives, abstracting away much of the imperative boilerplate code typically associated with
+OpenLayers.
 
 ## What is Workletjs?
 
-Workletjs serves as a bridge between the Angular framework and the OpenLayers mapping engine. Instead of manually creating `ol.Map`, `ol.View`, and `ol.layer.Tile` instances and managing their state, you can use Angular components like `<wol-map>`, `<wol-view>`, and `<wol-tile-layer>`.
+Workletjs serves as a bridge between the Angular framework and the OpenLayers mapping engine.
+Instead of manually creating `ol.Map`, `ol.View`, and `ol.layer.Tile` instances and managing their
+state, you can use Angular components like `<wol-map>`, `<wol-view>`, and `<wol-tile-layer>`.
 
-This approach brings the full power of Angular's ecosystem—dependency injection, change detection, and lifecycle hooks—to your mapping applications.
+This approach brings the full power of Angular's ecosystem—dependency injection, change detection,
+and lifecycle hooks—to your mapping applications.
 
 ## Key Features
 
@@ -17,7 +24,9 @@ This approach brings the full power of Angular's ecosystem—dependency injectio
 
 ## Why Workletjs?
 
-OpenLayers is a powerful library, but using it in an Angular application can often lead to verbose and imperative code that is hard to maintain. Workletjs solves this by wrapping OpenLayers constructs into Angular components.
+OpenLayers is a powerful library, but using it in an Angular application can often lead to verbose
+and imperative code that is hard to maintain. Workletjs solves this by wrapping OpenLayers
+constructs into Angular components.
 
 ### Comparison
 
@@ -95,7 +104,9 @@ export class AppComponent {}
 
 ## Architecture
 
-Workletjs is developed using the **[Nx](https://nx.dev)** monorepo architecture, ensuring scalability and maintainability. It is organized into packages that can be used independently or together.
+Workletjs is developed using the **[Nx](https://nx.dev)** monorepo architecture, ensuring
+scalability and maintainability. It is organized into packages that can be used independently or
+together.
 
 - **@workletjs/ngx-openlayers**: The core package containing all map components.
 
@@ -108,4 +119,5 @@ Workletjs is developed using the **[Nx](https://nx.dev)** monorepo architecture,
 
 ## License
 
-Workletjs is open-source software licensed under the [MIT License](https://opensource.org/licenses/MIT).
+Workletjs is open-source software licensed under the
+[MIT License](https://opensource.org/licenses/MIT).

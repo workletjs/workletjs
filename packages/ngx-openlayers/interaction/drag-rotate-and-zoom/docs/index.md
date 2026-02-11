@@ -2,12 +2,12 @@
 keyword: DragRotateAndZoomInteractionPage
 ---
 
-Interaction component that allows the user to zoom and rotate the map by clicking and dragging on the map. By default, this interaction is limited to when the `shift` key is held down.
+Interaction component that allows the user to zoom and rotate the map by clicking and dragging on
+the map. By default, this interaction is limited to when the `shift` key is held down.
 
 And this interaction is not included in the default interactions.
 
-> **Warning**
-> This interaction is only supported for mouse devices.
+> **Warning** This interaction is only supported for mouse devices.
 
 ## Examples
 

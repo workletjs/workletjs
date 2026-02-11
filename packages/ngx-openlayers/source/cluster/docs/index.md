@@ -2,7 +2,9 @@
 keyword: ClusterSourcePage
 ---
 
-Layer source to cluster vector data. Works out of the box with point geometries. For other geometry types, or if not all geometries should be considered for clustering, a custom `geometryFunction`(`wolGeometryFunction` property) can be defined.
+Layer source to cluster vector data. Works out of the box with point geometries. For other geometry
+types, or if not all geometries should be considered for clustering, a custom
+`geometryFunction`(`wolGeometryFunction` property) can be defined.
 
 ## Examples
 

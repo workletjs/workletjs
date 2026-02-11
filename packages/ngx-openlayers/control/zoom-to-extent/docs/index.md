@@ -2,7 +2,8 @@
 keyword: ZoomToExtentControlPage
 ---
 
-A button control which, when pressed, changes the map view to a specific extent. To style this control use the css selector `.ol-zoom-extent`.
+A button control which, when pressed, changes the map view to a specific extent. To style this
+control use the css selector `.ol-zoom-extent`.
 
 ## Examples
 
