@@ -11,7 +11,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
 import { NearestDirectionFunction } from 'ol/array';
 import { ObjectEvent } from 'ol/Object';
 import { ProjectionLike } from 'ol/proj';
@@ -23,6 +22,7 @@ import { EventsKey } from 'ol/events';
 import { unByKey } from 'ol/Observable';
 import BaseEvent from 'ol/events/Event';
 import DataTileSource, { CrossOriginAttribute, Loader } from 'ol/source/DataTile';
+import { DisposeRef, useDataTileSourceHostRef } from './use-data-tile-source-host-ref';
 
 @Component({
   selector: 'wol-data-tile-source',
@@ -67,7 +67,7 @@ export class WolDataTileSourceComponent implements OnChanges {
    */
   constructor() {
     const destroyRef = inject(DestroyRef);
-    const hostRef = useTileSourceHostRef<DataTileSource>('DataTileSource');
+    const hostRef = useDataTileSourceHostRef<DataTileSource>('DataTileSource');
     const eventsKey: Record<string, EventsKey> = {};
 
     let disposeRef: DisposeRef;
