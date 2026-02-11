@@ -161,7 +161,7 @@ export class WolFlowLayerComponent implements OnChanges {
    */
   constructor() {
     const destroyRef = inject(DestroyRef);
-    const hostRef = useLayerHostRef<FlowLayer>('Flow');
+    const hostRef = useLayerHostRef<FlowLayer>('FlowLayer');
     const eventsKey: Record<string, EventsKey> = {};
 
     afterNextRender(() => {
