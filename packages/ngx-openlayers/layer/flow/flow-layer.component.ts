@@ -253,8 +253,8 @@ export class WolFlowLayerComponent implements OnChanges {
       );
 
       /**
-       * Adding control to the map must be done after the map is rendered,
-       * if used with control flow of Angular.
+       * Adding this layer to the map must be done after the map is rendered
+       * when used with Angular's control flow.
        *
        * In Angular, when rendering a component's template, the control flow statements,
        * such as @if, @else, @else if, @for, and @switch, are evaluated during the template
