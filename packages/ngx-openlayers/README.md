@@ -1,8 +1,12 @@
 # Workletjs - Angular Map Component Library
 
-**Workletjs** is an **[Angular](https://angular.dev/)** map component library that provides seamless integration with **[OpenLayers](https://openlayers.org/)**, enabling developers to create interactive and customizable maps with ease.
+**Workletjs** is an **[Angular](https://angular.dev/)** map component library that provides seamless
+integration with **[OpenLayers](https://openlayers.org/)**, enabling developers to create
+interactive and customizable maps with ease.
 
-This library developed under the **[Nx monorepo](https://nx.dev/docs/getting-started/tutorials/angular-monorepo-tutorial)** architecture and documented using **[NgDoc](https://ng-doc.com/)**.
+This library developed under the
+**[Nx monorepo](https://nx.dev/docs/getting-started/tutorials/angular-monorepo-tutorial)**
+architecture and documented using **[NgDoc](https://ng-doc.com/)**.
 
 ---
 

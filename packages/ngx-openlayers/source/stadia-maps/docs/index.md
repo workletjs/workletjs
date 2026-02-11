@@ -4,9 +4,8 @@ keyword: StadiaMapsSourcePage
 
 Layer source for the Stadia Maps tile server.
 
-> **Note**
-> Layers from Stadia Maps do not require an API key for localhost development or most production
-> web deployments. See https://docs.stadiamaps.com/authentication/ for details.
+> **Note** Layers from Stadia Maps do not require an API key for localhost development or most
+> production web deployments. See https://docs.stadiamaps.com/authentication/ for details.
 
 ## Examples
 

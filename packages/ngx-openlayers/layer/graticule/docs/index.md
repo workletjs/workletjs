@@ -4,8 +4,7 @@ keyword: GraticuleLayerPage
 
 Layer that renders a grid for a coordinate system (currently only EPSG:4326 is supported).
 
-> **Note**
-> Note that the view projection must define both extent and worldExtent.
+> **Note** Note that the view projection must define both extent and worldExtent.
 
 ## Examples
 
