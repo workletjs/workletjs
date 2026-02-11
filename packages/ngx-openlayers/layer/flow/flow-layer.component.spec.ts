@@ -81,7 +81,6 @@ describe('WolFlowLayerComponent', () => {
     const newMaxResolution = 15;
     testComponent.maxResolution.set(newMaxResolution);
     fixture.detectChanges();
-    console.log(flowLayerComponent.wolMaxResolution());
     expect(flowLayerComponent.wolMaxResolution()).toBe(newMaxResolution);
     expect(flowLayer.getMaxResolution()).toBe(newMaxResolution);
   });
