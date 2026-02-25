@@ -2,7 +2,17 @@
   "printWidth": 100,
   "proseWrap": "always",
   "singleQuote": true,
-  "plugins": ["prettier-plugin-tailwindcss"],
+  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+  "importOrder": [
+    "^@angular/(.*)$",
+    "^rxjs(.*)$",
+    "^ol/(.*)$",
+    "^@workletjs/(.*)$",
+    "^[./]"
+  ],
+  "importOrderParserPlugins": ["typescript", "decorators-legacy"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
   "overrides": [
     {
       "files": "*.html",
