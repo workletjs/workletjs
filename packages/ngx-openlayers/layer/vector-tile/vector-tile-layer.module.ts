@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolVectorTileLayerComponent } from './vector-tile-layer.component';
 
 @NgModule({

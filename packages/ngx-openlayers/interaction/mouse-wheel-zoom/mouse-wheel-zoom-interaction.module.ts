@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolMouseWheelZoomInteractionComponent } from './mouse-wheel-zoom-interaction.component';
 
 @NgModule({

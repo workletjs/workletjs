@@ -1,6 +1,8 @@
-import { Routes } from '@angular/router';
 // eslint-disable-next-line
 import { NG_DOC_ROUTING } from '@ng-doc/generated';
+
+import { Routes } from '@angular/router';
+
 import { GuideComponent } from './guide.component';
 
 const GUIDE_CHILDREN_ROUTES =

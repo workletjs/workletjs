@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolTranslateInteractionComponent } from './translate-interaction.component';
 
 @NgModule({

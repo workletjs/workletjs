@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+
 import { WolTransformPipe } from '@workletjs/ngx-openlayers/proj';
 
 @Component({

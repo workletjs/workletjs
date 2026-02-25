@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+import { Loader } from 'ol/source/DataTile';
+
 import { WolWebGLTileLayerModule } from '@workletjs/ngx-openlayers/layer/webgl-tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 import { WolDataTileSourceModule } from '@workletjs/ngx-openlayers/source/data-tile';
-import { Loader } from 'ol/source/DataTile';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-data-tiles-example',

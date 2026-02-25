@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolImageSourceComponent } from './image-source.component';
 
 @NgModule({

@@ -1,5 +1,3 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgDocNavigation } from '@ng-doc/app';
 import {
   NgDocColor,
@@ -7,6 +5,9 @@ import {
   NgDocTagComponent,
   NgDocTextComponent,
 } from '@ng-doc/ui-kit';
+
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar-item',

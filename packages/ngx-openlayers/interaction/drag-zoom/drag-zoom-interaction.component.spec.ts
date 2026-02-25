@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolDragZoomInteractionComponent } from './drag-zoom-interaction.component';
 
 describe('WolDragZoomInteractionComponent', () => {

@@ -1,19 +1,21 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
+  afterNextRender,
   signal,
   viewChild,
 } from '@angular/core';
+
+import { Coordinate } from 'ol/coordinate';
+import { transform } from 'ol/proj';
+
 import { WolWebGLTileLayerModule } from '@workletjs/ngx-openlayers/layer/webgl-tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewComponent, WolViewModule } from '@workletjs/ngx-openlayers/view';
 import {
   WolGeoTIFFSourceComponent,
   WolGeoTIFFSourceModule,
 } from '@workletjs/ngx-openlayers/source/geotiff';
-import { Coordinate } from 'ol/coordinate';
-import { transform } from 'ol/proj';
+import { WolViewComponent, WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'app-geotiff-reprojection-example',

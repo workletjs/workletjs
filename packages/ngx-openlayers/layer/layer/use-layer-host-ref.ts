@@ -1,11 +1,13 @@
-import { inject, InjectOptions } from '@angular/core';
-import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
-import { WolLayerGroupComponent } from '@workletjs/ngx-openlayers/layer/group';
-import { WolOverviewMapControlComponent } from '@workletjs/ngx-openlayers/control/overview-map';
-import BaseLayer from 'ol/layer/Base';
-import LayerGroup from 'ol/layer/Group';
+import { InjectOptions, inject } from '@angular/core';
+
 import Map from 'ol/Map';
 import OverviewMap from 'ol/control/OverviewMap';
+import BaseLayer from 'ol/layer/Base';
+import LayerGroup from 'ol/layer/Group';
+
+import { WolOverviewMapControlComponent } from '@workletjs/ngx-openlayers/control/overview-map';
+import { WolLayerGroupComponent } from '@workletjs/ngx-openlayers/layer/group';
+import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 
 export interface LayerHostRef<T extends BaseLayer> {
   addLayer(layer: T): void;

@@ -1,13 +1,16 @@
+import proj4 from 'proj4';
+
 import { ChangeDetectionStrategy, Component, DOCUMENT, inject } from '@angular/core';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
-import { WolGraticuleLayerModule } from '@workletjs/ngx-openlayers/layer/graticule';
-import { WolVectorLayerModule } from '@workletjs/ngx-openlayers/layer/vector';
-import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
+
+import GeoJSON from 'ol/format/GeoJSON';
 import { Projection, ProjectionLike } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
-import proj4 from 'proj4';
-import GeoJSON from 'ol/format/GeoJSON';
+
+import { WolGraticuleLayerModule } from '@workletjs/ngx-openlayers/layer/graticule';
+import { WolVectorLayerModule } from '@workletjs/ngx-openlayers/layer/vector';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
+import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-sphere-mollweide-example',

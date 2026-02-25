@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolZoomifySourceComponent } from './zoomify-source.component';
 
 @NgModule({

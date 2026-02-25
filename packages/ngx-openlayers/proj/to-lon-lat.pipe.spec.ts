@@ -1,6 +1,8 @@
-import { toLonLat } from 'ol/proj';
 import proj4 from 'proj4';
+
+import { toLonLat } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
+
 import { WolToLonLatPipe } from './to-lon-lat.pipe';
 
 describe('WolToLonLatPipe', () => {

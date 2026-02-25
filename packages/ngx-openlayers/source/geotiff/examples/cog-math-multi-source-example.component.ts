@@ -1,18 +1,20 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
+  afterNextRender,
   signal,
   viewChild,
 } from '@angular/core';
+
+import { ViewOptions } from 'ol/View';
+import { Style } from 'ol/layer/WebGLTile';
+
 import { WolWebGLTileLayerModule } from '@workletjs/ngx-openlayers/layer/webgl-tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import {
   WolGeoTIFFSourceComponent,
   WolGeoTIFFSourceModule,
 } from '@workletjs/ngx-openlayers/source/geotiff';
-import { Style } from 'ol/layer/WebGLTile';
-import { ViewOptions } from 'ol/View';
 
 @Component({
   selector: 'wol-cog-math-multi-source-example',

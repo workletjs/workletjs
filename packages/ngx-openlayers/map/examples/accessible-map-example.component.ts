@@ -1,10 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { MatButton } from '@angular/material/button';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+import { RouterLink } from '@angular/router';
+
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-accessible-map-example',

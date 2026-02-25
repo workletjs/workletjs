@@ -1,14 +1,16 @@
 import { ChangeDetectionStrategy, Component, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
-import { WolMapComponent, WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+
+import { getRenderPixel } from 'ol/render';
+import RenderEvent from 'ol/render/Event';
+import { Size } from 'ol/size';
+
 import { WolWebGLTileLayerModule } from '@workletjs/ngx-openlayers/layer/webgl-tile';
+import { WolMapComponent, WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolImageTileSourceModule } from '@workletjs/ngx-openlayers/source/image-tile';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
-import { getRenderPixel } from 'ol/render';
-import { Size } from 'ol/size';
-import RenderEvent from 'ol/render/Event';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-webgl-layer-swipe-example',

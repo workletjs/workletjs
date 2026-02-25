@@ -1,16 +1,18 @@
 import { inject } from '@angular/core';
-import { WolHeatmapLayerComponent } from '@workletjs/ngx-openlayers/layer/heatmap';
-import { WolVectorLayerComponent } from '@workletjs/ngx-openlayers/layer/vector';
-import { WolVectorImageLayerComponent } from '@workletjs/ngx-openlayers/layer/vector-image';
-import { WolWebGLVectorLayerComponent } from '@workletjs/ngx-openlayers/layer/webgl-vector';
-import { WolClusterSourceComponent } from '@workletjs/ngx-openlayers/source/cluster';
+
 import { FeatureLike } from 'ol/Feature';
 import Heatmap from 'ol/layer/Heatmap';
 import VectorLayer from 'ol/layer/Vector';
 import VectorImageLayer from 'ol/layer/VectorImage';
 import WebGLVectorLayer from 'ol/layer/WebGLVector';
-import VectorSource from 'ol/source/Vector';
 import Cluster from 'ol/source/Cluster';
+import VectorSource from 'ol/source/Vector';
+
+import { WolHeatmapLayerComponent } from '@workletjs/ngx-openlayers/layer/heatmap';
+import { WolVectorLayerComponent } from '@workletjs/ngx-openlayers/layer/vector';
+import { WolVectorImageLayerComponent } from '@workletjs/ngx-openlayers/layer/vector-image';
+import { WolWebGLVectorLayerComponent } from '@workletjs/ngx-openlayers/layer/webgl-vector';
+import { WolClusterSourceComponent } from '@workletjs/ngx-openlayers/source/cluster';
 
 export type DisposeRef = () => void;
 

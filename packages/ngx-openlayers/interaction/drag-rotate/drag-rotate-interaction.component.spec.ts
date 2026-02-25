@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolDragRotateInteractionComponent } from './drag-rotate-interaction.component';
 
 describe('WolDragRotateInteractionComponent', () => {

@@ -1,29 +1,31 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
-  input,
   OnChanges,
-  output,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  output,
 } from '@angular/core';
-import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
-import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
-import { NearestDirectionFunction } from 'ol/array';
-import { EventsKey } from 'ol/events';
+
+import ImageTile from 'ol/ImageTile';
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
+import { LoadFunction } from 'ol/Tile';
+import { NearestDirectionFunction } from 'ol/array';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
 import { ProjectionLike } from 'ol/proj';
 import { AttributionLike } from 'ol/source/Source';
 import { TileSourceEvent } from 'ol/source/Tile';
-import { LoadFunction } from 'ol/Tile';
-import ImageTile from 'ol/ImageTile';
-import BaseEvent from 'ol/events/Event';
-import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import WMTS, { RequestEncoding } from 'ol/source/WMTS';
+import WMTSTileGrid from 'ol/tilegrid/WMTS';
+
+import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
+import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
 
 @Component({
   selector: 'wol-wmts-source',

@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+
+import { getCenter } from 'ol/extent';
+import { Projection } from 'ol/proj';
+
 import { WolImageLayerModule } from '@workletjs/ngx-openlayers/layer/image';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 import { WolImageStaticSourceModule } from '@workletjs/ngx-openlayers/source/image-static';
-import { Projection } from 'ol/proj';
-import { getCenter } from 'ol/extent';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-static-image-example',

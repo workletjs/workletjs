@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolImageStaticSourceComponent } from './image-static-source.component';
 
 describe('WolImageStaticSourceComponent', () => {

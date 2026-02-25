@@ -1,24 +1,24 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
   signal,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
 
+import { ObjectEvent } from 'ol/Object';
+import { unByKey } from 'ol/Observable';
 import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
 import { Extent } from 'ol/extent';
 import FlowLayer, { SourceType, Style } from 'ol/layer/Flow';
-import { ObjectEvent } from 'ol/Object';
-import { unByKey } from 'ol/Observable';
 import RenderEvent from 'ol/render/Event';
 
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';

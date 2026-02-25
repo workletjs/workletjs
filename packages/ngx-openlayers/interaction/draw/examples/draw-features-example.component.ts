@@ -1,19 +1,21 @@
 import { ChangeDetectionStrategy, Component, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+
+import { Type } from 'ol/geom/Geometry';
+
 import {
   WolDrawInteractionComponent,
   WolDrawInteractionModule,
 } from '@workletjs/ngx-openlayers/interaction/draw';
-import { WolVectorLayerModule } from '@workletjs/ngx-openlayers/layer/vector';
-import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolVectorLayerModule } from '@workletjs/ngx-openlayers/layer/vector';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
-import { Type } from 'ol/geom/Geometry';
+import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-draw-features-example',

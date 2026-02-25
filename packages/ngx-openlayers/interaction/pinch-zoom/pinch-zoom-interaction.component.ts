@@ -1,24 +1,26 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
   signal,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
-import { EventsKey } from 'ol/events';
+
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
+import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
 import PinchZoom from 'ol/interaction/PinchZoom';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
 @Component({
   selector: 'wol-pinch-zoom-interaction',

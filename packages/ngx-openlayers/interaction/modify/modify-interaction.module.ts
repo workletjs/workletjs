@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolModifyInteractionComponent } from './modify-interaction.component';
 
 @NgModule({

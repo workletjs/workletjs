@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolPinchRotateInteractionComponent } from './pinch-rotate-interaction.component';
 
 @NgModule({

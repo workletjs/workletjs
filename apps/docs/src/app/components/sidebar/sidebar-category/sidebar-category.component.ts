@@ -1,6 +1,3 @@
-import { ChangeDetectionStrategy, Component, inject, input, model } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router } from '@angular/router';
 import { NgDocNavigation, NgDocRouteActiveDirective } from '@ng-doc/app';
 import {
   NgDocContent,
@@ -12,6 +9,11 @@ import {
   NgDocTextLeftDirective,
 } from '@ng-doc/ui-kit';
 import { PolymorpheusModule } from '@tinkoff/ng-polymorpheus';
+
+import { ChangeDetectionStrategy, Component, inject, input, model } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router } from '@angular/router';
+
 import { filter } from 'rxjs';
 
 @Component({

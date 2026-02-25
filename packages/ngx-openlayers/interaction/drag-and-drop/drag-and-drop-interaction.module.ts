@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolDragAndDropInteractionComponent } from './drag-and-drop-interaction.component';
 
 @NgModule({

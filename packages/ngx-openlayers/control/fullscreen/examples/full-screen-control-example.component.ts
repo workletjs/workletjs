@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+
+import { defaults } from 'ol/control/defaults';
+
 import { WolFullScreenControlModule } from '@workletjs/ngx-openlayers/control/fullscreen';
 import { WolWebGLTileLayerModule } from '@workletjs/ngx-openlayers/layer/webgl-tile';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolImageTileSourceModule } from '@workletjs/ngx-openlayers/source/image-tile';
-import { defaults } from 'ol/control/defaults';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-full-screen-control-example',

@@ -1,15 +1,17 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
+  afterNextRender,
   signal,
   viewChild,
 } from '@angular/core';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewComponent, WolViewModule } from '@workletjs/ngx-openlayers/view';
-import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
-import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
+
 import View from 'ol/View';
+
+import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
+import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
+import { WolViewComponent, WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-preload-tiles-example',

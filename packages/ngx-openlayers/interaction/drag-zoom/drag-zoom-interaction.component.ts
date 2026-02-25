@@ -1,25 +1,27 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
-import { EventsKey } from 'ol/events';
-import { Condition } from 'ol/events/condition';
+
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
-import { DragBoxEvent } from 'ol/interaction/DragBox';
+import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
+import { Condition } from 'ol/events/condition';
+import { DragBoxEvent } from 'ol/interaction/DragBox';
 import DragZoom from 'ol/interaction/DragZoom';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
 @Component({
   selector: 'wol-drag-zoom-interaction',

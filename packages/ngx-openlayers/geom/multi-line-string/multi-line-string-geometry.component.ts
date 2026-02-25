@@ -1,27 +1,29 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
-  input,
   OnChanges,
-  output,
-  signal,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  output,
+  signal,
 } from '@angular/core';
-import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
-import { useGeometryHostRef } from '@workletjs/ngx-openlayers/geom/geometry';
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import { GeometryLayout } from 'ol/geom/Geometry';
+
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
+import { extend } from 'ol/array';
+import { Coordinate } from 'ol/coordinate';
+import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
+import { GeometryLayout } from 'ol/geom/Geometry';
 import LineString from 'ol/geom/LineString';
 import MultiLineString from 'ol/geom/MultiLineString';
-import { extend } from 'ol/array';
+
+import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
+import { useGeometryHostRef } from '@workletjs/ngx-openlayers/geom/geometry';
 
 @Component({
   selector: 'wol-multi-line-string-geometry',

@@ -1,25 +1,27 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
-import { EventsKey } from 'ol/events';
-import { Condition } from 'ol/events/condition';
+
+import MapBrowserEvent from 'ol/MapBrowserEvent';
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
+import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
+import { Condition } from 'ol/events/condition';
 import DragBox, { DragBoxEvent, EndCondition } from 'ol/interaction/DragBox';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
 @Component({
   selector: 'wol-drag-box-interaction',

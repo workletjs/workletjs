@@ -1,27 +1,29 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
-import { Extent } from 'ol/extent';
-import { EventsKey } from 'ol/events';
+
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
+import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
+import { Extent } from 'ol/extent';
+import Graticule from 'ol/layer/Graticule';
 import RenderEvent from 'ol/render/Event';
 import Stroke from 'ol/style/Stroke';
 import Text from 'ol/style/Text';
-import Graticule from 'ol/layer/Graticule';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 
 @Component({
   selector: 'wol-graticule-layer',

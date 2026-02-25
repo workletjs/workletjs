@@ -1,19 +1,22 @@
+import { PMTiles } from 'pmtiles';
+
 import { ChangeDetectionStrategy, Component, computed, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
+
+import MapBrowserEvent from 'ol/MapBrowserEvent';
+import { Coordinate } from 'ol/coordinate';
+import { ExpressionValue } from 'ol/expr/expression';
+import { useGeographic } from 'ol/proj';
+import { Loader } from 'ol/source/DataTile';
+
 import {
   WolWebGLTileLayerComponent,
   WolWebGLTileLayerModule,
 } from '@workletjs/ngx-openlayers/layer/webgl-tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 import { WolDataTileSourceModule } from '@workletjs/ngx-openlayers/source/data-tile';
-import { PMTiles } from 'pmtiles';
-import { ExpressionValue } from 'ol/expr/expression';
-import { Loader } from 'ol/source/DataTile';
-import { Coordinate } from 'ol/coordinate';
-import { useGeographic } from 'ol/proj';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-pmtiles-shaded-relief-example',

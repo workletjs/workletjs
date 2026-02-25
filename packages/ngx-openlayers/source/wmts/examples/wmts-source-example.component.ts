@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+import { Extent, getTopLeft, getWidth } from 'ol/extent';
+import { ProjectionLike, get as getProjection } from 'ol/proj';
+import WMTSTileGrid from 'ol/tilegrid/WMTS';
+
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
 import { WolWMTSSourceModule } from '@workletjs/ngx-openlayers/source/wmts';
-import { get as getProjection, ProjectionLike } from 'ol/proj';
-import { Extent, getTopLeft, getWidth } from 'ol/extent';
-import WMTSTileGrid from 'ol/tilegrid/WMTS';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-wmts-source-example',

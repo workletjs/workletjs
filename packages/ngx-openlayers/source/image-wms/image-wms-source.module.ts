@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolImageWMSSourceComponent } from './image-wms-source.component';
 
 @NgModule({

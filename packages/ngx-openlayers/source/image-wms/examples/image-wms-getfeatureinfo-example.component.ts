@@ -1,14 +1,16 @@
+import { httpResource } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, inject, signal, viewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+
+import MapBrowserEvent from 'ol/MapBrowserEvent';
+
 import { WolImageLayerComponent, WolImageLayerModule } from '@workletjs/ngx-openlayers/layer/image';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 import {
   WolImageWMSSourceComponent,
   WolImageWMSSourceModule,
 } from '@workletjs/ngx-openlayers/source/image-wms';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
-import { httpResource } from '@angular/common/http';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-image-wms-getfeatureinfo-example',

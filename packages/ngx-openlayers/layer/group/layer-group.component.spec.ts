@@ -1,21 +1,22 @@
+import { vi } from 'vitest';
+
 import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { vi } from 'vitest';
-
-import { Extent } from 'ol/extent';
+import Collection from 'ol/Collection';
+import Map from 'ol/Map';
 import { ObjectEvent } from 'ol/Object';
 import BaseEvent from 'ol/events/Event';
+import { Extent } from 'ol/extent';
 import BaseLayer from 'ol/layer/Base';
-import Collection from 'ol/Collection';
 import LayerGroup from 'ol/layer/Group';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
-import Map from 'ol/Map';
 
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
+
 import { WolLayerGroupComponent } from './layer-group.component';
 
 describe('WolLayerGroupComponent', () => {

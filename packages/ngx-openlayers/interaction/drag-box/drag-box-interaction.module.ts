@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolDragBoxInteractionComponent } from './drag-box-interaction.component';
 
 @NgModule({

@@ -1,26 +1,29 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
-  input,
   OnChanges,
-  output,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  output,
 } from '@angular/core';
-import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
+
+import Collection from 'ol/Collection';
+import { ObjectEvent } from 'ol/Object';
+import { unByKey } from 'ol/Observable';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+import Layer from 'ol/layer/Layer';
 import { Source } from 'ol/source';
 import { ImageSourceEvent } from 'ol/source/Image';
-import { AttributionLike } from 'ol/source/Source';
-import { ObjectEvent } from 'ol/Object';
-import { EventsKey } from 'ol/events';
-import { unByKey } from 'ol/Observable';
-import BaseEvent from 'ol/events/Event';
-import Collection from 'ol/Collection';
-import Layer from 'ol/layer/Layer';
 import RasterSource, { Operation, RasterOperationType, RasterSourceEvent } from 'ol/source/Raster';
+import { AttributionLike } from 'ol/source/Source';
+
+import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
+
 import { useRasterSourceHostRef } from './use-raster-source-host-ref';
 import { createLayers } from './utils';
 

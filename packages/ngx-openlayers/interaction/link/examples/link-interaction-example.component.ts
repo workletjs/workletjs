@@ -1,20 +1,21 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
+  afterNextRender,
   signal,
   viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+
 import {
   WolLinkInteractionComponent,
   WolLinkInteractionModule,
 } from '@workletjs/ngx-openlayers/interaction/link';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-link-interaction-example',

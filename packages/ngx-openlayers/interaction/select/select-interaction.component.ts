@@ -1,29 +1,31 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
   signal,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
-import { EventsKey } from 'ol/events';
-import { Condition } from 'ol/events/condition';
-import { ObjectEvent } from 'ol/Object';
-import { unByKey } from 'ol/Observable';
-import { StyleLike } from 'ol/style/Style';
-import BaseEvent from 'ol/events/Event';
+
 import Collection from 'ol/Collection';
 import Feature from 'ol/Feature';
-import Layer from 'ol/layer/Layer';
+import { ObjectEvent } from 'ol/Object';
+import { unByKey } from 'ol/Observable';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+import { Condition } from 'ol/events/condition';
 import Select, { FilterFunction, SelectEvent } from 'ol/interaction/Select';
+import Layer from 'ol/layer/Layer';
+import { StyleLike } from 'ol/style/Style';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
 @Component({
   selector: 'wol-select-interaction',

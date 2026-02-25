@@ -1,22 +1,23 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ViewEncapsulation,
   effect,
   signal,
   viewChild,
-  ViewEncapsulation,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+
 import {
   WolZoomSliderControlComponent,
   WolZoomSliderControlModule,
 } from '@workletjs/ngx-openlayers/control/zoom-slider';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-zoom-slider-control-example',

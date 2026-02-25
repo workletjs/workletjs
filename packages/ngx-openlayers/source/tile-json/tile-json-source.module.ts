@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolTileJSONSourceComponent } from './tile-json-source.component';
 
 @NgModule({

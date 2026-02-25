@@ -1,4 +1,5 @@
 import { Coordinate } from 'ol/coordinate';
+
 import { WolRotatePipe } from './rotate.pipe';
 
 describe('WolRotatePipe', () => {

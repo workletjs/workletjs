@@ -1,29 +1,31 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
-import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
-import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
-import { Extent } from 'ol/extent';
-import { EventsKey } from 'ol/events';
-import { Geometry } from 'ol/geom';
+
+import Feature, { FeatureLike } from 'ol/Feature';
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
-import { BooleanExpression, NumberExpression } from 'ol/style/flat';
-import Feature, { FeatureLike } from 'ol/Feature';
+import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
-import RenderEvent from 'ol/render/Event';
+import { Extent } from 'ol/extent';
+import { Geometry } from 'ol/geom';
 import Heatmap, { WeightExpression } from 'ol/layer/Heatmap';
+import RenderEvent from 'ol/render/Event';
 import VectorSource from 'ol/source/Vector';
+import { BooleanExpression, NumberExpression } from 'ol/style/flat';
+
+import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
+import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 
 @Component({
   selector: 'wol-heatmap-layer',

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolFromLonLatPipe } from './from-lon-lat.pipe';
 import { WolToLonLatPipe } from './to-lon-lat.pipe';
 import { WolTransformExtentPipe } from './transform-extent.pipe';

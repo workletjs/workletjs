@@ -1,7 +1,9 @@
 import { inject } from '@angular/core';
-import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
-import Control from 'ol/control/Control';
+
 import Map from 'ol/Map';
+import Control from 'ol/control/Control';
+
+import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 
 export interface ControlHostRef<T extends Control> {
   addControl(control: T): void;

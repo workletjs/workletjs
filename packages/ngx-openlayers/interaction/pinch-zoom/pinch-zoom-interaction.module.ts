@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolPinchZoomInteractionComponent } from './pinch-zoom-interaction.component';
 
 @NgModule({

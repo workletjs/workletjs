@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolSentinelHubSourceComponent } from './sentinel-hub-source.component';
 
 @NgModule({

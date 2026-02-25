@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolZoomifySourceComponent } from './zoomify-source.component';
 
 describe('WolZoomifySourceComponent', () => {

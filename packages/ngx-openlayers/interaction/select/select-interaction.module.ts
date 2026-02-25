@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolSelectInteractionComponent } from './select-interaction.component';
 
 @NgModule({

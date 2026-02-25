@@ -1,4 +1,5 @@
 import { NgDocCategory } from '@ng-doc/core';
+
 import ComponentsCategory from '../ng-doc.category';
 
 const SourcesCategory: NgDocCategory = {

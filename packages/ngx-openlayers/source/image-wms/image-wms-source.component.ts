@@ -1,26 +1,28 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
-  input,
   OnChanges,
-  output,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  output,
 } from '@angular/core';
-import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
-import { DisposeRef, useImageSourceHostRef } from '@workletjs/ngx-openlayers/source/image';
+
 import { LoadFunction } from 'ol/Image';
+import { unByKey } from 'ol/Observable';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
 import { ProjectionLike } from 'ol/proj';
 import { ImageSourceEvent } from 'ol/source/Image';
+import ImageWMS from 'ol/source/ImageWMS';
 import { AttributionLike } from 'ol/source/Source';
 import { ServerType } from 'ol/source/wms';
-import { EventsKey } from 'ol/events';
-import { unByKey } from 'ol/Observable';
-import BaseEvent from 'ol/events/Event';
-import ImageWMS from 'ol/source/ImageWMS';
+
+import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
+import { DisposeRef, useImageSourceHostRef } from '@workletjs/ngx-openlayers/source/image';
 
 @Component({
   selector: 'wol-image-wms-source',

@@ -1,8 +1,10 @@
 import { inject } from '@angular/core';
-import { WolVectorLayerComponent } from '@workletjs/ngx-openlayers/layer/vector';
+
 import { FeatureLike } from 'ol/Feature';
 import VectorLayer from 'ol/layer/Vector';
 import Cluster from 'ol/source/Cluster';
+
+import { WolVectorLayerComponent } from '@workletjs/ngx-openlayers/layer/vector';
 
 export type DisposeRef = () => void;
 

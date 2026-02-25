@@ -1,31 +1,33 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
-  input,
   OnChanges,
-  output,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  output,
 } from '@angular/core';
+
+import { FeatureLike } from 'ol/Feature';
+import { ObjectEvent } from 'ol/Object';
+import { unByKey } from 'ol/Observable';
+import VectorTile from 'ol/VectorTile';
+import { NearestDirectionFunction } from 'ol/array';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+import FeatureFormat from 'ol/format/Feature';
+import { OGCVectorTile } from 'ol/source';
+import { AttributionLike } from 'ol/source/Source';
+import { TileSourceEvent } from 'ol/source/Tile';
+
 import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
 import {
   DisposeRef,
   useVectorTileSourceHostRef,
 } from '@workletjs/ngx-openlayers/source/vector-tile';
-import { NearestDirectionFunction } from 'ol/array';
-import { EventsKey } from 'ol/events';
-import { FeatureLike } from 'ol/Feature';
-import { ObjectEvent } from 'ol/Object';
-import { unByKey } from 'ol/Observable';
-import { OGCVectorTile } from 'ol/source';
-import { AttributionLike } from 'ol/source/Source';
-import { TileSourceEvent } from 'ol/source/Tile';
-import BaseEvent from 'ol/events/Event';
-import FeatureFormat from 'ol/format/Feature';
-import VectorTile from 'ol/VectorTile';
 
 @Component({
   selector: 'wol-ogc-vector-tile-source',

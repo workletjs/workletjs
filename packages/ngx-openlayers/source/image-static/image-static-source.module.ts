@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolImageStaticSourceComponent } from './image-static-source.component';
 
 @NgModule({

@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+
+import { getCenter } from 'ol/extent';
+import { transformExtent } from 'ol/proj';
+
+import { WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 import { WolTileWMSSourceModule } from '@workletjs/ngx-openlayers/source/tile-wms';
-import { WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
-import { transformExtent } from 'ol/proj';
-import { getCenter } from 'ol/extent';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-wms-time-example',

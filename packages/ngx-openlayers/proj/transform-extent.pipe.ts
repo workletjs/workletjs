@@ -1,7 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isNil } from '@workletjs/ngx-openlayers/core/utils';
+
 import { Extent } from 'ol/extent';
 import { ProjectionLike, transformExtent } from 'ol/proj';
+
+import { isNil } from '@workletjs/ngx-openlayers/core/utils';
 
 @Pipe({
   name: 'wolTransformExtent',

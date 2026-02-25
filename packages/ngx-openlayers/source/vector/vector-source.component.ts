@@ -1,28 +1,31 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
-  input,
   OnChanges,
-  output,
-  signal,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  output,
+  signal,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+
 import Collection from 'ol/Collection';
-import { EventsKey } from 'ol/events';
-import { FeatureLoader, FeatureUrlFunction } from 'ol/featureloader';
-import { Geometry } from 'ol/geom';
+import Feature, { FeatureLike } from 'ol/Feature';
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
-import { AttributionLike } from 'ol/source/Source';
+import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
-import Feature, { FeatureLike } from 'ol/Feature';
+import { FeatureLoader, FeatureUrlFunction } from 'ol/featureloader';
 import FeatureFormat from 'ol/format/Feature';
+import { Geometry } from 'ol/geom';
+import { AttributionLike } from 'ol/source/Source';
 import VectorSource, { LoadingStrategy, VectorSourceEvent } from 'ol/source/Vector';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+
 import { DisposeRef, useVectorSourceHostRef } from './use-vector-source-host-ref';
 
 @Component({

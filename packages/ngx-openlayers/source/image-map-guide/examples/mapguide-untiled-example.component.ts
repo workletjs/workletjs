@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+
 import { WolImageLayerModule } from '@workletjs/ngx-openlayers/layer/image';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 import { WolImageMapGuideSourceModule } from '@workletjs/ngx-openlayers/source/image-map-guide';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-mapguide-untiled-example',

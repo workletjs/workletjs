@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   DestroyRef,
+  computed,
   inject,
   signal,
   viewChild,
@@ -12,20 +12,22 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { WolMapComponent, WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
-import { WolDragAndDropInteractionModule } from '@workletjs/ngx-openlayers/interaction/drag-and-drop';
-import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
-import { WolVectorLayerModule } from '@workletjs/ngx-openlayers/layer/vector';
-import { WolImageTileSourceModule } from '@workletjs/ngx-openlayers/source/image-tile';
-import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
-import { DragAndDropEvent } from 'ol/interaction/DragAndDrop';
+
 import GPX from 'ol/format/GPX';
 import GeoJSON from 'ol/format/GeoJSON';
 import IGC from 'ol/format/IGC';
 import KML from 'ol/format/KML';
 import TopoJSON from 'ol/format/TopoJSON';
+import { DragAndDropEvent } from 'ol/interaction/DragAndDrop';
 import VectorSource from 'ol/source/Vector';
+
+import { WolDragAndDropInteractionModule } from '@workletjs/ngx-openlayers/interaction/drag-and-drop';
+import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolVectorLayerModule } from '@workletjs/ngx-openlayers/layer/vector';
+import { WolMapComponent, WolMapModule } from '@workletjs/ngx-openlayers/map';
+import { WolImageTileSourceModule } from '@workletjs/ngx-openlayers/source/image-tile';
+import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-drag-and-drop-interaction-example',

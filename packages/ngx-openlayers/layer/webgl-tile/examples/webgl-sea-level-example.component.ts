@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
+
+import { Coordinate } from 'ol/coordinate';
+
+import { WolWebGLTileLayerModule } from '@workletjs/ngx-openlayers/layer/webgl-tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
-import { WolWebGLTileLayerModule } from '@workletjs/ngx-openlayers/layer/webgl-tile';
 import { WolImageTileSourceModule } from '@workletjs/ngx-openlayers/source/image-tile';
-import { Coordinate } from 'ol/coordinate';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-webgl-sea-level-example',

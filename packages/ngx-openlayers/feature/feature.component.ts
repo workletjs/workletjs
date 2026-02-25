@@ -1,27 +1,30 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
   signal,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
+
+import Feature from 'ol/Feature';
+import { ObjectEvent } from 'ol/Object';
+import { unByKey } from 'ol/Observable';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+import { Geometry } from 'ol/geom';
+import { StyleLike } from 'ol/style/Style';
+
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { isNotNil } from '@workletjs/ngx-openlayers/core/utils';
-import { EventsKey } from 'ol/events';
-import { Geometry } from 'ol/geom';
-import { ObjectEvent } from 'ol/Object';
-import { StyleLike } from 'ol/style/Style';
-import Feature from 'ol/Feature';
-import BaseEvent from 'ol/events/Event';
+
 import { useFeatureHostRef } from './feature-host-ref';
-import { unByKey } from 'ol/Observable';
 
 @Component({
   selector: 'wol-feature',

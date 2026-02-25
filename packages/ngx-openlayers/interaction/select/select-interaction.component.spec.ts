@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolSelectInteractionComponent } from './select-interaction.component';
 
 describe('WolSelectInteractionComponent', () => {

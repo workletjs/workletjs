@@ -1,28 +1,30 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
-  input,
   OnChanges,
-  output,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  output,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
-import { NearestDirectionFunction } from 'ol/array';
-import { Extent } from 'ol/extent';
-import { EventsKey } from 'ol/events';
+
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
+import { NearestDirectionFunction } from 'ol/array';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+import { Extent } from 'ol/extent';
+import { Versions } from 'ol/format/IIIFInfo';
 import { ProjectionLike } from 'ol/proj';
 import { Size } from 'ol/size';
-import { Versions } from 'ol/format/IIIFInfo';
-import { AttributionLike, State } from 'ol/source/Source';
-import BaseEvent from 'ol/events/Event';
 import IIIF from 'ol/source/IIIF';
+import { AttributionLike, State } from 'ol/source/Source';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
 
 @Component({
   selector: 'wol-iiif-source',

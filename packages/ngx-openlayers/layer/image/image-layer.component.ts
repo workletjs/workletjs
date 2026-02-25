@@ -1,27 +1,29 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
-import { Extent } from 'ol/extent';
-import { ObjectEvent } from 'ol/Object';
-import { EventsKey } from 'ol/events';
-import { unByKey } from 'ol/Observable';
-import BaseEvent from 'ol/events/Event';
-import ImageLayer from 'ol/layer/Image';
+
 import Map from 'ol/Map';
+import { ObjectEvent } from 'ol/Object';
+import { unByKey } from 'ol/Observable';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+import { Extent } from 'ol/extent';
+import ImageLayer from 'ol/layer/Image';
 import RenderEvent from 'ol/render/Event';
 import ImageSource from 'ol/source/Image';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 
 @Component({
   selector: 'wol-image-layer',

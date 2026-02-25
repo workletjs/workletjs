@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolKeyboardZoomInteractionComponent } from './keyboard-zoom-interaction.component';
 
 describe('WolKeyboardZoomInteractionComponent', () => {

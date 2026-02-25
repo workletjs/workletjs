@@ -2,13 +2,15 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
-import { WolZoomifySourceModule } from '@workletjs/ngx-openlayers/source/zoomify';
+
+import View, { ViewOptions } from 'ol/View';
 import { Extent } from 'ol/extent';
 import TileSource from 'ol/source/Tile';
-import View, { ViewOptions } from 'ol/View';
+
+import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
+import { WolZoomifySourceModule } from '@workletjs/ngx-openlayers/source/zoomify';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-zoomify-source-example',

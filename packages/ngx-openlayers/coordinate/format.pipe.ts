@@ -1,6 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isNil } from '@workletjs/ngx-openlayers/core/utils';
+
 import { Coordinate, format } from 'ol/coordinate';
+
+import { isNil } from '@workletjs/ngx-openlayers/core/utils';
 
 /**
  * Angular pipe that transforms the given

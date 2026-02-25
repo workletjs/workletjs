@@ -33,7 +33,8 @@ constructs into Angular components.
 **Without Workletjs (Imperative):**
 
 ```typescript {10,21-32} name="app.component.ts" icon="angular"
-import { afterNextRender, Component } from '@angular/core';
+import { Component, afterNextRender } from '@angular/core';
+
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
@@ -76,10 +77,11 @@ export class AppComponent {
 
 ```typescript {11-16} name="app.component.ts" icon="angular"
 import { Component } from '@angular/core';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'app-root',

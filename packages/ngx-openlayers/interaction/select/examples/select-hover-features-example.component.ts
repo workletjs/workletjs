@@ -1,15 +1,17 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
-import { WolSelectInteractionModule } from '@workletjs/ngx-openlayers/interaction/select';
-import { WolVectorLayerModule } from '@workletjs/ngx-openlayers/layer/vector';
-import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
+
+import { pointerMove } from 'ol/events/condition';
 import GeoJSON from 'ol/format/GeoJSON';
-import Style, { StyleFunction } from 'ol/style/Style';
+import { SelectEvent } from 'ol/interaction/Select';
 import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
-import { pointerMove } from 'ol/events/condition';
-import { SelectEvent } from 'ol/interaction/Select';
+import Style, { StyleFunction } from 'ol/style/Style';
+
+import { WolSelectInteractionModule } from '@workletjs/ngx-openlayers/interaction/select';
+import { WolVectorLayerModule } from '@workletjs/ngx-openlayers/layer/vector';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
+import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-select-hover-features-example',

@@ -1,25 +1,28 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
-  input,
   OnChanges,
-  output,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  output,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { EventsKey } from 'ol/events';
+
+import Feature, { FeatureLike } from 'ol/Feature';
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
-import { AttributionLike } from 'ol/source/Source';
+import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
-import Feature, { FeatureLike } from 'ol/Feature';
 import Point from 'ol/geom/Point';
-import VectorSource, { VectorSourceEvent } from 'ol/source/Vector';
 import Cluster, { GeometryFunction } from 'ol/source/Cluster';
+import { AttributionLike } from 'ol/source/Source';
+import VectorSource, { VectorSourceEvent } from 'ol/source/Vector';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+
 import { DisposeRef, useClusterSourceHostRef } from './use-cluster-source-host-ref';
 
 @Component({

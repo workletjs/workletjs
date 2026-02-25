@@ -2,13 +2,14 @@ import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+
 import { WolLayerGroupModule } from '@workletjs/ngx-openlayers/layer/group';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
+import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
 import { WolTileJSONSourceModule } from '@workletjs/ngx-openlayers/source/tile-json';
-import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-layer-groups-example',

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolVectorSourceComponent } from './vector-source.component';
 
 @NgModule({

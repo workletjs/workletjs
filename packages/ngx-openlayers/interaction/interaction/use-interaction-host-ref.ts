@@ -1,7 +1,9 @@
 import { inject } from '@angular/core';
-import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
-import Interaction from 'ol/interaction/Interaction';
+
 import Map from 'ol/Map';
+import Interaction from 'ol/interaction/Interaction';
+
+import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 
 export interface InteractionHostRef<T extends Interaction> {
   addInteraction(interaction: T): void;

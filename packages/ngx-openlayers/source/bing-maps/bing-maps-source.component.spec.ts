@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolBingMapsSourceComponent } from './bing-maps-source.component';
 
 describe('WolBingMapsSourceComponent', () => {

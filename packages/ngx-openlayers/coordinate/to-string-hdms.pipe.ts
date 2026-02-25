@@ -1,6 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isNil } from '@workletjs/ngx-openlayers/core/utils';
+
 import { Coordinate, toStringHDMS } from 'ol/coordinate';
+
+import { isNil } from '@workletjs/ngx-openlayers/core/utils';
 
 /**
  * Angular pipe that formats a geographic coordinate with the hemisphere, degrees, minutes, and seconds.

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolZoomSliderControlComponent } from './zoom-slider-control.component';
 
 @NgModule({

@@ -1,7 +1,9 @@
-import { Location, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NG_DOC_CONTEXT, NgDocNavigation } from '@ng-doc/app';
 import { NgDocBindPipe, NgDocExecutePipe } from '@ng-doc/ui-kit';
+
+import { Location, NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+
 import { SidebarCategoryComponent } from './sidebar-category';
 import { SidebarItemComponent } from './sidebar-item';
 

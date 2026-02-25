@@ -1,26 +1,28 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
-  input,
   OnChanges,
-  output,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  output,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { DisposeRef, useImageSourceHostRef } from '@workletjs/ngx-openlayers/source/image';
-import { Extent } from 'ol/extent';
+
 import { LoadFunction } from 'ol/Image';
+import { unByKey } from 'ol/Observable';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+import { Extent } from 'ol/extent';
 import { ProjectionLike } from 'ol/proj';
 import { ImageSourceEvent } from 'ol/source/Image';
-import { AttributionLike } from 'ol/source/Source';
-import { EventsKey } from 'ol/events';
-import { unByKey } from 'ol/Observable';
-import BaseEvent from 'ol/events/Event';
 import Static from 'ol/source/ImageStatic';
+import { AttributionLike } from 'ol/source/Source';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { DisposeRef, useImageSourceHostRef } from '@workletjs/ngx-openlayers/source/image';
 
 @Component({
   selector: 'wol-image-static-source',

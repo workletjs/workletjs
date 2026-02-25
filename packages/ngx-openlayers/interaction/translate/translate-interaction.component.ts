@@ -1,28 +1,30 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
   signal,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
-import { Condition } from 'ol/events/condition';
-import { EventsKey } from 'ol/events';
-import { ObjectEvent } from 'ol/Object';
-import { unByKey } from 'ol/Observable';
-import BaseEvent from 'ol/events/Event';
+
 import Collection from 'ol/Collection';
 import Feature from 'ol/Feature';
-import Layer from 'ol/layer/Layer';
+import { ObjectEvent } from 'ol/Object';
+import { unByKey } from 'ol/Observable';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+import { Condition } from 'ol/events/condition';
 import Translate, { FilterFunction, TranslateEvent } from 'ol/interaction/Translate';
+import Layer from 'ol/layer/Layer';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
 @Component({
   selector: 'wol-translate-interaction',

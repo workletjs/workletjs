@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { WolVectorSourceComponent } from './vector-source.component';
+
 import Feature from 'ol/Feature';
 import { Geometry } from 'ol/geom';
+
+import { WolVectorSourceComponent } from './vector-source.component';
 
 describe('WolVectorSourceComponent', () => {
   let component: WolVectorSourceComponent;

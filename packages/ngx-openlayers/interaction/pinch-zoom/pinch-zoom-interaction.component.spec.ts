@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolPinchZoomInteractionComponent } from './pinch-zoom-interaction.component';
 
 describe('WolPinchZoomInteractionComponent', () => {

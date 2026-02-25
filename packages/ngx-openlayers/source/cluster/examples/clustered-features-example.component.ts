@@ -1,25 +1,27 @@
 import { ChangeDetectionStrategy, Component, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
+
+import Feature from 'ol/Feature';
+import MapBrowserEvent from 'ol/MapBrowserEvent';
+import { boundingExtent } from 'ol/extent';
+import { Point } from 'ol/geom';
+import CircleStyle from 'ol/style/Circle';
+import Fill from 'ol/style/Fill';
+import Stroke from 'ol/style/Stroke';
+import Style, { StyleFunction } from 'ol/style/Style';
+import Text from 'ol/style/Text';
+
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
 import {
   WolVectorLayerComponent,
   WolVectorLayerModule,
 } from '@workletjs/ngx-openlayers/layer/vector';
 import { WolMapComponent, WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 import { WolClusterSourceModule } from '@workletjs/ngx-openlayers/source/cluster';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
 import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
-import Feature from 'ol/Feature';
-import { Point } from 'ol/geom';
-import CircleStyle from 'ol/style/Circle';
-import Style, { StyleFunction } from 'ol/style/Style';
-import Stroke from 'ol/style/Stroke';
-import Fill from 'ol/style/Fill';
-import Text from 'ol/style/Text';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
-import { boundingExtent } from 'ol/extent';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-clustered-features-example',

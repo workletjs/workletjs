@@ -1,9 +1,10 @@
 import { NgDocPage } from '@ng-doc/core';
+
 import SourcesCategory from '../../ng-doc/sources/ng-doc.category';
 import {
-  WolCloudOptimizedGeoTIFFExampleComponent,
   WolCOGBlobExampleComponent,
   WolCOGMathMultiSourceExampleComponent,
+  WolCloudOptimizedGeoTIFFExampleComponent,
   WolGeoTIFFReprojectionExampleComponent,
   WolGeoTIFFWithOverviewsExampleComponent,
 } from './examples';

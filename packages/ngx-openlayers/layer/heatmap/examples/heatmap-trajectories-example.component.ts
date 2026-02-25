@@ -3,15 +3,17 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+
+import GeoJSON from 'ol/format/GeoJSON';
+import { WeightExpression } from 'ol/layer/Heatmap';
+
 import { WolHeatmapLayerModule } from '@workletjs/ngx-openlayers/layer/heatmap';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
+import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
 import { WolStadiaMapsSourceModule } from '@workletjs/ngx-openlayers/source/stadia-maps';
 import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
-import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
-import { WeightExpression } from 'ol/layer/Heatmap';
-import GeoJSON from 'ol/format/GeoJSON';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-heatmap-trajectories-example',

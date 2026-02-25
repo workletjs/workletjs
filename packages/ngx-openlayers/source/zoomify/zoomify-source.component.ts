@@ -1,28 +1,30 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
-  input,
   OnChanges,
-  output,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  output,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
-import { NearestDirectionFunction } from 'ol/array';
-import { Extent } from 'ol/extent';
-import { EventsKey } from 'ol/events';
+
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
+import { NearestDirectionFunction } from 'ol/array';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+import { Extent } from 'ol/extent';
 import { ProjectionLike } from 'ol/proj';
 import { Size } from 'ol/size';
 import { AttributionLike } from 'ol/source/Source';
 import { TileSourceEvent } from 'ol/source/Tile';
-import BaseEvent from 'ol/events/Event';
 import Zoomify, { TierSizeCalculation } from 'ol/source/Zoomify';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
 
 @Component({
   selector: 'wol-zoomify-source',

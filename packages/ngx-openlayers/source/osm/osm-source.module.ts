@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolOSMSourceComponent } from './osm-source.component';
 
 @NgModule({

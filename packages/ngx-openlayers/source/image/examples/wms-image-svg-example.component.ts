@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+import { load } from 'ol/Image';
+import { createLoader } from 'ol/source/wms';
+
 import { WolImageLayerModule } from '@workletjs/ngx-openlayers/layer/image';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 import { WolImageSourceModule } from '@workletjs/ngx-openlayers/source/image';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
-import { createLoader } from 'ol/source/wms';
-import { load } from 'ol/Image';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-wms-image-svg-example',

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolFullScreenControlComponent } from './fullscreen-control.component';
 
 @NgModule({

@@ -1,31 +1,33 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
-import { Extent } from 'ol/extent';
-import { EventsKey } from 'ol/events';
+
+import Map from 'ol/Map';
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
-import { OrderFunction } from 'ol/render';
-import { FlatStyleLike } from 'ol/style/flat';
-import { StyleLike } from 'ol/style/Style';
-import { BackgroundColor } from 'ol/layer/Base';
+import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
+import { Extent } from 'ol/extent';
+import { BackgroundColor } from 'ol/layer/Base';
+import VectorLayer from 'ol/layer/Vector';
+import { OrderFunction } from 'ol/render';
 import RenderEvent from 'ol/render/Event';
 import VectorSource from 'ol/source/Vector';
-import VectorLayer from 'ol/layer/Vector';
-import Map from 'ol/Map';
+import { StyleLike } from 'ol/style/Style';
+import { FlatStyleLike } from 'ol/style/flat';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 
 @Component({
   selector: 'wol-vector-layer',

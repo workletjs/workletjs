@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolImageTileSourceComponent } from './image-tile-source.component';
 
 @NgModule({

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolAddPipe } from './add.pipe';
 import { WolFormatPipe } from './format.pipe';
 import { WolRotatePipe } from './rotate.pipe';

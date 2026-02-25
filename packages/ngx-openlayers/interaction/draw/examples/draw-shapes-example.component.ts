@@ -3,16 +3,18 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+
+import { Coordinate } from 'ol/coordinate';
+import { Polygon } from 'ol/geom';
+import { GeometryFunction, createBox, createRegularPolygon } from 'ol/interaction/Draw';
+
+import { WolDrawInteractionComponent } from '@workletjs/ngx-openlayers/interaction/draw';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
 import { WolVectorLayerModule } from '@workletjs/ngx-openlayers/layer/vector';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
 import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
 import { WolViewModule } from '@workletjs/ngx-openlayers/view';
-import { WolDrawInteractionComponent } from '@workletjs/ngx-openlayers/interaction/draw';
-import { Coordinate } from 'ol/coordinate';
-import { Polygon } from 'ol/geom';
-import { createBox, createRegularPolygon, GeometryFunction } from 'ol/interaction/Draw';
 
 @Component({
   selector: 'wol-draw-shapes-example',

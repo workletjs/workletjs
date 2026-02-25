@@ -1,26 +1,28 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
-  input,
   OnChanges,
-  output,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  output,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
-import { EventsKey } from 'ol/events';
+
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
-import { ProjectionLike } from 'ol/proj';
 import { LoadFunction } from 'ol/Tile';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+import { ProjectionLike } from 'ol/proj';
+import OGCMapTile from 'ol/source/OGCMapTile';
 import { AttributionLike } from 'ol/source/Source';
 import { TileSourceEvent } from 'ol/source/Tile';
-import BaseEvent from 'ol/events/Event';
-import OGCMapTile from 'ol/source/OGCMapTile';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
 
 @Component({
   selector: 'wol-ogc-map-tile-source',

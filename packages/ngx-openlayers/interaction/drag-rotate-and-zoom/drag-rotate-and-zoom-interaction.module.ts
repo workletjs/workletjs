@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolDragRotateAndZoomInteractionComponent } from './drag-rotate-and-zoom-interaction.component';
 
 @NgModule({

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolMultiLineStringGeometryComponent } from './multi-line-string-geometry.component';
 
 @NgModule({

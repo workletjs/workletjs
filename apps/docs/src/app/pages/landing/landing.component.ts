@@ -1,11 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import {
   NgDocButtonComponent,
   NgDocIconComponent,
   NgDocTextComponent,
   NgDocTextRightDirective,
 } from '@ng-doc/ui-kit';
+
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
 import { HeroBannerComponent } from './components';
 
 @Component({

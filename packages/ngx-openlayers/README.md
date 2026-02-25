@@ -82,6 +82,7 @@ Here is a simple map with an OSM source.
 
 ```ts
 import { Component } from '@angular/core';
+
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';

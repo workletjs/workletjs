@@ -1,7 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isNil } from '@workletjs/ngx-openlayers/core/utils';
+
 import { Coordinate } from 'ol/coordinate';
-import { fromLonLat, ProjectionLike } from 'ol/proj';
+import { ProjectionLike, fromLonLat } from 'ol/proj';
+
+import { isNil } from '@workletjs/ngx-openlayers/core/utils';
 
 /**
  * Angular pipe that converts geographic coordinates from longitude/latitude ([lon, lat] in degrees, EPSG:4326)

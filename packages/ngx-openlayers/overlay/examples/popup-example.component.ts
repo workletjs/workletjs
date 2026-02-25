@@ -1,4 +1,8 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+
+import MapBrowserEvent from 'ol/MapBrowserEvent';
+import { Coordinate } from 'ol/coordinate';
+
 import { WolCoordinateModule } from '@workletjs/ngx-openlayers/coordinate';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
@@ -6,8 +10,6 @@ import { WolOverlayModule } from '@workletjs/ngx-openlayers/overlay';
 import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
 import { WolImageTileSourceModule } from '@workletjs/ngx-openlayers/source/image-tile';
 import { WolViewModule } from '@workletjs/ngx-openlayers/view';
-import { Coordinate } from 'ol/coordinate';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
 
 @Component({
   selector: 'wol-popup-example',

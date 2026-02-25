@@ -1,8 +1,10 @@
-import { inject, InjectOptions } from '@angular/core';
-import { WolVectorTileLayerComponent } from '@workletjs/ngx-openlayers/layer/vector-tile';
+import { InjectOptions, inject } from '@angular/core';
+
 import { FeatureLike } from 'ol/Feature';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTileSource from 'ol/source/VectorTile';
+
+import { WolVectorTileLayerComponent } from '@workletjs/ngx-openlayers/layer/vector-tile';
 
 export type DisposeRef = () => void;
 

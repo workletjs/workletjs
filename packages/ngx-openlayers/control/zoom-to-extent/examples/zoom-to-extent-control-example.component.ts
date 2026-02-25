@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+
 import { WolZoomToExtentControlModule } from '@workletjs/ngx-openlayers/control/zoom-to-extent';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
-import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
+import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-zoom-to-extent-control-example',

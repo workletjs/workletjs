@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolRotateControlComponent } from './rotate-control.component';
 
 describe('WolRotateControlComponent', () => {

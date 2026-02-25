@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolSnapInteractionComponent } from './snap-interaction.component';
 
 @NgModule({

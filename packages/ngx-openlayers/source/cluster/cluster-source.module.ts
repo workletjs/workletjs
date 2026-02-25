@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolClusterSourceComponent } from './cluster-source.component';
 
 @NgModule({

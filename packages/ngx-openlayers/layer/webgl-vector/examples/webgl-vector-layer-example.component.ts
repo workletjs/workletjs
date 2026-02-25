@@ -1,13 +1,15 @@
 import { ChangeDetectionStrategy, Component, computed, signal, viewChild } from '@angular/core';
-import { WolMapComponent, WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+
+import MapBrowserEvent from 'ol/MapBrowserEvent';
+import GeoJSON from 'ol/format/GeoJSON';
+import { FlatStyleLike, StyleVariables } from 'ol/style/flat';
+
 import { WolWebGLTileLayerModule } from '@workletjs/ngx-openlayers/layer/webgl-tile';
 import { WolWebGLVectorLayerModule } from '@workletjs/ngx-openlayers/layer/webgl-vector';
+import { WolMapComponent, WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
 import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
-import { FlatStyleLike, StyleVariables } from 'ol/style/flat';
-import GeoJSON from 'ol/format/GeoJSON';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-webgl-vector-layer-example',

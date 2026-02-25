@@ -1,26 +1,28 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
-  input,
   OnChanges,
-  output,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  output,
 } from '@angular/core';
+
+import { ObjectEvent } from 'ol/Object';
+import { unByKey } from 'ol/Observable';
+import { NearestDirectionFunction } from 'ol/array';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+import { ProjectionLike } from 'ol/proj';
+import TileSource, { TileSourceEvent } from 'ol/source/Tile';
+import TileDebug from 'ol/source/TileDebug';
+import { TileGrid } from 'ol/tilegrid';
+
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
-import { NearestDirectionFunction } from 'ol/array';
-import { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import { TileGrid } from 'ol/tilegrid';
-import { EventsKey } from 'ol/events';
-import { unByKey } from 'ol/Observable';
-import BaseEvent from 'ol/events/Event';
-import TileDebug from 'ol/source/TileDebug';
-import TileSource, { TileSourceEvent } from 'ol/source/Tile';
 
 @Component({
   selector: 'wol-tile-debug-source',

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolAttributionControlComponent } from './attribution-control.component';
 
 @NgModule({

@@ -1,30 +1,32 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
   InjectOptions,
-  input,
-  model,
   OnChanges,
-  output,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  model,
+  output,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
-import { WolOverviewMapControlComponent } from '@workletjs/ngx-openlayers/control/overview-map';
-import { Extent } from 'ol/extent';
-import { ObjectEvent } from 'ol/Object';
-import { EventsKey } from 'ol/events';
-import { unByKey } from 'ol/Observable';
-import Map from 'ol/Map';
+
 import Collection from 'ol/Collection';
+import Map from 'ol/Map';
+import { ObjectEvent } from 'ol/Object';
+import { unByKey } from 'ol/Observable';
+import OverviewMap from 'ol/control/OverviewMap';
+import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
+import { Extent } from 'ol/extent';
 import BaseLayer from 'ol/layer/Base';
 import LayerGroup from 'ol/layer/Group';
-import OverviewMap from 'ol/control/OverviewMap';
+
+import { WolOverviewMapControlComponent } from '@workletjs/ngx-openlayers/control/overview-map';
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 
 @Component({
   selector: 'wol-layer-group',

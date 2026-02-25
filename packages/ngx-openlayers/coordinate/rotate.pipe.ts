@@ -1,6 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isNil } from '@workletjs/ngx-openlayers/core/utils';
+
 import { Coordinate, rotate } from 'ol/coordinate';
+
+import { isNil } from '@workletjs/ngx-openlayers/core/utils';
 
 /**
  * Angular pipe that rotate `coordinate` by angle. `coordinate` is modified in place and returned by the function.

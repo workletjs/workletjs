@@ -1,13 +1,16 @@
+import proj4 from 'proj4';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { WolImageLayerModule } from '@workletjs/ngx-openlayers/layer/image';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
-import { WolImageWMSSourceModule } from '@workletjs/ngx-openlayers/source/image-wms';
-import { WolScaleLineControlModule } from '@workletjs/ngx-openlayers/control/scale-line';
-import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
+
 import { Projection } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
-import proj4 from 'proj4';
+
+import { WolScaleLineControlModule } from '@workletjs/ngx-openlayers/control/scale-line';
+import { WolImageLayerModule } from '@workletjs/ngx-openlayers/layer/image';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
+import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
+import { WolImageWMSSourceModule } from '@workletjs/ngx-openlayers/source/image-wms';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-image-wms-custom-proj-example',

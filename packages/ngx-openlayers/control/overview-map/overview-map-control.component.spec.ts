@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolOverviewMapControlComponent } from './overview-map-control.component';
 
 describe('WolOverviewMapControlComponent', () => {
