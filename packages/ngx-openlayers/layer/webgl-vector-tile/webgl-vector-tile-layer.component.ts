@@ -54,7 +54,7 @@ export class WolWebGLVectorTileLayerComponent implements OnChanges {
   /**
    * The bounding extent for layer rendering. The layer will not be rendered outside of this extent.
    *
-   * > **Note** Not yet supported by the underlying OpenLayers `WebGLVectorTileLayer`.
+   * @remarks Not yet supported by the underlying OpenLayers `WebGLVectorTileLayer`.
    */
   readonly wolExtent = model<Extent>();
 
@@ -108,7 +108,7 @@ export class WolWebGLVectorTileLayerComponent implements OnChanges {
   /**
    * Background color for the layer. If not specified, no background is rendered.
    *
-   * > **Note** Not yet supported by the underlying OpenLayers `WebGLVectorTileLayer`.
+   * @remarks Not yet supported by the underlying OpenLayers `WebGLVectorTileLayer`.
    */
   readonly wolBackground = input<BackgroundColor>();
 
