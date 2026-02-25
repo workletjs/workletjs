@@ -17,6 +17,18 @@ definition for GPU-accelerated tile rendering.
 > underlying WebGL context will not be garbage collected. The component handles this automatically
 > in its `DestroyRef` lifecycle hook.
 
+## Examples
+
+### WebGL Vector Tile Layer
+
+This example renders Mapbox Vector Tiles (MVT) using the `WolWebGLVectorTileLayerComponent` with a
+flat style.
+
+> **Note** Make sure to get your own Mapbox API key when using this example. No map will be visible
+> when the API key has expired.
+
+{{ NgDocActions.demo("WolWebGLVectorTilesLayerExampleComponent") }}
+
 ## API
 
 {{ NgDocApi.api("packages/ngx-openlayers/layer/webgl-vector-tile/webgl-vector-tile-layer.component.ts#WolWebGLVectorTileLayerComponent") }}
