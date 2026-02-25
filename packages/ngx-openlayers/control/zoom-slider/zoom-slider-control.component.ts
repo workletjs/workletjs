@@ -1,23 +1,25 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
-  input,
   OnChanges,
-  output,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  output,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useControlHostRef } from '@workletjs/ngx-openlayers/control/control';
-import { EventsKey } from 'ol/events';
+
+import MapEvent from 'ol/MapEvent';
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
-import BaseEvent from 'ol/events/Event';
-import MapEvent from 'ol/MapEvent';
 import ZoomSlider from 'ol/control/ZoomSlider';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+
+import { useControlHostRef } from '@workletjs/ngx-openlayers/control/control';
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 
 @Component({
   selector: 'wol-zoom-slider-control',

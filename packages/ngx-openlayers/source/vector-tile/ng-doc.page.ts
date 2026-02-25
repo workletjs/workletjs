@@ -1,4 +1,5 @@
 import { NgDocPage } from '@ng-doc/core';
+
 import SourcesCategory from '../../ng-doc/sources/ng-doc.category';
 import { WolVectorTileInfoExampleComponent } from './examples';
 

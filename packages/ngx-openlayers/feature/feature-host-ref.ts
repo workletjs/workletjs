@@ -1,9 +1,11 @@
-import { inject, InjectOptions } from '@angular/core';
-import { WolClusterSourceComponent } from '@workletjs/ngx-openlayers/source/cluster';
-import { WolVectorSourceComponent } from '@workletjs/ngx-openlayers/source/vector';
+import { InjectOptions, inject } from '@angular/core';
+
 import Feature from 'ol/Feature';
 import Cluster from 'ol/source/Cluster';
 import VectorSource from 'ol/source/Vector';
+
+import { WolClusterSourceComponent } from '@workletjs/ngx-openlayers/source/cluster';
+import { WolVectorSourceComponent } from '@workletjs/ngx-openlayers/source/vector';
 
 export interface WolFeatureHostRef {
   addFeature(feature: Feature): void;

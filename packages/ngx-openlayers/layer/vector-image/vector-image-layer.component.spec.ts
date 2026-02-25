@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolVectorImageLayerComponent } from './vector-image-layer.component';
 
 describe('WolVectorImageLayerComponent', () => {

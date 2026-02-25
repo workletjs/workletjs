@@ -1,30 +1,32 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
-  input,
   OnChanges,
-  output,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  output,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
-import { AttributionLike } from 'ol/source/Source';
-import { Size } from 'ol/size';
-import { Projection } from 'ol/proj';
+
 import { ObjectEvent } from 'ol/Object';
-import { TileSourceEvent } from 'ol/source/Tile';
-import { EventsKey } from 'ol/events';
 import { unByKey } from 'ol/Observable';
+import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
+import { Projection } from 'ol/proj';
+import { Size } from 'ol/size';
 import SentinelHub, {
   AuthConfig,
   Evalscript,
   ProcessRequestInputDataItem,
 } from 'ol/source/SentinelHub';
+import { AttributionLike } from 'ol/source/Source';
+import { TileSourceEvent } from 'ol/source/Tile';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
 
 @Component({
   selector: 'wol-sentinel-hub-source',

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolDragPanInteractionComponent } from './drag-pan-interaction.component';
 
 describe('WolDragPanInteractionComponent', () => {

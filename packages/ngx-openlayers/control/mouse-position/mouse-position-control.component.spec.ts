@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolMousePositionControlComponent } from './mouse-position-control.component';
 
 describe('WolMousePositionControlComponent', () => {

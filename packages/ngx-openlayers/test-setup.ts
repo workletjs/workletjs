@@ -1,10 +1,9 @@
-import '@angular/compiler';
 import '@analogjs/vitest-angular/setup-zone';
-
-import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
-import { getTestBed } from '@angular/core/testing';
-
 import ResizeObserverPolyfill from 'resize-observer-polyfill';
+
+import '@angular/compiler';
+import { getTestBed } from '@angular/core/testing';
+import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
 
 getTestBed().initTestEnvironment(BrowserTestingModule, platformBrowserTesting());
 

@@ -1,4 +1,5 @@
 import { Coordinate } from 'ol/coordinate';
+
 import { WolAddPipe } from './add.pipe';
 
 describe('WolAddPipe', () => {

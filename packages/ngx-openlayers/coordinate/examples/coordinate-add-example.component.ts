@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+
 import { WolCoordinateModule } from '@workletjs/ngx-openlayers/coordinate';
 
 @Component({

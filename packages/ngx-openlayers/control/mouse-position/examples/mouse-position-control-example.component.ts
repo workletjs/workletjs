@@ -1,16 +1,18 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+import { MatSelectModule } from '@angular/material/select';
+
+import { defaults } from 'ol/control/defaults';
+import { CoordinateFormat, createStringXY } from 'ol/coordinate';
+import { ProjectionLike } from 'ol/proj';
+
 import { WolMousePositionControlModule } from '@workletjs/ngx-openlayers/control/mouse-position';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
-import { defaults } from 'ol/control/defaults';
-import { ProjectionLike } from 'ol/proj';
-import { CoordinateFormat, createStringXY } from 'ol/coordinate';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-mouse-position-control-example',

@@ -2,22 +2,24 @@ import { ChangeDetectionStrategy, Component, signal, viewChild } from '@angular/
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+import { MatSelectModule } from '@angular/material/select';
+
+import { Type } from 'ol/geom/Geometry';
+
 import { WolDrawInteractionModule } from '@workletjs/ngx-openlayers/interaction/draw';
+import { WolModifyInteractionModule } from '@workletjs/ngx-openlayers/interaction/modify';
 import {
   WolSelectInteractionComponent,
   WolSelectInteractionModule,
 } from '@workletjs/ngx-openlayers/interaction/select';
-import { WolModifyInteractionModule } from '@workletjs/ngx-openlayers/interaction/modify';
 import { WolSnapInteractionModule } from '@workletjs/ngx-openlayers/interaction/snap';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
 import { WolVectorLayerModule } from '@workletjs/ngx-openlayers/layer/vector';
-import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
-import { Type } from 'ol/geom/Geometry';
+import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-snap-interaction-example',

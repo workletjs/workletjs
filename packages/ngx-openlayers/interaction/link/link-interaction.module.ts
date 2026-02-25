@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolLinkInteractionComponent } from './link-interaction.component';
 
 @NgModule({

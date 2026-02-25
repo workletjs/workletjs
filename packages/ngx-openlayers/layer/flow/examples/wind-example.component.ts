@@ -1,16 +1,19 @@
+import colormap from 'colormap';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
-import { WolWebGLVectorLayerModule } from '@workletjs/ngx-openlayers/layer/webgl-vector';
-import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
-import { WolFlowLayerModule } from '@workletjs/ngx-openlayers/layer/flow';
-import { WolDataTileSourceModule } from '@workletjs/ngx-openlayers/source/data-tile';
+
+import GeoJSON from 'ol/format/GeoJSON';
 import { DEVICE_PIXEL_RATIO } from 'ol/has';
+import { Projection, get as getProjection, transform } from 'ol/proj';
 import { Loader } from 'ol/source/DataTile';
 import { createXYZ, wrapX } from 'ol/tilegrid';
-import { get as getProjection, Projection, transform } from 'ol/proj';
-import GeoJSON from 'ol/format/GeoJSON';
-import colormap from 'colormap';
+
+import { WolFlowLayerModule } from '@workletjs/ngx-openlayers/layer/flow';
+import { WolWebGLVectorLayerModule } from '@workletjs/ngx-openlayers/layer/webgl-vector';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
+import { WolDataTileSourceModule } from '@workletjs/ngx-openlayers/source/data-tile';
+import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 /**
  * Performs bilinear interpolation for the given values.

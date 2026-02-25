@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolHeatmapLayerComponent } from './heatmap-layer.component';
 
 describe('WolHeatmapLayerComponent', () => {

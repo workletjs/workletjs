@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+
+import { Segment, Segmenters } from 'ol/interaction/Snap';
+
 import { WolDrawInteractionModule } from '@workletjs/ngx-openlayers/interaction/draw';
 import { WolModifyInteractionModule } from '@workletjs/ngx-openlayers/interaction/modify';
 import { WolSnapInteractionModule } from '@workletjs/ngx-openlayers/interaction/snap';
 import { WolVectorLayerModule } from '@workletjs/ngx-openlayers/layer/vector';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
-import { Segment, Segmenters } from 'ol/interaction/Snap';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-snap-custom-segmenter-example',

@@ -1,30 +1,32 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
+
 import Collection from 'ol/Collection';
-import { EventsKey } from 'ol/events';
-import { Condition } from 'ol/events/condition';
-import { GeometryLayout, Type } from 'ol/geom/Geometry';
+import Feature from 'ol/Feature';
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
-import { FlatStyleLike } from 'ol/style/flat';
-import { StyleLike } from 'ol/style/Style';
+import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
-import Feature from 'ol/Feature';
-import VectorSource from 'ol/source/Vector';
+import { Condition } from 'ol/events/condition';
+import { GeometryLayout, Type } from 'ol/geom/Geometry';
 import Draw, { DrawEvent, GeometryFunction } from 'ol/interaction/Draw';
+import VectorSource from 'ol/source/Vector';
+import { StyleLike } from 'ol/style/Style';
+import { FlatStyleLike } from 'ol/style/flat';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
 @Component({
   selector: 'wol-draw-interaction',

@@ -1,26 +1,28 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useControlHostRef } from '@workletjs/ngx-openlayers/control/control';
-import { CoordinateFormat } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
+
+import MapEvent from 'ol/MapEvent';
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
-import { ProjectionLike } from 'ol/proj';
-import BaseEvent from 'ol/events/Event';
-import MapEvent from 'ol/MapEvent';
 import MousePosition from 'ol/control/MousePosition';
+import { CoordinateFormat } from 'ol/coordinate';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+import { ProjectionLike } from 'ol/proj';
+
+import { useControlHostRef } from '@workletjs/ngx-openlayers/control/control';
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 
 @Component({
   selector: 'wol-mouse-position-control',

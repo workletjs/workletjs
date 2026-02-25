@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolImageLayerComponent } from './image-layer.component';
 
 @NgModule({

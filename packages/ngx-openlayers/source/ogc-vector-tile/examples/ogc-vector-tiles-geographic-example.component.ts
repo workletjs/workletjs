@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+import MVT from 'ol/format/MVT';
+
 import { WolVectorTileLayerModule } from '@workletjs/ngx-openlayers/layer/vector-tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 import { WolOGCVectorTileSourceModule } from '@workletjs/ngx-openlayers/source/ogc-vector-tile';
-import MVT from 'ol/format/MVT';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-ogc-vector-tiles-geographic-example',

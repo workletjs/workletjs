@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolIIIFSourceComponent } from './iiif-source.component';
 
 @NgModule({

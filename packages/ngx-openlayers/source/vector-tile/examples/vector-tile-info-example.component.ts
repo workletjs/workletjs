@@ -1,18 +1,20 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
-  inject,
   Renderer2,
+  afterNextRender,
+  inject,
   signal,
   viewChild,
 } from '@angular/core';
+
+import MapBrowserEvent from 'ol/MapBrowserEvent';
+import MVT from 'ol/format/MVT';
+
 import { WolVectorTileLayerModule } from '@workletjs/ngx-openlayers/layer/vector-tile';
 import { WolMapComponent, WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 import { WolVectorTileSourceModule } from '@workletjs/ngx-openlayers/source/vector-tile';
-import MVT from 'ol/format/MVT';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-vector-tile-info-example',

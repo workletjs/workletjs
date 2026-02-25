@@ -1,31 +1,33 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
   signal,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
-import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
-import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
-import { EventsKey } from 'ol/events';
-import { Condition } from 'ol/events/condition';
+
+import Collection from 'ol/Collection';
+import Feature from 'ol/Feature';
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
-import { FlatStyleLike } from 'ol/style/flat';
-import { StyleLike } from 'ol/style/Style';
-import BaseVectorLayer from 'ol/layer/BaseVector';
-import Collection from 'ol/Collection';
+import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
-import Feature from 'ol/Feature';
-import VectorSource from 'ol/source/Vector';
+import { Condition } from 'ol/events/condition';
 import Modify, { ModifyEvent } from 'ol/interaction/Modify';
+import BaseVectorLayer from 'ol/layer/BaseVector';
+import VectorSource from 'ol/source/Vector';
+import { StyleLike } from 'ol/style/Style';
+import { FlatStyleLike } from 'ol/style/flat';
+
+import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
+import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
 @Component({
   selector: 'wol-modify-interaction',

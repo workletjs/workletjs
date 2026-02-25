@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolImageLayerComponent } from './image-layer.component';
 
 describe('WolImageLayerComponent', () => {

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolMouseWheelZoomInteractionComponent } from './mouse-wheel-zoom-interaction.component';
 
 describe('WolMouseWheelZoomInteractionComponent', () => {

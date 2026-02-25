@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolVectorTileSourceComponent } from './vector-tile-source.component';
 
 describe('WolVectorTileSourceComponent', () => {

@@ -1,7 +1,3 @@
-import { Component, computed, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import {
   NgDocCustomSidebarDirective,
   NgDocNavbarComponent,
@@ -13,7 +9,14 @@ import {
   NgDocIconComponent,
   NgDocTooltipDirective,
 } from '@ng-doc/ui-kit';
+
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { Component, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
+
 import { filter } from 'rxjs/operators';
+
 import { SidebarComponent } from './components';
 
 @Component({

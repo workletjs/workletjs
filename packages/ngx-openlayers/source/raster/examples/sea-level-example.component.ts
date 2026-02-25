@@ -1,15 +1,17 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
+
+import { Coordinate } from 'ol/coordinate';
+import RasterSource, { Operation, RasterSourceEvent } from 'ol/source/Raster';
+
 import { WolImageLayerModule } from '@workletjs/ngx-openlayers/layer/image';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 import { WolImageTileSourceModule } from '@workletjs/ngx-openlayers/source/image-tile';
 import { WolRasterSourceModule } from '@workletjs/ngx-openlayers/source/raster';
-import RasterSource, { Operation, RasterSourceEvent } from 'ol/source/Raster';
-import { Coordinate } from 'ol/coordinate';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-sea-level-example',

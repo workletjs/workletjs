@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolPolygonGeometryComponent } from './polygon-geometry.component';
 
 @NgModule({

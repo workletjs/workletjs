@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
-
 import { vi } from 'vitest';
-import { Coordinate } from 'ol/coordinate';
-import { ObjectEvent } from 'ol/Object';
+
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+
 import Map from 'ol/Map';
-import BaseEvent from 'ol/events/Event';
+import { ObjectEvent } from 'ol/Object';
 import Overlay, { Positioning } from 'ol/Overlay';
+import { Coordinate } from 'ol/coordinate';
+import BaseEvent from 'ol/events/Event';
 
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { WolMapComponent } from '@workletjs/ngx-openlayers/map';

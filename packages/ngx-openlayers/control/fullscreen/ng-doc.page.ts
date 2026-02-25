@@ -1,4 +1,5 @@
 import { NgDocPage } from '@ng-doc/core';
+
 import ControlsCategory from '../../ng-doc/controls/ng-doc.category';
 import {
   WolFullScreenControlExampleComponent,

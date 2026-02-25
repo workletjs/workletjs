@@ -1,4 +1,5 @@
 import { Coordinate } from 'ol/coordinate';
+
 import { WolToStringXYPipe } from './to-string-xy.pipe';
 
 describe('WolToStringXYPipe', () => {

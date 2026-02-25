@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+
+import Stroke from 'ol/style/Stroke';
+
 import { WolGraticuleLayerModule } from '@workletjs/ngx-openlayers/layer/graticule';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
-import Stroke from 'ol/style/Stroke';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-graticule-layer-example',

@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { WolVectorLayerModule } from '@workletjs/ngx-openlayers/layer/vector';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+
+import GeoJSON from 'ol/format/GeoJSON';
+
 import { WolModifyInteractionModule } from '@workletjs/ngx-openlayers/interaction/modify';
 import { WolSelectInteractionModule } from '@workletjs/ngx-openlayers/interaction/select';
+import { WolVectorLayerModule } from '@workletjs/ngx-openlayers/layer/vector';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
-import GeoJSON from 'ol/format/GeoJSON';
+import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-modify-features-example',

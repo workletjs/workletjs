@@ -1,29 +1,31 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
-  input,
   OnChanges,
-  output,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  output,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
-import { NearestDirectionFunction } from 'ol/array';
+
 import { ObjectEvent } from 'ol/Object';
+import { unByKey } from 'ol/Observable';
+import { NearestDirectionFunction } from 'ol/array';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
 import { ProjectionLike } from 'ol/proj';
 import { Size } from 'ol/size';
 import { CrossOriginAttribute } from 'ol/source/DataTile';
+import ImageTileSource, { Loader, UrlLike } from 'ol/source/ImageTile';
 import { AttributionLike, State } from 'ol/source/Source';
 import { TileSourceEvent } from 'ol/source/Tile';
 import { TileGrid } from 'ol/tilegrid';
-import { EventsKey } from 'ol/events';
-import { unByKey } from 'ol/Observable';
-import BaseEvent from 'ol/events/Event';
-import ImageTileSource, { Loader, UrlLike } from 'ol/source/ImageTile';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
 
 @Component({
   selector: 'wol-image-tile-source',

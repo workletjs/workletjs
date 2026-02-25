@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import Map from 'ol/Map';
+import { ObjectEvent } from 'ol/Object';
 import BaseEvent from 'ol/events/Event';
 import { Extent } from 'ol/extent';
 import FlowLayer, { SourceType, Style } from 'ol/layer/Flow';
-import Map from 'ol/Map';
-import { ObjectEvent } from 'ol/Object';
 import RenderEvent from 'ol/render/Event';
 import DataTile from 'ol/source/DataTile';
 

@@ -1,28 +1,30 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
+
+import Map from 'ol/Map';
+import { ObjectEvent } from 'ol/Object';
+import { unByKey } from 'ol/Observable';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
 import { Extent } from 'ol/extent';
 import { BackgroundColor } from 'ol/layer/Base';
-import { ObjectEvent } from 'ol/Object';
-import { EventsKey } from 'ol/events';
-import { unByKey } from 'ol/Observable';
-import BaseEvent from 'ol/events/Event';
-import Map from 'ol/Map';
+import TileLayer from 'ol/layer/Tile';
 import RenderEvent from 'ol/render/Event';
 import TileSource from 'ol/source/Tile';
-import TileLayer from 'ol/layer/Tile';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 
 @Component({
   selector: 'wol-tile-layer',

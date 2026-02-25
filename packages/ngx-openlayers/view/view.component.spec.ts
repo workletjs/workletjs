@@ -1,18 +1,19 @@
+import { vi } from 'vitest';
+
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { vi } from 'vitest';
-import { Coordinate } from 'ol/coordinate';
 import { ObjectEvent } from 'ol/Object';
-import BaseEvent from 'ol/events/Event';
 import View from 'ol/View';
+import { Coordinate } from 'ol/coordinate';
+import BaseEvent from 'ol/events/Event';
 
 import { WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
 import { WolMapComponent, WolMapModule } from '@workletjs/ngx-openlayers/map';
 
-import { WolViewModule } from './view.module';
 import { WolViewComponent } from './view.component';
+import { WolViewModule } from './view.module';
 
 describe('WolViewComponent', () => {
   let fixture: ComponentFixture<TestAppComponent>;

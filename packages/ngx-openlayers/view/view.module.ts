@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolViewComponent } from './view.component';
 
 @NgModule({

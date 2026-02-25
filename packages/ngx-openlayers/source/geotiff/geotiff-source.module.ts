@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolGeoTIFFSourceComponent } from './geotiff-source.component';
 
 @NgModule({

@@ -1,7 +1,9 @@
 import { inject } from '@angular/core';
-import { WolImageLayerComponent } from '@workletjs/ngx-openlayers/layer/image';
+
 import ImageLayer from 'ol/layer/Image';
 import RasterSource from 'ol/source/Raster';
+
+import { WolImageLayerComponent } from '@workletjs/ngx-openlayers/layer/image';
 
 export interface RasterSourceHostRef {
   setSource(source: RasterSource | null): void;

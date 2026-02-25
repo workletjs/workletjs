@@ -1,23 +1,25 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
   Renderer2,
+  inject,
   signal,
   viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+
+import { Units } from 'ol/control/ScaleLine';
+
 import {
   WolScaleLineControlComponent,
   WolScaleLineControlModule,
 } from '@workletjs/ngx-openlayers/control/scale-line';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
-import { Units } from 'ol/control/ScaleLine';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-scale-line-simple-example',

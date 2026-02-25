@@ -1,28 +1,30 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
   signal,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
-import { EventsKey } from 'ol/events';
-import { SnapEvent } from 'ol/events/SnapEvent';
-import { ObjectEvent } from 'ol/Object';
-import { unByKey } from 'ol/Observable';
-import BaseEvent from 'ol/events/Event';
+
 import Collection from 'ol/Collection';
 import Feature from 'ol/Feature';
-import VectorSource from 'ol/source/Vector';
+import { ObjectEvent } from 'ol/Object';
+import { unByKey } from 'ol/Observable';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+import { SnapEvent } from 'ol/events/SnapEvent';
 import Snap, { Segmenters } from 'ol/interaction/Snap';
+import VectorSource from 'ol/source/Vector';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
 @Component({
   selector: 'wol-snap-interaction',

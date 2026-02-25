@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolPointerInteractionComponent } from './pointer-interaction.component';
 
 describe('WolPointerInteractionComponent', () => {

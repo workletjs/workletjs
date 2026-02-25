@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolMousePositionControlComponent } from './mouse-position-control.component';
 
 @NgModule({

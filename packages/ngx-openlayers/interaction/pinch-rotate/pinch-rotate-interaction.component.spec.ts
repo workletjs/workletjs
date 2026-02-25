@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolPinchRotateInteractionComponent } from './pinch-rotate-interaction.component';
 
 describe('WolPinchRotateInteractionComponent', () => {

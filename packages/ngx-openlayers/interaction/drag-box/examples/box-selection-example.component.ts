@@ -6,26 +6,28 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+
+import Collection from 'ol/Collection';
+import Feature from 'ol/Feature';
+import { platformModifierKeyOnly } from 'ol/events/condition';
+import { getWidth } from 'ol/extent';
+import GeoJSON from 'ol/format/GeoJSON';
+import DragBox, { DragBoxEvent } from 'ol/interaction/DragBox';
+import { FilterFunction } from 'ol/interaction/Select';
+import VectorSource from 'ol/source/Vector';
+import Fill from 'ol/style/Fill';
+import Stroke from 'ol/style/Stroke';
+import Style, { StyleFunction } from 'ol/style/Style';
+
 import { WolDragBoxInteractionModule } from '@workletjs/ngx-openlayers/interaction/drag-box';
 import { WolSelectInteractionModule } from '@workletjs/ngx-openlayers/interaction/select';
 import { WolVectorLayerModule } from '@workletjs/ngx-openlayers/layer/vector';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import {
   WolVectorSourceComponent,
   WolVectorSourceModule,
 } from '@workletjs/ngx-openlayers/source/vector';
-import { getWidth } from 'ol/extent';
-import { platformModifierKeyOnly } from 'ol/events/condition';
-import { FilterFunction } from 'ol/interaction/Select';
-import GeoJSON from 'ol/format/GeoJSON';
-import Style, { StyleFunction } from 'ol/style/Style';
-import Fill from 'ol/style/Fill';
-import Stroke from 'ol/style/Stroke';
-import Collection from 'ol/Collection';
-import Feature from 'ol/Feature';
-import VectorSource from 'ol/source/Vector';
-import DragBox, { DragBoxEvent } from 'ol/interaction/DragBox';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-box-selection-example',

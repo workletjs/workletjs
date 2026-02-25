@@ -1,22 +1,24 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
   Renderer2,
+  inject,
   signal,
   viewChild,
 } from '@angular/core';
+
+import MapBrowserEvent from 'ol/MapBrowserEvent';
+import { Coordinate } from 'ol/coordinate';
+
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
 import { WolMapComponent, WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 import { WolOverlayModule } from '@workletjs/ngx-openlayers/overlay';
 import { WolTileJSONSourceModule } from '@workletjs/ngx-openlayers/source/tile-json';
 import {
   WolUTFGridSourceComponent,
   WolUTFGridSourceModule,
 } from '@workletjs/ngx-openlayers/source/utf-grid';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
-import { Coordinate } from 'ol/coordinate';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-utf-grid-example',

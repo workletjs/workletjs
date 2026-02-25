@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolKeyboardPanInteractionComponent } from './keyboard-pan-interaction.component';
 
 describe('WolKeyboardPanInteractionComponent', () => {

@@ -1,20 +1,21 @@
+import { vi } from 'vitest';
+
 import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { vi } from 'vitest';
-
-import { Coordinate } from 'ol/coordinate';
 import { ObjectEvent } from 'ol/Object';
+import { Coordinate } from 'ol/coordinate';
+import BaseEvent from 'ol/events/Event';
 import { Point } from 'ol/geom';
 import { GeometryLayout } from 'ol/geom/Geometry';
-import BaseEvent from 'ol/events/Event';
 
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
-import { WolVectorLayerComponent } from '@workletjs/ngx-openlayers/layer/vector';
-import { WolVectorSourceComponent } from '@workletjs/ngx-openlayers/source/vector';
 import { WolFeatureComponent } from '@workletjs/ngx-openlayers/feature';
+import { WolVectorLayerComponent } from '@workletjs/ngx-openlayers/layer/vector';
+import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
+import { WolVectorSourceComponent } from '@workletjs/ngx-openlayers/source/vector';
+
 import { WolPointGeometryComponent } from './point-geometry.component';
 
 describe('WolPointGeometryComponent', () => {

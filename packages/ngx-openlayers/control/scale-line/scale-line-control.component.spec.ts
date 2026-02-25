@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolScaleLineControlComponent } from './scale-line-control.component';
 
 describe('WolScaleLineControlComponent', () => {

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolDblClickDragZoomInteractionComponent } from './dbl-click-drag-zoom-interaction.component';
 
 @NgModule({

@@ -1,24 +1,26 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useControlHostRef } from '@workletjs/ngx-openlayers/control/control';
-import { EventsKey } from 'ol/events';
+
+import MapEvent from 'ol/MapEvent';
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
-import MapEvent from 'ol/MapEvent';
-import BaseEvent from 'ol/events/Event';
 import ScaleLine, { Units } from 'ol/control/ScaleLine';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+
+import { useControlHostRef } from '@workletjs/ngx-openlayers/control/control';
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 
 @Component({
   selector: 'wol-scale-line-control',

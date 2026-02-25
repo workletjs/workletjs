@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolBingMapsSourceComponent } from './bing-maps-source.component';
 
 @NgModule({

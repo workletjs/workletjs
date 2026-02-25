@@ -1,4 +1,5 @@
 import { transformExtent } from 'ol/proj';
+
 import { WolTransformExtentPipe } from './transform-extent.pipe';
 
 describe('WolTransformExtentPipe', () => {

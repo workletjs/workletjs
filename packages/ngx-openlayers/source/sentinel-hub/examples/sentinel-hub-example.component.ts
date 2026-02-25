@@ -1,14 +1,16 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+
+import { AuthConfig, Evalscript, ProcessRequestInputDataItem, Sample } from 'ol/source/SentinelHub';
+
 import { WolWebGLTileLayerModule } from '@workletjs/ngx-openlayers/layer/webgl-tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolProjModule } from '@workletjs/ngx-openlayers/proj';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 import { WolSentinelHubSourceModule } from '@workletjs/ngx-openlayers/source/sentinel-hub';
-import { AuthConfig, Evalscript, ProcessRequestInputDataItem, Sample } from 'ol/source/SentinelHub';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-sentinel-hub-example',

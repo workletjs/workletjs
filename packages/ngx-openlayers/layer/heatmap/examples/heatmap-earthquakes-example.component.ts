@@ -1,14 +1,16 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
-import { WolHeatmapLayerModule } from '@workletjs/ngx-openlayers/layer/heatmap';
-import { WolStadiaMapsSourceModule } from '@workletjs/ngx-openlayers/source/stadia-maps';
-import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
-import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
-import { WeightExpression } from 'ol/layer/Heatmap';
+
 import KML from 'ol/format/KML';
+import { WeightExpression } from 'ol/layer/Heatmap';
+
+import { WolHeatmapLayerModule } from '@workletjs/ngx-openlayers/layer/heatmap';
+import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
+import { WolStadiaMapsSourceModule } from '@workletjs/ngx-openlayers/source/stadia-maps';
+import { WolVectorSourceModule } from '@workletjs/ngx-openlayers/source/vector';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-heatmap-earthquakes-example',

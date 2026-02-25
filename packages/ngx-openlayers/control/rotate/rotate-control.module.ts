@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolRotateControlComponent } from './rotate-control.component';
 
 @NgModule({

@@ -1,4 +1,5 @@
 import { Coordinate } from 'ol/coordinate';
+
 import { WolToStringHDMSPipe } from './to-string-hdms.pipe';
 
 describe('WolToStringHDMSPipe', () => {

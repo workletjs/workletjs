@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolImageMapGuideSourceComponent } from './image-map-guide-source.component';
 
 @NgModule({

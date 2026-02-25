@@ -1,21 +1,22 @@
+import { vi } from 'vitest';
+
 import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { vi } from 'vitest';
-
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { WolFeatureComponent } from '@workletjs/ngx-openlayers/feature';
-import { Coordinate } from 'ol/coordinate';
 import { ObjectEvent } from 'ol/Object';
+import { Coordinate } from 'ol/coordinate';
 import BaseEvent from 'ol/events/Event';
 import Circle from 'ol/geom/Circle';
 import { GeometryLayout } from 'ol/geom/Geometry';
 
-import { WolCircleGeometryComponent } from './circle-geometry.component';
-import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { WolFeatureComponent } from '@workletjs/ngx-openlayers/feature';
 import { WolVectorLayerComponent } from '@workletjs/ngx-openlayers/layer/vector';
+import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 import { WolVectorSourceComponent } from '@workletjs/ngx-openlayers/source/vector';
+
+import { WolCircleGeometryComponent } from './circle-geometry.component';
 
 describe('WolCircleGeometryComponent', () => {
   let fixture: ComponentFixture<BasicCircleGeometryComponent>;

@@ -1,6 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
+import { Coordinate, add } from 'ol/coordinate';
+
 import { isNil } from '@workletjs/ngx-openlayers/core/utils';
-import { add, Coordinate } from 'ol/coordinate';
 
 /**
  * Angular pipe that adds `delta` to `coordinate`. `coordinate` is modified in place and returned by the function.

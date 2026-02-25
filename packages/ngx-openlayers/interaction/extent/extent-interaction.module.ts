@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolExtentInteractionComponent } from './extent-interaction.component';
 
 @NgModule({

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolZoomControlComponent } from './zoom-control.component';
 
 describe('WolZoomControlComponent', () => {

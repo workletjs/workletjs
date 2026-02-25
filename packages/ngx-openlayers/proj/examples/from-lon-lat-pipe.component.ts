@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { WolFromLonLatPipe } from '@workletjs/ngx-openlayers/proj';
 
 @Component({

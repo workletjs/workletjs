@@ -1,25 +1,27 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
+
+import Kinetic from 'ol/Kinetic';
+import { ObjectEvent } from 'ol/Object';
+import { unByKey } from 'ol/Observable';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+import { Condition } from 'ol/events/condition';
+import DragPan from 'ol/interaction/DragPan';
+
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
-import { EventsKey } from 'ol/events';
-import { Condition } from 'ol/events/condition';
-import { unByKey } from 'ol/Observable';
-import { ObjectEvent } from 'ol/Object';
-import BaseEvent from 'ol/events/Event';
-import Kinetic from 'ol/Kinetic';
-import DragPan from 'ol/interaction/DragPan';
 
 @Component({
   selector: 'wol-drag-pan-interaction',

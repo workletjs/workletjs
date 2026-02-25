@@ -1,17 +1,19 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
+  afterNextRender,
   signal,
   viewChild,
 } from '@angular/core';
+
+import { ViewOptions } from 'ol/View';
+
 import { WolWebGLTileLayerModule } from '@workletjs/ngx-openlayers/layer/webgl-tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import {
   WolGeoTIFFSourceComponent,
   WolGeoTIFFSourceModule,
 } from '@workletjs/ngx-openlayers/source/geotiff';
-import { ViewOptions } from 'ol/View';
 
 @Component({
   selector: 'wol-cloud-optimized-geotiff-example',

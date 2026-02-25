@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+
+import { ExpressionValue } from 'ol/expr/expression';
+
 import { WolWebGLTileLayerModule } from '@workletjs/ngx-openlayers/layer/webgl-tile';
+import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolImageTileSourceModule } from '@workletjs/ngx-openlayers/source/image-tile';
 import { WolOSMSourceComponent } from '@workletjs/ngx-openlayers/source/osm';
-import { ExpressionValue } from 'ol/expr/expression';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-webgl-shaded-relief-example',

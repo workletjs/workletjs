@@ -1,13 +1,15 @@
 import { httpResource } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+
+import DataTile from 'ol/DataTile';
+import ImageTile from 'ol/ImageTile';
+import { ViewOptions } from 'ol/View';
+import DataTileSource from 'ol/source/DataTile';
+import GeoTIFFSource from 'ol/source/GeoTIFF';
+
 import { WolWebGLTileLayerModule } from '@workletjs/ngx-openlayers/layer/webgl-tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolGeoTIFFSourceModule } from '@workletjs/ngx-openlayers/source/geotiff';
-import { ViewOptions } from 'ol/View';
-import DataTile from 'ol/DataTile';
-import ImageTile from 'ol/ImageTile';
-import DataTileSource from 'ol/source/DataTile';
-import GeoTIFFSource from 'ol/source/GeoTIFF';
 
 @Component({
   selector: 'wol-cog-blob-example',

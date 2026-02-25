@@ -1,23 +1,24 @@
+import {
+  NG_DOC_DEFAULT_PAGE_PROCESSORS,
+  NG_DOC_DEFAULT_PAGE_SKELETON,
+  NgDocDefaultSearchEngine,
+  provideMainPageProcessor,
+  provideNgDocApp,
+  providePageSkeleton,
+  provideSearchEngine,
+} from '@ng-doc/app';
+// eslint-disable-next-line
+import { provideNgDocContext } from '@ng-doc/generated';
+
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {
   ApplicationConfig,
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
-import { provideNativeDateAdapter } from '@angular/material/core';
-import {
-  NG_DOC_DEFAULT_PAGE_PROCESSORS,
-  NG_DOC_DEFAULT_PAGE_SKELETON,
-  NgDocDefaultSearchEngine,
-  provideNgDocApp,
-  provideMainPageProcessor,
-  providePageSkeleton,
-  provideSearchEngine,
-} from '@ng-doc/app';
-// eslint-disable-next-line
-import { provideNgDocContext } from '@ng-doc/generated';
 
 import { appRoutes } from './app.routes';
 

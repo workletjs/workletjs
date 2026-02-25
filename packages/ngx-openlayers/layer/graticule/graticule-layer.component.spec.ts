@@ -1,19 +1,20 @@
+import { vi } from 'vitest';
+
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { vi } from 'vitest';
-
-import { Extent } from 'ol/extent';
 import Map from 'ol/Map';
 import BaseEvent from 'ol/events/Event';
+import { Extent } from 'ol/extent';
+import Graticule from 'ol/layer/Graticule';
 import Stroke from 'ol/style/Stroke';
 import Text from 'ol/style/Text';
-import Graticule from 'ol/layer/Graticule';
 
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 import { WolViewComponent } from '@workletjs/ngx-openlayers/view';
+
 import { WolGraticuleLayerComponent } from './graticule-layer.component';
 
 describe('WolGraticuleLayerComponent', () => {

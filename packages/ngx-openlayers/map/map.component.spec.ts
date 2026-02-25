@@ -1,16 +1,17 @@
+import { vi } from 'vitest';
+
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 
-import { vi } from 'vitest';
-import { ObjectEvent } from 'ol/Object';
 import Map from 'ol/Map';
-import View from 'ol/View';
-import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
-import LayerGroup from 'ol/layer/Group';
-import BaseEvent from 'ol/events/Event';
 import MapEvent from 'ol/MapEvent';
+import { ObjectEvent } from 'ol/Object';
+import View from 'ol/View';
+import BaseEvent from 'ol/events/Event';
+import LayerGroup from 'ol/layer/Group';
+import TileLayer from 'ol/layer/Tile';
 import RenderEvent from 'ol/render/Event';
+import OSM from 'ol/source/OSM';
 
 import { WolMapComponent } from './map.component';
 

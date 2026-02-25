@@ -1,20 +1,21 @@
+import { vi } from 'vitest';
+
 import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { vi } from 'vitest';
-
-import { ObjectEvent } from 'ol/Object';
-import { Geometry, Point, LineString, Polygon } from 'ol/geom';
-import { Style, Fill, Stroke, Circle as CircleStyle } from 'ol/style';
-import { StyleFunction, StyleLike } from 'ol/style/Style';
-import BaseEvent from 'ol/events/Event';
 import Feature from 'ol/Feature';
+import { ObjectEvent } from 'ol/Object';
+import BaseEvent from 'ol/events/Event';
+import { Geometry, LineString, Point, Polygon } from 'ol/geom';
+import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
+import { StyleFunction, StyleLike } from 'ol/style/Style';
 
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 import { WolVectorLayerComponent } from '@workletjs/ngx-openlayers/layer/vector';
+import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 import { WolVectorSourceComponent } from '@workletjs/ngx-openlayers/source/vector';
+
 import { WolFeatureComponent } from './feature.component';
 
 describe('WolFeatureComponent', () => {

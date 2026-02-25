@@ -1,16 +1,17 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   ElementRef,
-  inject,
   Renderer2,
+  computed,
+  inject,
   viewChild,
 } from '@angular/core';
+
 import { WolImageLayerModule } from '@workletjs/ngx-openlayers/layer/image';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 import { WolImageWMSSourceModule } from '@workletjs/ngx-openlayers/source/image-wms';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-image-load-events-example',

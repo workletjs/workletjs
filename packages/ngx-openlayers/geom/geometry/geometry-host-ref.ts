@@ -1,7 +1,9 @@
-import { inject, InjectOptions } from '@angular/core';
-import { WolFeatureComponent } from '@workletjs/ngx-openlayers/feature';
-import { Geometry } from 'ol/geom';
+import { InjectOptions, inject } from '@angular/core';
+
 import Feature from 'ol/Feature';
+import { Geometry } from 'ol/geom';
+
+import { WolFeatureComponent } from '@workletjs/ngx-openlayers/feature';
 
 export interface wolGeometryHostRef<T extends Geometry> {
   setGeometry(geometry: T): void;

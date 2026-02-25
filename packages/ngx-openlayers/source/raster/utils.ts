@@ -2,8 +2,8 @@ import ImageLayer from 'ol/layer/Image';
 import Layer from 'ol/layer/Layer';
 import TileLayer from 'ol/layer/Tile';
 import ImageSource from 'ol/source/Image';
-import TileSource from 'ol/source/Tile';
 import Source from 'ol/source/Source';
+import TileSource from 'ol/source/Tile';
 
 export function createLayers(sources: (Source | Layer)[]): Layer[] {
   const layers: Layer[] = [];

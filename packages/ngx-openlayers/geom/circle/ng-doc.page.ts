@@ -1,4 +1,5 @@
 import { NgDocPage } from '@ng-doc/core';
+
 import GeometryCategory from '../../ng-doc/geometry/ng-doc.category';
 
 /**

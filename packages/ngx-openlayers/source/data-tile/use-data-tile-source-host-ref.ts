@@ -1,13 +1,15 @@
-import { inject, InjectOptions } from '@angular/core';
-import { WolFlowLayerComponent } from '@workletjs/ngx-openlayers/layer/flow';
-import { WolTileLayerComponent } from '@workletjs/ngx-openlayers/layer/tile';
-import { WolWebGLTileLayerComponent } from '@workletjs/ngx-openlayers/layer/webgl-tile';
-import { WolRasterSourceComponent } from '@workletjs/ngx-openlayers/source/raster';
+import { InjectOptions, inject } from '@angular/core';
+
 import FlowLayer from 'ol/layer/Flow';
 import TileLayer from 'ol/layer/Tile';
 import WebGLTileLayer from 'ol/layer/WebGLTile';
 import DataTileSource from 'ol/source/DataTile';
 import RasterSource from 'ol/source/Raster';
+
+import { WolFlowLayerComponent } from '@workletjs/ngx-openlayers/layer/flow';
+import { WolTileLayerComponent } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolWebGLTileLayerComponent } from '@workletjs/ngx-openlayers/layer/webgl-tile';
+import { WolRasterSourceComponent } from '@workletjs/ngx-openlayers/source/raster';
 
 export type DisposeRef = () => void;
 

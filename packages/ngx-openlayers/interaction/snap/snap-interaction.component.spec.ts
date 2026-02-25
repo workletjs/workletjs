@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { WolSnapInteractionComponent } from './snap-interaction.component';
 
 describe('WolSnapInteractionComponent', () => {

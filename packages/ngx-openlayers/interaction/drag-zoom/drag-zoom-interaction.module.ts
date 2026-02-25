@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { WolDragZoomInteractionComponent } from './drag-zoom-interaction.component';
 
 @NgModule({

@@ -1,9 +1,11 @@
-import { inject, InjectOptions } from '@angular/core';
-import { WolImageLayerComponent } from '@workletjs/ngx-openlayers/layer/image';
-import { WolRasterSourceComponent } from '@workletjs/ngx-openlayers/source/raster';
+import { InjectOptions, inject } from '@angular/core';
+
 import ImageLayer from 'ol/layer/Image';
 import ImageSource from 'ol/source/Image';
 import RasterSource from 'ol/source/Raster';
+
+import { WolImageLayerComponent } from '@workletjs/ngx-openlayers/layer/image';
+import { WolRasterSourceComponent } from '@workletjs/ngx-openlayers/source/raster';
 
 export interface DisposeRef {
   (): void;

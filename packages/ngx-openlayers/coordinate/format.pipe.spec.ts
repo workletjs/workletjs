@@ -1,4 +1,5 @@
 import { Coordinate } from 'ol/coordinate';
+
 import { WolFormatPipe } from './format.pipe';
 
 describe('WolFormatPipe', () => {

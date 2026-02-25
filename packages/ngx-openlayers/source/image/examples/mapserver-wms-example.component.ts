@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+
+import { createLoader } from 'ol/source/wms';
+
 import { WolImageLayerModule } from '@workletjs/ngx-openlayers/layer/image';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 import { WolImageSourceModule } from '@workletjs/ngx-openlayers/source/image';
-import { createLoader } from 'ol/source/wms';
+import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
   selector: 'wol-mapserver-wms-example',

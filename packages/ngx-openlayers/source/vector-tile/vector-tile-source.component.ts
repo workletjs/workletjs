@@ -1,32 +1,35 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
-  input,
   OnChanges,
-  output,
   SimpleChanges,
   ViewEncapsulation,
+  afterNextRender,
+  inject,
+  input,
+  output,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { NearestDirectionFunction } from 'ol/array';
-import { Extent } from 'ol/extent';
-import { EventsKey } from 'ol/events';
+
+import { FeatureLike } from 'ol/Feature';
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
+import { LoadFunction, UrlFunction } from 'ol/Tile';
+import VectorTile from 'ol/VectorTile';
+import { NearestDirectionFunction } from 'ol/array';
+import { EventsKey } from 'ol/events';
+import BaseEvent from 'ol/events/Event';
+import { Extent } from 'ol/extent';
+import FeatureFormat from 'ol/format/Feature';
 import { ProjectionLike } from 'ol/proj';
 import { Size } from 'ol/size';
-import { LoadFunction, UrlFunction } from 'ol/Tile';
-import { TileGrid } from 'ol/tilegrid';
-import { FeatureLike } from 'ol/Feature';
 import { AttributionLike, State } from 'ol/source/Source';
 import { TileSourceEvent } from 'ol/source/Tile';
-import BaseEvent from 'ol/events/Event';
-import FeatureFormat from 'ol/format/Feature';
-import VectorTile from 'ol/VectorTile';
 import VectorTileSource from 'ol/source/VectorTile';
+import { TileGrid } from 'ol/tilegrid';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+
 import { DisposeRef, useVectorTileSourceHostRef } from './use-vector-tile-source-host-ref';
 
 @Component({

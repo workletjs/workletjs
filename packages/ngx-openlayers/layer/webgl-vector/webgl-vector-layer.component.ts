@@ -1,28 +1,30 @@
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  afterNextRender,
   inject,
   input,
   model,
-  OnChanges,
   output,
-  SimpleChanges,
-  ViewEncapsulation,
 } from '@angular/core';
-import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
-import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
-import { Extent } from 'ol/extent';
-import { EventsKey } from 'ol/events';
+
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
-import { BackgroundColor } from 'ol/layer/Base';
-import { FlatStyleLike, StyleVariables } from 'ol/style/flat';
+import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
+import { Extent } from 'ol/extent';
+import { BackgroundColor } from 'ol/layer/Base';
+import WebGLVectorLayer from 'ol/layer/WebGLVector';
 import RenderEvent from 'ol/render/Event';
 import VectorSource from 'ol/source/Vector';
-import WebGLVectorLayer from 'ol/layer/WebGLVector';
+import { FlatStyleLike, StyleVariables } from 'ol/style/flat';
+
+import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
+import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 
 @Component({
   selector: 'wol-webgl-vector-layer',
