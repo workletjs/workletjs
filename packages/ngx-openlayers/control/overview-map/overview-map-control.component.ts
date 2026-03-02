@@ -124,7 +124,7 @@ export class WolOverviewMapControlComponent implements OnChanges {
 
     for (const [key, change] of Object.entries(changes)) {
       switch (key) {
-        case 'wolColapsed':
+        case 'wolCollapsed':
           this.instance.setCollapsed(change.currentValue);
           break;
         case 'wolCollapsible':
