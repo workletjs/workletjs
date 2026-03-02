@@ -71,9 +71,7 @@ describe('WolRotateControlComponent', () => {
     });
 
     it('should initialize with wolDuration', () => {
-      expect((rotateControl as unknown as { duration_: number })['duration_']).toBe(
-        testComponent.duration(),
-      );
+      expect(rotateControl['duration_']).toBe(testComponent.duration());
     });
 
     it('should initialize with wolProperties', () => {
