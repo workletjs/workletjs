@@ -62,15 +62,11 @@ describe('WolScaleLineControlComponent', () => {
     });
 
     it('should initialize with wolMinWidth', () => {
-      expect((scaleLineControl as unknown as { minWidth_: number })['minWidth_']).toBe(
-        testComponent.minWidth(),
-      );
+      expect(scaleLineControl['minWidth_']).toBe(testComponent.minWidth());
     });
 
     it('should initialize with wolMaxWidth', () => {
-      expect((scaleLineControl as unknown as { maxWidth_: number | undefined })['maxWidth_']).toBe(
-        testComponent.maxWidth(),
-      );
+      expect(scaleLineControl['maxWidth_']).toBe(testComponent.maxWidth());
     });
 
     it('should initialize with wolBar false (no scalebar element rendered)', () => {
