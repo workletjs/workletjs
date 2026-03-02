@@ -60,7 +60,7 @@ describe('WolFullScreenControlComponent', () => {
       expect(fullscreenControl['element'].className).toContain(testComponent.className());
     });
 
-    it('should initialize with wolLabel as the button label', () => {
+    it('should initialize with wolLabel as the button title', () => {
       const button = fullscreenControl['element'].querySelector('button');
       expect(button?.getAttribute('title')).toBe(testComponent.tipLabel());
     });
