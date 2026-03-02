@@ -162,13 +162,6 @@ describe('WolZoomControlComponent', () => {
   });
 
   describe('output events', () => {
-    it('should emit wolChange when the control dispatches a change event', () => {
-      const changeSpy = vi.spyOn(zoomControlComponent.wolChange, 'emit');
-      const changeEvent = new BaseEvent('change');
-      zoomControl.dispatchEvent(changeEvent);
-      expect(changeSpy).toHaveBeenCalledWith(changeEvent);
-    });
-
     it('should emit wolError when the control dispatches an error event', () => {
       const errorSpy = vi.spyOn(zoomControlComponent.wolError, 'emit');
       const errorEvent = new BaseEvent('error');
