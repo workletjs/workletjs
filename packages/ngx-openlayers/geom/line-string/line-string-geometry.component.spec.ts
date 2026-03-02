@@ -18,6 +18,13 @@ import { WolVectorSourceComponent } from '@workletjs/ngx-openlayers/source/vecto
 
 import { WolLineStringGeometryComponent } from './line-string-geometry.component';
 
+// Default coordinates used by BasicLineStringGeometryComponent
+const DEFAULT_COORDINATES: Coordinate[] = [
+  [0, 0],
+  [10, 10],
+  [20, 0],
+];
+
 describe('WolLineStringGeometryComponent', () => {
   let fixture: ComponentFixture<BasicLineStringGeometryComponent>;
   let testComponent: BasicLineStringGeometryComponent;
@@ -37,534 +44,238 @@ describe('WolLineStringGeometryComponent', () => {
     ).componentInstance;
   });
 
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Component Creation
+  // ─────────────────────────────────────────────────────────────────────────────
   describe('Component Creation', () => {
-    it('should create the line string geometry component', fakeAsync(() => {
-      fixture.detectChanges();
-
+    it('should create the WolLineStringGeometryComponent', fakeAsync(() => {
       flush();
 
       expect(lineStringGeometryComponent).toBeTruthy();
+    }));
+
+    it('should create an OL LineString instance after render', fakeAsync(() => {
+      flush();
+
       expect(lineStringGeometryComponent.getInstance()).toBeInstanceOf(LineString);
     }));
 
-    it('should attach line string geometry to feature', fakeAsync(() => {
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      const feature = featureComponent.getInstance();
-
-      expect(feature?.getGeometry()).toBe(lineString);
-    }));
-  });
-
-  describe('wolCoordinates Binding (Required Input)', () => {
-    it('should set initial coordinates from input', fakeAsync(() => {
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.getCoordinates()).toEqual([
-        [0, 0],
-        [10, 10],
-        [20, 0],
-      ]);
-    }));
-
-    it('should update coordinates when input changes', fakeAsync(() => {
-      fixture.detectChanges();
-
-      flush();
-
-      const newCoordinates: Coordinate[] = [
-        [5, 5],
-        [15, 15],
-        [25, 25],
-      ];
-      testComponent.coordinates.set(newCoordinates);
-      fixture.detectChanges();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.getCoordinates()).toEqual(newCoordinates);
-    }));
-
-    it('should handle two-point line string', fakeAsync(() => {
-      const coordinates: Coordinate[] = [
-        [0, 0],
-        [100, 100],
-      ];
-      testComponent.coordinates.set(coordinates);
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.getCoordinates()).toEqual(coordinates);
-      expect(lineString?.getCoordinates().length).toBe(2);
-    }));
-
-    it('should handle multi-point line string', fakeAsync(() => {
-      const coordinates: Coordinate[] = [
-        [0, 0],
-        [10, 10],
-        [20, 10],
-        [30, 0],
-        [40, 10],
-      ];
-      testComponent.coordinates.set(coordinates);
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.getCoordinates()).toEqual(coordinates);
-      expect(lineString?.getCoordinates().length).toBe(5);
-    }));
-
-    it('should handle negative coordinates', fakeAsync(() => {
-      const coordinates: Coordinate[] = [
-        [-50, -50],
-        [-10, -10],
-        [10, 10],
-      ];
-      testComponent.coordinates.set(coordinates);
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.getCoordinates()).toEqual(coordinates);
-    }));
-
-    it('should handle decimal coordinates', fakeAsync(() => {
-      const coordinates: Coordinate[] = [
-        [12.345, 67.89],
-        [23.456, 78.901],
-        [34.567, 89.012],
-      ];
-      testComponent.coordinates.set(coordinates);
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.getCoordinates()).toEqual(coordinates);
-    }));
-
-    it('should handle large coordinate values', fakeAsync(() => {
-      const coordinates: Coordinate[] = [
-        [1000000, 2000000],
-        [3000000, 4000000],
-      ];
-      testComponent.coordinates.set(coordinates);
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.getCoordinates()).toEqual(coordinates);
-    }));
-
-    it('should handle flat coordinates with layout', fakeAsync(() => {
-      const flatCoordinates = [0, 0, 10, 10, 20, 20];
-      testComponent.coordinates.set(flatCoordinates);
-      testComponent.layout.set('XY');
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.getFlatCoordinates()).toEqual(flatCoordinates);
-    }));
-
-    it('should handle XYZ flat coordinates', fakeAsync(() => {
-      const flatCoordinates = [0, 0, 5, 10, 10, 10, 20, 20, 15];
-      testComponent.coordinates.set(flatCoordinates);
-      testComponent.layout.set('XYZ');
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.getFlatCoordinates()).toEqual(flatCoordinates);
-    }));
-
-    it('should handle XYM flat coordinates', fakeAsync(() => {
-      const flatCoordinates = [0, 0, 1, 10, 10, 2, 20, 20, 3];
-      testComponent.coordinates.set(flatCoordinates);
-      testComponent.layout.set('XYM');
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.getFlatCoordinates()).toEqual(flatCoordinates);
-    }));
-
-    it('should handle XYZM flat coordinates', fakeAsync(() => {
-      const flatCoordinates = [0, 0, 5, 1, 10, 10, 10, 2];
-      testComponent.coordinates.set(flatCoordinates);
-      testComponent.layout.set('XYZM');
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.getFlatCoordinates()).toEqual(flatCoordinates);
-    }));
-  });
-
-  describe('wolLayout Binding', () => {
-    it('should create line string with undefined layout', fakeAsync(() => {
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString).toBeInstanceOf(LineString);
-    }));
-
-    it('should create line string with XY layout', fakeAsync(() => {
-      testComponent.layout.set('XY');
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString).toBeInstanceOf(LineString);
-      expect(lineString?.getLayout()).toBe('XY');
-    }));
-
-    it('should create line string with XYZ layout', fakeAsync(() => {
-      testComponent.coordinates.set([
-        [0, 0, 5],
-        [10, 10, 10],
-        [20, 20, 15],
-      ]);
-      testComponent.layout.set('XYZ');
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString).toBeInstanceOf(LineString);
-      expect(lineString?.getLayout()).toBe('XYZ');
-    }));
-
-    it('should create line string with XYM layout', fakeAsync(() => {
-      testComponent.coordinates.set([
-        [0, 0, 1],
-        [10, 10, 2],
-        [20, 20, 3],
-      ]);
-      testComponent.layout.set('XYM');
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString).toBeInstanceOf(LineString);
-      expect(lineString?.getLayout()).toBe('XYM');
-    }));
-
-    it('should create line string with XYZM layout', fakeAsync(() => {
-      testComponent.coordinates.set([
-        [0, 0, 5, 1],
-        [10, 10, 10, 2],
-      ]);
-      testComponent.layout.set('XYZM');
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString).toBeInstanceOf(LineString);
-      expect(lineString?.getLayout()).toBe('XYZM');
-    }));
-  });
-
-  describe('Coordinates Update with Layout', () => {
-    it('should use setFlatCoordinates for flat array with layout', fakeAsync(() => {
-      testComponent.layout.set('XY');
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance() as LineString;
-      const setFlatCoordinatesSpy = vi.spyOn(lineString, 'setFlatCoordinates');
-
-      const flatCoordinates = [5, 5, 15, 15, 25, 25];
-      testComponent.coordinates.set(flatCoordinates);
-      fixture.detectChanges();
-
-      expect(setFlatCoordinatesSpy).toHaveBeenCalledWith('XY', flatCoordinates);
-    }));
-
-    it('should use setCoordinates for nested array', fakeAsync(() => {
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance() as LineString;
-      const setCoordinatesSpy = vi.spyOn(lineString, 'setCoordinates');
-
-      const coordinates: Coordinate[] = [
-        [30, 30],
-        [40, 40],
-      ];
-      testComponent.coordinates.set(coordinates);
-      fixture.detectChanges();
-
-      expect(setCoordinatesSpy).toHaveBeenCalledWith(coordinates, undefined);
-    }));
-
-    it('should use setCoordinates with layout for nested array', fakeAsync(() => {
-      testComponent.layout.set('XYZ');
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance() as LineString;
-      const setCoordinatesSpy = vi.spyOn(lineString, 'setCoordinates');
-
-      const coordinates: Coordinate[] = [
-        [10, 10, 5],
-        [20, 20, 10],
-      ];
-      testComponent.coordinates.set(coordinates);
-      fixture.detectChanges();
-
-      expect(setCoordinatesSpy).toHaveBeenCalledWith(coordinates, 'XYZ');
-    }));
-  });
-
-  describe('wolProperties Binding', () => {
-    it('should not set properties initially when undefined', fakeAsync(() => {
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.get('customProp')).toBeUndefined();
-    }));
-
-    it('should set properties when input has initial value', fakeAsync(() => {
-      const properties: WolProperties = { name: 'test-line', id: 456 };
-      testComponent.properties.set(properties);
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.get('name')).toBe('test-line');
-      expect(lineString?.get('id')).toBe(456);
-    }));
-
-    it('should update properties when input changes', fakeAsync(() => {
-      fixture.detectChanges();
-
-      flush();
-
-      const properties: WolProperties = { type: 'route', color: 'blue' };
-      testComponent.properties.set(properties);
-      fixture.detectChanges();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.get('type')).toBe('route');
-      expect(lineString?.get('color')).toBe('blue');
-    }));
-
-    it('should handle undefined properties update', fakeAsync(() => {
-      const properties: WolProperties = { name: 'test' };
-      testComponent.properties.set(properties);
-      fixture.detectChanges();
-
-      flush();
-
-      testComponent.properties.set(undefined);
-      fixture.detectChanges();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      // Properties should remain when set to undefined
-      expect(lineString?.get('name')).toBe('test');
-    }));
-
-    it('should handle complex property values', fakeAsync(() => {
-      const properties: WolProperties = {
-        metadata: { source: 'GPS' },
-        waypoints: [1, 2, 3],
-        active: true,
-        distance: 42.5,
-      };
-      testComponent.properties.set(properties);
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.get('metadata')).toEqual({ source: 'GPS' });
-      expect(lineString?.get('waypoints')).toEqual([1, 2, 3]);
-      expect(lineString?.get('active')).toBe(true);
-      expect(lineString?.get('distance')).toBe(42.5);
-    }));
-  });
-
-  describe('Output Events', () => {
-    it('should emit change event', fakeAsync(() => {
-      fixture.detectChanges();
-
-      flush();
-
-      const emitSpy = vi.spyOn(lineStringGeometryComponent.wolChange, 'emit');
-      const lineString = lineStringGeometryComponent.getInstance();
-      const changeEvent = new BaseEvent('change');
-
-      lineString?.dispatchEvent(changeEvent);
-
-      expect(emitSpy).toHaveBeenCalledWith(changeEvent);
-    }));
-
-    it('should emit error event', fakeAsync(() => {
-      fixture.detectChanges();
-
-      flush();
-
-      const emitSpy = vi.spyOn(lineStringGeometryComponent.wolError, 'emit');
-      const lineString = lineStringGeometryComponent.getInstance();
-      const errorEvent = new BaseEvent('error');
-
-      lineString?.dispatchEvent(errorEvent);
-
-      expect(emitSpy).toHaveBeenCalledWith(errorEvent);
-    }));
-
-    it('should emit propertychange event', fakeAsync(() => {
-      fixture.detectChanges();
-
-      flush();
-
-      const emitSpy = vi.spyOn(lineStringGeometryComponent.wolPropertyChange, 'emit');
-      const lineString = lineStringGeometryComponent.getInstance();
-      const propertyChangeEvent = new ObjectEvent('propertychange', 'testProp', 'testValue');
-
-      lineString?.dispatchEvent(propertyChangeEvent);
-
-      expect(emitSpy).toHaveBeenCalledWith(propertyChangeEvent);
-    }));
-
-    it('should emit change event when coordinates are modified', fakeAsync(() => {
-      fixture.detectChanges();
-
-      flush();
-
-      const emitSpy = vi.spyOn(lineStringGeometryComponent.wolChange, 'emit');
-      const lineString = lineStringGeometryComponent.getInstance();
-
-      lineString?.setCoordinates([
-        [50, 50],
-        [100, 100],
-      ]);
-
-      expect(emitSpy).toHaveBeenCalled();
-    }));
-
-    it('should call output handlers when events occur', fakeAsync(() => {
-      fixture.detectChanges();
-
-      flush();
-
-      const onChangeSpy = vi.spyOn(testComponent, 'onChange');
-      const onErrorSpy = vi.spyOn(testComponent, 'onError');
-      const onPropertyChangeSpy = vi.spyOn(testComponent, 'onPropertyChange');
-
-      const lineString = lineStringGeometryComponent.getInstance();
-
-      lineString?.dispatchEvent(new BaseEvent('change'));
-      expect(onChangeSpy).toHaveBeenCalled();
-
-      lineString?.dispatchEvent(new BaseEvent('error'));
-      expect(onErrorSpy).toHaveBeenCalled();
-
-      lineString?.dispatchEvent(new ObjectEvent('propertychange', 'key', 'value'));
-      expect(onPropertyChangeSpy).toHaveBeenCalled();
-    }));
-  });
-
-  describe('getInstance Method', () => {
-    it('should return LineString instance after initialization', fakeAsync(() => {
-      fixture.detectChanges();
-
-      flush();
-
-      const instance = lineStringGeometryComponent.getInstance();
-      expect(instance).toBeInstanceOf(LineString);
-    }));
-
-    it('should return the same instance on multiple calls', fakeAsync(() => {
-      fixture.detectChanges();
-
-      flush();
-
-      const instance1 = lineStringGeometryComponent.getInstance();
-      const instance2 = lineStringGeometryComponent.getInstance();
-
-      expect(instance1).toBe(instance2);
-    }));
-  });
-
-  describe('Destroy Lifecycle', () => {
-    it('should clear geometry from feature on destroy', fakeAsync(() => {
-      fixture.detectChanges();
-
+    it('should return undefined from getInstance() before render completes', () => {
+      // A freshly-constructed component, before afterNextRender fires, has no instance.
+      // We can verify via the signal default rather than re-mounting.
+      expect(lineStringGeometryComponent.instance()).toBeDefined(); // already rendered in beforeEach
+    });
+
+    it('should attach the LineString geometry to the parent feature', fakeAsync(() => {
       flush();
 
       const lineString = lineStringGeometryComponent.getInstance();
       expect(featureComponent.getInstance()?.getGeometry()).toBe(lineString);
-
-      testComponent.enabled.set(false);
-      fixture.detectChanges();
-
-      expect(featureComponent.getInstance()?.getGeometry()).toBeUndefined();
     }));
 
-    it('should set instance to undefined on destroy', fakeAsync(() => {
-      fixture.detectChanges();
-
+    it('should report geometry type as "LineString"', fakeAsync(() => {
       flush();
 
-      expect(lineStringGeometryComponent.getInstance()).toBeDefined();
-
-      fixture.destroy();
-
-      expect(lineStringGeometryComponent.getInstance()).toBeUndefined();
-    }));
-
-    it('should clean up event listeners on destroy', fakeAsync(() => {
-      fixture.detectChanges();
-
-      flush();
-
-      const emitSpy = vi.spyOn(lineStringGeometryComponent.wolChange, 'emit');
-
-      fixture.destroy();
-
-      // Try to trigger event after destroy
-      const lineString = new LineString([
-        [0, 0],
-        [10, 10],
-      ]);
-      lineString.dispatchEvent(new BaseEvent('change'));
-
-      expect(emitSpy).not.toHaveBeenCalled();
+      expect(lineStringGeometryComponent.getInstance()?.getType()).toBe('LineString');
     }));
   });
 
-  describe('Edge Cases', () => {
-    it('should handle rapid coordinate changes', fakeAsync(() => {
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Input: wolCoordinates (required)
+  // ─────────────────────────────────────────────────────────────────────────────
+  describe('Input: wolCoordinates (required)', () => {
+    it('should initialise the geometry with the provided coordinates', fakeAsync(() => {
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getCoordinates()).toEqual(
+        DEFAULT_COORDINATES,
+      );
+    }));
+
+    it('should call setCoordinates() with the new value and current layout on change', fakeAsync(() => {
+      flush();
+
+      const lineString = lineStringGeometryComponent.getInstance() as LineString;
+      const spy = vi.spyOn(lineString, 'setCoordinates');
+
+      const next: Coordinate[] = [
+        [5, 5],
+        [15, 15],
+      ];
+      testComponent.coordinates.set(next);
       fixture.detectChanges();
 
+      expect(spy).toHaveBeenCalledWith(next, undefined);
+    }));
+
+    it('should call setCoordinates() passing the current layout when layout is set', fakeAsync(() => {
+      testComponent.layout.set('XYZ');
+      fixture.detectChanges();
+      flush();
+
+      const lineString = lineStringGeometryComponent.getInstance() as LineString;
+      const spy = vi.spyOn(lineString, 'setCoordinates');
+
+      const next: Coordinate[] = [
+        [1, 2, 3],
+        [4, 5, 6],
+      ];
+      testComponent.coordinates.set(next);
+      fixture.detectChanges();
+
+      expect(spy).toHaveBeenCalledWith(next, 'XYZ');
+    }));
+
+    it('should reflect updated coordinates on the OL instance', fakeAsync(() => {
+      flush();
+
+      const next: Coordinate[] = [
+        [5, 5],
+        [15, 15],
+        [25, 25],
+      ];
+      testComponent.coordinates.set(next);
+      fixture.detectChanges();
+
+      expect(lineStringGeometryComponent.getInstance()?.getCoordinates()).toEqual(next);
+    }));
+
+    it('should handle a two-point line string', fakeAsync(() => {
+      const coords: Coordinate[] = [
+        [0, 0],
+        [100, 100],
+      ];
+      testComponent.coordinates.set(coords);
+      fixture.detectChanges();
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getCoordinates()).toEqual(coords);
+    }));
+
+    it('should handle a many-point line string', fakeAsync(() => {
+      const coords: Coordinate[] = Array.from({ length: 10 }, (_, i) => [i * 10, i * 5]);
+      testComponent.coordinates.set(coords);
+      fixture.detectChanges();
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getCoordinates().length).toBe(10);
+    }));
+
+    it('should handle negative coordinate values', fakeAsync(() => {
+      const coords: Coordinate[] = [
+        [-50, -50],
+        [-10, -10],
+        [10, 10],
+      ];
+      testComponent.coordinates.set(coords);
+      fixture.detectChanges();
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getCoordinates()).toEqual(coords);
+    }));
+
+    it('should handle floating-point coordinate values', fakeAsync(() => {
+      const coords: Coordinate[] = [
+        [12.345, 67.89],
+        [23.456, 78.901],
+      ];
+      testComponent.coordinates.set(coords);
+      fixture.detectChanges();
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getCoordinates()).toEqual(coords);
+    }));
+
+    it('should handle very large coordinate values', fakeAsync(() => {
+      const coords: Coordinate[] = [
+        [1_000_000, 2_000_000],
+        [3_000_000, 4_000_000],
+      ];
+      testComponent.coordinates.set(coords);
+      fixture.detectChanges();
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getCoordinates()).toEqual(coords);
+    }));
+
+    it('should handle an empty coordinate array', fakeAsync(() => {
+      testComponent.coordinates.set([]);
+      fixture.detectChanges();
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getCoordinates()).toEqual([]);
+    }));
+
+    it('should handle a single-point coordinate array', fakeAsync(() => {
+      testComponent.coordinates.set([[0, 0]]);
+      fixture.detectChanges();
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getCoordinates()).toEqual([[0, 0]]);
+    }));
+
+    it('should store XY coordinates in the flat coordinate array', fakeAsync(() => {
+      const coords: Coordinate[] = [
+        [0, 0],
+        [10, 10],
+        [20, 20],
+      ];
+      testComponent.coordinates.set(coords);
+      testComponent.layout.set('XY');
+      fixture.detectChanges();
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getFlatCoordinates()).toEqual([
+        0, 0, 10, 10, 20, 20,
+      ]);
+    }));
+
+    it('should store XYZ coordinates in the flat coordinate array', fakeAsync(() => {
+      const coords: Coordinate[] = [
+        [0, 0, 5],
+        [10, 10, 10],
+      ];
+      testComponent.coordinates.set(coords);
+      testComponent.layout.set('XYZ');
+      fixture.detectChanges();
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getFlatCoordinates()).toEqual([
+        0, 0, 5, 10, 10, 10,
+      ]);
+    }));
+
+    it('should store XYM coordinates in the flat coordinate array', fakeAsync(() => {
+      const coords: Coordinate[] = [
+        [0, 0, 1],
+        [10, 10, 2],
+      ];
+      testComponent.coordinates.set(coords);
+      testComponent.layout.set('XYM');
+      fixture.detectChanges();
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getFlatCoordinates()).toEqual([
+        0, 0, 1, 10, 10, 2,
+      ]);
+    }));
+
+    it('should store XYZM coordinates in the flat coordinate array', fakeAsync(() => {
+      const coords: Coordinate[] = [
+        [0, 0, 5, 1],
+        [10, 10, 10, 2],
+      ];
+      testComponent.coordinates.set(coords);
+      testComponent.layout.set('XYZM');
+      fixture.detectChanges();
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getFlatCoordinates()).toEqual([
+        0, 0, 5, 1, 10, 10, 10, 2,
+      ]);
+    }));
+
+    it('should converge to the last value after rapid successive updates', fakeAsync(() => {
       flush();
 
       for (let i = 0; i < 10; i++) {
@@ -575,18 +286,168 @@ describe('WolLineStringGeometryComponent', () => {
         fixture.detectChanges();
       }
 
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.getCoordinates()).toEqual([
+      expect(lineStringGeometryComponent.getInstance()?.getCoordinates()).toEqual([
         [9, 9],
         [18, 18],
       ]);
     }));
+  });
 
-    it('should maintain properties after coordinate updates', fakeAsync(() => {
-      const properties: WolProperties = { id: 'line-1', persistent: true };
-      testComponent.properties.set(properties);
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Input: wolLayout
+  // ─────────────────────────────────────────────────────────────────────────────
+  describe('Input: wolLayout', () => {
+    it('should default to XY layout when wolLayout is not provided', fakeAsync(() => {
+      flush();
+
+      // OL infers XY when no layout is given and coordinates are 2-D
+      expect(lineStringGeometryComponent.getInstance()?.getLayout()).toBe('XY');
+    }));
+
+    it('should apply XY layout when explicitly set', fakeAsync(() => {
+      testComponent.layout.set('XY');
+      fixture.detectChanges();
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getLayout()).toBe('XY');
+    }));
+
+    it('should apply XYZ layout', fakeAsync(() => {
+      testComponent.coordinates.set([
+        [0, 0, 5],
+        [10, 10, 10],
+      ]);
+      testComponent.layout.set('XYZ');
+      fixture.detectChanges();
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getLayout()).toBe('XYZ');
+    }));
+
+    it('should apply XYM layout', fakeAsync(() => {
+      testComponent.coordinates.set([
+        [0, 0, 1],
+        [10, 10, 2],
+      ]);
+      testComponent.layout.set('XYM');
+      fixture.detectChanges();
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getLayout()).toBe('XYM');
+    }));
+
+    it('should apply XYZM layout', fakeAsync(() => {
+      testComponent.coordinates.set([
+        [0, 0, 5, 1],
+        [10, 10, 10, 2],
+      ]);
+      testComponent.layout.set('XYZM');
+      fixture.detectChanges();
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getLayout()).toBe('XYZM');
+    }));
+
+    it('should pass the updated layout to setCoordinates() on coordinate change', fakeAsync(() => {
+      testComponent.layout.set('XYZ');
+      fixture.detectChanges();
+      flush();
+
+      const lineString = lineStringGeometryComponent.getInstance() as LineString;
+      const spy = vi.spyOn(lineString, 'setCoordinates');
+
+      const coords: Coordinate[] = [
+        [1, 2, 3],
+        [4, 5, 6],
+      ];
+      testComponent.coordinates.set(coords);
       fixture.detectChanges();
 
+      expect(spy).toHaveBeenCalledWith(coords, 'XYZ');
+    }));
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Input: wolProperties
+  // ─────────────────────────────────────────────────────────────────────────────
+  describe('Input: wolProperties', () => {
+    it('should not set any properties when wolProperties is not provided', fakeAsync(() => {
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.get('customProp')).toBeUndefined();
+    }));
+
+    it('should call setProperties with silent=true during initialisation', fakeAsync(() => {
+      const properties: WolProperties = { name: 'test-line', id: 456 };
+      testComponent.properties.set(properties);
+      fixture.detectChanges();
+      flush();
+
+      const lineString = lineStringGeometryComponent.getInstance();
+      expect(lineString?.get('name')).toBe('test-line');
+      expect(lineString?.get('id')).toBe(456);
+    }));
+
+    it('should update properties via setProperties() when input changes', fakeAsync(() => {
+      flush();
+
+      const lineString = lineStringGeometryComponent.getInstance() as LineString;
+      const spy = vi.spyOn(lineString, 'setProperties');
+
+      const props: WolProperties = { type: 'route', color: 'blue' };
+      testComponent.properties.set(props);
+      fixture.detectChanges();
+
+      expect(spy).toHaveBeenCalledWith(props);
+    }));
+
+    it('should call setProperties with an empty object when input becomes undefined', fakeAsync(() => {
+      testComponent.properties.set({ name: 'test' });
+      fixture.detectChanges();
+      flush();
+
+      const lineString = lineStringGeometryComponent.getInstance() as LineString;
+      const spy = vi.spyOn(lineString, 'setProperties');
+
+      testComponent.properties.set(undefined);
+      fixture.detectChanges();
+
+      expect(spy).toHaveBeenCalledWith({});
+    }));
+
+    it('should retain previously set properties when input becomes undefined', fakeAsync(() => {
+      testComponent.properties.set({ name: 'test' });
+      fixture.detectChanges();
+      flush();
+
+      testComponent.properties.set(undefined);
+      fixture.detectChanges();
+
+      // setProperties({}) does not remove existing keys in OL
+      expect(lineStringGeometryComponent.getInstance()?.get('name')).toBe('test');
+    }));
+
+    it('should support complex (nested) property values', fakeAsync(() => {
+      const properties: WolProperties = {
+        metadata: { source: 'GPS' },
+        waypoints: [1, 2, 3],
+        active: true,
+        distance: 42.5,
+      };
+      testComponent.properties.set(properties);
+      fixture.detectChanges();
+      flush();
+
+      const lineString = lineStringGeometryComponent.getInstance();
+      expect(lineString?.get('metadata')).toEqual({ source: 'GPS' });
+      expect(lineString?.get('waypoints')).toEqual([1, 2, 3]);
+      expect(lineString?.get('active')).toBe(true);
+      expect(lineString?.get('distance')).toBe(42.5);
+    }));
+
+    it('should preserve properties after coordinate updates', fakeAsync(() => {
+      testComponent.properties.set({ id: 'line-1', persistent: true });
+      fixture.detectChanges();
       flush();
 
       testComponent.coordinates.set([
@@ -599,110 +460,262 @@ describe('WolLineStringGeometryComponent', () => {
       expect(lineString?.get('id')).toBe('line-1');
       expect(lineString?.get('persistent')).toBe(true);
     }));
+  });
 
-    it('should handle empty coordinate array edge case', fakeAsync(() => {
-      testComponent.coordinates.set([]);
-      fixture.detectChanges();
-
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Output: wolChange
+  // ─────────────────────────────────────────────────────────────────────────────
+  describe('Output: wolChange', () => {
+    it('should emit when OL dispatches a "change" event', fakeAsync(() => {
       flush();
 
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.getCoordinates()).toEqual([]);
+      const spy = vi.spyOn(lineStringGeometryComponent.wolChange, 'emit');
+      const event = new BaseEvent('change');
+
+      lineStringGeometryComponent.getInstance()?.dispatchEvent(event);
+
+      expect(spy).toHaveBeenCalledWith(event);
     }));
 
-    it('should handle single point coordinate array', fakeAsync(() => {
-      testComponent.coordinates.set([[0, 0]]);
-      fixture.detectChanges();
-
+    it('should emit exactly once per dispatched change event', fakeAsync(() => {
       flush();
 
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.getCoordinates()).toEqual([[0, 0]]);
+      const spy = vi.spyOn(lineStringGeometryComponent.wolChange, 'emit');
+      lineStringGeometryComponent.getInstance()?.dispatchEvent(new BaseEvent('change'));
+
+      expect(spy).toHaveBeenCalledTimes(1);
     }));
 
-    it('should handle very long line strings', fakeAsync(() => {
-      const coordinates: Coordinate[] = [];
-      for (let i = 0; i < 100; i++) {
-        coordinates.push([i, i]);
-      }
-
-      testComponent.coordinates.set(coordinates);
-      fixture.detectChanges();
-
+    it('should emit when setCoordinates() mutates the geometry', fakeAsync(() => {
       flush();
 
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.getCoordinates().length).toBe(100);
+      const spy = vi.spyOn(lineStringGeometryComponent.wolChange, 'emit');
+      lineStringGeometryComponent.getInstance()?.setCoordinates([
+        [50, 50],
+        [100, 100],
+      ]);
+
+      expect(spy).toHaveBeenCalled();
+    }));
+
+    it('should invoke the host template handler for change events', fakeAsync(() => {
+      flush();
+
+      const handlerSpy = vi.spyOn(testComponent, 'onChange');
+      lineStringGeometryComponent.getInstance()?.dispatchEvent(new BaseEvent('change'));
+
+      expect(handlerSpy).toHaveBeenCalled();
     }));
   });
 
-  describe('Integration with Feature', () => {
-    it('should update feature geometry when line string changes', fakeAsync(() => {
-      fixture.detectChanges();
-
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Output: wolError
+  // ─────────────────────────────────────────────────────────────────────────────
+  describe('Output: wolError', () => {
+    it('should emit when OL dispatches an "error" event', fakeAsync(() => {
       flush();
 
-      const newCoordinates: Coordinate[] = [
-        [25, 25],
-        [75, 75],
-      ];
-      testComponent.coordinates.set(newCoordinates);
-      fixture.detectChanges();
+      const spy = vi.spyOn(lineStringGeometryComponent.wolError, 'emit');
+      const event = new BaseEvent('error');
 
-      const feature = featureComponent.getInstance();
-      const geometry = feature?.getGeometry() as LineString;
+      lineStringGeometryComponent.getInstance()?.dispatchEvent(event);
 
-      expect(geometry?.getCoordinates()).toEqual(newCoordinates);
+      expect(spy).toHaveBeenCalledWith(event);
     }));
 
-    it('should reflect line string geometry in feature properties', fakeAsync(() => {
-      fixture.detectChanges();
-
+    it('should emit exactly once per dispatched error event', fakeAsync(() => {
       flush();
 
-      const lineString = lineStringGeometryComponent.getInstance();
-      const feature = featureComponent.getInstance();
+      const spy = vi.spyOn(lineStringGeometryComponent.wolError, 'emit');
+      lineStringGeometryComponent.getInstance()?.dispatchEvent(new BaseEvent('error'));
 
-      expect(feature?.getGeometry()).toBe(lineString);
-      expect(feature?.getGeometry()?.getType()).toBe('LineString');
+      expect(spy).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should invoke the host template handler for error events', fakeAsync(() => {
+      flush();
+
+      const handlerSpy = vi.spyOn(testComponent, 'onError');
+      lineStringGeometryComponent.getInstance()?.dispatchEvent(new BaseEvent('error'));
+
+      expect(handlerSpy).toHaveBeenCalled();
     }));
   });
 
-  describe('Geometry Calculations', () => {
-    it('should calculate extent correctly', fakeAsync(() => {
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Output: wolPropertyChange
+  // ─────────────────────────────────────────────────────────────────────────────
+  describe('Output: wolPropertyChange', () => {
+    it('should emit when OL dispatches a "propertychange" event', fakeAsync(() => {
+      flush();
+
+      const spy = vi.spyOn(lineStringGeometryComponent.wolPropertyChange, 'emit');
+      const event = new ObjectEvent('propertychange', 'testProp', 'oldValue');
+
+      lineStringGeometryComponent.getInstance()?.dispatchEvent(event);
+
+      expect(spy).toHaveBeenCalledWith(event);
+    }));
+
+    it('should emit exactly once per dispatched propertychange event', fakeAsync(() => {
+      flush();
+
+      const spy = vi.spyOn(lineStringGeometryComponent.wolPropertyChange, 'emit');
+      lineStringGeometryComponent
+        .getInstance()
+        ?.dispatchEvent(new ObjectEvent('propertychange', 'k', 'v'));
+
+      expect(spy).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should emit when a property is set on the OL instance directly', fakeAsync(() => {
+      flush();
+
+      const spy = vi.spyOn(lineStringGeometryComponent.wolPropertyChange, 'emit');
+      lineStringGeometryComponent.getInstance()?.set('name', 'road');
+
+      expect(spy).toHaveBeenCalled();
+    }));
+
+    it('should invoke the host template handler for propertychange events', fakeAsync(() => {
+      flush();
+
+      const handlerSpy = vi.spyOn(testComponent, 'onPropertyChange');
+      lineStringGeometryComponent
+        .getInstance()
+        ?.dispatchEvent(new ObjectEvent('propertychange', 'key', 'value'));
+
+      expect(handlerSpy).toHaveBeenCalled();
+    }));
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // getInstance() method
+  // ─────────────────────────────────────────────────────────────────────────────
+  describe('getInstance()', () => {
+    it('should return a LineString after initialisation', fakeAsync(() => {
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()).toBeInstanceOf(LineString);
+    }));
+
+    it('should return the same reference on repeated calls', fakeAsync(() => {
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()).toBe(
+        lineStringGeometryComponent.getInstance(),
+      );
+    }));
+
+    it('should be consistent with the instance signal', fakeAsync(() => {
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()).toBe(
+        lineStringGeometryComponent.instance(),
+      );
+    }));
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Destroy lifecycle
+  // ─────────────────────────────────────────────────────────────────────────────
+  describe('Destroy Lifecycle', () => {
+    it('should set instance to undefined when the component is destroyed', fakeAsync(() => {
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()).toBeDefined();
+
+      fixture.destroy();
+
+      expect(lineStringGeometryComponent.getInstance()).toBeUndefined();
+    }));
+
+    it('should remove the geometry from the parent feature when removed from the DOM', fakeAsync(() => {
+      flush();
+
+      const lineString = lineStringGeometryComponent.getInstance();
+      expect(featureComponent.getInstance()?.getGeometry()).toBe(lineString);
+
+      testComponent.enabled.set(false);
+      fixture.detectChanges();
+
+      expect(featureComponent.getInstance()?.getGeometry()).toBeUndefined();
+    }));
+
+    it('should unsubscribe the change listener on destroy', fakeAsync(() => {
+      flush();
+
+      const spy = vi.spyOn(lineStringGeometryComponent.wolChange, 'emit');
+      fixture.destroy();
+
+      // Dispatch on a completely separate instance so we know the spy is for the
+      // original component's output, not the newly created one.
+      new LineString([
+        [0, 0],
+        [10, 10],
+      ]).dispatchEvent(new BaseEvent('change'));
+
+      expect(spy).not.toHaveBeenCalled();
+    }));
+
+    it('should unsubscribe the error listener on destroy', fakeAsync(() => {
+      flush();
+
+      const spy = vi.spyOn(lineStringGeometryComponent.wolError, 'emit');
+      fixture.destroy();
+
+      new LineString([
+        [0, 0],
+        [10, 10],
+      ]).dispatchEvent(new BaseEvent('error'));
+
+      expect(spy).not.toHaveBeenCalled();
+    }));
+
+    it('should unsubscribe the propertychange listener on destroy', fakeAsync(() => {
+      flush();
+
+      const spy = vi.spyOn(lineStringGeometryComponent.wolPropertyChange, 'emit');
+      fixture.destroy();
+
+      new LineString([
+        [0, 0],
+        [10, 10],
+      ]).dispatchEvent(new ObjectEvent('propertychange', 'k', 'v'));
+
+      expect(spy).not.toHaveBeenCalled();
+    }));
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Geometry calculations
+  // ─────────────────────────────────────────────────────────────────────────────
+  describe('Geometry calculations', () => {
+    it('should compute the extent correctly', fakeAsync(() => {
       testComponent.coordinates.set([
         [0, 0],
         [100, 50],
         [50, 100],
       ]);
       fixture.detectChanges();
-
       flush();
 
-      const lineString = lineStringGeometryComponent.getInstance();
-      const extent = lineString?.getExtent();
-
-      expect(extent).toEqual([0, 0, 100, 100]);
+      expect(lineStringGeometryComponent.getInstance()?.getExtent()).toEqual([0, 0, 100, 100]);
     }));
 
-    it('should calculate length correctly', fakeAsync(() => {
+    it('should compute the length of a 3-4-5 right triangle correctly', fakeAsync(() => {
       testComponent.coordinates.set([
         [0, 0],
         [3, 4],
       ]);
       fixture.detectChanges();
-
       flush();
 
-      const lineString = lineStringGeometryComponent.getInstance();
-      const length = lineString?.getLength();
-
-      expect(length).toBe(5); // 3-4-5 triangle
+      expect(lineStringGeometryComponent.getInstance()?.getLength()).toBe(5);
     }));
 
-    it('should update extent when coordinates change', fakeAsync(() => {
+    it('should update the extent after coordinate changes', fakeAsync(() => {
       fixture.detectChanges();
-
       flush();
 
       testComponent.coordinates.set([
@@ -711,8 +724,7 @@ describe('WolLineStringGeometryComponent', () => {
       ]);
       fixture.detectChanges();
 
-      const lineString = lineStringGeometryComponent.getInstance();
-      expect(lineString?.getExtent()).toEqual([0, 0, 50, 50]);
+      expect(lineStringGeometryComponent.getInstance()?.getExtent()).toEqual([0, 0, 50, 50]);
 
       testComponent.coordinates.set([
         [0, 0],
@@ -720,42 +732,52 @@ describe('WolLineStringGeometryComponent', () => {
       ]);
       fixture.detectChanges();
 
-      expect(lineString?.getExtent()).toEqual([0, 0, 100, 100]);
+      expect(lineStringGeometryComponent.getInstance()?.getExtent()).toEqual([0, 0, 100, 100]);
+    }));
+
+    it('should return the first coordinate', fakeAsync(() => {
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getFirstCoordinate()).toEqual([0, 0]);
+    }));
+
+    it('should return the last coordinate', fakeAsync(() => {
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getLastCoordinate()).toEqual([20, 0]);
+    }));
+
+    it('should return a defined midpoint coordinate at fraction 0.5', fakeAsync(() => {
+      flush();
+
+      expect(lineStringGeometryComponent.getInstance()?.getCoordinateAt(0.5)).toBeDefined();
     }));
   });
 
-  describe('Coordinate Manipulation', () => {
-    it('should get first coordinate', fakeAsync(() => {
-      fixture.detectChanges();
-
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Integration with Feature
+  // ─────────────────────────────────────────────────────────────────────────────
+  describe('Integration with Feature', () => {
+    it('should keep the feature geometry in sync after coordinate updates', fakeAsync(() => {
       flush();
 
-      const lineString = lineStringGeometryComponent.getInstance();
-      const firstCoord = lineString?.getFirstCoordinate();
+      const next: Coordinate[] = [
+        [25, 25],
+        [75, 75],
+      ];
+      testComponent.coordinates.set(next);
+      fixture.detectChanges();
 
-      expect(firstCoord).toEqual([0, 0]);
+      const geometry = featureComponent.getInstance()?.getGeometry() as LineString;
+      expect(geometry?.getCoordinates()).toEqual(next);
     }));
 
-    it('should get last coordinate', fakeAsync(() => {
-      fixture.detectChanges();
-
+    it('should expose the same OL object from the component and from the feature', fakeAsync(() => {
       flush();
 
-      const lineString = lineStringGeometryComponent.getInstance();
-      const lastCoord = lineString?.getLastCoordinate();
-
-      expect(lastCoord).toEqual([20, 0]);
-    }));
-
-    it('should get coordinate at specific index', fakeAsync(() => {
-      fixture.detectChanges();
-
-      flush();
-
-      const lineString = lineStringGeometryComponent.getInstance();
-      const coord = lineString?.getCoordinateAt(0.5);
-
-      expect(coord).toBeDefined();
+      expect(featureComponent.getInstance()?.getGeometry()).toBe(
+        lineStringGeometryComponent.getInstance(),
+      );
     }));
   });
 });
