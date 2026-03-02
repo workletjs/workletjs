@@ -92,6 +92,24 @@ describe('WolOverviewMapControlComponent', () => {
   });
 
   describe('input changes', () => {
+    it('should update collapsed when wolCollapsed input changes', () => {
+      const setCollapsedSpy = vi.spyOn(overviewMapControl, 'setCollapsed');
+      testComponent.collapsed.set(true);
+      fixture.detectChanges();
+      expect(setCollapsedSpy).toHaveBeenCalledWith(true);
+      expect(overviewMapControl.getCollapsed()).toBe(true);
+    });
+
+    it('should update collapsed back to false when wolCollapsed changes to false', () => {
+      testComponent.collapsed.set(true);
+      fixture.detectChanges();
+      const setCollapsedSpy = vi.spyOn(overviewMapControl, 'setCollapsed');
+      testComponent.collapsed.set(false);
+      fixture.detectChanges();
+      expect(setCollapsedSpy).toHaveBeenCalledWith(false);
+      expect(overviewMapControl.getCollapsed()).toBe(false);
+    });
+
     it('should update collapsible when wolCollapsible input changes', () => {
       const setCollapsibleSpy = vi.spyOn(overviewMapControl, 'setCollapsible');
       testComponent.collapsible.set(false);
