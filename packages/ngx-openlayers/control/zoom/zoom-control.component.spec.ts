@@ -110,7 +110,7 @@ describe('WolZoomControlComponent', () => {
     });
 
     it('should initialize properties from wolProperties input', () => {
-      expect(zoomControl.getProperties()).toMatchObject(testComponent.properties());
+      expect(zoomControl.getProperties()).toMatchObject(testComponent.properties() ?? {});
     });
   });
 
@@ -126,7 +126,7 @@ describe('WolZoomControlComponent', () => {
 
     it('should call setProperties with empty object when wolProperties is set to undefined', () => {
       const setPropertiesSpy = vi.spyOn(zoomControl, 'setProperties');
-      testComponent.properties.set(undefined as unknown as WolProperties);
+      testComponent.properties.set(undefined);
       fixture.detectChanges();
       expect(setPropertiesSpy).toHaveBeenCalledWith({});
     });
@@ -283,6 +283,6 @@ class TestZoomControlComponent {
   zoomOutTipLabel = signal('Zoom out');
   delta = signal(2);
   target = signal<HTMLElement | string>('');
-  properties = signal<WolProperties>({ foo: 'bar' });
+  properties = signal<WolProperties | undefined>({ foo: 'bar' });
   destroyControl = signal(false);
 }
