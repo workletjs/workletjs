@@ -165,6 +165,9 @@ export class WolDrawInteractionComponent implements OnChanges {
         case 'wolActive':
           this.instance.setActive(change.currentValue);
           break;
+        case 'wolFreehand':
+          this.instance.setFreehand(change.currentValue);
+          break;
         case 'wolProperties':
           this.instance.setProperties(change.currentValue ?? {});
           break;
