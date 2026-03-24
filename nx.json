@@ -75,5 +75,6 @@
       "pattern": "v{version}",
       "requireSemver": true
     }
-  }
+  },
+  "analytics": false
 }
