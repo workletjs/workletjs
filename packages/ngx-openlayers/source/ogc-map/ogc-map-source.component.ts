@@ -33,24 +33,96 @@ import { DisposeRef, useImageSourceHostRef } from '@workletjs/ngx-openlayers/sou
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolOGCMapSourceComponent implements OnChanges {
+  /**
+   * Attributions.
+   */
   readonly wolAttributions = input<AttributionLike>();
+
+  /**
+   * Cross-origin setting for loaded images. Note that you must provide a `crossOrigin` value if you want to access pixel data with the Canvas renderer.
+   * See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail.
+   */
   readonly wolCrossOrigin = input<null | string>();
+
+  /**
+   * Referrer policy for loaded images. See https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy for more detail.
+   */
   readonly wolReferrerPolicy = input<ReferrerPolicy>();
+
+  /**
+   * If `true`, the device pixel ratio is used to request higher resolution tiles.
+   * The `wolTileLoadFunction` will be called with a tile that has a higher resolution than the map's view resolution.
+   */
   readonly wolHidpi = input<boolean>();
+
+  /**
+   * Optional function to load an image given a URL.
+   */
   readonly wolImageLoadFunction = input<LoadFunction>();
+
+  /**
+   * Use interpolated values when resampling. By default, linear interpolation is used when resampling. Set to false to use the nearest neighbor instead.
+   */
   readonly wolInterpolate = input<boolean>();
+
+  /**
+   * OGC Maps request parameters. No param is required by default. `width`, `height`, `bbox`, `crs` and `bbox-crs` will be set dynamically.
+   */
   readonly wolParams = input<{ [key: string]: WolSafeAny }>();
+
+  /**
+   * Projection. Default is the view projection.
+   */
   readonly wolProjection = input<ProjectionLike>();
+
+  /**
+   * Ratio. `1` means image requests are the size of the map viewport, `2` means twice the width and height of the map viewport, and so on. Must be `1` or higher.
+   */
   readonly wolRatio = input<number>();
+
+  /**
+   * Resolutions. If specified, requests will be made for these resolutions only.
+   */
   readonly wolResolutions = input<number[]>();
+
+  /**
+   * OGC Maps service URL.
+   */
   readonly wolUrl = input<string>();
+
+  /**
+   * Arbitrary properties that will be set on the source.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Event emitted when the source state changes.
+   */
   readonly wolChange = output<BaseEvent>();
+
+  /**
+   * Event emitted when the source encounters an error.
+   */
   readonly wolError = output<BaseEvent>();
+
+  /**
+   * Event emitted when an image loading ends.
+   */
   readonly wolImageLoadEnd = output<ImageSourceEvent>();
+
+  /**
+   * Event emitted when an image loading encounters an error.
+   */
   readonly wolImageLoadError = output<ImageSourceEvent>();
+
+  /**
+   * Event emitted when an image starts loading.
+   */
   readonly wolImageLoadStart = output<ImageSourceEvent>();
+
+  /**
+   * Event emitted when a property of the source changes.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
 
   private instance?: OGCMap;
