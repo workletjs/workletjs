@@ -202,7 +202,9 @@ export class WolMapComponent implements OnChanges {
           this.instance.setView(change.currentValue ?? null);
           break;
         case 'wolPixelRatio':
-          this.instance.setPixelRatio(change.currentValue);
+          if (typeof change.currentValue === 'number') {
+            this.instance.setPixelRatio(change.currentValue);
+          }
           break;
       }
     }
