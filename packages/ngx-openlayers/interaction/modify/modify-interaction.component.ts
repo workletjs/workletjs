@@ -20,7 +20,7 @@ import { unByKey } from 'ol/Observable';
 import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
 import { Condition } from 'ol/events/condition';
-import Modify, { ModifyEvent } from 'ol/interaction/Modify';
+import Modify, { FilterFunction, ModifyEvent } from 'ol/interaction/Modify';
 import BaseVectorLayer from 'ol/layer/BaseVector';
 import VectorSource from 'ol/source/Vector';
 import { StyleLike } from 'ol/style/Style';
@@ -48,6 +48,7 @@ export class WolModifyInteractionComponent implements OnChanges {
   readonly wolFeatures = input<Collection<Feature>>();
   readonly wolWrapX = input<boolean>();
   readonly wolSnapToPointer = input<boolean>();
+  readonly wolFilter = input<FilterFunction>();
   readonly wolProperties = input<WolProperties>();
 
   readonly wolChange = output<BaseEvent>();
@@ -78,6 +79,7 @@ export class WolModifyInteractionComponent implements OnChanges {
         features: this.wolFeatures(),
         wrapX: this.wolWrapX(),
         snapToPointer: this.wolSnapToPointer(),
+        filter: this.wolFilter(),
       });
 
       modify.setActive(this.wolActive());
