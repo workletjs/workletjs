@@ -21,6 +21,7 @@ import TopoJSON from 'ol/format/TopoJSON';
 import { DragAndDropEvent } from 'ol/interaction/DragAndDrop';
 import VectorSource from 'ol/source/Vector';
 
+import { isNil } from '@workletjs/ngx-openlayers/core/utils';
 import { WolDragAndDropInteractionModule } from '@workletjs/ngx-openlayers/interaction/drag-and-drop';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
 import { WolVectorLayerModule } from '@workletjs/ngx-openlayers/layer/vector';
@@ -135,7 +136,10 @@ export class WolDragAndDropInteractionExampleComponent {
       return;
     }
     const extent = source.getExtent();
-    map.getView().fit(extent);
+
+    if (!isNil(extent)) {
+      map.getView().fit(extent);
+    }
   }
 
   download(url: string, filename: string): void {
