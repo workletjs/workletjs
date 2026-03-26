@@ -376,4 +376,12 @@ describe('WolMapComponent', () => {
     expect(disposeSpy).toHaveBeenCalled();
     expect(component.getInstance()).toBeUndefined();
   }));
+
+  it('should update pixelRatio on wolPixelRatio input change', fakeAsync(() => {
+    fixture.detectChanges();
+    const map = component.getInstance() as Map;
+    fixture.componentRef.setInput('wolPixelRatio', 2);
+    fixture.detectChanges();
+    expect(map.getPixelRatio()).toBe(2);
+  }));
 });
