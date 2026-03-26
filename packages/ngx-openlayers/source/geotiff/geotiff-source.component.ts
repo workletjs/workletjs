@@ -71,11 +71,8 @@ export class WolGeoTIFFSourceComponent implements OnChanges {
         transition: this.wolTransition(),
         wrapX: this.wolWrapX(),
         interpolate: this.wolInterpolate(),
+        attributions: this.wolAttributions(),
       });
-
-      if (this.wolAttributions()) {
-        geotiff.setAttributions(this.wolAttributions());
-      }
 
       if (this.wolProperties()) {
         geotiff.setProperties(this.wolProperties() ?? {}, true);
