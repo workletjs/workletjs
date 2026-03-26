@@ -58,6 +58,7 @@ export class WolWMTSSourceComponent implements OnChanges {
   readonly wolWrapX = input<boolean>();
   readonly wolTransition = input<number>();
   readonly wolZDirection = input<number | NearestDirectionFunction>();
+  readonly wolReferrerPolicy = input<ReferrerPolicy>();
   readonly wolProperties = input<WolProperties>();
 
   readonly wolChange = output<BaseEvent>();
@@ -104,6 +105,7 @@ export class WolWMTSSourceComponent implements OnChanges {
         wrapX: this.wolWrapX(),
         transition: this.wolTransition(),
         zDirection: this.wolZDirection(),
+        referrerPolicy: this.wolReferrerPolicy(),
       });
 
       if (this.wolProperties()) {

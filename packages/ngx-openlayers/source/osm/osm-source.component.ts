@@ -44,6 +44,7 @@ export class WolOSMSourceComponent implements OnChanges {
   readonly wolUrl = input<string>();
   readonly wolWrapX = input<boolean>();
   readonly wolZDirection = input<number | NearestDirectionFunction>();
+  readonly wolReferrerPolicy = input<ReferrerPolicy>();
   readonly wolProperties = input<WolProperties>();
 
   readonly wolChange = output<BaseEvent>();
@@ -77,6 +78,7 @@ export class WolOSMSourceComponent implements OnChanges {
         transition: this.wolTransition(),
         url: this.wolUrl(),
         wrapX: this.wolWrapX(),
+        referrerPolicy: this.wolReferrerPolicy(),
         zDirection: this.wolZDirection(),
       });
 

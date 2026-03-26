@@ -40,6 +40,7 @@ export class WolImageStaticSourceComponent implements OnChanges {
   readonly wolInterpolate = input<boolean>();
   readonly wolProjection = input<ProjectionLike>();
   readonly wolUrl = input.required<string>();
+  readonly wolReferrerPolicy = input<ReferrerPolicy>();
   readonly wolProperties = input<WolProperties>();
 
   readonly wolChange = output<BaseEvent>();
@@ -70,6 +71,7 @@ export class WolImageStaticSourceComponent implements OnChanges {
         interpolate: this.wolInterpolate(),
         projection: this.wolProjection(),
         url: this.wolUrl(),
+        referrerPolicy: this.wolReferrerPolicy(),
       });
 
       if (!this.wolProperties()) {
