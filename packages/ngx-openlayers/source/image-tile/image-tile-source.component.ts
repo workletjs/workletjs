@@ -53,6 +53,7 @@ export class WolImageTileSourceComponent implements OnChanges {
   readonly wolInterpolate = input<boolean>();
   readonly wolCrossOrigin = input<CrossOriginAttribute>();
   readonly wolZDirection = input<number | NearestDirectionFunction>();
+  readonly wolReferrerPolicy = input<ReferrerPolicy>();
   readonly wolProperties = input<WolProperties>();
 
   readonly wolChange = output<BaseEvent>();
@@ -80,6 +81,7 @@ export class WolImageTileSourceComponent implements OnChanges {
         loader: this.wolLoader(),
         attributions: this.wolAttributions(),
         attributionsCollapsible: this.wolAttributionsCollapsible(),
+        referrerPolicy: this.wolReferrerPolicy(),
         maxZoom: this.wolMaxZoom(),
         minZoom: this.wolMinZoom(),
         tileSize: this.wolTileSize(),

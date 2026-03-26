@@ -49,6 +49,7 @@ export class WolTileArcGISRestSourceComponent implements OnChanges {
   readonly wolTransition = input<number>();
   readonly wolUrls = input<string[]>();
   readonly wolZDirection = input<number | NearestDirectionFunction>();
+  readonly wolReferrerPolicy = input<ReferrerPolicy>();
   readonly wolProperties = input<WolProperties>();
 
   readonly wolChange = output<BaseEvent>();
@@ -86,6 +87,7 @@ export class WolTileArcGISRestSourceComponent implements OnChanges {
         wrapX: this.wolWrapX(),
         transition: this.wolTransition(),
         urls: this.wolUrls(),
+        referrerPolicy: this.wolReferrerPolicy(),
         zDirection: this.wolZDirection(),
       });
 

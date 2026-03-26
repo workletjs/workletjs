@@ -44,6 +44,7 @@ export class WolImageWMSSourceComponent implements OnChanges {
   readonly wolRatio = input<number>();
   readonly wolResolutions = input<number[]>();
   readonly wolUrl = input<string>();
+  readonly wolReferrerPolicy = input<ReferrerPolicy>();
   readonly wolProperties = input<WolProperties>();
 
   readonly wolChange = output<BaseEvent>();
@@ -78,6 +79,7 @@ export class WolImageWMSSourceComponent implements OnChanges {
         ratio: this.wolRatio(),
         resolutions: this.wolResolutions(),
         url: this.wolUrl(),
+        referrerPolicy: this.wolReferrerPolicy(),
       });
 
       if (!this.wolProperties()) {

@@ -56,6 +56,7 @@ export class WolXYZSourceComponent implements OnChanges {
   readonly wolWrapX = input<boolean>();
   readonly wolTransition = input<number>();
   readonly wolZDirection = input<number | NearestDirectionFunction>();
+  readonly wolReferrerPolicy = input<ReferrerPolicy>();
   readonly wolProperties = input<WolProperties>();
 
   readonly wolChange = output<BaseEvent>();
@@ -97,6 +98,7 @@ export class WolXYZSourceComponent implements OnChanges {
         tileUrlFunction: this.wolTileUrlFunction(),
         url: this.wolUrl(),
         urls: this.wolUrls(),
+        referrerPolicy: this.wolReferrerPolicy(),
         wrapX: this.wolWrapX(),
         transition: this.wolTransition(),
         zDirection: this.wolZDirection(),

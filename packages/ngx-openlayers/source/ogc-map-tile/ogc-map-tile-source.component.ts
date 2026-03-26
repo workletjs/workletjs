@@ -45,6 +45,7 @@ export class WolOGCMapTileSourceComponent implements OnChanges {
   readonly wolWrapX = input<boolean>();
   readonly wolTransition = input<number>();
   readonly wolCollections = input<string[]>();
+  readonly wolReferrerPolicy = input<ReferrerPolicy>();
   readonly wolProperties = input<WolProperties>();
 
   readonly wolChange = output<BaseEvent>();
@@ -82,6 +83,7 @@ export class WolOGCMapTileSourceComponent implements OnChanges {
         wrapX: this.wolWrapX(),
         transition: this.wolTransition(),
         collections: this.wolCollections(),
+        referrerPolicy: this.wolReferrerPolicy(),
       });
 
       if (this.wolProperties()) {
