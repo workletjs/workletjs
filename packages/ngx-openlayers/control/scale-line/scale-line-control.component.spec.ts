@@ -301,7 +301,7 @@ class TestScaleLineControlComponent {
   className = signal('custom-scale-line');
   minWidth = signal(64);
   maxWidth = signal(200);
-  render = (_: MapEvent): void => void 0;
+  render = (): void => void 0;
   target = signal<HTMLElement | string>('');
   units = signal<Units>('metric');
   bar = signal(false);
