@@ -4,8 +4,8 @@ This guide will help you get started with `@workletjs/ngx-openlayers` in your An
 
 This library depends on the following peer dependencies:
 
-- `@angular/cdk`: ^20.2.0
-- `ol`: ^10.6.1
+- `@angular/cdk`: ~21.1.0
+- `ol`: ~10.8.0
 
 Make sure these dependencies are installed in your project.
 

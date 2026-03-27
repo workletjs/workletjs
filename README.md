@@ -1,8 +1,12 @@
 # Workletjs - Angular Map Component Library
 
-**Workletjs** is an **[Angular](https://angular.dev/)** map component library that provides seamless integration with **[OpenLayers](https://openlayers.org/)**, enabling developers to create interactive and customizable maps with ease.
+**Workletjs** is an **[Angular](https://angular.dev/)** map component library that provides seamless
+integration with **[OpenLayers](https://openlayers.org/)**, enabling developers to create
+interactive and customizable maps with ease.
 
-This library developed under the **[Nx monorepo](https://nx.dev/docs/getting-started/tutorials/angular-monorepo-tutorial)** architecture and documented using **[NgDoc](https://ng-doc.com/)**.
+This library developed under the
+**[Nx monorepo](https://nx.dev/docs/getting-started/tutorials/angular-monorepo-tutorial)**
+architecture and documented using **[NgDoc](https://ng-doc.com/)**.
 
 ---
 
@@ -21,8 +25,8 @@ This library developed under the **[Nx monorepo](https://nx.dev/docs/getting-sta
 
 This library depends on the following peer dependencies:
 
-- [`@angular/cdk`](https://material.angular.dev/cdk): ^20.2.0  
-- [`ol`](https://openlayers.org/): ^10.6.1
+- [`@angular/cdk`](https://material.angular.dev/cdk): ~21.1.0
+- [`ol`](https://openlayers.org/): ~10.8.0
 
 Make sure these dependencies are installed in your project.
 
@@ -31,7 +35,7 @@ Make sure these dependencies are installed in your project.
 Install the peerDependencies.
 
 ```bash
-npm install ol @angular/cdk --save  
+npm install ol @angular/cdk --save
 // or
 yarn add ol @angular/cdk
 // or
@@ -44,7 +48,7 @@ Install this library.
 npm install @workletjs/ngx-openlayers --save
 // or
 yarn add @workletjs/ngx-openlayers
-// or 
+// or
 pnpm add @workletjs/ngx-openlayers
 ```
 
@@ -57,7 +61,7 @@ import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 
 @Component({
-  imports: [WolMapModule, WolViewModule]
+  imports: [WolMapModule, WolViewModule],
 })
 export class AppComponent {}
 ```
@@ -78,6 +82,7 @@ Here is a simple map with an OSM source.
 
 ```ts
 import { Component } from '@angular/core';
+
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import { WolOSMSourceModule } from '@workletjs/ngx-openlayers/source/osm';
