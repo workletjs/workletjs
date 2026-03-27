@@ -1,13 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  inject,
-  signal,
-  viewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, viewChild } from '@angular/core';
 
-import Collection from 'ol/Collection';
 import Feature from 'ol/Feature';
 import { platformModifierKeyOnly } from 'ol/events/condition';
 import { getWidth } from 'ol/extent';
@@ -20,7 +12,10 @@ import Stroke from 'ol/style/Stroke';
 import Style, { StyleFunction } from 'ol/style/Style';
 
 import { WolDragBoxInteractionModule } from '@workletjs/ngx-openlayers/interaction/drag-box';
-import { WolSelectInteractionModule } from '@workletjs/ngx-openlayers/interaction/select';
+import {
+  WolSelectInteractionComponent,
+  WolSelectInteractionModule,
+} from '@workletjs/ngx-openlayers/interaction/select';
 import { WolVectorLayerModule } from '@workletjs/ngx-openlayers/layer/vector';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
 import {
@@ -49,7 +44,7 @@ import { WolViewModule } from '@workletjs/ngx-openlayers/view';
       <wol-select-interaction
         [wolFilter]="filter"
         [wolStyle]="selectedStyle"
-        [wolFeatures]="selectedFeatures"
+        (wolSelect)="onSelect()"
       />
       <wol-drag-box-interaction
         [wolCondition]="platformModifierKeyOnly"
@@ -61,6 +56,7 @@ import { WolViewModule } from '@workletjs/ngx-openlayers/view';
   `,
 })
 export class WolBoxSelectionExampleComponent {
+  readonly selectRef = viewChild.required(WolSelectInteractionComponent);
   readonly url = 'https://openlayers.org/data/vector/ecoregions.json';
   readonly format = new GeoJSON();
   readonly platformModifierKeyOnly = platformModifierKeyOnly;
@@ -85,31 +81,17 @@ export class WolBoxSelectionExampleComponent {
 
   readonly filter: FilterFunction = (feature) => !(feature.get('COLOR_BIO') === '#CC6767');
 
-  readonly selectedFeatures = new Collection<Feature>();
   readonly selectedECORegions = signal('');
 
   private readonly vectorSourceRef = viewChild.required(WolVectorSourceComponent);
-
-  constructor() {
-    const destroyRef = inject(DestroyRef);
-
-    const eventsKey = this.selectedFeatures.on(['add', 'remove'], () => {
-      const names = this.selectedFeatures.getArray().map((feature) => feature.get('ECO_NAME'));
-
-      if (names.length > 0) {
-        this.selectedECORegions.set(names.join(', '));
-      } else {
-        this.selectedECORegions.set('');
-      }
-    });
-  }
 
   onDragBoxEnd(evt: DragBoxEvent): void {
     const dragBox = evt.target as DragBox;
     const map = dragBox.getMap();
     const vectorSource = this.vectorSourceRef().getInstance();
+    const select = this.selectRef().getInstance();
 
-    if (!map || !vectorSource) {
+    if (!map || !vectorSource || !select) {
       return;
     }
 
@@ -159,16 +141,35 @@ export class WolBoxSelectionExampleComponent {
 
           geometry.rotate(-rotation, anchor);
           if (geometry.intersectsExtent(extent)) {
-            this.selectedFeatures.push(feature);
+            select.selectFeature(feature);
           }
         });
       } else {
-        this.selectedFeatures.extend(boxFeatures);
+        boxFeatures.forEach((feature) => select.selectFeature(feature));
       }
     }
   }
 
   onDragBoxStart(): void {
-    this.selectedFeatures.clear();
+    this.selectRef().getInstance()?.clearSelection();
+  }
+
+  onSelect(): void {
+    const select = this.selectRef().getInstance();
+
+    if (!select) {
+      return;
+    }
+
+    const names = select
+      .getFeatures()
+      .getArray()
+      .map((feature) => feature.get('ECO_NAME'));
+
+    if (names.length > 0) {
+      this.selectedECORegions.set(names.join(', '));
+    } else {
+      this.selectedECORegions.set('');
+    }
   }
 }
