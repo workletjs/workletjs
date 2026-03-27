@@ -58,7 +58,8 @@
           "@ng-doc/core/helpers/extract-value",
           "@ng-doc/core/helpers/is-keyboard-event",
           "xml-utils/get-attribute.js",
-          "xml-utils/find-tags-by-name.js"
+          "xml-utils/find-tags-by-name.js",
+          "colormap"
         ]
       },
       "configurations": {
@@ -66,7 +67,7 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
+              "maximumWarning": "2mb",
               "maximumError": "10mb"
             },
             {
