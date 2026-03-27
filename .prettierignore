@@ -5,7 +5,7 @@
 /.nx/workspace-data
 .angular
 /tools/ai-migrations
-/migration.json
+/migrations.json
 /pnpm-lock.yaml
 /pnpm-workspace.yaml
 /CHANGELOG.md
