@@ -105,7 +105,7 @@ export class WolOGCMapSourceComponent implements OnChanges {
       );
 
       /**
-       * Adding control to the map must be done after the map is rendered,
+       * Setting the source to the image layer must be done after the map is rendered,
        * if used with control flow of Angular.
        *
        * In Angular, when rendering a component's template, the control flow statements,
