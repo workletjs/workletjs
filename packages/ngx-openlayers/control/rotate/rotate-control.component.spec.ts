@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import Map from 'ol/Map';
-import MapEvent from 'ol/MapEvent';
 import { ObjectEvent } from 'ol/Object';
 import Rotate from 'ol/control/Rotate';
 import BaseEvent from 'ol/events/Event';
@@ -228,7 +227,7 @@ class TestRotateControlComponent {
   compassClassName = signal('custom-compass');
   duration = signal(250);
   autoHide = signal(false);
-  render = (_event: MapEvent): void => void 0;
+  render = (): void => void 0;
   resetNorth = (): void => void 0;
   target = signal<HTMLElement | string>('');
   properties = signal<WolProperties>({ foo: 'bar' });

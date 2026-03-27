@@ -75,7 +75,7 @@ describe('WolOGCMapSourceComponent', () => {
 
   it('should initialize with url from input', fakeAsync(() => {
     flush();
-    const instance = component.getInstance()!;
+    const instance = component.getInstance() as OGCMap;
     expect(instance.getUrl()).toBe('https://example.com/ogc/maps');
   }));
 
@@ -89,7 +89,7 @@ describe('WolOGCMapSourceComponent', () => {
     const freshComponent: WolOGCMapSourceComponent = freshFixture.debugElement.query(
       By.directive(WolOGCMapSourceComponent),
     ).componentInstance;
-    const instance = freshComponent.getInstance()!;
+    const instance = freshComponent.getInstance() as OGCMap;
     expect(internals(instance)['hidpi_']).toBe(false);
   });
 
@@ -103,13 +103,13 @@ describe('WolOGCMapSourceComponent', () => {
     const freshComponent: WolOGCMapSourceComponent = freshFixture.debugElement.query(
       By.directive(WolOGCMapSourceComponent),
     ).componentInstance;
-    const instance = freshComponent.getInstance()!;
+    const instance = freshComponent.getInstance() as OGCMap;
     expect(internals(instance)['referrerPolicy_']).toBe('no-referrer');
   });
 
   it('should update url via wolUrl ngOnChanges', fakeAsync(() => {
     flush();
-    const instance = component.getInstance()!;
+    const instance = component.getInstance() as OGCMap;
     testComponent.url.set('https://example.com/ogc/maps/v2');
     fixture.detectChanges();
     flush();
@@ -118,7 +118,7 @@ describe('WolOGCMapSourceComponent', () => {
 
   it('should update params via wolParams ngOnChanges', fakeAsync(() => {
     flush();
-    const instance = component.getInstance()!;
+    const instance = component.getInstance() as OGCMap;
     testComponent.params.set({ format: 'image/png' });
     fixture.detectChanges();
     flush();
@@ -127,7 +127,7 @@ describe('WolOGCMapSourceComponent', () => {
 
   it('should update imageLoadFunction via wolImageLoadFunction ngOnChanges', fakeAsync(() => {
     flush();
-    const instance = component.getInstance()!;
+    const instance = component.getInstance() as OGCMap;
     const customLoader: LoadFunction = vi.fn();
     testComponent.imageLoadFunction.set(customLoader);
     fixture.detectChanges();
@@ -137,7 +137,7 @@ describe('WolOGCMapSourceComponent', () => {
 
   it('should update attributions via wolAttributions ngOnChanges', fakeAsync(() => {
     flush();
-    const instance = component.getInstance()!;
+    const instance = component.getInstance() as OGCMap;
     const spySetAttr = vi.spyOn(instance, 'setAttributions');
     testComponent.attributions.set('New attribution');
     fixture.detectChanges();
@@ -147,7 +147,7 @@ describe('WolOGCMapSourceComponent', () => {
 
   it('should emit wolChange event', fakeAsync(() => {
     flush();
-    const instance = component.getInstance()!;
+    const instance = component.getInstance() as OGCMap;
     const emitSpy = vi.spyOn(component.wolChange, 'emit');
     instance.dispatchEvent('change');
     expect(emitSpy).toHaveBeenCalled();
@@ -155,7 +155,7 @@ describe('WolOGCMapSourceComponent', () => {
 
   it('should emit wolError event', fakeAsync(() => {
     flush();
-    const instance = component.getInstance()!;
+    const instance = component.getInstance() as OGCMap;
     const emitSpy = vi.spyOn(component.wolError, 'emit');
     instance.dispatchEvent('error');
     expect(emitSpy).toHaveBeenCalled();

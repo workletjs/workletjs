@@ -87,7 +87,9 @@ describe('WolScaleLineControlComponent', () => {
       const barDebugEl = barFixture.debugElement.query(By.directive(WolScaleLineControlComponent));
       const barComponent = barDebugEl.componentInstance as WolScaleLineControlComponent;
       expect(barComponent.getInstance()).toBeInstanceOf(ScaleLine);
-      expect(barComponent.getInstance()!['element'].classList.contains('ol-scale-bar')).toBe(true);
+      expect(
+        (barComponent.getInstance() as ScaleLine)['element'].classList.contains('ol-scale-bar'),
+      ).toBe(true);
     });
 
     it('should initialize with wolDpi', () => {
@@ -299,7 +301,7 @@ class TestScaleLineControlComponent {
   className = signal('custom-scale-line');
   minWidth = signal(64);
   maxWidth = signal(200);
-  render = (_evt: MapEvent): void => void 0;
+  render = (_: MapEvent): void => void 0;
   target = signal<HTMLElement | string>('');
   units = signal<Units>('metric');
   bar = signal(false);
