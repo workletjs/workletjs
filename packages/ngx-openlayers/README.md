@@ -25,8 +25,8 @@ architecture and documented using **[NgDoc](https://ng-doc.com/)**.
 
 This library depends on the following peer dependencies:
 
-- [`@angular/cdk`](https://material.angular.dev/cdk): ^21.1.0
-- [`ol`](https://openlayers.org/): ^10.8.0
+- [`@angular/cdk`](https://material.angular.dev/cdk): ~21.1.0
+- [`ol`](https://openlayers.org/): ~10.8.0
 
 Make sure these dependencies are installed in your project.
 
