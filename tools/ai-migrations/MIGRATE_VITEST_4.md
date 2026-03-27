@@ -2,7 +2,8 @@
 
 ## Overview
 
-These instructions guide you through migrating an Nx workspace containing multiple Vitest projects from Vitest 3.x to Vitest 4.0. Work systematically through each breaking change category.
+These instructions guide you through migrating an Nx workspace containing multiple Vitest projects
+from Vitest 3.x to Vitest 4.0. Work systematically through each breaking change category.
 
 ## Pre-Migration Checklist
 
@@ -68,7 +69,8 @@ export default defineConfig({
 
 #### 1.2 Pool Options Restructuring
 
-**Search Pattern**: `poolOptions`, `maxThreads`, `maxForks`, `singleThread`, `singleFork` in all Vitest config files
+**Search Pattern**: `poolOptions`, `maxThreads`, `maxForks`, `singleThread`, `singleFork` in all
+Vitest config files
 
 **Changes Required**:
 
@@ -105,9 +107,11 @@ export default defineConfig({
 
 - [ ] Replace `maxThreads` and `maxForks` with single `maxWorkers` option
 - [ ] Replace `singleThread: true` or `singleFork: true` with `maxWorkers: 1, isolate: false`
-- [ ] Move all `poolOptions.*` nested options to top-level (e.g., `poolOptions.vmThreads.memoryLimit` → `vmMemoryLimit`)
+- [ ] Move all `poolOptions.*` nested options to top-level (e.g.,
+      `poolOptions.vmThreads.memoryLimit` → `vmMemoryLimit`)
 - [ ] Remove `threads.useAtomics` option
-- [ ] Update CI environment variables: `VITEST_MAX_THREADS` and `VITEST_MAX_FORKS` → `VITEST_MAX_WORKERS`
+- [ ] Update CI environment variables: `VITEST_MAX_THREADS` and `VITEST_MAX_FORKS` →
+      `VITEST_MAX_WORKERS`
 
 #### 1.3 Workspace to Projects Rename
 
@@ -554,6 +558,7 @@ VITEST_MODULE_DIRECTORIES=/custom/path
 ```typescript
 // ❌ BEFORE (Vitest 3.x)
 import { execute } from 'vitest/execute';
+
 // Access to __vitest_executor
 
 // ✅ AFTER (Vitest 4.0)
@@ -701,6 +706,14 @@ nx show project PROJECT_NAME --web
 # Clear Nx cache if needed
 nx reset
 ```
+
+## Guard Rails
+
+DO NOT
+
+- Force tests to pass by removing test logic and replacing it with `expect(true).toBe(true)`
+- Remove assertions
+- Add additional mocks that force tests to pass
 
 ---
 

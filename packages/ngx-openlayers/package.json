@@ -24,9 +24,9 @@
     "workletjs"
   ],
   "peerDependencies": {
-    "@angular/core": "^21.0.9",
-    "@angular/cdk": "^21.0.6",
-    "ol": "^10.8.0"
+    "@angular/core": "~21.1.0",
+    "@angular/cdk": "~21.1.0",
+    "ol": "~10.8.0"
   },
   "sideEffects": false
 }
