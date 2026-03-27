@@ -125,7 +125,7 @@ export class WolDrawInteractionComponent implements OnChanges {
       );
 
       /**
-       * Adding control to the map must be done after the map is rendered,
+       * Adding interaction to the map must be done after the map is rendered,
        * if used with control flow of Angular.
        *
        * In Angular, when rendering a component's template, the control flow statements,
