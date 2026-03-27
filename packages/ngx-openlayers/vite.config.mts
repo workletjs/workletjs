@@ -23,6 +23,7 @@ export default defineConfig(() => ({
     coverage: {
       reportsDirectory: '../../coverage/packages/ngx-openlayers',
       provider: 'v8' as const,
+      include: ['**/*.ts'],
     },
   },
 }));
