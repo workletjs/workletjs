@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 
 import { LoadFunction } from 'ol/Image';
+import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
 import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
@@ -50,7 +51,7 @@ export class WolOGCMapSourceComponent implements OnChanges {
   readonly wolImageLoadEnd = output<ImageSourceEvent>();
   readonly wolImageLoadError = output<ImageSourceEvent>();
   readonly wolImageLoadStart = output<ImageSourceEvent>();
-  readonly wolPropertyChange = output<BaseEvent>();
+  readonly wolPropertyChange = output<ObjectEvent>();
 
   private instance?: OGCMap;
 
