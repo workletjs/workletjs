@@ -50,7 +50,7 @@ export class WolImageWMSSourceComponent implements OnChanges {
   readonly wolChange = output<BaseEvent>();
   readonly wolError = output<BaseEvent>();
   readonly wolImageLoadEnd = output<ImageSourceEvent>();
-  readonly WolImageLoadError = output<ImageSourceEvent>();
+  readonly wolImageLoadError = output<ImageSourceEvent>();
   readonly wolImageLoadStart = output<ImageSourceEvent>();
   readonly wolPropertyChange = output<BaseEvent>();
 
@@ -95,7 +95,7 @@ export class WolImageWMSSourceComponent implements OnChanges {
       );
 
       eventsKey['imageloaderror'] = imageWMS.on('imageloaderror', (evt) =>
-        this.WolImageLoadError.emit(evt),
+        this.wolImageLoadError.emit(evt),
       );
 
       eventsKey['imageloadstart'] = imageWMS.on('imageloadstart', (evt) =>
