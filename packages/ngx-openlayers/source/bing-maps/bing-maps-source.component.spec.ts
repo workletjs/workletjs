@@ -50,6 +50,7 @@ async function createBingMapsInstance(
             [wolReprojectionErrorThreshold]="reprojectionErrorThreshold()"
             [wolWrapX]="wrapX()"
             [wolTransition]="transition()"
+            [wolTileLoadFunction]="tileLoadFunction()"
             [wolPlaceholderTiles]="placeholderTiles()"
             [wolProperties]="properties()"
           />
@@ -71,6 +72,7 @@ class TestBingMapsSourceComponent {
   reprojectionErrorThreshold = signal<number | undefined>(undefined);
   wrapX = signal<boolean | undefined>(undefined);
   transition = signal<number | undefined>(undefined);
+  tileLoadFunction = signal<LoadFunction | undefined>(undefined);
   placeholderTiles = signal<boolean | undefined>(undefined);
   properties = signal<WolProperties | undefined>(undefined);
   destroySource = signal(false);
@@ -204,21 +206,15 @@ describe('WolBingMapsSourceComponent', () => {
     expect(spy).toHaveBeenCalledWith(newProps);
   });
 
-  it('should update tileLoadFunction when wolTileLoadFunction changes', () => {
+  it('should update tileLoadFunction when wolTileLoadFunction changes', async () => {
     const newFn: LoadFunction = vi.fn();
     const spy = vi.spyOn(bingMaps, 'setTileLoadFunction');
-    // Trigger ngOnChanges via TestBed override – create a fresh fixture with the input
-    const f = TestBed.createComponent(TestBingMapsSourceComponent);
-    f.detectChanges();
-    const comp = f.debugElement.query(By.directive(WolBingMapsSourceComponent))
-      .componentInstance as WolBingMapsSourceComponent;
-    const inst = comp.getInstance() as BingMaps;
-    const instSpy = vi.spyOn(inst, 'setTileLoadFunction');
-    // Override via direct component reference (ngOnChanges only triggers on bound inputs)
-    inst.setTileLoadFunction(newFn);
-    expect(instSpy).toHaveBeenCalledWith(newFn);
-    expect(inst.getTileLoadFunction()).toBe(newFn);
-    spy.mockRestore();
+
+    testComponent.tileLoadFunction.set(newFn);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(spy).toHaveBeenCalledWith(newFn);
   });
 
   // --- Outputs ---
