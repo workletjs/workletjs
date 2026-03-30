@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import Map from 'ol/Map';
-import MapEvent from 'ol/MapEvent';
 import { ObjectEvent } from 'ol/Object';
 import ScaleLine, { Units } from 'ol/control/ScaleLine';
 import BaseEvent from 'ol/events/Event';
