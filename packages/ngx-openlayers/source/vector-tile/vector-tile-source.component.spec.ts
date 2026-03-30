@@ -8,6 +8,7 @@ import { LoadFunction, UrlFunction } from 'ol/Tile';
 import BaseEvent from 'ol/events/Event';
 import MVT from 'ol/format/MVT';
 import VectorTileLayer from 'ol/layer/VectorTile';
+import { get as getProjection } from 'ol/proj';
 import { AttributionLike } from 'ol/source/Source';
 import VectorTileSource from 'ol/source/VectorTile';
 
@@ -52,6 +53,7 @@ async function createVectorTileSourceInstance(
             [wolMinZoom]="minZoom()"
             [wolTransition]="transition()"
             [wolWrapX]="wrapX()"
+            [wolFormat]="format()"
             [wolTileLoadFunction]="tileLoadFunction()"
             [wolTileUrlFunction]="tileUrlFunction()"
             [wolUrl]="url()"
@@ -79,6 +81,7 @@ class TestVectorTileSourceComponent {
   minZoom = signal<number | undefined>(undefined);
   transition = signal<number | undefined>(undefined);
   wrapX = signal<boolean | undefined>(undefined);
+  format = signal<MVT | undefined>(undefined);
   tileLoadFunction = signal<LoadFunction | undefined>(undefined);
   tileUrlFunction = signal<UrlFunction | undefined>(undefined);
   url = signal<string | undefined>(undefined);
@@ -185,18 +188,22 @@ describe('WolVectorTileSourceComponent', () => {
   });
 
   it('should initialize with wolFormat', async () => {
-    const f = TestBed.createComponent(TestVectorTileSourceComponent);
-    const hostComp = f.componentInstance;
-    // Use the format input indirectly — construct a standalone source with format option
-    const src = new VectorTileSource({ format: new MVT() });
-    expect(src).toBeInstanceOf(VectorTileSource);
-    hostComp.attributions.set('© test');
-    f.detectChanges();
-    await f.whenStable();
-    const inst = f.debugElement
-      .query(By.directive(WolVectorTileSourceComponent))
-      .componentInstance.getInstance() as VectorTileSource<FeatureLike>;
+    const format = new MVT();
+    const inst = await createVectorTileSourceInstance((c) => {
+      c.format.set(format);
+      c.url.set('https://example.com/tiles/{z}/{x}/{y}.pbf');
+    });
+
     expect(inst).toBeInstanceOf(VectorTileSource);
+
+    const projection = getProjection('EPSG:3857');
+    expect(projection).toBeTruthy();
+
+    const renderTile = inst.getTile(0, 0, 0, 1, projection!);
+    const sourceTiles = inst.getSourceTiles(1, projection!, renderTile);
+
+    expect(sourceTiles.length).toBeGreaterThan(0);
+    expect(sourceTiles[0].getFormat()).toBe(format);
   });
 
   // --- ngOnChanges ---
