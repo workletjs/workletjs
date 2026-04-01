@@ -71,13 +71,13 @@ describe('WolTranslateInteractionComponent', () => {
 
     it('should set wolActive to false when OL fires change:active with false', () => {
       translateInstance.setActive(false);
-      expect(translateComponent.wolActive()).toBe(false);
+      expect(testComponent.active()).toBe(false);
     });
 
     it('should set wolActive to true when OL fires change:active with true', () => {
       translateInstance.setActive(false);
       translateInstance.setActive(true);
-      expect(translateComponent.wolActive()).toBe(true);
+      expect(testComponent.active()).toBe(true);
     });
   });
 
