@@ -67,18 +67,18 @@ describe('WolDragPanInteractionComponent', () => {
   });
 
   describe('wolActive model', () => {
-    it('should update OL instance active state when wolActive changes', async () => {
+    it('should update OL instance active state when wolActive changes', () => {
       testComponent.active.set(false);
       fixture.detectChanges();
       expect(dragPanInstance.getActive()).toBe(false);
     });
 
-    it('should set wolActive to false when OL fires change:active with false', async () => {
+    it('should set wolActive to false when OL fires change:active with false', () => {
       dragPanInstance.setActive(false);
       expect(dragPanComponent.wolActive()).toBe(false);
     });
 
-    it('should set wolActive to true when OL fires change:active with true', async () => {
+    it('should set wolActive to true when OL fires change:active with true', () => {
       dragPanInstance.setActive(false);
       dragPanInstance.setActive(true);
       expect(dragPanComponent.wolActive()).toBe(true);
