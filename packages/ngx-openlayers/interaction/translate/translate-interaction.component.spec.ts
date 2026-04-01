@@ -8,7 +8,9 @@ import Map from 'ol/Map';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
 import { ObjectEvent } from 'ol/Object';
 import BaseEvent from 'ol/events/Event';
-import Translate, { TranslateEvent } from 'ol/interaction/Translate';
+import { Condition } from 'ol/events/condition';
+import Translate, { FilterFunction, TranslateEvent } from 'ol/interaction/Translate';
+import Layer from 'ol/layer/Layer';
 
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
@@ -25,6 +27,8 @@ describe('WolTranslateInteractionComponent', () => {
   let mapInstance: Map;
   let translateComponent: WolTranslateInteractionComponent;
   let translateInstance: Translate;
+
+  const internals = (obj: object) => obj as unknown as Record<string, unknown>;
 
   beforeEach(async () => {
     fixture = TestBed.createComponent(TestTranslateInteractionComponent);
@@ -60,6 +64,43 @@ describe('WolTranslateInteractionComponent', () => {
 
   it('should initialize wolProperties on OL instance', () => {
     expect(translateInstance.get('testProp')).toBe('initial');
+  });
+
+  it('should initialize wolCondition on OL instance', () => {
+    expect(internals(translateInstance)['condition_']).toBe(testComponent.condition());
+  });
+
+  it('should initialize wolFeatures on OL instance', async () => {
+    const feats = new Collection<Feature>();
+
+    @Component({
+      template: `<wol-map
+        ><wol-view [wolZoom]="4" /><wol-translate-interaction [wolFeatures]="feats"
+      /></wol-map>`,
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      imports: [WolMapComponent, WolViewComponent, WolTranslateInteractionComponent],
+    })
+    class TestFeaturesComponent {
+      readonly feats = feats;
+    }
+
+    const f = TestBed.createComponent(TestFeaturesComponent);
+    f.detectChanges();
+    await f.whenStable();
+    f.detectChanges();
+
+    const comp = f.debugElement.query(By.directive(WolTranslateInteractionComponent))
+      .componentInstance as WolTranslateInteractionComponent;
+    expect(internals(comp.getInstance()!)['features_']).toBe(feats);
+  });
+
+  it('should initialize wolLayers on OL instance', () => {
+    const layerFilter = internals(translateInstance)['layerFilter_'] as (l: object) => boolean;
+    expect(layerFilter({})).toBe(false);
+  });
+
+  it('should initialize wolFilter on OL instance', () => {
+    expect(internals(translateInstance)['filter_']).toBe(testComponent.filterFn());
   });
 
   describe('wolActive model', () => {
@@ -175,6 +216,9 @@ describe('WolTranslateInteractionComponent', () => {
       @if (!destroyInteraction()) {
         <wol-translate-interaction
           [(wolActive)]="active"
+          [wolCondition]="condition()"
+          [wolLayers]="layers()"
+          [wolFilter]="filterFn()"
           [wolHitTolerance]="hitTolerance()"
           [wolProperties]="properties()"
         />
@@ -186,6 +230,9 @@ describe('WolTranslateInteractionComponent', () => {
 })
 class TestTranslateInteractionComponent {
   readonly active = signal(true);
+  readonly condition = signal<Condition>(() => true);
+  readonly layers = signal<(layer: Layer) => boolean>(() => false);
+  readonly filterFn = signal<FilterFunction>(() => true);
   readonly hitTolerance = signal(5);
   readonly properties = signal<WolProperties>({ testProp: 'initial' });
   readonly destroyInteraction = signal(false);
