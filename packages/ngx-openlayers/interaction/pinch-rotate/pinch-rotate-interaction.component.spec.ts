@@ -72,13 +72,13 @@ describe('WolPinchRotateInteractionComponent', () => {
 
     it('should set wolActive to false when OL fires change:active with false', () => {
       pinchRotateInstance.setActive(false);
-      expect(pinchRotateComponent.wolActive()).toBe(false);
+      expect(testComponent.active()).toBe(false);
     });
 
     it('should set wolActive to true when OL fires change:active with true', () => {
       pinchRotateInstance.setActive(false);
       pinchRotateInstance.setActive(true);
-      expect(pinchRotateComponent.wolActive()).toBe(true);
+      expect(testComponent.active()).toBe(true);
     });
   });
 

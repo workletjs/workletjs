@@ -68,13 +68,13 @@ describe('WolPinchZoomInteractionComponent', () => {
 
     it('should set wolActive to false when OL fires change:active with false', () => {
       pinchZoomInstance.setActive(false);
-      expect(pinchZoomComponent.wolActive()).toBe(false);
+      expect(testComponent.active()).toBe(false);
     });
 
     it('should set wolActive to true when OL fires change:active with true', () => {
       pinchZoomInstance.setActive(false);
       pinchZoomInstance.setActive(true);
-      expect(pinchZoomComponent.wolActive()).toBe(true);
+      expect(testComponent.active()).toBe(true);
     });
   });
 

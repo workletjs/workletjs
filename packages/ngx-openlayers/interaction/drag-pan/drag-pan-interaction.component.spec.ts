@@ -75,13 +75,13 @@ describe('WolDragPanInteractionComponent', () => {
 
     it('should set wolActive to false when OL fires change:active with false', () => {
       dragPanInstance.setActive(false);
-      expect(dragPanComponent.wolActive()).toBe(false);
+      expect(testComponent.active()).toBe(false);
     });
 
     it('should set wolActive to true when OL fires change:active with true', () => {
       dragPanInstance.setActive(false);
       dragPanInstance.setActive(true);
-      expect(dragPanComponent.wolActive()).toBe(true);
+      expect(testComponent.active()).toBe(true);
     });
   });
 

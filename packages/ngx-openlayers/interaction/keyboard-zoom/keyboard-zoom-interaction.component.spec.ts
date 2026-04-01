@@ -78,13 +78,13 @@ describe('WolKeyboardZoomInteractionComponent', () => {
 
     it('should set wolActive to false when OL fires change:active with false', () => {
       keyboardZoomInstance.setActive(false);
-      expect(keyboardZoomComponent.wolActive()).toBe(false);
+      expect(testComponent.active()).toBe(false);
     });
 
     it('should set wolActive to true when OL fires change:active with true', () => {
       keyboardZoomInstance.setActive(false);
       keyboardZoomInstance.setActive(true);
-      expect(keyboardZoomComponent.wolActive()).toBe(true);
+      expect(testComponent.active()).toBe(true);
     });
   });
 
