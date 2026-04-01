@@ -92,13 +92,13 @@ describe('WolPointerInteractionComponent', () => {
 
     it('should set wolActive to false when OL fires change:active with false', () => {
       pointerInstance.setActive(false);
-      expect(pointerComponent.wolActive()).toBe(false);
+      expect(testComponent.active()).toBe(false);
     });
 
     it('should set wolActive to true when OL fires change:active with true', () => {
       pointerInstance.setActive(false);
       pointerInstance.setActive(true);
-      expect(pointerComponent.wolActive()).toBe(true);
+      expect(testComponent.active()).toBe(true);
     });
   });
 

@@ -75,13 +75,13 @@ describe('WolExtentInteractionComponent', () => {
 
     it('should set wolActive to false when OL fires change:active with false', () => {
       extentInstance.setActive(false);
-      expect(extentComponent.wolActive()).toBe(false);
+      expect(testComponent.active()).toBe(false);
     });
 
     it('should set wolActive to true when OL fires change:active with true', () => {
       extentInstance.setActive(false);
       extentInstance.setActive(true);
-      expect(extentComponent.wolActive()).toBe(true);
+      expect(testComponent.active()).toBe(true);
     });
   });
 

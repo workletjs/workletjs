@@ -77,13 +77,13 @@ describe('WolSnapInteractionComponent', () => {
 
     it('should set wolActive to false when OL fires change:active with false', () => {
       snapInstance.setActive(false);
-      expect(snapComponent.wolActive()).toBe(false);
+      expect(testComponent.active()).toBe(false);
     });
 
     it('should set wolActive to true when OL fires change:active with true', () => {
       snapInstance.setActive(false);
       snapInstance.setActive(true);
-      expect(snapComponent.wolActive()).toBe(true);
+      expect(testComponent.active()).toBe(true);
     });
   });
 

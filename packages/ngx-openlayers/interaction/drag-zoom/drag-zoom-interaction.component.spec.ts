@@ -86,13 +86,13 @@ describe('WolDragZoomInteractionComponent', () => {
 
     it('should set wolActive to false when OL fires change:active with false', () => {
       dragZoomInstance.setActive(false);
-      expect(dragZoomComponent.wolActive()).toBe(false);
+      expect(testComponent.active()).toBe(false);
     });
 
     it('should set wolActive to true when OL fires change:active with true', () => {
       dragZoomInstance.setActive(false);
       dragZoomInstance.setActive(true);
-      expect(dragZoomComponent.wolActive()).toBe(true);
+      expect(testComponent.active()).toBe(true);
     });
   });
 
