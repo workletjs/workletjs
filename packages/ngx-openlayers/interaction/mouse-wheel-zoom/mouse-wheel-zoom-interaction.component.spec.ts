@@ -92,13 +92,13 @@ describe('WolMouseWheelZoomInteractionComponent', () => {
 
     it('should set wolActive to false when OL fires change:active with false', () => {
       mouseWheelZoomInstance.setActive(false);
-      expect(mouseWheelZoomComponent.wolActive()).toBe(false);
+      expect(testComponent.active()).toBe(false);
     });
 
     it('should set wolActive to true when OL fires change:active with true', () => {
       mouseWheelZoomInstance.setActive(false);
       mouseWheelZoomInstance.setActive(true);
-      expect(mouseWheelZoomComponent.wolActive()).toBe(true);
+      expect(testComponent.active()).toBe(true);
     });
   });
 

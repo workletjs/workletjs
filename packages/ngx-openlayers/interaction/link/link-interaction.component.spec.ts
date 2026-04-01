@@ -77,13 +77,13 @@ describe('WolLinkInteractionComponent', () => {
 
     it('should set wolActive to false when OL fires change:active with false', () => {
       linkInstance.setActive(false);
-      expect(linkComponent.wolActive()).toBe(false);
+      expect(testComponent.active()).toBe(false);
     });
 
     it('should set wolActive to true when OL fires change:active with true', () => {
       linkInstance.setActive(false);
       linkInstance.setActive(true);
-      expect(linkComponent.wolActive()).toBe(true);
+      expect(testComponent.active()).toBe(true);
     });
   });
 

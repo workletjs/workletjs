@@ -91,13 +91,13 @@ describe('WolDrawInteractionComponent', () => {
 
     it('should set wolActive to false when OL fires change:active with false', () => {
       drawInstance.setActive(false);
-      expect(drawComponent.wolActive()).toBe(false);
+      expect(testComponent.active()).toBe(false);
     });
 
     it('should set wolActive to true when OL fires change:active with true', () => {
       drawInstance.setActive(false);
       drawInstance.setActive(true);
-      expect(drawComponent.wolActive()).toBe(true);
+      expect(testComponent.active()).toBe(true);
     });
   });
 
