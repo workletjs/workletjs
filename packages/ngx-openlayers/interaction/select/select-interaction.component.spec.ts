@@ -53,7 +53,7 @@ describe('WolSelectInteractionComponent', () => {
   });
 
   it('should initialize wolHitTolerance on OL instance', () => {
-    expect(internals(selectInstance)['hitTolerance_']).toBe(5);
+    expect(selectInstance.getHitTolerance()).toBe(5);
   });
 
   it('should initialize wolMulti on OL instance', () => {
