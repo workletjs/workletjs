@@ -17,7 +17,6 @@ import { WolViewComponent } from '@workletjs/ngx-openlayers/view';
 import { WolTranslateInteractionComponent } from './translate-interaction.component';
 
 describe('WolTranslateInteractionComponent', () => {
-  const internals = (obj: object) => obj as unknown as Record<string, unknown>;
   const mapBrowserEvent = {} as unknown as MapBrowserEvent<PointerEvent>;
 
   let fixture: ComponentFixture<TestTranslateInteractionComponent>;
@@ -56,7 +55,7 @@ describe('WolTranslateInteractionComponent', () => {
   });
 
   it('should initialize wolHitTolerance on OL instance', () => {
-    expect(internals(translateInstance)['hitTolerance_']).toBe(5);
+    expect(translateInstance.getHitTolerance()).toBe(5);
   });
 
   it('should initialize wolProperties on OL instance', () => {
