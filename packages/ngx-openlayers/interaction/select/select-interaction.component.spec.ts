@@ -73,7 +73,7 @@ describe('WolSelectInteractionComponent', () => {
 
     it('should set wolActive to false when OL fires change:active with false', () => {
       selectInstance.setActive(false);
-      expect(selectComponent.wolActive()).toBe(false);
+      expect(testComponent.active()).toBe(false);
     });
 
     it('should set wolActive to true when OL fires change:active with true', () => {
