@@ -72,6 +72,10 @@ describe('WolDragAndDropInteractionComponent', () => {
     expect(proj.getCode()).toBe(testComponent.projection());
   });
 
+  it('should initialize with wolTarget from input', () => {
+    expect(internals(dragAndDrop)['target']).toBe(testComponent.target());
+  });
+
   it('should initialize with wolProperties from input', () => {
     expect(dragAndDrop.getProperties()).toMatchObject(testComponent.properties());
   });
@@ -185,6 +189,7 @@ describe('WolDragAndDropInteractionComponent', () => {
           [wolFormatConstructors]="formatConstructors()"
           [wolSource]="source()"
           [wolProjection]="projection()"
+          [wolTarget]="target()"
           [wolProperties]="properties()"
         />
       }
@@ -197,6 +202,7 @@ class TestDragAndDropInteractionComponent {
   formatConstructors = signal<(typeof FeatureFormat)[]>([GeoJSON]);
   source = signal(new VectorSource());
   projection = signal('EPSG:4326');
+  target = signal<HTMLElement>(document.createElement('div'));
   properties = signal<WolProperties>({ foo: 'bar' });
   destroyInteraction = signal(false);
 }
