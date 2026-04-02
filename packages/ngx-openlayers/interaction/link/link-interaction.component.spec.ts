@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 
 import Map from 'ol/Map';
 import { ObjectEvent } from 'ol/Object';
+import { AnimationOptions } from 'ol/View';
 import BaseEvent from 'ol/events/Event';
 import Link, { Params } from 'ol/interaction/Link';
 
@@ -61,6 +62,10 @@ describe('WolLinkInteractionComponent', () => {
 
   it('should initialize with prefix from input', () => {
     expect(internals(linkInstance)['prefix_']).toBe(testComponent.prefix());
+  });
+
+  it('should initialize wolAnimation with provided value', () => {
+    expect(internals(linkInstance)['animationOptions_']).toBe(testComponent.animation());
   });
 
   it('should initialize wolProperties on the instance', () => {
@@ -136,6 +141,7 @@ describe('WolLinkInteractionComponent', () => {
       @if (!destroyInteraction()) {
         <wol-link-interaction
           [(wolActive)]="active"
+          [wolAnimation]="animation()"
           [wolParams]="params()"
           [wolReplace]="replace()"
           [wolPrefix]="prefix()"
@@ -149,6 +155,7 @@ describe('WolLinkInteractionComponent', () => {
 })
 class TestLinkInteractionComponent {
   readonly active = signal(true);
+  readonly animation = signal<boolean | AnimationOptions>({ duration: 500 });
   readonly params = signal<Params[]>(['x', 'y', 'z']);
   readonly replace = signal(false);
   readonly prefix = signal('map');
