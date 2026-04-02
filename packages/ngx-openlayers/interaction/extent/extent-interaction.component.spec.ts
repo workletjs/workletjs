@@ -8,6 +8,8 @@ import BaseEvent from 'ol/events/Event';
 import { Condition, always } from 'ol/events/condition';
 import { Extent } from 'ol/extent';
 import ExtentInteraction from 'ol/interaction/Extent';
+import VectorLayer from 'ol/layer/Vector';
+import { Style } from 'ol/style';
 
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
@@ -59,6 +61,23 @@ describe('WolExtentInteractionComponent', () => {
 
   it('should initialize with pixelTolerance from input', () => {
     expect(internals(extentInstance)['pixelTolerance_']).toBe(testComponent.pixelTolerance());
+  });
+
+  it('should initialize with boxStyle from input', () => {
+    const extentOverlay = internals(extentInstance)['extentOverlay_'] as VectorLayer;
+    expect(extentOverlay.getStyle()).toBe(testComponent.boxStyle());
+  });
+
+  it('should initialize with pointerStyle from input', () => {
+    const vertexOverlay = internals(extentInstance)['vertexOverlay_'] as VectorLayer;
+    expect(vertexOverlay.getStyle()).toBe(testComponent.pointerStyle());
+  });
+
+  it('should initialize with wrapX from input', () => {
+    const extentOverlay = internals(extentInstance)['extentOverlay_'] as VectorLayer;
+    const extentOverlaySource = extentOverlay.getSource();
+    expect(extentOverlaySource).toBeTruthy();
+    expect(extentOverlaySource?.getWrapX()).toBe(testComponent.wrapX());
   });
 
   it('should initialize wolProperties on the instance', () => {
@@ -152,6 +171,9 @@ describe('WolExtentInteractionComponent', () => {
           [wolCondition]="condition()"
           [wolPixelTolerance]="pixelTolerance()"
           [(wolExtent)]="extent"
+          [wolBoxStyle]="boxStyle()"
+          [wolPointerStyle]="pointerStyle()"
+          [wolWrapX]="wrapX()"
           [wolProperties]="properties()"
         />
       }
@@ -165,6 +187,9 @@ class TestExtentInteractionComponent {
   readonly condition = signal<Condition>(always);
   readonly pixelTolerance = signal(10);
   readonly extent = signal<Extent | undefined>(undefined);
+  readonly boxStyle = signal<Style>(new Style());
+  readonly pointerStyle = signal<Style>(new Style());
+  readonly wrapX = signal(true);
   readonly properties = signal<WolProperties>({ testProp: 'initial' });
   readonly destroyInteraction = signal(false);
 }
