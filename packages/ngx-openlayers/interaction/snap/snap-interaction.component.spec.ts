@@ -8,13 +8,17 @@ import Map from 'ol/Map';
 import { ObjectEvent } from 'ol/Object';
 import BaseEvent from 'ol/events/Event';
 import { SnapEvent } from 'ol/events/SnapEvent';
-import Snap from 'ol/interaction/Snap';
+import Snap, { Segmenters } from 'ol/interaction/Snap';
+import VectorSource from 'ol/source/Vector';
 
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 import { WolViewComponent } from '@workletjs/ngx-openlayers/view';
 
 import { WolSnapInteractionComponent } from './snap-interaction.component';
+
+const snapSource = new VectorSource();
+const customPointSegmenterSpy = vi.fn();
 
 describe('WolSnapInteractionComponent', () => {
   const internals = (obj: object) => obj as unknown as Record<string, unknown>;
@@ -62,6 +66,19 @@ describe('WolSnapInteractionComponent', () => {
 
   it('should initialize wolVertex on OL instance', () => {
     expect(internals(snapInstance)['vertex_']).toBe(true);
+  });
+
+  it('should initialize wolSource on OL instance', () => {
+    expect(internals(snapInstance)['source_']).toBe(snapSource);
+  });
+
+  it('should initialize wolIntersection on OL instance', () => {
+    expect(internals(snapInstance)['intersection_']).toBe(true);
+  });
+
+  it('should initialize wolSegmenters on OL instance', () => {
+    const segmenters = internals(snapInstance)['segmenters_'] as Record<string, unknown>;
+    expect(segmenters['Point']).toBe(customPointSegmenterSpy);
   });
 
   it('should initialize wolProperties on OL instance', () => {
@@ -167,9 +184,12 @@ describe('WolSnapInteractionComponent', () => {
         <wol-snap-interaction
           [(wolActive)]="active"
           [wolFeatures]="features()"
+          [wolSource]="source()"
           [wolPixelTolerance]="pixelTolerance()"
           [wolEdge]="edge()"
           [wolVertex]="vertex()"
+          [wolIntersection]="intersection()"
+          [wolSegmenters]="segmenters()"
           [wolProperties]="properties()"
         />
       }
@@ -181,9 +201,12 @@ describe('WolSnapInteractionComponent', () => {
 class TestSnapInteractionComponent {
   readonly active = signal(true);
   readonly features = signal(new Collection<Feature>());
+  readonly source = signal(snapSource);
   readonly pixelTolerance = signal(15);
   readonly edge = signal(true);
   readonly vertex = signal(true);
+  readonly intersection = signal(true);
+  readonly segmenters = signal<Segmenters>({ Point: customPointSegmenterSpy });
   readonly properties = signal<WolProperties>({ testProp: 'initial' });
   readonly destroyInteraction = signal(false);
 }
