@@ -2,14 +2,16 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import Collection from 'ol/Collection';
 import Feature from 'ol/Feature';
 import Map from 'ol/Map';
 import { ObjectEvent } from 'ol/Object';
 import BaseEvent from 'ol/events/Event';
 import { Condition, noModifierKeys } from 'ol/events/condition';
-import { Type } from 'ol/geom/Geometry';
-import Draw, { DrawEvent } from 'ol/interaction/Draw';
+import { GeometryLayout, Type } from 'ol/geom/Geometry';
+import Draw, { DrawEvent, GeometryFunction } from 'ol/interaction/Draw';
 import VectorSource from 'ol/source/Vector';
+import { StyleLike } from 'ol/style/Style';
 
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
@@ -63,6 +65,70 @@ describe('WolDrawInteractionComponent', () => {
 
   it('should initialize with snapTolerance from input', () => {
     expect(internals(drawInstance)['snapTolerance_']).toBe(testComponent.snapTolerance());
+  });
+
+  describe('constructor inputs (init-only)', () => {
+    it('should initialize with wolClickTolerance from input', () => {
+      expect(internals(drawInstance)['squaredClickTolerance_']).toBe(
+        testComponent.clickTolerance() * testComponent.clickTolerance(),
+      );
+    });
+
+    it('should initialize with wolFeatures from input', () => {
+      expect(internals(drawInstance)['features_']).toBe(testComponent.features());
+    });
+
+    it('should initialize with wolDragVertexDelay from input', () => {
+      expect(internals(drawInstance)['dragVertexDelay_']).toBe(testComponent.dragVertexDelay());
+    });
+
+    it('should initialize with wolStopClick from input', () => {
+      expect(internals(drawInstance)['stopClick_']).toBe(testComponent.stopClick());
+    });
+
+    it('should initialize with wolMaxPoints from input', () => {
+      expect(internals(drawInstance)['maxPoints_']).toBe(testComponent.maxPoints());
+    });
+
+    it('should initialize with wolMinPoints from input', () => {
+      expect(internals(drawInstance)['minPoints_']).toBe(testComponent.minPoints());
+    });
+
+    it('should initialize with wolFinishCondition from input', () => {
+      expect(internals(drawInstance)['finishCondition_']).toBe(testComponent.finishCondition());
+    });
+
+    it('should initialize with wolStyle from input', () => {
+      const overlay = internals(drawInstance)['overlay_'] as { getStyle(): unknown };
+      expect(overlay.getStyle()).toBe(testComponent.style());
+    });
+
+    it('should initialize with wolGeometryFunction from input', () => {
+      expect(internals(drawInstance)['geometryFunction_']).toBe(testComponent.geometryFunction());
+    });
+
+    it('should initialize with wolFreehandCondition from input', () => {
+      expect(internals(drawInstance)['freehandCondition_']).toBe(testComponent.freehandCondition());
+    });
+
+    it('should initialize with wolTrace (Condition) from input', () => {
+      expect(internals(drawInstance)['traceCondition_']).toBe(testComponent.trace());
+    });
+
+    it('should initialize with wolTraceSource from input', () => {
+      expect(internals(drawInstance)['traceSource_']).toBe(testComponent.traceSource());
+    });
+
+    it('should initialize with wolWrapX from input', () => {
+      const overlaySource = (
+        internals(drawInstance)['overlay_'] as { getSource(): { getWrapX(): boolean } }
+      ).getSource();
+      expect(overlaySource.getWrapX()).toBe(testComponent.wrapX());
+    });
+
+    it('should initialize with wolGeometryLayout from input', () => {
+      expect(internals(drawInstance)['geometryLayout_']).toBe(testComponent.geometryLayout());
+    });
   });
 
   it('should initialize with condition from input', () => {
@@ -184,6 +250,20 @@ describe('WolDrawInteractionComponent', () => {
           [wolFreehand]="freehand()"
           [wolGeometryName]="geometryName()"
           [wolProperties]="properties()"
+          [wolClickTolerance]="clickTolerance()"
+          [wolFeatures]="features()"
+          [wolDragVertexDelay]="dragVertexDelay()"
+          [wolStopClick]="stopClick()"
+          [wolMaxPoints]="maxPoints()"
+          [wolMinPoints]="minPoints()"
+          [wolFinishCondition]="finishCondition()"
+          [wolStyle]="style()"
+          [wolGeometryFunction]="geometryFunction()"
+          [wolFreehandCondition]="freehandCondition()"
+          [wolTrace]="trace()"
+          [wolTraceSource]="traceSource()"
+          [wolWrapX]="wrapX()"
+          [wolGeometryLayout]="geometryLayout()"
         />
       }
     </wol-map>
@@ -200,5 +280,21 @@ class TestDrawInteractionComponent {
   readonly freehand = signal(false);
   readonly geometryName = signal('geometry');
   readonly properties = signal<WolProperties>({ testProp: 'initial' });
+  readonly clickTolerance = signal(10);
+  readonly features = signal(new Collection<Feature>());
+  readonly dragVertexDelay = signal(500);
+  readonly stopClick = signal(true);
+  readonly maxPoints = signal(5);
+  readonly minPoints = signal(3);
+  readonly finishCondition = signal<Condition>(noModifierKeys);
+  readonly style = signal<StyleLike>(() => []);
+  readonly geometryFunction = signal<GeometryFunction>(
+    ((c: unknown, g: unknown) => g) as GeometryFunction,
+  );
+  readonly freehandCondition = signal<Condition>(noModifierKeys);
+  readonly trace = signal<Condition>(noModifierKeys);
+  readonly traceSource = signal(new VectorSource());
+  readonly wrapX = signal(true);
+  readonly geometryLayout = signal<GeometryLayout>('XYZ');
   readonly destroyInteraction = signal(false);
 }
