@@ -18,6 +18,9 @@ import { WolViewComponent } from '@workletjs/ngx-openlayers/view';
 
 import { WolTranslateInteractionComponent } from './translate-interaction.component';
 
+const layersFilterSpy = vi.fn(() => false);
+const featureFilterSpy = vi.fn(() => true);
+
 describe('WolTranslateInteractionComponent', () => {
   const mapBrowserEvent = {} as unknown as MapBrowserEvent<PointerEvent>;
 
@@ -31,6 +34,9 @@ describe('WolTranslateInteractionComponent', () => {
   const internals = (obj: object) => obj as unknown as Record<string, unknown>;
 
   beforeEach(async () => {
+    layersFilterSpy.mockClear();
+    featureFilterSpy.mockClear();
+
     fixture = TestBed.createComponent(TestTranslateInteractionComponent);
     fixture.detectChanges();
     await fixture.whenStable();
@@ -72,35 +78,104 @@ describe('WolTranslateInteractionComponent', () => {
 
   it('should initialize wolFeatures on OL instance', async () => {
     const feats = new Collection<Feature>();
+    const featuresFilterSpy = vi.fn(() => false);
+    const featuresLayersSpy = vi.fn(() => false);
 
     @Component({
       template: `<wol-map
-        ><wol-view [wolZoom]="4" /><wol-translate-interaction [wolFeatures]="feats"
+        ><wol-view [wolZoom]="4" /><wol-translate-interaction
+          [wolFeatures]="feats"
+          [wolFilter]="filter"
+          [wolLayers]="layers"
       /></wol-map>`,
       changeDetection: ChangeDetectionStrategy.OnPush,
       imports: [WolMapComponent, WolViewComponent, WolTranslateInteractionComponent],
     })
     class TestFeaturesComponent {
       readonly feats = feats;
+      readonly filter = featuresFilterSpy;
+      readonly layers = featuresLayersSpy;
     }
 
     const f = TestBed.createComponent(TestFeaturesComponent);
-    f.detectChanges();
-    await f.whenStable();
-    f.detectChanges();
+    try {
+      f.detectChanges();
+      await f.whenStable();
+      f.detectChanges();
 
-    const comp = f.debugElement.query(By.directive(WolTranslateInteractionComponent))
-      .componentInstance as WolTranslateInteractionComponent;
-    expect(internals(comp.getInstance()!)['features_']).toBe(feats);
+      const comp = f.debugElement.query(By.directive(WolTranslateInteractionComponent))
+        .componentInstance as WolTranslateInteractionComponent;
+      const instance = comp.getInstance() as Translate;
+      const internalsInstance = internals(instance);
+
+      expect(internalsInstance['features_']).toBe(feats);
+      expect(internalsInstance['layerFilter_']).not.toBe(featuresLayersSpy);
+      expect(internalsInstance['filter_']).not.toBe(featuresFilterSpy);
+
+      const layerFilter = internalsInstance['layerFilter_'] as (layer: Layer) => boolean;
+      const filter = internalsInstance['filter_'] as (feature: Feature, layer: Layer) => boolean;
+      const layer = new Layer({});
+      const feature = new Feature();
+
+      expect(layerFilter(layer)).toBe(true);
+      expect(filter(feature, layer)).toBe(true);
+      expect(featuresLayersSpy).not.toHaveBeenCalled();
+      expect(featuresFilterSpy).not.toHaveBeenCalled();
+    } finally {
+      f.destroy();
+    }
   });
 
   it('should initialize wolLayers on OL instance', () => {
-    const layerFilter = internals(translateInstance)['layerFilter_'] as (l: object) => boolean;
-    expect(layerFilter({})).toBe(false);
+    const layerFilter = internals(translateInstance)['layerFilter_'] as (layer: Layer) => boolean;
+    const layer = new Layer({});
+
+    expect(layerFilter(layer)).toBe(false);
+    expect(layersFilterSpy).toHaveBeenCalledWith(layer);
+    expect(layersFilterSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should consider all visible layers when wolLayers is absent', async () => {
+    @Component({
+      template: `<wol-map><wol-view [wolZoom]="4" /><wol-translate-interaction /></wol-map>`,
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      imports: [WolMapComponent, WolViewComponent, WolTranslateInteractionComponent],
+    })
+    class TestNoLayersComponent {}
+
+    const f = TestBed.createComponent(TestNoLayersComponent);
+    try {
+      f.detectChanges();
+      await f.whenStable();
+      f.detectChanges();
+
+      const comp = f.debugElement.query(By.directive(WolTranslateInteractionComponent))
+        .componentInstance as WolTranslateInteractionComponent;
+      const instance = comp.getInstance();
+      expect(instance).toBeDefined();
+      if (!instance) {
+        throw new Error('Translate instance should be defined');
+      }
+      const layerFilter = internals(instance)['layerFilter_'] as (layer: Layer) => boolean;
+
+      expect(layerFilter(new Layer({}))).toBe(true);
+    } finally {
+      f.destroy();
+    }
   });
 
   it('should initialize wolFilter on OL instance', () => {
-    expect(internals(translateInstance)['filter_']).toBe(testComponent.filterFn());
+    const filter = internals(translateInstance)['filter_'] as (
+      feature: Feature,
+      layer: Layer,
+    ) => boolean;
+    const feature = new Feature();
+    const layer = new Layer({});
+
+    expect(filter).toBe(testComponent.filterFn());
+    expect(filter(feature, layer)).toBe(true);
+    expect(featureFilterSpy).toHaveBeenCalledWith(feature, layer);
+    expect(featureFilterSpy).toHaveBeenCalledTimes(1);
   });
 
   describe('wolActive model', () => {
@@ -231,8 +306,8 @@ describe('WolTranslateInteractionComponent', () => {
 class TestTranslateInteractionComponent {
   readonly active = signal(true);
   readonly condition = signal<Condition>(() => true);
-  readonly layers = signal<(layer: Layer) => boolean>(() => false);
-  readonly filterFn = signal<FilterFunction>(() => true);
+  readonly layers = signal<(layer: Layer) => boolean>(layersFilterSpy);
+  readonly filterFn = signal<FilterFunction>(featureFilterSpy);
   readonly hitTolerance = signal(5);
   readonly properties = signal<WolProperties>({ testProp: 'initial' });
   readonly destroyInteraction = signal(false);
