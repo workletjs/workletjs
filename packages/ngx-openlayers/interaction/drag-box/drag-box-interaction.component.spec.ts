@@ -68,6 +68,15 @@ describe('WolDragBoxInteractionComponent', () => {
     expect(internals(dragBox)['boxEndCondition_']).toBe(testComponent.boxEndCondition());
   });
 
+  it('should initialize with wolClassName from input', () => {
+    const element = internals(internals(dragBox)['box_'] as object)['element_'] as Element;
+    expect(element.className).toContain(testComponent.className());
+  });
+
+  it('should initialize with wolOnBoxEnd from input', () => {
+    expect(internals(dragBox)['onBoxEnd']).toBe(testComponent.onBoxEnd());
+  });
+
   it('should initialize with wolProperties from input', () => {
     expect(dragBox.getProperties()).toMatchObject(testComponent.properties());
   });
@@ -198,6 +207,8 @@ describe('WolDragBoxInteractionComponent', () => {
           [wolMinArea]="minArea()"
           [wolCondition]="condition()"
           [wolBoxEndCondition]="boxEndCondition()"
+          [wolClassName]="className()"
+          [wolOnBoxEnd]="onBoxEnd()"
           [wolProperties]="properties()"
         />
       }
@@ -210,6 +221,8 @@ class TestDragBoxInteractionComponent {
   minArea = signal(100);
   condition = signal<Condition>(() => true);
   boxEndCondition = signal<EndCondition>(() => true);
+  className = signal<string>('ol-dragbox-test');
+  onBoxEnd = signal<(event: MapBrowserEvent) => void>(vi.fn());
   properties = signal<WolProperties>({ foo: 'bar' });
   destroyInteraction = signal(false);
 }
