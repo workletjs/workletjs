@@ -102,6 +102,30 @@ describe('WolMouseWheelZoomInteractionComponent', () => {
     });
   });
 
+  describe('wolOnFocusOnly', () => {
+    let localFixture: ComponentFixture<TestMouseWheelZoomOnFocusOnlyComponent>;
+    let localInstance: MouseWheelZoom;
+
+    beforeEach(async () => {
+      localFixture = TestBed.createComponent(TestMouseWheelZoomOnFocusOnlyComponent);
+      localFixture.detectChanges();
+      await localFixture.whenStable();
+      localFixture.detectChanges();
+
+      const debugEl = localFixture.debugElement.query(
+        By.directive(WolMouseWheelZoomInteractionComponent),
+      );
+      localInstance = debugEl.componentInstance.getInstance() as MouseWheelZoom;
+    });
+
+    it('should apply onFocusOnly to OL constructor', () => {
+      // With onFocusOnly: true and no explicit condition, OL wraps the default `always`
+      // condition with focusWithTabindex, producing a new composite function.
+      // Therefore condition_ must be reference-inequal to `always`.
+      expect(internals(localInstance)['condition_']).not.toBe(always);
+    });
+  });
+
   it('should call setMouseAnchor when wolUseAnchor changes via ngOnChanges', () => {
     testComponent.useAnchor.set(false);
     fixture.detectChanges();
@@ -158,6 +182,7 @@ describe('WolMouseWheelZoomInteractionComponent', () => {
         <wol-mouse-wheel-zoom-interaction
           [(wolActive)]="active"
           [wolCondition]="condition()"
+          [wolOnFocusOnly]="onFocusOnly()"
           [wolMaxDelta]="maxDelta()"
           [wolDuration]="duration()"
           [wolTimeout]="timeout()"
@@ -174,6 +199,7 @@ describe('WolMouseWheelZoomInteractionComponent', () => {
 class TestMouseWheelZoomInteractionComponent {
   readonly active = signal(true);
   readonly condition = signal<Condition>(always);
+  readonly onFocusOnly = signal(false);
   readonly maxDelta = signal(1);
   readonly duration = signal(250);
   readonly timeout = signal(80);
@@ -182,3 +208,15 @@ class TestMouseWheelZoomInteractionComponent {
   readonly properties = signal<WolProperties>({ testProp: 'initial' });
   readonly destroyInteraction = signal(false);
 }
+
+@Component({
+  template: `
+    <wol-map>
+      <wol-view [wolZoom]="4" />
+      <wol-mouse-wheel-zoom-interaction [wolOnFocusOnly]="true" />
+    </wol-map>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [WolMapComponent, WolViewComponent, WolMouseWheelZoomInteractionComponent],
+})
+class TestMouseWheelZoomOnFocusOnlyComponent {}
