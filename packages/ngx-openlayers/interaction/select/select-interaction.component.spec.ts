@@ -2,17 +2,29 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import Collection from 'ol/Collection';
+import Feature from 'ol/Feature';
 import Map from 'ol/Map';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
 import { ObjectEvent } from 'ol/Object';
 import BaseEvent from 'ol/events/Event';
-import Select, { SelectEvent } from 'ol/interaction/Select';
+import { Condition } from 'ol/events/condition';
+import Select, { FilterFunction, SelectEvent } from 'ol/interaction/Select';
+import Layer from 'ol/layer/Layer';
 
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 import { WolViewComponent } from '@workletjs/ngx-openlayers/view';
 
 import { WolSelectInteractionComponent } from './select-interaction.component';
+
+const addConditionSpy = vi.fn() as unknown as Condition;
+const conditionSpy = vi.fn() as unknown as Condition;
+const layerFilterSpy = vi.fn() as unknown as (layer: Layer) => boolean;
+const removeConditionSpy = vi.fn() as unknown as Condition;
+const toggleConditionSpy = vi.fn() as unknown as Condition;
+const filterSpy = vi.fn() as unknown as FilterFunction;
+let selectFeatures = new Collection<Feature>();
 
 describe('WolSelectInteractionComponent', () => {
   const internals = (obj: object) => obj as unknown as Record<string, unknown>;
@@ -25,6 +37,7 @@ describe('WolSelectInteractionComponent', () => {
   let selectInstance: Select;
 
   beforeEach(async () => {
+    selectFeatures = new Collection<Feature>();
     fixture = TestBed.createComponent(TestSelectInteractionComponent);
     fixture.detectChanges();
     await fixture.whenStable();
@@ -62,6 +75,38 @@ describe('WolSelectInteractionComponent', () => {
 
   it('should initialize wolProperties on OL instance', () => {
     expect(selectInstance.get('testProp')).toBe('initial');
+  });
+
+  it('should initialize wolAddCondition on OL instance', () => {
+    expect(internals(selectInstance)['addCondition_']).toBe(addConditionSpy);
+  });
+
+  it('should initialize wolCondition on OL instance', () => {
+    expect(internals(selectInstance)['condition_']).toBe(conditionSpy);
+  });
+
+  it('should initialize wolLayers on OL instance', () => {
+    expect(internals(selectInstance)['layerFilter_']).toBe(layerFilterSpy);
+  });
+
+  it('should initialize wolStyle on OL instance', () => {
+    expect(internals(selectInstance)['style_']).toBeNull();
+  });
+
+  it('should initialize wolRemoveCondition on OL instance', () => {
+    expect(internals(selectInstance)['removeCondition_']).toBe(removeConditionSpy);
+  });
+
+  it('should initialize wolToggleCondition on OL instance', () => {
+    expect(internals(selectInstance)['toggleCondition_']).toBe(toggleConditionSpy);
+  });
+
+  it('should initialize wolFeatures on OL instance', () => {
+    expect(selectInstance.getFeatures()).toBe(selectFeatures);
+  });
+
+  it('should initialize wolFilter on OL instance', () => {
+    expect(internals(selectInstance)['filter_']).toBe(filterSpy);
   });
 
   describe('wolActive model', () => {
@@ -146,6 +191,14 @@ describe('WolSelectInteractionComponent', () => {
       @if (!destroyInteraction()) {
         <wol-select-interaction
           [(wolActive)]="active"
+          [wolAddCondition]="addCondition()"
+          [wolCondition]="condition()"
+          [wolLayers]="layers()"
+          [wolStyle]="style()"
+          [wolRemoveCondition]="removeCondition()"
+          [wolToggleCondition]="toggleCondition()"
+          [wolFeatures]="features()"
+          [wolFilter]="filter()"
           [wolHitTolerance]="hitTolerance()"
           [wolMulti]="multi()"
           [wolProperties]="properties()"
@@ -158,6 +211,14 @@ describe('WolSelectInteractionComponent', () => {
 })
 class TestSelectInteractionComponent {
   readonly active = signal(true);
+  readonly addCondition = signal(addConditionSpy);
+  readonly condition = signal(conditionSpy);
+  readonly layers = signal(layerFilterSpy);
+  readonly style = signal<null>(null);
+  readonly removeCondition = signal(removeConditionSpy);
+  readonly toggleCondition = signal(toggleConditionSpy);
+  readonly features = signal(selectFeatures);
+  readonly filter = signal(filterSpy);
   readonly hitTolerance = signal(5);
   readonly multi = signal(true);
   readonly properties = signal<WolProperties>({ testProp: 'initial' });
