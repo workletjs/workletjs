@@ -6,7 +6,7 @@ import Kinetic from 'ol/Kinetic';
 import Map from 'ol/Map';
 import { ObjectEvent } from 'ol/Object';
 import BaseEvent from 'ol/events/Event';
-import { Condition, noModifierKeys } from 'ol/events/condition';
+import { Condition, noModifierKeys, primaryAction } from 'ol/events/condition';
 import DragPan from 'ol/interaction/DragPan';
 
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
@@ -112,6 +112,28 @@ describe('WolDragPanInteractionComponent', () => {
     expect(propertyChangeSpy).toHaveBeenCalledWith(event);
   });
 
+  describe('wolOnFocusOnly', () => {
+    let localFixture: ComponentFixture<TestDragPanOnFocusOnlyComponent>;
+    let localInstance: DragPan;
+
+    beforeEach(async () => {
+      localFixture = TestBed.createComponent(TestDragPanOnFocusOnlyComponent);
+      localFixture.detectChanges();
+      await localFixture.whenStable();
+      localFixture.detectChanges();
+
+      const debugEl = localFixture.debugElement.query(By.directive(WolDragPanInteractionComponent));
+      localInstance = debugEl.componentInstance.getInstance() as DragPan;
+    });
+
+    it('should apply onFocusOnly to OL constructor', () => {
+      // With onFocusOnly: true, OL wraps the explicit condition with focusWithTabindex
+      // via all(...), producing a new composite function reference.
+      // Therefore condition_ must be reference-inequal to the original condition.
+      expect(internals(localInstance)['condition_']).not.toBe(primaryAction);
+    });
+  });
+
   describe('destroy', () => {
     it('should remove the interaction from the map on destroy', () => {
       testComponent.destroyInteraction.set(true);
@@ -135,6 +157,7 @@ describe('WolDragPanInteractionComponent', () => {
         <wol-drag-pan-interaction
           [(wolActive)]="active"
           [wolCondition]="condition()"
+          [wolOnFocusOnly]="onFocusOnly()"
           [wolKinetic]="kinetic()"
           [wolProperties]="properties()"
         />
@@ -147,7 +170,22 @@ describe('WolDragPanInteractionComponent', () => {
 class TestDragPanInteractionComponent {
   readonly active = signal(true);
   readonly condition = signal<Condition>(noModifierKeys);
+  readonly onFocusOnly = signal(false);
   readonly kinetic = signal<Kinetic>(new Kinetic(-0.005, 0.05, 100));
   readonly properties = signal<WolProperties>({ testProp: 'initial' });
   readonly destroyInteraction = signal(false);
+}
+
+@Component({
+  template: `
+    <wol-map>
+      <wol-view [wolZoom]="4" />
+      <wol-drag-pan-interaction [wolCondition]="condition" [wolOnFocusOnly]="true" />
+    </wol-map>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [WolMapComponent, WolViewComponent, WolDragPanInteractionComponent],
+})
+class TestDragPanOnFocusOnlyComponent {
+  readonly condition = primaryAction;
 }
