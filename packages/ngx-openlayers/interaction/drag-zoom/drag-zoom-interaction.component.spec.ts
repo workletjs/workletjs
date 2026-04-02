@@ -72,6 +72,11 @@ describe('WolDragZoomInteractionComponent', () => {
     expect(internals(dragZoomInstance)['minArea_']).toBe(testComponent.minArea());
   });
 
+  it('should initialize with className from input', () => {
+    const element = internals(internals(dragZoomInstance)['box_'] as object)['element_'] as Element;
+    expect(element.className).toContain(testComponent.className());
+  });
+
   it('should initialize wolProperties on the instance', () => {
     const props = testComponent.properties();
     expect(dragZoomInstance.get('testProp')).toBe(props['testProp']);
@@ -173,6 +178,7 @@ describe('WolDragZoomInteractionComponent', () => {
       @if (!destroyInteraction()) {
         <wol-drag-zoom-interaction
           [(wolActive)]="active"
+          [wolClassName]="className()"
           [wolCondition]="condition()"
           [wolDuration]="duration()"
           [wolOut]="out()"
@@ -187,6 +193,7 @@ describe('WolDragZoomInteractionComponent', () => {
 })
 class TestDragZoomInteractionComponent {
   readonly active = signal(true);
+  readonly className = signal<string>('ol-dragzoom-test');
   readonly condition = signal<Condition>(shiftKeyOnly);
   readonly duration = signal(200);
   readonly out = signal(false);
