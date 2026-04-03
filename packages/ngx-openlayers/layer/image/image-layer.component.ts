@@ -129,6 +129,10 @@ export class WolImageLayerComponent implements OnChanges {
         this.wolPropertyChange.emit(event),
       );
 
+      eventsKey['sourceready'] = imageLayer.on('sourceready', (event) =>
+        this.wolSourceReady.emit(event),
+      );
+
       /**
        * Adding control to the map must be done after the map is rendered,
        * if used with control flow of Angular.

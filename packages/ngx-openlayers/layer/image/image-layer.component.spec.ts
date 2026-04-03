@@ -249,6 +249,13 @@ describe('WolImageLayerComponent', () => {
     expect(spy).toHaveBeenCalledWith(event);
   });
 
+  it('should emit wolSourceReady when layer dispatches a sourceready event', () => {
+    const spy = vi.spyOn(layerComponent.wolSourceReady, 'emit');
+    const event = new BaseEvent('sourceready');
+    layer.dispatchEvent(event);
+    expect(spy).toHaveBeenCalledWith(event);
+  });
+
   // ─── Lifecycle ───────────────────────────────────────────────────────────────
 
   it('should remove the layer from the map when destroyed', () => {
