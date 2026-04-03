@@ -142,76 +142,85 @@ describe('WolVectorImageLayerComponent', () => {
 
   // ─── Two-way model bindings ──────────────────────────────────────────────────
 
-  it('should update wolOpacity model and host signal when OL fires change:opacity', () => {
+  it('should update wolOpacity model and host signal when OL fires change:opacity', async () => {
     const spy = vi.spyOn(layerComponent.wolOpacity, 'set');
     layer.setOpacity(0.2);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(0.2);
     expect(testComponent.opacity()).toBe(0.2);
   });
 
-  it('should update wolVisible model and host signal when OL fires change:visible', () => {
+  it('should update wolVisible model and host signal when OL fires change:visible', async () => {
     const spy = vi.spyOn(layerComponent.wolVisible, 'set');
     layer.setVisible(false);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(false);
     expect(testComponent.visible()).toBe(false);
   });
 
-  it('should update wolExtent model and host signal when OL fires change:extent', () => {
+  it('should update wolExtent model and host signal when OL fires change:extent', async () => {
     const extent: Extent = [1, 2, 3, 4];
     const spy = vi.spyOn(layerComponent.wolExtent, 'set');
     layer.setExtent(extent);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(extent);
     expect(testComponent.extent()).toEqual(extent);
   });
 
-  it('should update wolZIndex model and host signal when OL fires change:zIndex', () => {
+  it('should update wolZIndex model and host signal when OL fires change:zIndex', async () => {
     const spy = vi.spyOn(layerComponent.wolZIndex, 'set');
     layer.setZIndex(20);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(20);
     expect(testComponent.zIndex()).toBe(20);
   });
 
-  it('should update wolMinResolution model and host signal when OL fires change:minResolution', () => {
+  it('should update wolMinResolution model and host signal when OL fires change:minResolution', async () => {
     const spy = vi.spyOn(layerComponent.wolMinResolution, 'set');
     layer.setMinResolution(0.1);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(0.1);
     expect(testComponent.minResolution()).toBe(0.1);
   });
 
-  it('should update wolMaxResolution model and host signal when OL fires change:maxResolution', () => {
+  it('should update wolMaxResolution model and host signal when OL fires change:maxResolution', async () => {
     const spy = vi.spyOn(layerComponent.wolMaxResolution, 'set');
     layer.setMaxResolution(30);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(30);
     expect(testComponent.maxResolution()).toBe(30);
   });
 
-  it('should update wolMinZoom model and host signal when OL fires change:minZoom', () => {
+  it('should update wolMinZoom model and host signal when OL fires change:minZoom', async () => {
     const spy = vi.spyOn(layerComponent.wolMinZoom, 'set');
     layer.setMinZoom(1);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(1);
     expect(testComponent.minZoom()).toBe(1);
   });
 
-  it('should update wolMaxZoom model and host signal when OL fires change:maxZoom', () => {
+  it('should update wolMaxZoom model and host signal when OL fires change:maxZoom', async () => {
     const spy = vi.spyOn(layerComponent.wolMaxZoom, 'set');
     layer.setMaxZoom(15);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(15);
     expect(testComponent.maxZoom()).toBe(15);
   });
 
-  it('should update wolSource model and host signal when OL fires change:source', () => {
+  it('should update wolSource model and host signal when OL fires change:source', async () => {
     const newSource = new VectorSource();
     const spy = vi.spyOn(layerComponent.wolSource, 'set');
     layer.setSource(newSource);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(newSource);
     expect(testComponent.source()).toBe(newSource);
   });
@@ -268,6 +277,14 @@ describe('WolVectorImageLayerComponent', () => {
     fixture.detectChanges();
     expect(layerComponent.getInstance()).toBeUndefined();
     expect(removeLayerSpy).toHaveBeenCalledWith(layer);
+  });
+
+  it('should not update model signals when OL fires events after component is destroyed', () => {
+    const previousOpacity = testComponent.opacity();
+    testComponent.destroyLayer.set(true);
+    fixture.detectChanges();
+    layer.setOpacity(0.99);
+    expect(testComponent.opacity()).toBe(previousOpacity);
   });
 });
 

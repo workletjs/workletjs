@@ -179,8 +179,10 @@ describe('WolGraticuleLayerComponent', () => {
       expect(graticuleLayer.getOpacity()).toBe(0.8);
     });
 
-    it('should update wolOpacity signal when OL fires change:opacity', () => {
+    it('should update wolOpacity signal when OL fires change:opacity', async () => {
       graticuleLayer.setOpacity(0.2);
+      fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.opacity()).toBe(0.2);
     });
 
@@ -206,14 +208,18 @@ describe('WolGraticuleLayerComponent', () => {
       expect(graticuleLayer.getVisible()).toBe(true);
     });
 
-    it('should update wolVisible signal when OL fires change:visible', () => {
+    it('should update wolVisible signal when OL fires change:visible', async () => {
       graticuleLayer.setVisible(true);
+      fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.visible()).toBe(true);
     });
 
-    it('should update wolVisible signal back to false when OL sets visible to false', () => {
+    it('should update wolVisible signal back to false when OL sets visible to false', async () => {
       graticuleLayer.setVisible(true);
       graticuleLayer.setVisible(false);
+      fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.visible()).toBe(false);
     });
   });
@@ -228,9 +234,11 @@ describe('WolGraticuleLayerComponent', () => {
       expect(graticuleLayer.getExtent()).toEqual(newExtent);
     });
 
-    it('should update wolExtent signal when OL fires change:extent', () => {
+    it('should update wolExtent signal when OL fires change:extent', async () => {
       const newExtent: Extent = [5, 10, 15, 20];
       graticuleLayer.setExtent(newExtent);
+      fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.extent()).toEqual(newExtent);
     });
   });
@@ -244,8 +252,10 @@ describe('WolGraticuleLayerComponent', () => {
       expect(graticuleLayer.getZIndex()).toBe(10);
     });
 
-    it('should update wolZIndex signal when OL fires change:zIndex', () => {
+    it('should update wolZIndex signal when OL fires change:zIndex', async () => {
       graticuleLayer.setZIndex(20);
+      fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.zIndex()).toBe(20);
     });
 
@@ -265,8 +275,10 @@ describe('WolGraticuleLayerComponent', () => {
       expect(graticuleLayer.getMinResolution()).toBe(1.5);
     });
 
-    it('should update wolMinResolution signal when OL fires change:minResolution', () => {
+    it('should update wolMinResolution signal when OL fires change:minResolution', async () => {
       graticuleLayer.setMinResolution(0.25);
+      fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.minResolution()).toBe(0.25);
     });
   });
@@ -280,8 +292,10 @@ describe('WolGraticuleLayerComponent', () => {
       expect(graticuleLayer.getMaxResolution()).toBe(25);
     });
 
-    it('should update wolMaxResolution signal when OL fires change:maxResolution', () => {
+    it('should update wolMaxResolution signal when OL fires change:maxResolution', async () => {
       graticuleLayer.setMaxResolution(50);
+      fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.maxResolution()).toBe(50);
     });
   });
@@ -295,8 +309,10 @@ describe('WolGraticuleLayerComponent', () => {
       expect(graticuleLayer.getMinZoom()).toBe(3);
     });
 
-    it('should update wolMinZoom signal when OL fires change:minZoom', () => {
+    it('should update wolMinZoom signal when OL fires change:minZoom', async () => {
       graticuleLayer.setMinZoom(1);
+      fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.minZoom()).toBe(1);
     });
   });
@@ -310,8 +326,10 @@ describe('WolGraticuleLayerComponent', () => {
       expect(graticuleLayer.getMaxZoom()).toBe(15);
     });
 
-    it('should update wolMaxZoom signal when OL fires change:maxZoom', () => {
+    it('should update wolMaxZoom signal when OL fires change:maxZoom', async () => {
       graticuleLayer.setMaxZoom(18);
+      fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.maxZoom()).toBe(18);
     });
   });
@@ -408,19 +426,16 @@ describe('WolGraticuleLayerComponent', () => {
       expect(spy).toHaveBeenCalledWith(event);
     });
 
-    it('should emit wolPostRender when OL fires postrender event', async () => {
-      // When showLabels=false (the default in TestGraticuleLayerComponent), OL does NOT register
-      // its internal drawLabels_ POSTRENDER listener, so we can safely dispatch a bare
-      // BaseEvent without a frameState and only our Angular listener fires.
+    it('should emit wolPostRender when OL fires postrender event', () => {
       const spy = vi.spyOn(graticuleLayerComponent.wolPostRender, 'emit');
-      const event = new BaseEvent('postrender') as unknown as RenderEvent;
+      const event = new RenderEvent('postrender', undefined, undefined, undefined);
       graticuleLayer.dispatchEvent(event);
       expect(spy).toHaveBeenCalledWith(event);
     });
 
     it('should emit wolPreRender when OL fires prerender event', () => {
       const spy = vi.spyOn(graticuleLayerComponent.wolPreRender, 'emit');
-      const event = new BaseEvent('prerender') as unknown as RenderEvent;
+      const event = new RenderEvent('prerender', undefined, undefined, undefined);
       graticuleLayer.dispatchEvent(event);
       expect(spy).toHaveBeenCalledWith(event);
     });
