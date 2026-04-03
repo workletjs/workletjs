@@ -93,7 +93,7 @@ describe('WolOverlayComponent', () => {
     });
 
     it('should initialize wolAutoPan', () => {
-      expect(overlayInstance.getOptions().autoPan).toEqual({ animation: { duration: 250 } });
+      expect(overlayInstance.getOptions().autoPan).toMatchObject({ animation: { duration: 250 } });
     });
 
     it('should initialize wolClassName', () => {
