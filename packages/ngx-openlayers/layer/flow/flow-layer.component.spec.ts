@@ -251,6 +251,69 @@ describe('WolFlowLayerComponent', () => {
     expect(flowLayerComponent.getInstance()).toBeUndefined();
     expect(removeLayerSpy).toHaveBeenCalledWith(flowLayer);
   });
+
+  describe('host signal sync after OL property change', () => {
+    it('should update host opacity signal when OL fires change:opacity', () => {
+      flowLayer.setOpacity(0.4);
+      fixture.detectChanges();
+      expect(testComponent.opacity()).toBe(0.4);
+    });
+
+    it('should update host visible signal when OL fires change:visible', () => {
+      flowLayer.setVisible(false);
+      fixture.detectChanges();
+      expect(testComponent.visible()).toBe(false);
+    });
+
+    it('should update host extent signal when OL fires change:extent', () => {
+      const newExtent: Extent = [5, 6, 7, 8];
+      flowLayer.setExtent(newExtent);
+      fixture.detectChanges();
+      expect(testComponent.extent()).toEqual(newExtent);
+    });
+
+    it('should update host zIndex signal when OL fires change:zIndex', () => {
+      flowLayer.setZIndex(99);
+      fixture.detectChanges();
+      expect(testComponent.zIndex()).toBe(99);
+    });
+
+    it('should update host minResolution signal when OL fires change:minResolution', () => {
+      flowLayer.setMinResolution(0.1);
+      fixture.detectChanges();
+      expect(testComponent.minResolution()).toBe(0.1);
+    });
+
+    it('should update host maxResolution signal when OL fires change:maxResolution', () => {
+      flowLayer.setMaxResolution(50);
+      fixture.detectChanges();
+      expect(testComponent.maxResolution()).toBe(50);
+    });
+
+    it('should update host minZoom signal when OL fires change:minZoom', () => {
+      flowLayer.setMinZoom(1);
+      fixture.detectChanges();
+      expect(testComponent.minZoom()).toBe(1);
+    });
+
+    it('should update host maxZoom signal when OL fires change:maxZoom', () => {
+      flowLayer.setMaxZoom(18);
+      fixture.detectChanges();
+      expect(testComponent.maxZoom()).toBe(18);
+    });
+
+    it('should update host preload signal when OL fires change:preload', () => {
+      flowLayer.setPreload(3);
+      fixture.detectChanges();
+      expect(testComponent.preload()).toBe(3);
+    });
+
+    it('should update host useInterimTilesOnError signal when OL fires change:useInterimTilesOnError', () => {
+      flowLayer.setUseInterimTilesOnError(false);
+      fixture.detectChanges();
+      expect(testComponent.useInterimTilesOnError()).toBe(false);
+    });
+  });
 });
 
 @Component({
