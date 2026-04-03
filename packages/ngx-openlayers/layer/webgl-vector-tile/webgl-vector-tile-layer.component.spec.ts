@@ -151,69 +151,87 @@ describe('WolWebGLVectorTileLayerComponent', () => {
 
   // ─── Two-way model bindings (change:* events) ───────────────────────────────
 
-  it('should update wolOpacity model when layer emits change:opacity', () => {
+  it('should update wolOpacity model and host signal when layer emits change:opacity', async () => {
     const spy = vi.spyOn(layerComponent.wolOpacity, 'set');
     layer.setOpacity(0.3);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(0.3);
+    expect(testComponent.opacity()).toBe(0.3);
   });
 
-  it('should update wolVisible model when layer emits change:visible', () => {
+  it('should update wolVisible model and host signal when layer emits change:visible', async () => {
     const spy = vi.spyOn(layerComponent.wolVisible, 'set');
     layer.setVisible(false);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(false);
+    expect(testComponent.visible()).toBe(false);
   });
 
-  it('should update wolExtent model when layer emits change:extent', () => {
+  it('should update wolExtent model and host signal when layer emits change:extent', async () => {
     const extent: Extent = [1, 2, 3, 4];
     const spy = vi.spyOn(layerComponent.wolExtent, 'set');
     layer.setExtent(extent);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(extent);
+    expect(testComponent.extent()).toEqual(extent);
   });
 
-  it('should update wolZIndex model when layer emits change:zIndex', () => {
+  it('should update wolZIndex model and host signal when layer emits change:zIndex', async () => {
     const spy = vi.spyOn(layerComponent.wolZIndex, 'set');
     layer.setZIndex(20);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(20);
+    expect(testComponent.zIndex()).toBe(20);
   });
 
-  it('should update wolMinResolution model when layer emits change:minResolution', () => {
+  it('should update wolMinResolution model and host signal when layer emits change:minResolution', async () => {
     const spy = vi.spyOn(layerComponent.wolMinResolution, 'set');
     layer.setMinResolution(0.1);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(0.1);
+    expect(testComponent.minResolution()).toBe(0.1);
   });
 
-  it('should update wolMaxResolution model when layer emits change:maxResolution', () => {
+  it('should update wolMaxResolution model and host signal when layer emits change:maxResolution', async () => {
     const spy = vi.spyOn(layerComponent.wolMaxResolution, 'set');
     layer.setMaxResolution(30);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(30);
+    expect(testComponent.maxResolution()).toBe(30);
   });
 
-  it('should update wolMinZoom model when layer emits change:minZoom', () => {
+  it('should update wolMinZoom model and host signal when layer emits change:minZoom', async () => {
     const spy = vi.spyOn(layerComponent.wolMinZoom, 'set');
     layer.setMinZoom(1);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(1);
+    expect(testComponent.minZoom()).toBe(1);
   });
 
-  it('should update wolMaxZoom model when layer emits change:maxZoom', () => {
+  it('should update wolMaxZoom model and host signal when layer emits change:maxZoom', async () => {
     const spy = vi.spyOn(layerComponent.wolMaxZoom, 'set');
     layer.setMaxZoom(15);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(15);
+    expect(testComponent.maxZoom()).toBe(15);
   });
 
-  it('should update wolSource model when layer emits change:source', () => {
+  it('should update wolSource model and host signal when layer emits change:source', async () => {
     const newSource = new VectorTileSource({});
     const spy = vi.spyOn(layerComponent.wolSource, 'set');
     layer.setSource(newSource);
     fixture.detectChanges();
+    await fixture.whenStable();
     expect(spy).toHaveBeenCalledWith(newSource);
+    expect(testComponent.source()).toBe(newSource);
   });
 
   // ─── Output events ──────────────────────────────────────────────────────────

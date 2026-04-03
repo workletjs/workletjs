@@ -162,88 +162,6 @@ describe('WolFlowLayerComponent', () => {
     expect(sourceReadySpy).toHaveBeenCalledWith(event);
   });
 
-  it('should emit `change:opacity` event when opacity changes', () => {
-    const changeOpacitySpy = vi.spyOn(flowLayerComponent.wolOpacity, 'set');
-    flowLayer.setOpacity(0.7);
-    fixture.detectChanges();
-    expect(changeOpacitySpy).toHaveBeenCalledWith(0.7);
-  });
-
-  it('should emit `change:visible` event when visibility changes', () => {
-    const changeVisibleSpy = vi.spyOn(flowLayerComponent.wolVisible, 'set');
-    flowLayer.setVisible(false);
-    fixture.detectChanges();
-    expect(changeVisibleSpy).toHaveBeenCalledWith(false);
-  });
-
-  it('should emit `change:extent` event when extent changes', () => {
-    const extent: Extent = [1, 2, 3, 4];
-    const changeExtentSpy = vi.spyOn(flowLayerComponent.wolExtent, 'set');
-    flowLayer.setExtent(extent);
-    fixture.detectChanges();
-    expect(changeExtentSpy).toHaveBeenCalledWith(extent);
-  });
-
-  it('should emit `change:zIndex` event when zIndex changes', () => {
-    const changeZIndexSpy = vi.spyOn(flowLayerComponent.wolZIndex, 'set');
-    flowLayer.setZIndex(20);
-    fixture.detectChanges();
-    expect(changeZIndexSpy).toHaveBeenCalledWith(20);
-  });
-
-  it('should emit `change:minResolution` event when minResolution changes', () => {
-    const changeMinResolutionSpy = vi.spyOn(flowLayerComponent.wolMinResolution, 'set');
-    flowLayer.setMinResolution(0.25);
-    fixture.detectChanges();
-    expect(changeMinResolutionSpy).toHaveBeenCalledWith(0.25);
-  });
-
-  it('should emit `change:maxResolution` event when maxResolution changes', () => {
-    const changeMaxResolutionSpy = vi.spyOn(flowLayerComponent.wolMaxResolution, 'set');
-    flowLayer.setMaxResolution(25);
-    fixture.detectChanges();
-    expect(changeMaxResolutionSpy).toHaveBeenCalledWith(25);
-  });
-
-  it('should emit `change:minZoom` event when minZoom changes', () => {
-    const changeMinZoomSpy = vi.spyOn(flowLayerComponent.wolMinZoom, 'set');
-    flowLayer.setMinZoom(1);
-    fixture.detectChanges();
-    expect(changeMinZoomSpy).toHaveBeenCalledWith(1);
-  });
-
-  it('should emit `change:maxZoom` event when maxZoom changes', () => {
-    const changeMaxZoomSpy = vi.spyOn(flowLayerComponent.wolMaxZoom, 'set');
-    flowLayer.setMaxZoom(11);
-    fixture.detectChanges();
-    expect(changeMaxZoomSpy).toHaveBeenCalledWith(11);
-  });
-
-  it('should emit `change:preload` event when preload changes', () => {
-    const changePreloadSpy = vi.spyOn(flowLayerComponent.wolPreload, 'set');
-    flowLayer.setPreload(5);
-    fixture.detectChanges();
-    expect(changePreloadSpy).toHaveBeenCalledWith(5);
-  });
-
-  it('should emit `change:source` event when source changes', () => {
-    const newSource = new DataTile({ loader: () => new Uint8Array() });
-    const changeSourceSpy = vi.spyOn(flowLayerComponent.wolSource, 'set');
-    flowLayer.setSource(newSource);
-    fixture.detectChanges();
-    expect(changeSourceSpy).toHaveBeenCalledWith(newSource);
-  });
-
-  it('should emit `change:useInterimTilesOnError` event when useInterimTilesOnError changes', () => {
-    const changeUseInterimTilesOnErrorSpy = vi.spyOn(
-      flowLayerComponent.wolUseInterimTilesOnError,
-      'set',
-    );
-    flowLayer.setUseInterimTilesOnError(false);
-    fixture.detectChanges();
-    expect(changeUseInterimTilesOnErrorSpy).toHaveBeenCalledWith(false);
-  });
-
   it('should remove the layer from the Map when destroyed', () => {
     const removeLayerSpy = vi.spyOn(mapInstance, 'removeLayer');
     testComponent.destroyLayer.set(true);
@@ -252,77 +170,107 @@ describe('WolFlowLayerComponent', () => {
     expect(removeLayerSpy).toHaveBeenCalledWith(flowLayer);
   });
 
-  describe('host signal sync after OL property change', () => {
-    it('should update host opacity signal when OL fires change:opacity', async () => {
-      flowLayer.setOpacity(0.4);
-      fixture.detectChanges();
-      await fixture.whenStable();
-      expect(testComponent.opacity()).toBe(0.4);
-    });
+  // ─── Two-way model bindings ─────────────────────────────────────────────────
 
-    it('should update host visible signal when OL fires change:visible', async () => {
-      flowLayer.setVisible(false);
-      fixture.detectChanges();
-      await fixture.whenStable();
-      expect(testComponent.visible()).toBe(false);
-    });
+  it('should update wolOpacity model and host signal when OL fires change:opacity', async () => {
+    const spy = vi.spyOn(flowLayerComponent.wolOpacity, 'set');
+    flowLayer.setOpacity(0.4);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(spy).toHaveBeenCalledWith(0.4);
+    expect(testComponent.opacity()).toBe(0.4);
+  });
 
-    it('should update host extent signal when OL fires change:extent', async () => {
-      const newExtent: Extent = [5, 6, 7, 8];
-      flowLayer.setExtent(newExtent);
-      fixture.detectChanges();
-      await fixture.whenStable();
-      expect(testComponent.extent()).toEqual(newExtent);
-    });
+  it('should update wolVisible model and host signal when OL fires change:visible', async () => {
+    const spy = vi.spyOn(flowLayerComponent.wolVisible, 'set');
+    flowLayer.setVisible(false);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(spy).toHaveBeenCalledWith(false);
+    expect(testComponent.visible()).toBe(false);
+  });
 
-    it('should update host zIndex signal when OL fires change:zIndex', async () => {
-      flowLayer.setZIndex(99);
-      fixture.detectChanges();
-      await fixture.whenStable();
-      expect(testComponent.zIndex()).toBe(99);
-    });
+  it('should update wolExtent model and host signal when OL fires change:extent', async () => {
+    const newExtent: Extent = [5, 6, 7, 8];
+    const spy = vi.spyOn(flowLayerComponent.wolExtent, 'set');
+    flowLayer.setExtent(newExtent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(spy).toHaveBeenCalledWith(newExtent);
+    expect(testComponent.extent()).toEqual(newExtent);
+  });
 
-    it('should update host minResolution signal when OL fires change:minResolution', async () => {
-      flowLayer.setMinResolution(0.1);
-      fixture.detectChanges();
-      await fixture.whenStable();
-      expect(testComponent.minResolution()).toBe(0.1);
-    });
+  it('should update wolZIndex model and host signal when OL fires change:zIndex', async () => {
+    const spy = vi.spyOn(flowLayerComponent.wolZIndex, 'set');
+    flowLayer.setZIndex(99);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(spy).toHaveBeenCalledWith(99);
+    expect(testComponent.zIndex()).toBe(99);
+  });
 
-    it('should update host maxResolution signal when OL fires change:maxResolution', async () => {
-      flowLayer.setMaxResolution(50);
-      fixture.detectChanges();
-      await fixture.whenStable();
-      expect(testComponent.maxResolution()).toBe(50);
-    });
+  it('should update wolMinResolution model and host signal when OL fires change:minResolution', async () => {
+    const spy = vi.spyOn(flowLayerComponent.wolMinResolution, 'set');
+    flowLayer.setMinResolution(0.1);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(spy).toHaveBeenCalledWith(0.1);
+    expect(testComponent.minResolution()).toBe(0.1);
+  });
 
-    it('should update host minZoom signal when OL fires change:minZoom', async () => {
-      flowLayer.setMinZoom(1);
-      fixture.detectChanges();
-      await fixture.whenStable();
-      expect(testComponent.minZoom()).toBe(1);
-    });
+  it('should update wolMaxResolution model and host signal when OL fires change:maxResolution', async () => {
+    const spy = vi.spyOn(flowLayerComponent.wolMaxResolution, 'set');
+    flowLayer.setMaxResolution(50);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(spy).toHaveBeenCalledWith(50);
+    expect(testComponent.maxResolution()).toBe(50);
+  });
 
-    it('should update host maxZoom signal when OL fires change:maxZoom', async () => {
-      flowLayer.setMaxZoom(18);
-      fixture.detectChanges();
-      await fixture.whenStable();
-      expect(testComponent.maxZoom()).toBe(18);
-    });
+  it('should update wolMinZoom model and host signal when OL fires change:minZoom', async () => {
+    const spy = vi.spyOn(flowLayerComponent.wolMinZoom, 'set');
+    flowLayer.setMinZoom(1);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(spy).toHaveBeenCalledWith(1);
+    expect(testComponent.minZoom()).toBe(1);
+  });
 
-    it('should update host preload signal when OL fires change:preload', async () => {
-      flowLayer.setPreload(3);
-      fixture.detectChanges();
-      await fixture.whenStable();
-      expect(testComponent.preload()).toBe(3);
-    });
+  it('should update wolMaxZoom model and host signal when OL fires change:maxZoom', async () => {
+    const spy = vi.spyOn(flowLayerComponent.wolMaxZoom, 'set');
+    flowLayer.setMaxZoom(18);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(spy).toHaveBeenCalledWith(18);
+    expect(testComponent.maxZoom()).toBe(18);
+  });
 
-    it('should update host useInterimTilesOnError signal when OL fires change:useInterimTilesOnError', async () => {
-      flowLayer.setUseInterimTilesOnError(false);
-      fixture.detectChanges();
-      await fixture.whenStable();
-      expect(testComponent.useInterimTilesOnError()).toBe(false);
-    });
+  it('should update wolPreload model and host signal when OL fires change:preload', async () => {
+    const spy = vi.spyOn(flowLayerComponent.wolPreload, 'set');
+    flowLayer.setPreload(3);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(spy).toHaveBeenCalledWith(3);
+    expect(testComponent.preload()).toBe(3);
+  });
+
+  it('should update wolSource model and host signal when OL fires change:source', async () => {
+    const newSource = new DataTile({ loader: () => new Uint8Array() });
+    const spy = vi.spyOn(flowLayerComponent.wolSource, 'set');
+    flowLayer.setSource(newSource);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(spy).toHaveBeenCalledWith(newSource);
+    expect(testComponent.source()).toBe(newSource);
+  });
+
+  it('should update wolUseInterimTilesOnError model and host signal when OL fires change:useInterimTilesOnError', async () => {
+    const spy = vi.spyOn(flowLayerComponent.wolUseInterimTilesOnError, 'set');
+    flowLayer.setUseInterimTilesOnError(false);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(spy).toHaveBeenCalledWith(false);
+    expect(testComponent.useInterimTilesOnError()).toBe(false);
   });
 
   it('should not update model signals when OL fires events after component is destroyed', () => {
