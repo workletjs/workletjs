@@ -162,7 +162,8 @@ describe('WolGraticuleLayerComponent', () => {
     });
 
     it('should initialize wolWrapX', () => {
-      expect(internals(graticuleLayer)['values_']['wrapX']).toBe(false);
+      const values = internals(graticuleLayer)['values_'] as { wrapX?: boolean };
+      expect(values['wrapX']).toBe(false);
     });
 
     it('should initialize wolProperties', () => {
