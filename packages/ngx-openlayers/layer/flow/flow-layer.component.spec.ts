@@ -253,66 +253,84 @@ describe('WolFlowLayerComponent', () => {
   });
 
   describe('host signal sync after OL property change', () => {
-    it('should update host opacity signal when OL fires change:opacity', () => {
+    it('should update host opacity signal when OL fires change:opacity', async () => {
       flowLayer.setOpacity(0.4);
       fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.opacity()).toBe(0.4);
     });
 
-    it('should update host visible signal when OL fires change:visible', () => {
+    it('should update host visible signal when OL fires change:visible', async () => {
       flowLayer.setVisible(false);
       fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.visible()).toBe(false);
     });
 
-    it('should update host extent signal when OL fires change:extent', () => {
+    it('should update host extent signal when OL fires change:extent', async () => {
       const newExtent: Extent = [5, 6, 7, 8];
       flowLayer.setExtent(newExtent);
       fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.extent()).toEqual(newExtent);
     });
 
-    it('should update host zIndex signal when OL fires change:zIndex', () => {
+    it('should update host zIndex signal when OL fires change:zIndex', async () => {
       flowLayer.setZIndex(99);
       fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.zIndex()).toBe(99);
     });
 
-    it('should update host minResolution signal when OL fires change:minResolution', () => {
+    it('should update host minResolution signal when OL fires change:minResolution', async () => {
       flowLayer.setMinResolution(0.1);
       fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.minResolution()).toBe(0.1);
     });
 
-    it('should update host maxResolution signal when OL fires change:maxResolution', () => {
+    it('should update host maxResolution signal when OL fires change:maxResolution', async () => {
       flowLayer.setMaxResolution(50);
       fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.maxResolution()).toBe(50);
     });
 
-    it('should update host minZoom signal when OL fires change:minZoom', () => {
+    it('should update host minZoom signal when OL fires change:minZoom', async () => {
       flowLayer.setMinZoom(1);
       fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.minZoom()).toBe(1);
     });
 
-    it('should update host maxZoom signal when OL fires change:maxZoom', () => {
+    it('should update host maxZoom signal when OL fires change:maxZoom', async () => {
       flowLayer.setMaxZoom(18);
       fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.maxZoom()).toBe(18);
     });
 
-    it('should update host preload signal when OL fires change:preload', () => {
+    it('should update host preload signal when OL fires change:preload', async () => {
       flowLayer.setPreload(3);
       fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.preload()).toBe(3);
     });
 
-    it('should update host useInterimTilesOnError signal when OL fires change:useInterimTilesOnError', () => {
+    it('should update host useInterimTilesOnError signal when OL fires change:useInterimTilesOnError', async () => {
       flowLayer.setUseInterimTilesOnError(false);
       fixture.detectChanges();
+      await fixture.whenStable();
       expect(testComponent.useInterimTilesOnError()).toBe(false);
     });
+  });
+
+  it('should not update model signals when OL fires events after component is destroyed', () => {
+    const previousOpacity = testComponent.opacity();
+    testComponent.destroyLayer.set(true);
+    fixture.detectChanges();
+    flowLayer.setOpacity(0.99);
+    expect(testComponent.opacity()).toBe(previousOpacity);
   });
 });
 
