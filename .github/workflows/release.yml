@@ -26,7 +26,10 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22' # Specify Node.js version
+          # Pin to a specific patch to guarantee the bundled npm meets the
+          # provenance requirement (npm >= 10.0.0).  Update together with the
+          # npm minimum-version check below whenever upgrading Node.
+          node-version: '22.22.2'
           cache: 'pnpm' # 开启 pnpm 缓存，加速构建
 
       - name: Install dependencies
@@ -70,6 +73,18 @@ jobs:
           node -v
           npm -v
           pnpm -v
+
+          echo "🔍 Check npm minimum version (>= 10.0.0 required for --provenance)"
+          NPM_VERSION=$(npm -v)
+          NPM_MAJOR=$(echo "$NPM_VERSION" | cut -d. -f1)
+          if [ "$NPM_MAJOR" -lt 10 ]; then
+            echo "❌ npm $NPM_VERSION is below the required minimum 10.0.0"
+            echo "   pnpm publish --provenance requires npm CLI >= 10.0.0"
+            echo "   Fix: update node-version in release.yml to a 22.x release"
+            echo "        that bundles npm 10+ (currently: 22.22.2 → npm 10.9.7)"
+            exit 1
+          fi
+          echo "✅ npm $NPM_VERSION meets minimum requirement (>= 10.0.0)"
 
           echo "🔍 Check npm registry"
           REGISTRY=$(pnpm config get registry)
