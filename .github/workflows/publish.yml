@@ -43,7 +43,9 @@ jobs:
               exit 1
             fi
             echo "✅ Tag ${TAG_NAME} exists in repository"
-            git checkout "${TAG_NAME}"
+            # Checkout via full refs/tags/… path and detach HEAD to prevent
+            # accidentally landing on a same-named branch.
+            git checkout --detach "refs/tags/${TAG_NAME}"
           else
             TAG_NAME="${GITHUB_REF#refs/tags/}"
           fi
