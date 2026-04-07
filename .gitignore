@@ -51,3 +51,5 @@ vitest.config.*.timestamp*
 
 # NgDoc files
 /ng-doc
+.claude/worktrees
+.claude/settings.local.json
