@@ -1,3 +1,14 @@
+## 21.2.0 (2026-04-07)
+
+### 🩹 Fixes
+
+- correct migrations.json filename in .prettierignore ([bfe8331](https://github.com/workletjs/workletjs/commit/bfe8331))
+- **image-wms-source:** correct casing of wolImageLoadError output property ([7d44161](https://github.com/workletjs/workletjs/commit/7d44161))
+
+### ❤️ Thank You
+
+- Jonnytoshen @Jonnytoshen
+
 ## 21.1.0 (2026-03-27)
 
 ### 🚀 Features
