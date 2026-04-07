@@ -29,11 +29,6 @@ jobs:
           node-version: '22' # Specify Node.js version
           cache: 'pnpm' # 开启 pnpm 缓存，加速构建
 
-      # 升级 npm 以确保最新功能和修复
-      # Note: Trusted publishing requires npm CLI version 11.5.1 or later.
-      - name: Upgrade npm
-        run: npm install -g npm@latest
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -109,7 +104,7 @@ jobs:
           fi
 
           echo "🔍 Check package exists on npm"
-          npm view "$NAME" version > /dev/null
+          pnpm view "$NAME" version > /dev/null
 
           echo "✅ Pre-publish validation passed"
 
