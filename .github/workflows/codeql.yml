@@ -12,10 +12,13 @@
 name: "CodeQL Advanced"
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  merge_group:
+    types: [checks_requested]
   schedule:
     - cron: '28 20 * * 6'
 
