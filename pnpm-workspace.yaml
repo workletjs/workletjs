@@ -1,2 +1,103 @@
+packages:
+  - apps/*
+  - packages/*
+
+catalog:
+  ol: ~10.8.0
+  rxjs: ~7.8.0
+  tslib: ^2.3.0
+  zone.js: 0.16.0
+
+catalogs:
+  angular:
+    '@angular/animations': 21.2.7
+    '@angular/cdk': 21.2.5
+    '@angular/common': 21.2.7
+    '@angular/compiler': 21.2.7
+    '@angular/compiler-cli': 21.2.7
+    '@angular/core': 21.2.7
+    '@angular/forms': 21.2.7
+    '@angular/material': 21.2.5
+    '@angular/platform-browser': 21.2.7
+    '@angular/router': 21.2.7
+    '@angular-devkit/core': 21.2.6
+    '@angular-devkit/schematics': 21.2.6
+    '@angular/build': 21.2.6
+    '@angular/cli': 21.2.6
+    '@angular/language-service': 21.2.7
+    '@schematics/angular': 21.2.6
+  angular-peer:
+    '@angular/cdk': ~21.2.0
+    '@angular/core': ~21.2.0
+  docs:
+    '@tailwindcss/postcss': ^4.1.16
+    '@tinkoff/ng-polymorpheus': ^4.3.0
+    '@types/colormap': ^2.3.4
+    autoprefixer: ^10.4.0
+    colormap: ^2.3.2
+    pmtiles: ^4.3.0
+    postcss: ^8.5.6
+    postcss-url: ~10.1.3
+    proj4: ^2.19.10
+    tailwindcss: ^4.1.16
+  ng-doc:
+    '@ng-doc/app': ^21.0.0
+    '@ng-doc/builder': ^21.0.0
+    '@ng-doc/core': ^21.0.0
+    '@ng-doc/keywords-loaders': ^21.0.0
+    '@ng-doc/ui-kit': ^21.0.0
+  nx:
+    '@nx/angular': 22.6.4
+    '@nx/eslint': 22.6.4
+    '@nx/eslint-plugin': 22.6.4
+    '@nx/js': 22.6.4
+    '@nx/vite': 22.6.4
+    '@nx/vitest': 22.6.4
+    '@nx/web': 22.6.4
+    '@nx/workspace': 22.6.4
+    nx: 22.6.4
+  quality:
+    '@commitlint/cli': ^20.4.1
+    '@commitlint/config-conventional': ^20.4.1
+    '@eslint/js': ^9.8.0
+    '@trivago/prettier-plugin-sort-imports': ^6.0.2
+    '@typescript-eslint/utils': ^8.40.0
+    angular-eslint: 21.3.1
+    eslint: ^9.8.0
+    eslint-config-prettier: ^10.0.0
+    jsonc-eslint-parser: ^2.1.0
+    lint-staged: ^16.2.7
+    prettier: ^3.6.2
+    prettier-plugin-tailwindcss: ^0.7.2
+    typescript-eslint: ^8.40.0
+  testing:
+    '@analogjs/vite-plugin-angular': 2.2.3
+    '@analogjs/vitest-angular': 2.2.3
+    '@vitest/coverage-v8': 4.0.9
+    '@vitest/ui': 4.0.9
+    jsdom: ~22.1.0
+    resize-observer-polyfill: ^1.5.1
+    vite: ^7.0.0
+    vitest: 4.0.9
+  tooling:
+    '@swc-node/register': 1.11.1
+    '@swc/core': 1.15.8
+    '@swc/helpers': 0.5.21
+    '@types/node': 20.19.9
+    baseline-browser-mapping: ^2.9.19
+    husky: ^9.1.7
+    jiti: 2.4.2
+    ng-packagr: 21.2.2
+    typescript: ~5.9.2
+    verdaccio: 6.4.0
+
 autoInstallPeers: true
 strictPeerDependencies: false
+
+allowBuilds:
+  '@parcel/watcher': true
+  '@swc/core': true
+  esbuild: true
+  lmdb: true
+  msgpackr-extract: true
+  nx: true
