@@ -4,8 +4,15 @@
     "outDir": "../../dist/out-tsc",
     "types": []
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts",
+    "../../packages/ngx-openlayers/**/ng-doc.category.ts",
+    "../../packages/ngx-openlayers/**/ng-doc.page.ts",
+    "../../packages/ngx-openlayers/**/examples/**/*.ts"
+  ],
   "exclude": [
+    "../../packages/ngx-openlayers/**/*.spec.ts",
+    "../../packages/ngx-openlayers/**/*.test.ts",
     "jest.config.ts",
     "src/test-setup.ts",
     "src/**/*.test.ts",
