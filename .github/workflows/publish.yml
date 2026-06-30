@@ -23,7 +23,7 @@ jobs:
     # environment: npm-publish
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0 # Fetch full history so all tags are available
 
@@ -53,12 +53,12 @@ jobs:
           echo "version=${TAG_NAME#v}" >> "$GITHUB_OUTPUT"
 
       - name: Install PNPM
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: 10
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           # Minimum required: Node >= 22.14.0 (npm Trusted Publishing requirement).
           # npm >= 11.5.1 is required for OIDC Trusted Publishing; since Node 22.x
