@@ -24,9 +24,37 @@
     "workletjs"
   ],
   "peerDependencies": {
-    "@angular/core": "~21.2.0",
-    "@angular/cdk": "~21.2.0",
-    "ol": "~10.8.0"
+    "@angular/cdk": "catalog:angular-peer",
+    "@angular/core": "catalog:angular-peer",
+    "ol": "catalog:"
+  },
+  "devDependencies": {
+    "@analogjs/vite-plugin-angular": "catalog:testing",
+    "@analogjs/vitest-angular": "catalog:testing",
+    "@angular/animations": "catalog:angular",
+    "@angular/build": "catalog:angular",
+    "@angular/cdk": "catalog:angular",
+    "@angular/common": "catalog:angular",
+    "@angular/compiler": "catalog:angular",
+    "@angular/compiler-cli": "catalog:angular",
+    "@angular/core": "catalog:angular",
+    "@angular/forms": "catalog:angular",
+    "@angular/material": "catalog:angular",
+    "@angular/platform-browser": "catalog:angular",
+    "@angular/router": "catalog:angular",
+    "@nx/vite": "catalog:nx",
+    "@types/colormap": "catalog:docs",
+    "@types/node": "catalog:tooling",
+    "@vitest/coverage-v8": "catalog:testing",
+    "colormap": "catalog:docs",
+    "jsdom": "catalog:testing",
+    "pmtiles": "catalog:docs",
+    "proj4": "catalog:docs",
+    "resize-observer-polyfill": "catalog:testing",
+    "rxjs": "catalog:",
+    "vite": "catalog:testing",
+    "vitest": "catalog:testing",
+    "zone.js": "catalog:"
   },
   "sideEffects": false
 }
