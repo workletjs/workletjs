@@ -1,0 +1,4 @@
+{
+  "status": "success",
+  "summary": "No migration was needed: the workspace uses typescript-eslint 8.64.0, but no ESLint flat config references @typescript-eslint/ban-types. No workspace files were changed."
+}
