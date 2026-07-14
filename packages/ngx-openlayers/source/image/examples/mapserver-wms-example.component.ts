@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { createLoader } from 'ol/source/wms';
 
@@ -10,6 +10,7 @@ import { WolViewModule } from '@workletjs/ngx-openlayers/view';
 @Component({
   selector: 'wol-mapserver-wms-example',
   imports: [WolMapModule, WolViewModule, WolImageLayerModule, WolImageSourceModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <wol-map class="h-96">
       <wol-view [wolProjection]="'EPSG:4326'" [wolCenter]="[0, 0]" [wolZoom]="2" />

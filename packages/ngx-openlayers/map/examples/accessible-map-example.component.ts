@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 
@@ -34,6 +34,7 @@ import { WolViewModule } from '@workletjs/ngx-openlayers/view';
       <button matButton="tonal" (click)="zoomIn()">Zoom in</button>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: `
     :host .skiplink {
       position: absolute;

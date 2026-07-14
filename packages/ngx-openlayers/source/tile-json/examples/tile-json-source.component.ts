@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
 import { WolMapModule } from '@workletjs/ngx-openlayers/map';
@@ -19,6 +19,7 @@ import { WolViewModule } from '@workletjs/ngx-openlayers/view';
       </wol-tile-layer>
     </wol-map>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: ``,
 })
 export class WolTileJSONSourceExampleComponent {}

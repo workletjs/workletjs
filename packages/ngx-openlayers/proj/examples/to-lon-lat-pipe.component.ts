@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { WolToLonLatPipe } from '@workletjs/ngx-openlayers/proj';
 
 @Component({
   selector: 'wol-to-lon-lat-pipe-example',
   imports: [WolToLonLatPipe],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div>
       <h3>To Lon Lat Pipe Example</h3>
