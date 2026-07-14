@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { WolImageLayerModule } from '@workletjs/ngx-openlayers/layer/image';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
@@ -17,6 +17,7 @@ import { WolViewModule } from '@workletjs/ngx-openlayers/view';
     WolImageLayerModule,
     WolImageArcGISResetSourceModule,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <wol-map class="h-96">
       <wol-view [wolCenter]="[-10997148, 4569099]" [wolZoom]="4" />

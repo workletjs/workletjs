@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
@@ -25,6 +25,7 @@ import { WolViewModule } from '@workletjs/ngx-openlayers/view';
     WolTileJSONSourceModule,
     WolProjModule,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <wol-map class="h-96">
       <wol-view [wolCenter]="[37.4057, 8.81566] | wolFromLonLat" [wolZoom]="4" />

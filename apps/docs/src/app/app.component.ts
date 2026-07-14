@@ -11,7 +11,7 @@ import {
 } from '@ng-doc/ui-kit';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 
@@ -35,6 +35,7 @@ import { SidebarComponent } from './components';
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     '[class.workletjs-landing-page]': `this.isLandingPage()`,
   },
