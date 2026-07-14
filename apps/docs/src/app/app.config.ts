@@ -10,7 +10,7 @@ import {
 // eslint-disable-next-line
 import { provideNgDocContext } from '@ng-doc/generated';
 
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import {
   ApplicationConfig,
   provideBrowserGlobalErrorListeners,
@@ -43,7 +43,7 @@ export const appConfig: ApplicationConfig = {
     // Provide animations
     provideAnimations(),
     // Provide HttpClient with interceptors (NgDoc uses interceptors)
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
     // Add generated routes to the application
     provideRouter(
       appRoutes,
