@@ -1,0 +1,4 @@
+{
+  "status": "success",
+  "summary": "Validated the generator's three tsconfig edits against the migration intent: TypeScript 6.0.3 accepts both docs config chains, the ngx-openlayers production build passes, and git diff --check is clean. No in-scope fixes were needed; the docs Angular build remains independently blocked by an existing Angular 21 builder versus Angular 22 dependency mismatch."
+}
