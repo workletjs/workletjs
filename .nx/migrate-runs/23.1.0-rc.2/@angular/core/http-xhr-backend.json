@@ -1,0 +1,4 @@
+{
+  "status": "success",
+  "summary": "Validated the generated withXhr import and provideHttpClient configuration in the docs app; targeted TypeScript checking passed. No migration-scoped fixes were needed; broader build and lint failures are unrelated existing Angular 22 upgrade issues."
+}
