@@ -56,3 +56,6 @@ vitest.config.*.timestamp*
 
 # Ignore docs folder
 /docs
+
+.nx/polygraph
+.nx/self-healing
