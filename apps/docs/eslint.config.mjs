@@ -25,6 +25,8 @@ export default [
           style: 'kebab-case',
         },
       ],
+      // Newly enabled by the Angular ESLint preset; was not enforced before the upgrade.
+      '@angular-eslint/prefer-on-push-component-change-detection': 'off',
     },
   },
   {
