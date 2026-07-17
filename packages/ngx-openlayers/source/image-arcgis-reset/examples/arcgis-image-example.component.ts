@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { WolImageLayerModule } from '@workletjs/ngx-openlayers/layer/image';
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
