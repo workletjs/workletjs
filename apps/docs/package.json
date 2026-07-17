@@ -42,6 +42,7 @@
     "postcss-url": "catalog:docs",
     "tailwindcss": "catalog:docs",
     "vite": "catalog:testing",
+    "vite-tsconfig-paths": "catalog:testing",
     "vitest": "catalog:testing"
   }
 }

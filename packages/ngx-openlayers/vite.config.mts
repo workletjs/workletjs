@@ -1,16 +1,16 @@
 /// <reference types='vitest' />
 import angular from '@analogjs/vite-plugin-angular';
-import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
+import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig(() => ({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/packages/ngx-openlayers',
-  plugins: [angular(), nxViteTsPaths(), nxCopyAssetsPlugin(['*.md'])],
+  plugins: [angular({ tsconfig: resolve(__dirname, 'tsconfig.spec.json') }), tsconfigPaths()],
   // Uncomment this if you are using workers.
   // worker: {
-  //  plugins: [ nxViteTsPaths() ],
+  //  plugins: [tsconfigPaths()],
   // },
   test: {
     name: 'ngx-openlayers',

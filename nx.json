@@ -30,10 +30,6 @@
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
-    },
-    "@nx/vitest:test": {
-      "cache": true,
-      "inputs": ["default", "^production"]
     }
   },
   "generators": {
@@ -81,6 +77,12 @@
       "plugin": "@nx/eslint/plugin",
       "options": {
         "targetName": "lint"
+      }
+    },
+    {
+      "plugin": "@nx/vitest",
+      "options": {
+        "testTargetName": "test"
       }
     }
   ]
