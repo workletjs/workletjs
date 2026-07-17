@@ -16,6 +16,7 @@
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "defaultConfiguration": "production",
       "options": {
         "project": "packages/ngx-openlayers/ng-package.json",
         "tsConfig": "packages/ngx-openlayers/tsconfig.lib.json"
@@ -25,8 +26,7 @@
           "tsConfig": "packages/ngx-openlayers/tsconfig.lib.prod.json"
         },
         "development": {}
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "nx-release-publish": {
       "options": {
@@ -39,9 +39,6 @@
       "options": {
         "reportsDirectory": "{projectRoot}/../../coverage/packages/ngx-openlayers"
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }
