@@ -2,6 +2,7 @@ const assert = require('node:assert/strict');
 const { test } = require('node:test');
 
 const CoreDependencyChangelogRenderer = require('./core-dependency-changelog-renderer.cjs');
+const nxConfig = require('../nx.json');
 
 const conventionalCommitsConfig = {
   types: {
@@ -78,4 +79,18 @@ test('preserves standard visible changelog sections', async () => {
   assert.match(output, /### 🚀 Features/);
   assert.match(output, /### 🩹 Fixes/);
   assert.match(output, /### 🔥 Performance/);
+});
+
+test('configures changelog types at the Nx release root', () => {
+  assert.equal(nxConfig.release.version.conventionalCommits, true);
+  assert.equal(nxConfig.release.conventionalCommits.types.docs.semverBump, 'none');
+  assert.equal(nxConfig.release.conventionalCommits.types.chore.semverBump, 'none');
+  assert.deepEqual(nxConfig.release.conventionalCommits.types['core-deps'], {
+    semverBump: 'none',
+    changelog: { title: '⬆️ Core Dependency Updates' },
+  });
+  assert.equal(
+    nxConfig.release.changelog.workspaceChangelog.renderer,
+    '{workspaceRoot}/scripts/core-dependency-changelog-renderer.cjs',
+  );
 });
