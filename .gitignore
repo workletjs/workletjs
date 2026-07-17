@@ -62,3 +62,6 @@ vitest.config.*.timestamp*
 
 # Ignore the local pnpm store
 .pnpm-store/
+
+# Local Codex worktrees
+.worktrees/
