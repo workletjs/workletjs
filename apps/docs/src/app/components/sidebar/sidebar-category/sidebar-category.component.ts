@@ -8,7 +8,7 @@ import {
   NgDocTextComponent,
   NgDocTextLeftDirective,
 } from '@ng-doc/ui-kit';
-import { PolymorpheusModule } from '@tinkoff/ng-polymorpheus';
+import { PolymorpheusOutlet } from '@taiga-ui/polymorpheus';
 
 import { ChangeDetectionStrategy, Component, inject, input, model } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -26,7 +26,7 @@ import { filter } from 'rxjs';
     NgDocTextLeftDirective,
     NgDocRotatorDirective,
     NgDocExpanderComponent,
-    PolymorpheusModule,
+    PolymorpheusOutlet,
   ],
   templateUrl: './sidebar-category.component.html',
   styleUrl: './sidebar-category.component.scss',

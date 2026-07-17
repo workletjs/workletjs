@@ -49,7 +49,7 @@
     "@swc-node/register": "catalog:tooling",
     "@swc/core": "catalog:tooling",
     "@swc/helpers": "catalog:tooling",
-    "@tinkoff/ng-polymorpheus": "catalog:docs",
+    "@taiga-ui/polymorpheus": "catalog:docs",
     "@trivago/prettier-plugin-sort-imports": "catalog:quality",
     "@types/node": "catalog:tooling",
     "@typescript-eslint/utils": "catalog:quality",

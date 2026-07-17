@@ -29,7 +29,7 @@ catalogs:
     '@angular/core': '~22.0.0'
   docs:
     '@tailwindcss/postcss': '^4.1.16'
-    '@tinkoff/ng-polymorpheus': '^4.3.0'
+    '@taiga-ui/polymorpheus': '^5.0.0'
     '@types/colormap': '^2.3.4'
     autoprefixer: '^10.4.0'
     colormap: '^2.3.2'
@@ -39,11 +39,11 @@ catalogs:
     proj4: '^2.19.10'
     tailwindcss: '^4.1.16'
   ng-doc:
-    '@ng-doc/app': '^21.0.0'
-    '@ng-doc/builder': '^21.0.0'
-    '@ng-doc/core': '^21.0.0'
-    '@ng-doc/keywords-loaders': '^21.0.0'
-    '@ng-doc/ui-kit': '^21.0.0'
+    '@ng-doc/app': '22.0.0-beta.2'
+    '@ng-doc/builder': '22.0.0-beta.2'
+    '@ng-doc/core': '22.0.0-beta.2'
+    '@ng-doc/keywords-loaders': '22.0.0-beta.2'
+    '@ng-doc/ui-kit': '22.0.0-beta.2'
   nx:
     '@nx/angular': '23.1.0'
     '@nx/eslint': '23.1.0'

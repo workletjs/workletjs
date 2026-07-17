@@ -14,7 +14,7 @@
     "@ng-doc/app": "catalog:ng-doc",
     "@ng-doc/core": "catalog:ng-doc",
     "@ng-doc/ui-kit": "catalog:ng-doc",
-    "@tinkoff/ng-polymorpheus": "catalog:docs",
+    "@taiga-ui/polymorpheus": "catalog:docs",
     "colormap": "catalog:docs",
     "ol": "catalog:",
     "pmtiles": "catalog:docs",
