@@ -1,6 +1,6 @@
 import { vi } from 'vitest';
 
-import { Component, DebugElement } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DebugElement, signal } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -47,12 +47,12 @@ describe('WolViewComponent', () => {
 
     expect(view).toBeInstanceOf(View);
     expect(view).toEqual(map?.getView());
-    expect(view?.getCenter()).toEqual(testComponent.center);
-    expect(view?.getConstrainResolution()).toEqual(testComponent.constrainResolution);
-    expect(view?.getMaxZoom()).toEqual(testComponent.maxZoom);
-    expect(view?.getMinZoom()).toEqual(testComponent.minZoom);
-    expect(view?.getRotation()).toEqual(testComponent.rotation);
-    expect(view?.getZoom()).toEqual(testComponent.zoom);
+    expect(view?.getCenter()).toEqual(testComponent.center());
+    expect(view?.getConstrainResolution()).toEqual(testComponent.constrainResolution());
+    expect(view?.getMaxZoom()).toEqual(testComponent.maxZoom());
+    expect(view?.getMinZoom()).toEqual(testComponent.minZoom());
+    expect(view?.getRotation()).toEqual(testComponent.rotation());
+    expect(view?.getZoom()).toEqual(testComponent.zoom());
   }));
 
   it('should be able to change the view center via input', fakeAsync(() => {
@@ -61,8 +61,7 @@ describe('WolViewComponent', () => {
     const view = viewComponent.getInstance();
     const newCenter: Coordinate = [10, 20];
 
-    testComponent.center = newCenter;
-    fixture.changeDetectorRef.markForCheck();
+    testComponent.center.set(newCenter);
     fixture.detectChanges();
 
     expect(view?.getCenter()).toEqual(newCenter);
@@ -74,8 +73,7 @@ describe('WolViewComponent', () => {
     const view = viewComponent.getInstance();
     const newConstrainResolution = true;
 
-    testComponent.constrainResolution = newConstrainResolution;
-    fixture.changeDetectorRef.markForCheck();
+    testComponent.constrainResolution.set(newConstrainResolution);
     fixture.detectChanges();
 
     expect(view?.getConstrainResolution()).toBe(newConstrainResolution);
@@ -87,8 +85,7 @@ describe('WolViewComponent', () => {
     const view = viewComponent.getInstance();
     const newZoom = 5;
 
-    testComponent.zoom = newZoom;
-    fixture.changeDetectorRef.markForCheck();
+    testComponent.zoom.set(newZoom);
     fixture.detectChanges();
 
     expect(view?.getZoom()).toBe(newZoom);
@@ -100,8 +97,7 @@ describe('WolViewComponent', () => {
     const view = viewComponent.getInstance();
     const newMaxZoom = 15;
 
-    testComponent.maxZoom = newMaxZoom;
-    fixture.changeDetectorRef.markForCheck();
+    testComponent.maxZoom.set(newMaxZoom);
     fixture.detectChanges();
 
     expect(view?.getMaxZoom()).toBe(newMaxZoom);
@@ -113,8 +109,7 @@ describe('WolViewComponent', () => {
     const view = viewComponent.getInstance();
     const newMinZoom = 2;
 
-    testComponent.minZoom = newMinZoom;
-    fixture.changeDetectorRef.markForCheck();
+    testComponent.minZoom.set(newMinZoom);
     fixture.detectChanges();
 
     expect(view?.getMinZoom()).toBe(newMinZoom);
@@ -126,8 +121,7 @@ describe('WolViewComponent', () => {
     const view = viewComponent.getInstance();
     const newProperties = { testProp: 'testValue' };
 
-    testComponent.properties = newProperties;
-    fixture.changeDetectorRef.markForCheck();
+    testComponent.properties.set(newProperties);
     fixture.detectChanges();
 
     expect(view?.get('testProp')).toBe('testValue');
@@ -139,8 +133,7 @@ describe('WolViewComponent', () => {
     const view = viewComponent.getInstance();
     const newResolution = 50;
 
-    testComponent.resolution = newResolution;
-    fixture.changeDetectorRef.markForCheck();
+    testComponent.resolution.set(newResolution);
     fixture.detectChanges();
 
     expect(view?.getResolution()).toBe(newResolution);
@@ -152,8 +145,7 @@ describe('WolViewComponent', () => {
     const view = viewComponent.getInstance();
     const newRotation = Math.PI / 4;
 
-    testComponent.rotation = newRotation;
-    fixture.changeDetectorRef.markForCheck();
+    testComponent.rotation.set(newRotation);
     fixture.detectChanges();
 
     expect(view?.getRotation()).toBe(newRotation);
@@ -244,14 +236,14 @@ describe('WolViewComponent', () => {
   template: `
     <wol-map>
       <wol-view
-        [wolCenter]="center"
-        [wolZoom]="zoom"
-        [wolRotation]="rotation"
-        [wolResolution]="resolution"
-        [wolMaxZoom]="maxZoom"
-        [wolMinZoom]="minZoom"
-        [wolConstrainResolution]="constrainResolution"
-        [wolProperties]="properties"
+        [wolCenter]="center()"
+        [wolZoom]="zoom()"
+        [wolRotation]="rotation()"
+        [wolResolution]="resolution()"
+        [wolMaxZoom]="maxZoom()"
+        [wolMinZoom]="minZoom()"
+        [wolConstrainResolution]="constrainResolution()"
+        [wolProperties]="properties()"
         (wolChange)="onChange($event)"
         (wolPropertyChange)="onPropertyChange($event)"
         (wolError)="onError($event)"
@@ -259,16 +251,17 @@ describe('WolViewComponent', () => {
     </wol-map>
   `,
   imports: [WolMapModule, WolViewModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class TestAppComponent {
-  center: Coordinate = [0, 0];
-  zoom = 2;
-  rotation = 0;
-  resolution?: number | undefined;
-  maxZoom = 20;
-  minZoom = 0;
-  constrainResolution = false;
-  properties: Record<string, WolSafeAny> = {};
+  center = signal<Coordinate>([0, 0]);
+  zoom = signal(2);
+  rotation = signal(0);
+  resolution = signal<number | undefined>(undefined);
+  maxZoom = signal(20);
+  minZoom = signal(0);
+  constrainResolution = signal(false);
+  properties = signal<Record<string, WolSafeAny>>({});
 
   onChange = vi.fn();
   onPropertyChange = vi.fn();
