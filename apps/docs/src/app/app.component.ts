@@ -11,7 +11,7 @@ import {
 } from '@ng-doc/ui-kit';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 
