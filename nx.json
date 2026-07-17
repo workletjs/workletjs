@@ -59,9 +59,29 @@
     "version": {
       "conventionalCommits": true
     },
+    "conventionalCommits": {
+      "types": {
+        "docs": {
+          "semverBump": "none",
+          "changelog": true
+        },
+        "chore": {
+          "semverBump": "none",
+          "changelog": true
+        },
+        "core-deps": {
+          "semverBump": "none",
+          "changelog": {
+            "title": "⬆️ Core Dependency Updates"
+          }
+        }
+      }
+    },
     "changelog": {
       "projectChangelogs": false,
-      "workspaceChangelogs": true
+      "workspaceChangelog": {
+        "renderer": "{workspaceRoot}/scripts/core-dependency-changelog-renderer.cjs"
+      }
     },
     "git": {
       "commitMessage": "chore(release): release v{version}"
