@@ -59,3 +59,6 @@ vitest.config.*.timestamp*
 
 .nx/polygraph
 .nx/self-healing
+
+# Ignore the local pnpm store
+.pnpm-store/
