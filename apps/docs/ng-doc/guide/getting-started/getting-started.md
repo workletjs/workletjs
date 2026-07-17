@@ -6,7 +6,7 @@ This library depends on the following peer dependencies:
 
 - `@angular/core`: ~22.0.0
 - `@angular/cdk`: ~22.0.0
-- `ol`: ~10.8.0
+- `ol`: ~10.9.0
 
 Make sure these dependencies are installed in your project.
 

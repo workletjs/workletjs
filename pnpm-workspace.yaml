@@ -2,7 +2,7 @@ packages:
   - 'apps/*'
   - 'packages/*'
 catalog:
-  ol: '~10.8.0'
+  ol: '~10.9.0'
   rxjs: '~7.8.0'
   tslib: '^2.3.0'
   zone.js: '0.16.2'
