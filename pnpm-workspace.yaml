@@ -76,6 +76,7 @@ catalogs:
     jsdom: '~22.1.0'
     resize-observer-polyfill: '^1.5.1'
     vite: '^7.0.0'
+    vite-tsconfig-paths: '6.1.1'
     vitest: '4.0.9'
   tooling:
     '@swc-node/register': '1.11.1'

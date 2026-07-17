@@ -204,6 +204,9 @@ catalogs:
     vite:
       specifier: ^7.0.0
       version: 7.3.1
+    vite-tsconfig-paths:
+      specifier: 6.1.1
+      version: 6.1.1
     vitest:
       specifier: 4.0.9
       version: 4.0.9
@@ -544,6 +547,9 @@ importers:
       vite:
         specifier: catalog:testing
         version: 7.3.1(@types/node@20.19.9)(jiti@2.6.1)(less@4.6.4)(lightningcss@1.30.2)(sass-embedded@1.100.0)(sass@1.99.0)(terser@5.46.2)(yaml@2.9.0)
+      vite-tsconfig-paths:
+        specifier: catalog:testing
+        version: 6.1.1(typescript@6.0.3)(vite@7.3.1(@types/node@20.19.9)(jiti@2.6.1)(less@4.6.4)(lightningcss@1.30.2)(sass-embedded@1.100.0)(sass@1.99.0)(terser@5.46.2)(yaml@2.9.0))
       vitest:
         specifier: catalog:testing
         version: 4.0.9(@types/debug@4.1.12)(@types/node@20.19.9)(@vitest/ui@4.0.9)(jiti@2.6.1)(jsdom@22.1.0)(less@4.6.4)(lightningcss@1.30.2)(sass-embedded@1.100.0)(sass@1.99.0)(terser@5.46.2)(yaml@2.9.0)
@@ -626,6 +632,9 @@ importers:
       vite:
         specifier: catalog:testing
         version: 7.3.1(@types/node@20.19.9)(jiti@2.6.1)(less@4.6.4)(lightningcss@1.30.2)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.46.2)(yaml@2.9.0)
+      vite-tsconfig-paths:
+        specifier: catalog:testing
+        version: 6.1.1(typescript@6.0.3)(vite@7.3.1(@types/node@20.19.9)(jiti@2.6.1)(less@4.6.4)(lightningcss@1.30.2)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.46.2)(yaml@2.9.0))
       vitest:
         specifier: catalog:testing
         version: 4.0.9(@types/debug@4.1.12)(@types/node@20.19.9)(@vitest/ui@4.0.9)(jiti@2.6.1)(jsdom@22.1.0)(less@4.6.4)(lightningcss@1.30.2)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.46.2)(yaml@2.9.0)
@@ -7414,6 +7423,9 @@ packages:
     resolution: {integrity: sha512-jhIXaOzy1sb8IyocaruWSn1TjmnBVs8Ayhcy83rmxNJ8q2uWKCAj3CnJY+KpGSXCueAPc0i05kVvVKtP1t9S3g==}
     engines: {node: '>=10'}
 
+  globrex@0.1.2:
+    resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
+
   gopd@1.2.0:
     resolution: {integrity: sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==}
     engines: {node: '>= 0.4'}
@@ -10955,6 +10967,17 @@ packages:
   ts-morph@22.0.0:
     resolution: {integrity: sha512-M9MqFGZREyeb5fTl6gNHKZLqBQA0TjA1lea+CR48R8EBTDuWrNqW6ccC5QvjNR4s6wDumD3LTCjOFSp9iwlzaw==}
 
+  tsconfck@3.1.6:
+    resolution: {integrity: sha512-ks6Vjr/jEw0P1gmOVwutM3B7fWxoWBL2KRDb1JfqGVawBmO5UsvmWOQFGHBPl5yxYz4eERr19E6L7NMv+Fej4w==}
+    engines: {node: ^18 || >=20}
+    deprecated: unmaintained
+    hasBin: true
+    peerDependencies:
+      typescript: ^5.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   tsconfig-paths-webpack-plugin@4.2.0:
     resolution: {integrity: sha512-zbem3rfRS8BgeNK50Zz5SIQgXzLafiHjOwUAvk/38/o1jHn/V5QAgVUcz884or7WYcPaH3N2CIfUc2u0ul7UcA==}
     engines: {node: '>=10.13.0'}
@@ -11231,6 +11254,11 @@ packages:
 
   vfile@6.0.3:
     resolution: {integrity: sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==}
+
+  vite-tsconfig-paths@6.1.1:
+    resolution: {integrity: sha512-2cihq7zliibCCZ8P9cKJrQBkfgdvcFkOOc3Y02o3GWUDLgqjWsZudaoiuOwO/gzTzy17cS5F7ZPo4bsnS4DGkg==}
+    peerDependencies:
+      vite: '*'
 
   vite@7.3.0:
     resolution: {integrity: sha512-dZwN5L1VlUBewiP6H9s2+B3e3Jg96D0vzN+Ry73sOefebhYr9f94wwkMNN/9ouoU8pV1BqA1d1zGk8928cx0rg==}
@@ -21119,6 +21147,8 @@ snapshots:
       merge2: 1.4.1
       slash: 3.0.0
 
+  globrex@0.1.2: {}
+
   gopd@1.2.0: {}
 
   got-cjs@12.5.4:
@@ -25498,6 +25528,10 @@ snapshots:
       '@ts-morph/common': 0.23.0
       code-block-writer: 13.0.3
 
+  tsconfck@3.1.6(typescript@6.0.3):
+    optionalDependencies:
+      typescript: 6.0.3
+
   tsconfig-paths-webpack-plugin@4.2.0:
     dependencies:
       chalk: 4.1.2
@@ -25856,6 +25890,26 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
+
+  vite-tsconfig-paths@6.1.1(typescript@6.0.3)(vite@7.3.1(@types/node@20.19.9)(jiti@2.6.1)(less@4.6.4)(lightningcss@1.30.2)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.46.2)(yaml@2.9.0)):
+    dependencies:
+      debug: 4.4.3(supports-color@7.2.0)
+      globrex: 0.1.2
+      tsconfck: 3.1.6(typescript@6.0.3)
+      vite: 7.3.1(@types/node@20.19.9)(jiti@2.6.1)(less@4.6.4)(lightningcss@1.30.2)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.46.2)(yaml@2.9.0)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+
+  vite-tsconfig-paths@6.1.1(typescript@6.0.3)(vite@7.3.1(@types/node@20.19.9)(jiti@2.6.1)(less@4.6.4)(lightningcss@1.30.2)(sass-embedded@1.100.0)(sass@1.99.0)(terser@5.46.2)(yaml@2.9.0)):
+    dependencies:
+      debug: 4.4.3(supports-color@7.2.0)
+      globrex: 0.1.2
+      tsconfck: 3.1.6(typescript@6.0.3)
+      vite: 7.3.1(@types/node@20.19.9)(jiti@2.6.1)(less@4.6.4)(lightningcss@1.30.2)(sass-embedded@1.100.0)(sass@1.99.0)(terser@5.46.2)(yaml@2.9.0)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
 
   vite@7.3.0(@types/node@20.19.9)(jiti@2.6.1)(less@4.4.2)(lightningcss@1.30.2)(sass-embedded@1.100.0)(sass@1.97.1)(terser@5.44.1)(yaml@2.9.0):
     dependencies:

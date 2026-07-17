@@ -53,6 +53,7 @@
     "resize-observer-polyfill": "catalog:testing",
     "rxjs": "catalog:",
     "vite": "catalog:testing",
+    "vite-tsconfig-paths": "catalog:testing",
     "vitest": "catalog:testing",
     "zone.js": "catalog:"
   },
