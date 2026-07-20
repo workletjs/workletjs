@@ -55,10 +55,11 @@ contract.
 
 Matching is case-insensitive and based on parsed Conventional Commit fields:
 
-- An Angular entry must be a `docs` or `chore` change whose description identifies Angular and
-  a compatibility, migration, upgrade, or version update.
+- An Angular entry must be a `docs` or `chore` change whose description identifies an Angular
+  framework package or a numbered Angular release and a compatibility, migration, upgrade,
+  bump, or version update. Tooling such as `angular-eslint` is excluded.
 - An OpenLayers entry must be a `chore` change with the `deps` scope whose description identifies
-  `ol` or OpenLayers and an upgrade/version update.
+  `ol` or OpenLayers and an upgrade, bump, or version update.
 
 The rules are deliberately stricter than a generic dependency keyword search. For example,
 `chore(nx): migrate workspace configuration to Nx 23` and ordinary documentation edits do not
