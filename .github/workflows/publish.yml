@@ -136,6 +136,7 @@ jobs:
               return 1
             fi
 
+            version="${version%%+*}"
             if [[ "$version" == *-* ]]; then
               dist_tag="${version#*-}"
               dist_tag="${dist_tag%%.*}"

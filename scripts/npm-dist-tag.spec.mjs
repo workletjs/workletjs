@@ -42,6 +42,13 @@ test('uses latest for a stable version', () => {
   assert.equal(result.stdout.trim(), 'latest');
 });
 
+test('ignores hyphens in build metadata when deriving the dist-tag', () => {
+  const result = resolveDistTag('22.0.0+build-alpha');
+
+  assert.equal(result.status, 0);
+  assert.equal(result.stdout.trim(), 'latest');
+});
+
 test('uses the first prerelease identifier as the dist-tag', () => {
   for (const [version, expectedTag] of [
     ['22.0.0-alpha.1', 'alpha'],
