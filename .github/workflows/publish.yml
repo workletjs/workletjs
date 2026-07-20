@@ -148,6 +148,19 @@ jobs:
             printf '%s\n' "$dist_tag"
           }
 
+          resolve_github_prerelease() {
+            local version="$1"
+
+            resolve_npm_dist_tag "$version" >/dev/null || return 1
+            version="${version%%+*}"
+
+            if [[ "$version" == *-* ]]; then
+              printf 'true\n'
+            else
+              printf 'false\n'
+            fi
+          }
+
           echo "🔍 Environment versions"
           node -v && npm -v && pnpm -v
           echo ""
@@ -205,6 +218,9 @@ jobs:
           NPM_DIST_TAG=$(resolve_npm_dist_tag "$DIST_VERSION")
           echo "NPM_DIST_TAG=$NPM_DIST_TAG" >> "$GITHUB_ENV"
           echo "✅ npm dist-tag: $NPM_DIST_TAG"
+          GITHUB_PRERELEASE=$(resolve_github_prerelease "$DIST_VERSION")
+          echo "GITHUB_PRERELEASE=$GITHUB_PRERELEASE" >> "$GITHUB_ENV"
+          echo "✅ GitHub prerelease: $GITHUB_PRERELEASE"
           echo ""
 
           echo "🔍 Check package exists on npm"
@@ -228,6 +244,7 @@ jobs:
         with:
           tag_name: ${{ steps.tag.outputs.name }}
           name: ${{ steps.tag.outputs.name }}
+          prerelease: ${{ env.GITHUB_PRERELEASE }}
           body: |
             `${{ steps.notes.outputs.release_date }}`
 
