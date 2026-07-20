@@ -126,6 +126,28 @@ jobs:
             fi
           }
 
+          resolve_npm_dist_tag() {
+            local version="$1"
+            local dist_tag="latest"
+            local semver_pattern='^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$'
+
+            if [[ ! "$version" =~ $semver_pattern ]]; then
+              echo "Cannot derive a safe npm dist-tag from version: $version" >&2
+              return 1
+            fi
+
+            if [[ "$version" == *-* ]]; then
+              dist_tag="${version#*-}"
+              dist_tag="${dist_tag%%.*}"
+              if [[ ! "$dist_tag" =~ ^[A-Za-z][0-9A-Za-z-]*$ || "$dist_tag" =~ ^[vV][0-9] ]]; then
+                echo "Cannot derive a safe npm dist-tag from version: $version" >&2
+                return 1
+              fi
+            fi
+
+            printf '%s\n' "$dist_tag"
+          }
+
           echo "🔍 Environment versions"
           node -v && npm -v && pnpm -v
           echo ""
@@ -180,6 +202,9 @@ jobs:
             exit 1
           fi
           echo "✅ Dist version matches tag: $DIST_VERSION"
+          NPM_DIST_TAG=$(resolve_npm_dist_tag "$DIST_VERSION")
+          echo "NPM_DIST_TAG=$NPM_DIST_TAG" >> "$GITHUB_ENV"
+          echo "✅ npm dist-tag: $NPM_DIST_TAG"
           echo ""
 
           echo "🔍 Check package exists on npm"
@@ -195,7 +220,7 @@ jobs:
       - name: Publish to npm
         run: |
           cd dist/packages/ngx-openlayers
-          pnpm publish --no-git-checks --access public --provenance
+          pnpm publish --no-git-checks --access public --provenance --tag "$NPM_DIST_TAG"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3

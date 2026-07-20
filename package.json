@@ -10,7 +10,7 @@
     "lint": "nx lint ngx-openlayers && nx lint docs",
     "format": "nx format:write --projects=ngx-openlayers,docs",
     "format:check": "nx format:check --projects=ngx-openlayers,docs",
-    "test": "node --test scripts/core-dependency-changelog-renderer.spec.cjs && nx test ngx-openlayers",
+    "test": "node --test scripts/core-dependency-changelog-renderer.spec.cjs scripts/npm-dist-tag.spec.mjs && nx test ngx-openlayers",
     "prepare": "husky",
     "commitlint": "commitlint --edit"
   },
