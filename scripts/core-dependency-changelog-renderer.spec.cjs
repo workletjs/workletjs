@@ -3,6 +3,7 @@ const { test } = require('node:test');
 
 const CoreDependencyChangelogRenderer = require('./core-dependency-changelog-renderer.cjs');
 const nxConfig = require('../nx.json');
+const packageConfig = require('../package.json');
 
 const conventionalCommitsConfig = {
   types: {
@@ -59,6 +60,24 @@ test('renders Angular and OpenLayers upgrades as core dependency updates', async
   assert.match(output, /upgrade ol to 10\.9\.0/);
 });
 
+test('renders OpenLayers updates that use bump wording', async () => {
+  const output = await render([createChange('chore', 'deps', 'bump ol to 10.10.0')]);
+
+  assert.match(output, /bump ol to 10\.10\.0/);
+});
+
+test('omits Angular tooling dependency updates', async () => {
+  const output = await render([createChange('chore', 'deps', 'upgrade angular-eslint to 23')]);
+
+  assert.equal(output, '');
+});
+
+test('omits unversioned Angular documentation updates', async () => {
+  const output = await render([createChange('docs', null, 'update Angular examples')]);
+
+  assert.equal(output, '');
+});
+
 test('omits unrelated documentation and maintenance changes', async () => {
   const output = await render([
     createChange('docs', null, 'add contributor guide'),
@@ -92,5 +111,12 @@ test('configures changelog types at the Nx release root', () => {
   assert.equal(
     nxConfig.release.changelog.workspaceChangelog.renderer,
     '{workspaceRoot}/scripts/core-dependency-changelog-renderer.cjs',
+  );
+});
+
+test('runs release renderer tests through the root test script', () => {
+  assert.match(
+    packageConfig.scripts.test,
+    /node --test scripts\/core-dependency-changelog-renderer\.spec\.cjs/,
   );
 });
