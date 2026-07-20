@@ -5,7 +5,7 @@ keyword: SnapInteractionPage
 Interaction component that handles snapping of vector features while modifying or drawing them. The
 features can come from a
 [VectorSource](https://openlayers.org/en/v10.9.0/apidoc/module-ol_source_Vector-VectorSource.html)
-or [Collection](https://openlayers.org/en/v10.9.0/apidoc/module-ol_Collection-Collection.html) Any
+or [Collection](https://openlayers.org/en/v10.9.0/apidoc/module-ol_Collection-Collection.html). Any
 interaction object that allows the user to interact with the features using the mouse can benefit
 from the snapping, as long as it is added before.
 
