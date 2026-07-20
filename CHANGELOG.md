@@ -1,3 +1,25 @@
+## 22.0.0-beta.0 (2026-07-20)
+
+### 🚀 Features
+
+- **release:** render core dependency updates ([8a501e1](https://github.com/workletjs/workletjs/commit/8a501e1))
+
+### 🩹 Fixes
+
+- **ci:** checkout tag via explicit refs/tags/ ref with detached HEAD ([130558a](https://github.com/workletjs/workletjs/commit/130558a))
+- **ci:** restore CodeQL merge protection results ([6a4045b](https://github.com/workletjs/workletjs/commit/6a4045b))
+- **release:** include core dependency upgrades ([31fc4ff](https://github.com/workletjs/workletjs/commit/31fc4ff))
+- **release:** address changelog review feedback ([1d7af36](https://github.com/workletjs/workletjs/commit/1d7af36))
+
+### ⬆️ Core Dependency Updates
+
+- update Angular 22 compatibility ([c0eeef5](https://github.com/workletjs/workletjs/commit/c0eeef5))
+- **deps:** upgrade ol to 10.9.0 ([7468243](https://github.com/workletjs/workletjs/commit/7468243))
+
+### ❤️ Thank You
+
+- Jonnytoshen @Jonnytoshen
+
 ## 21.2.0 (2026-04-07)
 
 ### 🩹 Fixes
