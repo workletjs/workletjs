@@ -18,6 +18,11 @@ By default, the interaction will allow deletion of vertices when the `alt` key i
 configure the interaction with a different condition for deletion, use the `wolDeleteCondition`
 property.
 
+When editing geometries that share vertices (for example, adjacent polygons), the interaction uses
+strict coordinate equality to determine which vertices are shared and should move together. Provide
+a custom comparison function via `wolSharedVerticesEqual` if your geometries use reduced precision
+or another equality rule.
+
 ## Examples
 
 ### Modify Features

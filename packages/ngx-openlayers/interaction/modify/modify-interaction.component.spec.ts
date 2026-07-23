@@ -7,6 +7,7 @@ import Feature from 'ol/Feature';
 import Map from 'ol/Map';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
 import { ObjectEvent } from 'ol/Object';
+import { Coordinate } from 'ol/coordinate';
 import BaseEvent from 'ol/events/Event';
 import { Condition } from 'ol/events/condition';
 import Modify, { FilterFunction, ModifyEvent } from 'ol/interaction/Modify';
@@ -89,6 +90,12 @@ describe('WolModifyInteractionComponent', () => {
   it('should initialize with filter from input', () => {
     expect(internals(modifyInstance)['filter_']).toBe(testComponent.filter());
     expect(internals(modifyInstance)['filterFunctionWasSupplied_']).toBe(true);
+  });
+
+  it('should initialize with sharedVerticesEqual from input', () => {
+    expect(internals(modifyInstance)['coordinatesEqual_']).toBe(
+      testComponent.sharedVerticesEqual(),
+    );
   });
 
   it('should initialize with hitDetection from input', () => {
@@ -254,6 +261,7 @@ describe('WolModifyInteractionComponent', () => {
           [wolWrapX]="wrapX()"
           [wolSnapToPointer]="snapToPointer()"
           [wolFilter]="filter()"
+          [wolSharedVerticesEqual]="sharedVerticesEqual()"
           [wolProperties]="properties()"
         />
       }
@@ -272,6 +280,9 @@ class TestModifyInteractionComponent {
   wrapX = signal(true);
   snapToPointer = signal(false);
   filter = signal<FilterFunction>(() => true);
+  sharedVerticesEqual = signal<(a: Coordinate, b: Coordinate) => boolean>(
+    (a, b) => a[0] === b[0] && a[1] === b[1],
+  );
   properties = signal<WolProperties>({ foo: 'bar' });
   destroyInteraction = signal(false);
 }
