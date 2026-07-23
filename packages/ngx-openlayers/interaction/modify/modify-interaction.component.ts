@@ -50,6 +50,10 @@ export class WolModifyInteractionComponent implements OnChanges {
   readonly wolWrapX = input<boolean>();
   readonly wolSnapToPointer = input<boolean>();
   readonly wolFilter = input<FilterFunction>();
+  /**
+   * Comparison function used to detect shared vertices between geometries.
+   * @remarks Read once when the interaction is constructed; subsequent changes have no effect.
+   */
   readonly wolSharedVerticesEqual = input<(a: Coordinate, b: Coordinate) => boolean>();
   readonly wolProperties = input<WolProperties>();
 
