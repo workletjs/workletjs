@@ -6,6 +6,7 @@ import Map from 'ol/Map';
 import { ObjectEvent } from 'ol/Object';
 import BaseEvent from 'ol/events/Event';
 import { Extent } from 'ol/extent';
+import { BackgroundColor } from 'ol/layer/Base';
 import ImageLayer from 'ol/layer/Image';
 import RenderEvent from 'ol/render/Event';
 import ImageSource from 'ol/source/Image';
@@ -59,6 +60,7 @@ describe('WolImageLayerComponent', () => {
     expect(layer.getMinZoom()).toBe(testComponent.minZoom());
     expect(layer.getMaxZoom()).toBe(testComponent.maxZoom());
     expect(layer.getSource()).toBe(testComponent.source());
+    expect(layer.getBackground()).toBe(testComponent.background());
     expect(layer.getProperties()).toMatchObject(testComponent.properties());
   });
 
@@ -118,6 +120,13 @@ describe('WolImageLayerComponent', () => {
     testComponent.source.set(newSource);
     fixture.detectChanges();
     expect(layer.getSource()).toBe(newSource);
+  });
+
+  it('should call setBackground when wolBackground changes via ngOnChanges', () => {
+    const spy = vi.spyOn(layer, 'setBackground');
+    testComponent.background.set('rgba(0,0,0,0.5)');
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalledWith('rgba(0,0,0,0.5)');
   });
 
   it('should update properties via ngOnChanges', () => {
@@ -293,6 +302,7 @@ describe('WolImageLayerComponent', () => {
           [(wolMinZoom)]="minZoom"
           [(wolMaxZoom)]="maxZoom"
           [(wolSource)]="source"
+          [wolBackground]="background()"
           [wolProperties]="properties()"
         />
       }
@@ -311,6 +321,7 @@ class TestImageLayerComponent {
   readonly minZoom = signal(2);
   readonly maxZoom = signal(9);
   readonly source = signal<ImageSource | undefined>(makeSource());
+  readonly background = signal<BackgroundColor | undefined>('#ffffff');
   readonly properties = signal<WolProperties>({ foo: 'bar' });
   readonly destroyLayer = signal(false);
 }
