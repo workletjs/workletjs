@@ -18,6 +18,7 @@ import { unByKey } from 'ol/Observable';
 import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
 import { Extent } from 'ol/extent';
+import { BackgroundColor } from 'ol/layer/Base';
 import ImageLayer from 'ol/layer/Image';
 import RenderEvent from 'ol/render/Event';
 import ImageSource from 'ol/source/Image';
@@ -45,6 +46,7 @@ export class WolImageLayerComponent implements OnChanges {
   readonly wolMaxZoom = model<number>();
   readonly wolMap = input<Map>();
   readonly wolSource = model<ImageSource>();
+  readonly wolBackground = input<BackgroundColor>();
   readonly wolProperties = input<WolProperties>();
 
   readonly wolChange = output<BaseEvent>();
@@ -77,6 +79,7 @@ export class WolImageLayerComponent implements OnChanges {
         maxZoom: this.wolMaxZoom(),
         map: this.wolMap(),
         source: this.wolSource(),
+        background: this.wolBackground(),
         properties: this.wolProperties(),
       });
 
@@ -170,6 +173,9 @@ export class WolImageLayerComponent implements OnChanges {
 
     for (const [key, change] of Object.entries(changes)) {
       switch (key) {
+        case 'wolBackground':
+          this.instance.setBackground(change.currentValue);
+          break;
         case 'wolExtent':
           this.instance.setExtent(change.currentValue);
           break;
