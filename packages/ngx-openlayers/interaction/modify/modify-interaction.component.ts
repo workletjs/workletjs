@@ -17,6 +17,7 @@ import Collection from 'ol/Collection';
 import Feature from 'ol/Feature';
 import { ObjectEvent } from 'ol/Object';
 import { unByKey } from 'ol/Observable';
+import { Coordinate } from 'ol/coordinate';
 import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
 import { Condition } from 'ol/events/condition';
@@ -49,6 +50,7 @@ export class WolModifyInteractionComponent implements OnChanges {
   readonly wolWrapX = input<boolean>();
   readonly wolSnapToPointer = input<boolean>();
   readonly wolFilter = input<FilterFunction>();
+  readonly wolSharedVerticesEqual = input<(a: Coordinate, b: Coordinate) => boolean>();
   readonly wolProperties = input<WolProperties>();
 
   readonly wolChange = output<BaseEvent>();
@@ -80,6 +82,7 @@ export class WolModifyInteractionComponent implements OnChanges {
         wrapX: this.wolWrapX(),
         snapToPointer: this.wolSnapToPointer(),
         filter: this.wolFilter(),
+        sharedVerticesEqual: this.wolSharedVerticesEqual(),
       });
 
       modify.setActive(this.wolActive());
