@@ -21,7 +21,8 @@ property.
 When editing geometries that share vertices (for example, adjacent polygons), the interaction uses
 strict coordinate equality to determine which vertices are shared and should move together. Provide
 a custom comparison function via `wolSharedVerticesEqual` if your geometries use reduced precision
-or another equality rule.
+or another equality rule. This property is read once when the interaction is created; changing it
+afterwards has no effect.
 
 ## Examples
 
