@@ -129,6 +129,14 @@ describe('WolImageLayerComponent', () => {
     expect(spy).toHaveBeenCalledWith('rgba(0,0,0,0.5)');
   });
 
+  it('should call setBackground with a background function via ngOnChanges', () => {
+    const spy = vi.spyOn(layer, 'setBackground');
+    const backgroundFn: BackgroundColor = () => '#123456';
+    testComponent.background.set(backgroundFn);
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalledWith(backgroundFn);
+  });
+
   it('should update properties via ngOnChanges', () => {
     const newProperties: WolProperties = { updated: true };
     testComponent.properties.set(newProperties);
