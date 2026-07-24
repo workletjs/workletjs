@@ -1,3 +1,20 @@
+## 22.0.0-beta.1 (2026-07-24)
+
+### 🚀 Features
+
+- **image-layer:** add wolBackground input to ImageLayer ([8047210](https://github.com/workletjs/workletjs/commit/8047210))
+- **modify-interaction:** add wolSharedVerticesEqual input to Modify ([4357e4f](https://github.com/workletjs/workletjs/commit/4357e4f))
+
+### 🩹 Fixes
+
+- **release:** handle npm prerelease dist-tags ([055f100](https://github.com/workletjs/workletjs/commit/055f100))
+- **release:** mark GitHub prereleases ([6ec4663](https://github.com/workletjs/workletjs/commit/6ec4663))
+- **release:** ignore build metadata in dist-tags ([73c1dfb](https://github.com/workletjs/workletjs/commit/73c1dfb))
+
+### ❤️ Thank You
+
+- Jonnytoshen @Jonnytoshen
+
 ## 22.0.0-beta.0 (2026-07-20)
 
 ### 🚀 Features
