@@ -7,7 +7,6 @@ import {
   providePageSkeleton,
   provideSearchEngine,
 } from '@ng-doc/app';
-// eslint-disable-next-line
 import { provideNgDocContext } from '@ng-doc/generated';
 
 import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
