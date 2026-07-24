@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import { NG_DOC_ROUTING } from '@ng-doc/generated';
 
 import { Routes } from '@angular/router';
