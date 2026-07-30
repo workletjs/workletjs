@@ -19,6 +19,21 @@ architecture and documented using **[NgDoc](https://ng-doc.com/)**.
 - 🧪 Testable and maintainable design
 - 🌐 Ideal for multi-layer visualization, spatial analysis, and geospatial applications
 
+## 🛠 Development Commands
+
+Use the root workspace scripts for common local tasks.
+
+```bash
+pnpm start          # Serve the docs app locally
+pnpm build          # Build the ngx-openlayers library
+pnpm build:docs     # Build the docs app
+pnpm lint           # Lint library and docs
+pnpm test           # Run script, library, and docs tests
+pnpm test:lib       # Run library tests only
+pnpm test:docs      # Run docs tests only
+pnpm test:scripts   # Run release/publish script tests only
+```
+
 ---
 
 ## 🛠 Prerequisites

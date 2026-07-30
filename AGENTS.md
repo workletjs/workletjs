@@ -16,9 +16,9 @@ NgDoc application is under `apps/docs/`, with application code in `apps/docs/src
 - `pnpm build` builds the `ngx-openlayers` library; `pnpm build:docs` builds the docs site.
 - `pnpm lint` checks both projects with ESLint.
 - `pnpm format:check` verifies Prettier formatting; `pnpm format` applies it.
-- `pnpm test` runs the library's Vitest suite.
-- `pnpm nx test docs` runs docs-app tests. Use `pnpm nx test ngx-openlayers --coverage` when
-  checking library coverage.
+- `pnpm test` runs the script, library, and docs test suites.
+- `pnpm test:lib` runs the library Vitest suite; `pnpm test:docs` runs docs-app tests.
+- Use `pnpm nx test ngx-openlayers --coverage` when checking library coverage.
 
 ## Coding Style & Naming Conventions
 
