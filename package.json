@@ -10,7 +10,10 @@
     "lint": "nx lint ngx-openlayers && nx lint docs",
     "format": "nx format:write --projects=ngx-openlayers,docs",
     "format:check": "nx format:check --projects=ngx-openlayers,docs",
-    "test": "node --test scripts/core-dependency-changelog-renderer.spec.cjs scripts/npm-dist-tag.spec.mjs && nx test ngx-openlayers",
+    "test:lib": "nx test ngx-openlayers",
+    "test:docs": "nx test docs",
+    "test:scripts": "node --test scripts/core-dependency-changelog-renderer.spec.cjs scripts/npm-dist-tag.spec.mjs",
+    "test": "pnpm run test:scripts && pnpm run test:lib && pnpm run test:docs",
     "prepare": "husky",
     "commitlint": "commitlint --edit"
   },
@@ -87,5 +90,6 @@
       "nx affected --target=lint --uncommitted",
       "nx format:write --uncommitted"
     ]
-  }
+  },
+  "packageManager": "pnpm@11.18.0+sha512.33d83c77da82f49fba836925c6f1b841181ec3132b670639bd012f7075f5c7cf634c5f870147c19aae7478fac01df09d8892e880454896edd23ee9b33757563c"
 }
