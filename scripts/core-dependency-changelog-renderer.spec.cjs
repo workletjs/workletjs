@@ -115,8 +115,9 @@ test('configures changelog types at the Nx release root', () => {
 });
 
 test('runs release renderer tests through the root test script', () => {
+  assert.match(packageConfig.scripts.test, /pnpm run test:scripts/);
   assert.match(
-    packageConfig.scripts.test,
+    packageConfig.scripts['test:scripts'],
     /node --test scripts\/core-dependency-changelog-renderer\.spec\.cjs/,
   );
 });
