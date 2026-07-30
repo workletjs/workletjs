@@ -43,6 +43,7 @@
     "tailwindcss": "catalog:docs",
     "vite": "catalog:testing",
     "vite-tsconfig-paths": "catalog:testing",
-    "vitest": "catalog:testing"
+    "vitest": "catalog:testing",
+    "resize-observer-polyfill": "catalog:testing"
   }
 }
