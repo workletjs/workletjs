@@ -3,6 +3,11 @@ name: Deploy Website
 
 on:
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to deploy (must already exist in repository, e.g. v1.0.0)'
+        required: true
+        type: string
   push:
     tags:
       - 'v*.*.*' # Trigger on version tags
@@ -11,12 +16,74 @@ permissions:
   contents: write # Allow the workflow to push to the repository
 
 jobs:
+  resolve-deploy-metadata:
+    runs-on: ubuntu-latest
+    outputs:
+      tag_name: ${{ steps.metadata.outputs.tag_name }}
+      version: ${{ steps.metadata.outputs.version }}
+      is_prerelease: ${{ steps.metadata.outputs.is_prerelease }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Resolve deploy metadata
+        id: metadata
+        run: |
+          set -e
+
+          resolve_is_prerelease() {
+            local version="$1"
+            local semver_pattern='^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$'
+
+            if [[ ! "$version" =~ $semver_pattern ]]; then
+              echo "Cannot classify deploy version: $version" >&2
+              return 1
+            fi
+
+            version="${version%%+*}"
+
+            if [[ "$version" == *-* ]]; then
+              printf 'true\n'
+            else
+              printf 'false\n'
+            fi
+          }
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAG_NAME="${{ inputs.tag }}"
+            if [[ ! "$TAG_NAME" =~ ^v[0-9] ]]; then
+              echo "❌ Tag name must start with 'v' followed by a digit (e.g. v1.0.0), got: $TAG_NAME"
+              exit 1
+            fi
+
+            if ! git rev-parse "refs/tags/${TAG_NAME}" >/dev/null 2>&1; then
+              echo "❌ Tag ${TAG_NAME} does not exist in this repository"
+              exit 1
+            fi
+
+            echo "✅ Tag ${TAG_NAME} exists in repository"
+          else
+            TAG_NAME="${GITHUB_REF#refs/tags/}"
+          fi
+
+          VERSION="${TAG_NAME#v}"
+          IS_PRERELEASE=$(resolve_is_prerelease "$VERSION")
+
+          echo "tag_name=$TAG_NAME" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "is_prerelease=$IS_PRERELEASE" >> "$GITHUB_OUTPUT"
+
   deploy-latest:
-    if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+    needs: resolve-deploy-metadata
+    if: ${{ needs.resolve-deploy-metadata.outputs.is_prerelease == 'false' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ needs.resolve-deploy-metadata.outputs.tag_name }}
 
       - name: Install PNPM
         uses: pnpm/action-setup@v6
@@ -43,15 +110,16 @@ jobs:
           external_repository: workletjs/workletjs.github.io
           publish_dir: ./dist/apps/docs/browser
           publish_branch: main
-          commit_message: "chore(release): Deploy latest website"
+          commit_message: 'chore(release): Deploy latest website'
 
   deploy-version:
-    if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    needs: deploy-latest
+    needs: resolve-deploy-metadata
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ needs.resolve-deploy-metadata.outputs.tag_name }}
 
       - name: Install PNPM
         uses: pnpm/action-setup@v6
@@ -66,7 +134,8 @@ jobs:
         run: pnpm install
 
       - name: Build documentation site
-        run: pnpm dlx nx build docs --base-href=/${{ github.ref_name }}/
+        run:
+          pnpm dlx nx build docs --base-href=/${{ needs.resolve-deploy-metadata.outputs.tag_name }}/
 
       - name: Add SPA fallback # Copy index.html to 404.html for GitHub Pages SPA support
         run: cp ./dist/apps/docs/browser/index.html ./dist/apps/docs/browser/404.html
@@ -78,5 +147,7 @@ jobs:
           external_repository: workletjs/workletjs.github.io
           publish_dir: ./dist/apps/docs/browser
           publish_branch: main
-          destination_dir: ${{ github.ref_name }}
-          commit_message: "chore(release): Deploy website for version ${{ github.ref_name }}"
+          destination_dir: ${{ needs.resolve-deploy-metadata.outputs.tag_name }}
+          commit_message:
+            'chore(release): Deploy website for version ${{
+            needs.resolve-deploy-metadata.outputs.tag_name }}'
