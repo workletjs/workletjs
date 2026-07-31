@@ -55,6 +55,28 @@ test('gates latest deploys on stable versions only', () => {
   );
 });
 
+test('serializes deploy jobs that push to the shared pages repository', () => {
+  const sharedConcurrencyGroup =
+    /concurrency:\n\s+group:\s+pages-deploy-\$\{\{ github\.workflow \}\}-\$\{\{ needs\.resolve-deploy-metadata\.outputs\.tag_name \}\}\n\s+cancel-in-progress:\s+false/;
+
+  assert.match(
+    deployWorkflow,
+    /deploy-latest:[\s\S]*external_repository:\s+workletjs\/workletjs\.github\.io/,
+  );
+  assert.match(
+    deployWorkflow,
+    /deploy-version:[\s\S]*external_repository:\s+workletjs\/workletjs\.github\.io/,
+  );
+  assert.match(
+    deployWorkflow,
+    new RegExp(`deploy-latest:[\\s\\S]*${sharedConcurrencyGroup.source}`),
+  );
+  assert.match(
+    deployWorkflow,
+    new RegExp(`deploy-version:[\\s\\S]*${sharedConcurrencyGroup.source}`),
+  );
+});
+
 test('deploys versioned docs from resolved tag metadata', () => {
   assert.match(deployVersionSection, /needs:\s+resolve-deploy-metadata/);
   assert.doesNotMatch(deployVersionSection, /needs:[\s\S]*deploy-latest/);
