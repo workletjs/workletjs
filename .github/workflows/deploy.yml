@@ -150,12 +150,12 @@ jobs:
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
+        env:
+          DEPLOY_TAG: ${{ needs.resolve-deploy-metadata.outputs.tag_name }}
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }} # Use the default GITHUB_TOKEN
           external_repository: workletjs/workletjs.github.io
           publish_dir: ./dist/apps/docs/browser
           publish_branch: main
           destination_dir: ${{ needs.resolve-deploy-metadata.outputs.tag_name }}
-          commit_message:
-            'chore(release): Deploy website for version ${{
-            needs.resolve-deploy-metadata.outputs.tag_name }}'
+          commit_message: 'chore(release): Deploy website for version ${{ env.DEPLOY_TAG }}'

@@ -93,3 +93,14 @@ test('deploys versioned docs from resolved tag metadata', () => {
     /destination_dir:\s+\$\{\{ needs\.resolve-deploy-metadata\.outputs\.tag_name \}\}/,
   );
 });
+
+test('keeps the version deploy commit message on one line', () => {
+  assert.match(
+    deployWorkflow,
+    /env:\n\s+DEPLOY_TAG:\s+\$\{\{ needs\.resolve-deploy-metadata\.outputs\.tag_name \}\}/,
+  );
+  assert.match(
+    deployWorkflow,
+    /commit_message: 'chore\(release\): Deploy website for version \$\{\{ env\.DEPLOY_TAG \}\}'/,
+  );
+});
