@@ -1,3 +1,16 @@
+## 22.0.0-beta.2 (2026-08-03)
+
+### 🩹 Fixes
+
+- **ci:** skip latest docs deploys for prerelease tags ([08fecb0](https://github.com/workletjs/workletjs/commit/08fecb0))
+- **ci:** serialize docs deploy jobs ([64a1870](https://github.com/workletjs/workletjs/commit/64a1870))
+- **ci:** keep deploy commit messages single-line ([558acbf](https://github.com/workletjs/workletjs/commit/558acbf))
+- **release:** include all projects in nx release group ([c9f5ea3](https://github.com/workletjs/workletjs/commit/c9f5ea3))
+
+### ❤️ Thank You
+
+- Jonnytoshen @Jonnytoshen
+
 ## 22.0.0-beta.1 (2026-07-24)
 
 ### 🚀 Features
