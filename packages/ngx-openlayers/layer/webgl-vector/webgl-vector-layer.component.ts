@@ -26,6 +26,19 @@ import { FlatStyleLike, StyleVariables } from 'ol/style/flat';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 
+/**
+ * Wraps an OpenLayers [WebGLVectorLayer](https://openlayers.org/en/latest/apidoc/module-ol_layer_WebGLVector-WebGLVectorLayer.html),
+ * used for WebGL rendering of vector data.
+ *
+ * @example
+ * ```html
+ * <wol-map>
+ *   <wol-webgl-vector-layer [wolSource]="source" [wolStyle]="style"></wol-webgl-vector-layer>
+ * </wol-map>
+ * ```
+ *
+ * @see https://openlayers.org/en/latest/apidoc/module-ol_layer_WebGLVector-WebGLVectorLayer.html
+ */
 @Component({
   selector: 'wol-webgl-vector-layer',
   exportAs: 'wolWebGLVectorLayer',
@@ -34,27 +47,114 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolWebGLVectorLayerComponent implements OnChanges {
+  /**
+   * A CSS class name to set to the layer element. Defaults to `'ol-layer'`.
+   */
   readonly wolClassName = input<string>();
+
+  /**
+   * Opacity of the layer, between `0` and `1`. Defaults to `1`.
+   */
   readonly wolOpacity = model<number>();
+
+  /**
+   * Visibility of the layer. Defaults to `true`.
+   */
   readonly wolVisible = model<boolean>();
+
+  /**
+   * The bounding extent for layer rendering. The layer will not be rendered outside of this
+   * extent.
+   */
   readonly wolExtent = model<Extent>();
+
+  /**
+   * The z-index for layer rendering. Layers are ordered first by z-index, then by position. When
+   * undefined, a z-index of `0` is assumed for layers added to the map's layers collection, or
+   * `Infinity` when `setMap()` was used.
+   */
   readonly wolZIndex = model<number>();
+
+  /**
+   * The minimum resolution (inclusive) at which this layer will be visible.
+   */
   readonly wolMinResolution = model<number>();
+
+  /**
+   * The maximum resolution (exclusive) below which this layer will be visible.
+   */
   readonly wolMaxResolution = model<number>();
+
+  /**
+   * The minimum view zoom level (exclusive) above which this layer will be visible.
+   */
   readonly wolMinZoom = model<number>();
+
+  /**
+   * The maximum view zoom level (inclusive) at which this layer will be visible.
+   */
   readonly wolMaxZoom = model<number>();
+
+  /**
+   * Vector source for this layer.
+   */
   readonly wolSource = model<VectorSource>();
+
+  /**
+   * Layer style definition. Accepts a `FlatStyleLike` value.
+   *
+   * This input is **required**.
+   */
   readonly wolStyle = input.required<FlatStyleLike>();
+
+  /**
+   * Style variables referenced by style expressions.
+   */
   readonly wolVariables = input<StyleVariables>();
+
+  /**
+   * Background color for the layer. No background will be rendered when not specified.
+   */
   readonly wolBackground = input<BackgroundColor>();
+
+  /**
+   * When `true`, disables hit detection for this layer.
+   */
   readonly wolDisableHitDetection = input<boolean>();
+
+  /**
+   * Additional properties that will be set to the layer instance.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Generic change event. Triggered when the revision counter is increased.
+   */
   readonly wolChange = output<BaseEvent>();
+
+  /**
+   * Generic error event. Triggered when an error occurs.
+   */
   readonly wolError = output<BaseEvent>();
+
+  /**
+   * Triggered after the layer is rendered.
+   */
   readonly wolPostRender = output<RenderEvent>();
+
+  /**
+   * Triggered before the layer is rendered.
+   */
   readonly wolPreRender = output<RenderEvent>();
+
+  /**
+   * Triggered when a property of the layer is changed.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
+
+  /**
+   * Triggered when the layer source is ready.
+   */
   readonly wolSourceReady = output<BaseEvent>();
 
   private instance?: WebGLVectorLayer;

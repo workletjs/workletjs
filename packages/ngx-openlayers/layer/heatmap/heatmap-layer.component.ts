@@ -27,6 +27,19 @@ import { BooleanExpression, NumberExpression } from 'ol/style/flat';
 import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
 import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 
+/**
+ * Wraps an OpenLayers [Heatmap](https://openlayers.org/en/latest/apidoc/module-ol_layer_Heatmap-Heatmap.html)
+ * layer, which renders vector point data as a heatmap.
+ *
+ * @example
+ * ```html
+ * <wol-map>
+ *   <wol-heatmap-layer [wolSource]="source" [wolRadius]="10"></wol-heatmap-layer>
+ * </wol-map>
+ * ```
+ *
+ * @see https://openlayers.org/en/latest/apidoc/module-ol_layer_Heatmap-Heatmap.html
+ */
 @Component({
   selector: 'wol-heatmap-layer',
   exportAs: 'wolHeatmapLayer',
@@ -35,29 +48,127 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolHeatmapLayerComponent implements OnChanges {
+  /**
+   * A CSS class name to set to the layer element. Defaults to `'ol-layer'`.
+   */
   readonly wolClassName = input<string>();
+
+  /**
+   * Opacity of the layer, between `0` and `1`. Defaults to `1`.
+   */
   readonly wolOpacity = model<number>();
+
+  /**
+   * Visibility of the layer. Defaults to `true`.
+   */
   readonly wolVisible = model<boolean>();
+
+  /**
+   * The bounding extent for layer rendering. The layer will not be rendered outside of this
+   * extent.
+   */
   readonly wolExtent = model<Extent>();
+
+  /**
+   * The z-index for layer rendering. Layers are ordered first by z-index, then by position. When
+   * undefined, a z-index of `0` is assumed for layers added to the map's layers collection, or
+   * `Infinity` when `setMap()` was used.
+   */
   readonly wolZIndex = model<number>();
+
+  /**
+   * The minimum resolution (inclusive) at which this layer will be visible.
+   */
   readonly wolMinResolution = model<number>();
+
+  /**
+   * The maximum resolution (exclusive) below which this layer will be visible.
+   */
   readonly wolMaxResolution = model<number>();
+
+  /**
+   * The minimum view zoom level (exclusive) above which this layer will be visible.
+   */
   readonly wolMinZoom = model<number>();
+
+  /**
+   * The maximum view zoom level (inclusive) at which this layer will be visible.
+   */
   readonly wolMaxZoom = model<number>();
+
+  /**
+   * The color gradient of the heatmap, specified as an array of CSS color strings.
+   * Defaults to `['#00f', '#0ff', '#0f0', '#ff0', '#f00']`.
+   */
   readonly wolGradient = model<string[]>();
+
+  /**
+   * Radius size in pixels. For `LineString` features, the line width will be double the radius.
+   * Supports expressions. Defaults to `8`.
+   */
   readonly wolRadius = model<NumberExpression>();
+
+  /**
+   * Blur size in pixels, added to `wolRadius` to produce the final blur effect size. Supports
+   * expressions. Defaults to `15`.
+   */
   readonly wolBlur = model<NumberExpression>();
+
+  /**
+   * The feature attribute or expression to use as the heatmap weight. Accepts a feature attribute
+   * name (string), a number expression, or a function returning a number. Weight values should be
+   * in the range `[0, 1]`. Defaults to `'weight'`.
+   */
   readonly wolWeight = input<WeightExpression>();
+
+  /**
+   * Optional filter expression to control which features are rendered.
+   */
   readonly wolFilter = input<BooleanExpression>();
+
+  /**
+   * Variables used in expressions for `wolWeight`, `wolRadius`, `wolBlur`, or `wolFilter`.
+   */
   readonly wolVariables = input<Record<string, number | number[] | string | boolean>>();
+
+  /**
+   * Point vector source for the heatmap.
+   */
   readonly wolSource = model<VectorSource<Feature<Geometry>>>();
+
+  /**
+   * Additional properties that will be set to the layer instance.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Generic change event. Triggered when the revision counter is increased.
+   */
   readonly wolChange = output<BaseEvent>();
+
+  /**
+   * Generic error event. Triggered when an error occurs.
+   */
   readonly wolError = output<BaseEvent>();
+
+  /**
+   * Triggered after the layer is rendered.
+   */
   readonly wolPostRender = output<RenderEvent>();
+
+  /**
+   * Triggered before the layer is rendered.
+   */
   readonly wolPreRender = output<RenderEvent>();
+
+  /**
+   * Triggered when a property of the layer is changed.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
+
+  /**
+   * Triggered when the layer source is ready.
+   */
   readonly wolSourceReady = output<BaseEvent>();
 
   private instance?: Heatmap<Feature<Geometry>>;

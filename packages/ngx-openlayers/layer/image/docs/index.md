@@ -2,8 +2,16 @@
 keyword: ImageLayerPage
 ---
 
-Server-rendered images that are available for arbitrary extents and resolutions. It's a lightweight
-container for image sources. Use the `wolBackground` property to render a background color or
-pattern behind the image before it loads.
+Wraps an OpenLayers
+[ImageLayer](https://openlayers.org/en/latest/apidoc/module-ol_layer_Image-ImageLayer.html), which
+renders server-side images available for arbitrary extents and resolutions.
+
+## Usage
+
+```html
+<wol-map>
+  <wol-image-layer [wolSource]="source"></wol-image-layer>
+</wol-map>
+```
 
 {{ NgDocApi.api("packages/ngx-openlayers/layer/image/image-layer.component.ts#WolImageLayerComponent") }}

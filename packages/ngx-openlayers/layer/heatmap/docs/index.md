@@ -2,7 +2,17 @@
 keyword: HeatmapLayerPage
 ---
 
-Layer for rendering vector data as a heatmap.
+Wraps an OpenLayers
+[Heatmap](https://openlayers.org/en/latest/apidoc/module-ol_layer_Heatmap-Heatmap.html) layer, which
+renders vector point data as a heatmap.
+
+## Usage
+
+```html
+<wol-map>
+  <wol-heatmap-layer [wolSource]="source" [wolRadius]="10"></wol-heatmap-layer>
+</wol-map>
+```
 
 ## Examples
 

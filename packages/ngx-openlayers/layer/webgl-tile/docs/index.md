@@ -2,8 +2,17 @@
 keyword: WebGLTileLayerPage
 ---
 
-For layer sources that provide pre-rendered, tiled images in grids that are organized by zoom levels
-for specific resolutions.
+Wraps an OpenLayers
+[WebGLTileLayer](https://openlayers.org/en/latest/apidoc/module-ol_layer_WebGLTile-WebGLTileLayer.html),
+which renders tiled raster data with WebGL styling support.
+
+## Usage
+
+```html
+<wol-map>
+  <wol-webgl-tile-layer [wolSource]="source"></wol-webgl-tile-layer>
+</wol-map>
+```
 
 ## Examples
 

@@ -2,9 +2,19 @@
 keyword: GraticuleLayerPage
 ---
 
-Layer that renders a grid for a coordinate system (currently only EPSG:4326 is supported).
+Wraps an OpenLayers
+[Graticule](https://openlayers.org/en/latest/apidoc/module-ol_layer_Graticule-Graticule.html) layer,
+which renders a coordinate grid for EPSG:4326.
 
-> **Note** Note that the view projection must define both extent and worldExtent.
+> **Note** Note that the view projection must define both `extent` and `worldExtent`.
+
+## Usage
+
+```html
+<wol-map>
+  <wol-graticule-layer [wolShowLabels]="true"></wol-graticule-layer>
+</wol-map>
+```
 
 ## Examples
 

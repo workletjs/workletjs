@@ -2,12 +2,17 @@
 keyword: VectorImageLayerPage
 ---
 
-Vector data is rendered client-side, to an image. This layer component provides great performance
-during panning and zooming, but point symbols and texts are always rotated with the view and pixels
-are scaled during zoom animations.
+Wraps an OpenLayers
+[VectorImageLayer](https://openlayers.org/en/latest/apidoc/module-ol_layer_VectorImage-VectorImageLayer.html),
+which renders vector data as images for smoother pan and zoom performance.
 
-For more accurate rendering of vector data, use [VectorLayer](components/layers/vector-layer)
-component instead.
+## Usage
+
+```html
+<wol-map>
+  <wol-vector-image-layer [wolSource]="source"></wol-vector-image-layer>
+</wol-map>
+```
 
 ## Examples
 

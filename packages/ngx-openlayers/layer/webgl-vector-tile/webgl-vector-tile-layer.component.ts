@@ -28,6 +28,23 @@ import { FlatStyleLike, StyleVariables } from 'ol/style/flat';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 
+/**
+ * Wraps an OpenLayers
+ * [WebGLVectorTileLayer](https://openlayers.org/en/latest/apidoc/module-ol_layer_WebGLVectorTile-WebGLVectorTileLayer.html),
+ * used for WebGL rendering of vector tiles with flat style expressions.
+ *
+ * @example
+ * ```html
+ * <wol-map>
+ *   <wol-webgl-vector-tile-layer
+ *     [wolSource]="source"
+ *     [wolStyle]="style"
+ *   ></wol-webgl-vector-tile-layer>
+ * </wol-map>
+ * ```
+ *
+ * @see https://openlayers.org/en/latest/apidoc/module-ol_layer_WebGLVectorTile-WebGLVectorTileLayer.html
+ */
 @Component({
   selector: 'wol-webgl-vector-tile-layer',
   exportAs: 'wolWebGLVectorTileLayer',

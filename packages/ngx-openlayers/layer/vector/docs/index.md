@@ -2,11 +2,17 @@
 keyword: VectorLayerPage
 ---
 
-Vector data is rendered client-side, as vectors. This layer component provides most accurate
-rendering even during animations. Points and labels stay upright on rotated views.
+Wraps an OpenLayers
+[VectorLayer](https://openlayers.org/en/latest/apidoc/module-ol_layer_Vector-VectorLayer.html),
+which renders vector features client-side with full style fidelity.
 
-For very large amounts of vector data, performance may suffer during pan and zoom animations. In
-this case, try [VectorImageLayer](components/layers/vector-image-layer) component.
+## Usage
+
+```html
+<wol-map>
+  <wol-vector-layer [wolSource]="source"></wol-vector-layer>
+</wol-map>
+```
 
 ## Examples
 

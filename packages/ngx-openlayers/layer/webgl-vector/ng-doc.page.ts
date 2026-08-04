@@ -4,7 +4,7 @@ import LayersCategory from '../../ng-doc/layers/ng-doc.category';
 import { WolWebGLVectorLayerExampleComponent } from './examples';
 
 /**
- * @status:info NEW
+ * @status:warning EXPERIMENTAL
  */
 const WebGLVectorLayerPage: NgDocPage = {
   title: 'WebGLVectorLayer',

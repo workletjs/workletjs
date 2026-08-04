@@ -28,6 +28,23 @@ import { WolOverviewMapControlComponent } from '@workletjs/ngx-openlayers/contro
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 
+/**
+ * Wraps an OpenLayers [LayerGroup](https://openlayers.org/en/latest/apidoc/module-ol_layer_Group-LayerGroup.html)
+ * instance, a collection of layers that are handled together. A generic `change` event is triggered when the
+ * group or its collection changes. Must be used inside a `wol-map`, `wol-overview-map-control`, or another
+ * `wol-layer-group` component.
+ *
+ * @example
+ * ```html
+ * <wol-map>
+ *   <wol-layer-group [wolOpacity]="0.8">
+ *     <wol-tile-layer>...</wol-tile-layer>
+ *   </wol-layer-group>
+ * </wol-map>
+ * ```
+ *
+ * @see https://openlayers.org/en/latest/apidoc/module-ol_layer_Group-LayerGroup.html
+ */
 @Component({
   selector: 'wol-layer-group',
   imports: [],
@@ -37,19 +54,72 @@ import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolLayerGroupComponent implements OnChanges {
+  /**
+   * Opacity of the layer group, between `0` and `1`. Defaults to `1`.
+   */
   readonly wolOpacity = model<number>();
+
+  /**
+   * Visibility of the layer group. Defaults to `true`.
+   */
   readonly wolVisible = model<boolean>();
+
+  /**
+   * The bounding extent for layer rendering. The layer group will not be rendered outside of this
+   * extent.
+   */
   readonly wolExtent = model<Extent>();
+
+  /**
+   * The z-index for layer rendering. Layers are ordered first by z-index, then by position. When
+   * undefined, a z-index of `0` is assumed for layers added to the map's layers collection, or
+   * `Infinity` when `setMap()` was used.
+   */
   readonly wolZIndex = model<number>();
+
+  /**
+   * The minimum resolution (inclusive) at which this layer group will be visible.
+   */
   readonly wolMinResolution = model<number>();
+
+  /**
+   * The maximum resolution (exclusive) below which this layer group will be visible.
+   */
   readonly wolMaxResolution = model<number>();
+
+  /**
+   * The minimum view zoom level (exclusive) above which this layer group will be visible.
+   */
   readonly wolMinZoom = model<number>();
+
+  /**
+   * The maximum view zoom level (inclusive) at which this layer group will be visible.
+   */
   readonly wolMaxZoom = model<number>();
+
+  /**
+   * Child layers of the group.
+   */
   readonly wolLayers = model<BaseLayer[] | Collection<BaseLayer>>();
+
+  /**
+   * Additional properties that will be set to the layer group instance.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Generic change event. Triggered when the revision counter is increased.
+   */
   readonly wolChange = output<BaseEvent>();
+
+  /**
+   * Generic error event. Triggered when an error occurs.
+   */
   readonly wolError = output<BaseEvent>();
+
+  /**
+   * Triggered when a property of the layer group is changed.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
 
   private instance?: LayerGroup;
