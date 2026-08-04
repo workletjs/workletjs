@@ -6,8 +6,8 @@ Wraps an OpenLayers [Map](https://openlayers.org/en/latest/apidoc/module-ol_Map-
 the core component of OpenLayers responsible for rendering a view, a set of layers, and any
 controls, interactions and overlays into a target container.
 
-Usually you will use it together with `wol-view` component to setup `zoom`, `center`, `projection`
-and other view related properties for the map.
+Use a nested `wol-view` component (or provide a `View` instance via `wolView`) to set up `zoom`,
+`center`, `projection`, and other view-related properties for the map.
 
 ## Usage
 
