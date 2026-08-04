@@ -2,9 +2,18 @@
 keyword: MapPage
 ---
 
-The core component of Workletjs. This is the main container for all other Workletjs components.
+Wraps an OpenLayers [Map](https://openlayers.org/en/latest/apidoc/module-ol_Map-Map.html) instance,
+the core component of OpenLayers responsible for rendering a view, a set of layers, and any
+controls, interactions and overlays into a target container.
+
 Usually you will use it together with `wol-view` component to setup `zoom`, `center`, `projection`
 and other view related properties for the map.
+
+## Usage
+
+```html
+<wol-map [wolView]="view" [wolLayers]="layers"></wol-map>
+```
 
 ## Examples
 

@@ -24,6 +24,28 @@ import RenderEvent from 'ol/render/Event';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 
+/**
+ * Wraps an OpenLayers [FlowLayer](https://openlayers.org/en/latest/apidoc/module-ol_layer_Flow-FlowLayer.html)
+ * instance, an experimental WebGL tile layer that renders particles moving through a vector field.
+ * Use this component with a `DataTile` source whose tiles encode velocity data and optionally provide
+ * a flow style to colorize the rendered particles.
+ *
+ * @experimental FlowLayer is experimental in OpenLayers and this wrapper may change along with the
+ * upstream API.
+ *
+ * @example
+ * ```html
+ * <wol-map>
+ *   <wol-flow-layer
+ *     [wolSource]="windSource"
+ *     [wolMaxSpeed]="24"
+ *     [wolStyle]="windStyle"
+ *   ></wol-flow-layer>
+ * </wol-map>
+ * ```
+ *
+ * @see https://openlayers.org/en/latest/apidoc/module-ol_layer_Flow-FlowLayer.html
+ */
 @Component({
   selector: 'wol-flow-layer',
   exportAs: 'wolFlowLayer',
@@ -33,48 +55,54 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 })
 export class WolFlowLayerComponent implements OnChanges {
   /**
-   * The maximum particle speed.
+   * The maximum particle speed used to normalize the velocity field. This value is required and
+   * should match the maximum magnitude encoded in the source tiles.
    */
   readonly wolMaxSpeed = input.required<number>();
 
   /**
-   * A larger factor increases the rate at which particles cross the screen.
+   * A larger factor increases the rate at which particles cross the screen. Defaults to `0.001`.
    */
   readonly wolSpeedFactor = input<number>();
 
   /**
-   * The number of particles to render.
+   * The number of particles to render. Higher values improve density at the cost of more GPU work.
+   * Defaults to `65536`.
    */
   readonly wolParticles = input<number>();
 
   /**
-   * Style to apply to the layer.
+   * Style to apply to the layer. Use `variables` and a `color` expression to map velocity values to
+   * rendered particle colors. Runtime style updates should provide the style variables to
+   * `wolStyle`, which are forwarded to `FlowLayer#updateStyleVariables`.
    */
   readonly wolStyle = input<Style>();
 
   /**
-   * A CSS class name to set to the layer element.
+   * A CSS class name to set to the layer element. Defaults to `'ol-layer'`.
    */
   readonly wolClassName = input<string>();
 
   /**
-   * Opacity (0, 1).
+   * Opacity of the layer, between `0` and `1`. Defaults to `1`.
    */
   readonly wolOpacity = model<number>();
 
   /**
-   * Visibility.
+   * Visibility of the layer. Defaults to `true`.
    */
   readonly wolVisible = model<boolean>();
 
   /**
-   * The bounding extent for layer rendering. The layer will not be rendered outside of this extent.
+   * The bounding extent for layer rendering. The layer will not be rendered outside of this
+   * extent.
    */
   readonly wolExtent = model<Extent>();
 
   /**
-   * The z-index for layer rendering. At rendering time, the layers will be ordered, first by Z-index
-   * and then by position.
+   * The z-index for layer rendering. Layers are ordered first by z-index, then by position. When
+   * undefined, a z-index of `0` is assumed for layers added to the map's layers collection, or
+   * `Infinity` when `setMap()` was used.
    */
   readonly wolZIndex = model<number>();
 
@@ -99,33 +127,35 @@ export class WolFlowLayerComponent implements OnChanges {
   readonly wolMaxZoom = model<number>();
 
   /**
-   * Preload. Load low-resolution tiles up to `preload` levels. `0` means no preloading.
+   * Preload. Load low-resolution tiles up to `preload` levels. `0` means no preloading. Defaults
+   * to `0`.
    */
   readonly wolPreload = model<number>();
 
   /**
-   * Source for this layer.
+   * Source for this layer. Provide a `DataTile` source whose tiles encode vector-field velocity
+   * data for the flow renderer.
    */
   readonly wolSource = model<SourceType | null>();
 
   /**
-   * Use interim tiles on error.
+   * Whether to keep using interim tiles after loading errors. Defaults to `true`.
    */
   readonly wolUseInterimTilesOnError = model<boolean>();
 
   /**
    * The internal texture cache size. This needs to be large enough to render two zoom levels worth
-   * of tiles.
+   * of tiles. Defaults to `512`.
    */
   readonly wolCacheSize = input<number>();
 
   /**
-   * Additional properties that will be set to the layer instance.
+   * Additional properties that will be set on the layer instance.
    */
   readonly wolProperties = input<WolProperties>();
 
   /**
-   * Event emitted when the layer changes.
+   * Event emitted when the layer state changes.
    */
   readonly wolChange = output<BaseEvent>();
 

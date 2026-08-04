@@ -7,7 +7,7 @@ const GeometryCategory: NgDocCategory = {
   route: 'geometry',
   category: ComponentsCategory,
   expanded: false,
-  order: 1,
+  order: 6,
 };
 
 export default GeometryCategory;

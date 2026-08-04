@@ -26,6 +26,19 @@ import ImageSource from 'ol/source/Image';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 
+/**
+ * Wraps an OpenLayers [ImageLayer](https://openlayers.org/en/latest/apidoc/module-ol_layer_Image-ImageLayer.html),
+ * which renders server-side images available for arbitrary extents and resolutions.
+ *
+ * @example
+ * ```html
+ * <wol-map>
+ *   <wol-image-layer [wolSource]="source"></wol-image-layer>
+ * </wol-map>
+ * ```
+ *
+ * @see https://openlayers.org/en/latest/apidoc/module-ol_layer_Image-ImageLayer.html
+ */
 @Component({
   selector: 'wol-image-layer',
   imports: [],
@@ -35,25 +48,103 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolImageLayerComponent implements OnChanges {
+  /**
+   * A CSS class name to set to the layer element. Defaults to `'ol-layer'`.
+   */
   readonly wolClassName = input<string>();
+
+  /**
+   * Opacity of the layer, between `0` and `1`. Defaults to `1`.
+   */
   readonly wolOpacity = model<number>();
+
+  /**
+   * Visibility of the layer. Defaults to `true`.
+   */
   readonly wolVisible = model<boolean>();
+
+  /**
+   * The bounding extent for layer rendering. The layer will not be rendered outside of this
+   * extent.
+   */
   readonly wolExtent = model<Extent>();
+
+  /**
+   * The z-index for layer rendering. Layers are ordered first by z-index, then by position. When
+   * undefined, a z-index of `0` is assumed for layers added to the map's layers collection, or
+   * `Infinity` when `setMap()` was used.
+   */
   readonly wolZIndex = model<number>();
+
+  /**
+   * The minimum resolution (inclusive) at which this layer will be visible.
+   */
   readonly wolMinResolution = model<number>();
+
+  /**
+   * The maximum resolution (exclusive) below which this layer will be visible.
+   */
   readonly wolMaxResolution = model<number>();
+
+  /**
+   * The minimum view zoom level (exclusive) above which this layer will be visible.
+   */
   readonly wolMinZoom = model<number>();
+
+  /**
+   * The maximum view zoom level (inclusive) at which this layer will be visible.
+   */
   readonly wolMaxZoom = model<number>();
+
+  /**
+   * Sets the layer as an overlay rendered on top of all other layers on a map. The map will not
+   * manage this layer in its layers collection. Use `map.addLayer()` for managed layers.
+   */
   readonly wolMap = input<Map>();
+
+  /**
+   * Source for this layer.
+   */
   readonly wolSource = model<ImageSource>();
+
+  /**
+   * Background color for the layer. No background will be rendered when not specified.
+   */
   readonly wolBackground = input<BackgroundColor>();
+
+  /**
+   * Additional properties that will be set to the layer instance.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Generic change event. Triggered when the revision counter is increased.
+   */
   readonly wolChange = output<BaseEvent>();
+
+  /**
+   * Generic error event. Triggered when an error occurs.
+   */
   readonly wolError = output<BaseEvent>();
+
+  /**
+   * Triggered after the layer is rendered.
+   */
   readonly wolPostRender = output<RenderEvent>();
+
+  /**
+   * Triggered before the layer is rendered.
+   */
   readonly wolPreRender = output<RenderEvent>();
+
+  /**
+   * Triggered when a property of the layer is changed.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
+
+  /**
+   * Triggered when the layer source is ready.
+   */
   readonly wolSourceReady = output<BaseEvent>();
 
   private instance?: ImageLayer<ImageSource>;

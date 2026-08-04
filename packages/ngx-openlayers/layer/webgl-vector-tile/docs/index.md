@@ -6,16 +6,24 @@ keyword: WebGLVectorTileLayerPage
 > The component may change in future releases. Avoid using experimental components in production
 > applications without understanding the risks.
 
-Layer component optimized for rendering large vector tile datasets using WebGL. This layer accepts a
-[`VectorTile`](components/sources/vector-tile) source component and a `FlatStyleLike` style
-definition for GPU-accelerated tile rendering.
-
-> **Note** The `wolExtent` and `wolBackground` properties are currently not supported by the
-> underlying OpenLayers implementation.
+Wraps an OpenLayers
+[WebGLVectorTileLayer](https://openlayers.org/en/latest/apidoc/module-ol_layer_WebGLVectorTile-WebGLVectorTileLayer.html),
+used for WebGL rendering of vector tiles with flat style expressions.
 
 > **Note** A `WebGLVectorTileLayer` must be **manually disposed** when removed, otherwise the
 > underlying WebGL context will not be garbage collected. The component handles this automatically
 > in its `DestroyRef` lifecycle hook.
+
+## Usage
+
+```html
+<wol-map>
+  <wol-webgl-vector-tile-layer
+    [wolSource]="source"
+    [wolStyle]="style"
+  ></wol-webgl-vector-tile-layer>
+</wol-map>
+```
 
 ## Examples
 

@@ -7,7 +7,17 @@ keyword: WebGLVectorLayerPage
 > [OpenLayers API documentation](https://openlayers.org/en/latest/apidoc/) to see what is supported
 > in the latest release.
 
-Layer optimized for rendering large vector datasets.
+Wraps an OpenLayers
+[WebGLVectorLayer](https://openlayers.org/en/latest/apidoc/module-ol_layer_WebGLVector-WebGLVectorLayer.html),
+used for WebGL rendering of vector data.
+
+## Usage
+
+```html
+<wol-map>
+  <wol-webgl-vector-layer [wolSource]="source" [wolStyle]="style"></wol-webgl-vector-layer>
+</wol-map>
+```
 
 ## Examples
 

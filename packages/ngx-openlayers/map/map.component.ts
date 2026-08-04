@@ -31,6 +31,18 @@ import RenderEvent from 'ol/render/Event';
 
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 
+/**
+ * Wraps an OpenLayers [Map](https://openlayers.org/en/latest/apidoc/module-ol_Map-Map.html) instance, the core
+ * component of OpenLayers responsible for rendering a view, a set of layers, and any controls, interactions
+ * and overlays into a target container.
+ *
+ * @example
+ * ```html
+ * <wol-map [wolView]="view" [wolLayers]="layers"></wol-map>
+ * ```
+ *
+ * @see https://openlayers.org/en/latest/apidoc/module-ol_Map-Map.html
+ */
 @Component({
   selector: 'wol-map',
   imports: [],
@@ -44,35 +56,164 @@ import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
   },
 })
 export class WolMapComponent implements OnChanges {
+  /**
+   * Controls initially added to the map. If not specified, the default controls are used. In a
+   * worker, no controls are added by default.
+   */
   readonly wolControls = input<Collection<Control> | Control[]>();
+
+  /**
+   * The ratio between physical pixels and device-independent pixels (dips) on the device.
+   * Defaults to `window.devicePixelRatio`.
+   */
   readonly wolPixelRatio = input<number>();
+
+  /**
+   * Interactions initially added to the map. If not specified, the default interactions are used.
+   * In a worker, no interactions are added by default.
+   */
   readonly wolInteractions = input<Collection<Interaction> | Interaction[]>();
+
+  /**
+   * The element to listen to keyboard events on. This determines when the `KeyboardPan` and
+   * `KeyboardZoom` interactions trigger. If not specified, keyboard events are listened to on the
+   * map target. If set to something other than `document`, the target element needs a `tabindex`
+   * attribute for key events to be emitted.
+   */
   readonly wolKeyboardEventTarget = input<HTMLElement | Document | string>();
+
+  /**
+   * Layers to render. If not defined, a map with no layers will be rendered. Layers are rendered
+   * in the order supplied, so a layer meant to appear on top must come after the layers below it.
+   */
   readonly wolLayers = input<BaseLayer[] | Collection<BaseLayer> | LayerGroup>();
+
+  /**
+   * Maximum number of tiles to load simultaneously. Defaults to `16`.
+   */
   readonly wolMaxTilesLoading = input<number>();
+
+  /**
+   * The minimum distance in pixels the cursor must move to be detected as a map move event
+   * instead of a click. Increasing this value can make it easier to click on the map. Defaults to
+   * `1`.
+   */
   readonly wolMoveTolerance = input<number>();
+
+  /**
+   * Overlays initially added to the map. By default, no overlays are added.
+   */
   readonly wolOverlays = input<Collection<Overlay> | Overlay[]>();
+
+  /**
+   * The container for the map, either the element itself or the id of the element. Updated
+   * automatically when the map's target changes.
+   */
   readonly wolTarget = model<HTMLElement | string>();
+
+  /**
+   * The map's view. No layer sources will be fetched unless this is specified. Can also be a
+   * promise that resolves to `ViewOptions`, allowing view properties to be resolved by sources or
+   * other components that load view-related metadata.
+   */
   readonly wolView = model<View | Promise<ViewOptions>>();
+
+  /**
+   * Additional properties that will be set to the map instance.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Generic change event. Triggered when the revision counter is increased.
+   */
   readonly wolChange = output<BaseEvent>();
+
+  /**
+   * Triggered when the map's layer group changes.
+   */
   readonly wolLayerGroupChange = output<ObjectEvent>();
+
+  /**
+   * Triggered when the map's size changes.
+   */
   readonly wolSizeChange = output<ObjectEvent>();
+
+  /**
+   * A click with no dragging. A double click will fire two of this event.
+   */
   readonly wolClick = output<MapBrowserEvent<PointerEvent>>();
+
+  /**
+   * A true double click, with no dragging.
+   */
   readonly wolDblclick = output<MapBrowserEvent<PointerEvent>>();
+
+  /**
+   * Generic error event. Triggered when an error occurs.
+   */
   readonly wolError = output<BaseEvent>();
+
+  /**
+   * Triggered when loading of additional map data has completed.
+   */
   readonly wolLoadEnd = output<MapEvent>();
+
+  /**
+   * Triggered when loading of additional map data (tiles, images, features) starts.
+   */
   readonly wolLoadStart = output<MapEvent>();
+
+  /**
+   * Triggered after the map is moved.
+   */
   readonly wolMoveEnd = output<MapEvent>();
+
+  /**
+   * Triggered when the map starts moving.
+   */
   readonly wolMoveStart = output<MapEvent>();
+
+  /**
+   * Triggered when a pointer is dragged.
+   */
   readonly wolPointerDrag = output<MapBrowserEvent<PointerEvent>>();
+
+  /**
+   * Triggered when a pointer is moved. Note that on touch devices this is triggered when the map
+   * is panned, so it is not the same as `mousemove`.
+   */
   readonly wolPointerMove = output<MapBrowserEvent<PointerEvent>>();
+
+  /**
+   * Triggered after layers are composed. Only WebGL layers currently dispatch this event.
+   */
   readonly wolPostCompose = output<RenderEvent>();
+
+  /**
+   * Triggered after a map frame is rendered.
+   */
   readonly wolPostRender = output<MapEvent>();
+
+  /**
+   * Triggered before layers are composed. Only WebGL layers currently dispatch this event.
+   */
   readonly wolPreCompose = output<RenderEvent>();
+
+  /**
+   * Triggered when a property of the map is changed.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
+
+  /**
+   * Triggered when rendering is complete, i.e. all sources and tiles have finished loading for
+   * the current viewport, and all tiles are faded in.
+   */
   readonly wolRenderComplete = output<RenderEvent>();
+
+  /**
+   * A true single click with no dragging and no double click. Note that this event is delayed by
+   * 250 ms to ensure that it is not a double click.
+   */
   readonly wolSingleClick = output<MapBrowserEvent<PointerEvent>>();
 
   private instance?: Map;

@@ -26,6 +26,23 @@ import BaseEvent from 'ol/events/Event';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 
+/**
+ * Wraps an OpenLayers [Overlay](https://openlayers.org/en/latest/apidoc/module-ol_Overlay-Overlay.html)
+ * instance, an element displayed over the map and anchored to a single map location. Unlike a control, an
+ * overlay is tied to a geographical coordinate, so panning the map moves the overlay. The projected content
+ * is rendered inside the overlay's element.
+ *
+ * @example
+ * ```html
+ * <wol-map>
+ *   <wol-overlay [wolPosition]="position">
+ *     <div class="popup">Popup content</div>
+ *   </wol-overlay>
+ * </wol-map>
+ * ```
+ *
+ * @see https://openlayers.org/en/latest/apidoc/module-ol_Overlay-Overlay.html
+ */
 @Component({
   selector: 'wol-overlay',
   exportAs: 'wolOverlay',
@@ -39,19 +56,80 @@ import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolOverlayComponent implements OnChanges {
+  /**
+   * The overlay id. The overlay id can be used with the
+   * [getOverlayById](https://openlayers.org/en/latest/apidoc/module-ol_Map-Map.html#getOverlayById) method.
+   */
   readonly wolId = input<number | string>();
+
+  /**
+   * The overlay element. Defaults to a newly created `div` element when not provided.
+   */
   readonly wolElement = model<HTMLElement>();
+
+  /**
+   * Offsets in pixels used when positioning the overlay, as `[horizontal, vertical]`. A positive
+   * horizontal value shifts the overlay right; a positive vertical value shifts it down. Defaults
+   * to `[0, 0]`.
+   */
   readonly wolOffset = model<number[]>();
+
+  /**
+   * The overlay position, in map projection. Setting this to `undefined` hides the overlay.
+   */
   readonly wolPosition = model<Coordinate>();
+
+  /**
+   * Defines how the overlay is positioned relative to its `wolPosition`. Possible values are
+   * `'bottom-left'`, `'bottom-center'`, `'bottom-right'`, `'center-left'`, `'center-center'`,
+   * `'center-right'`, `'top-left'`, `'top-center'`, and `'top-right'`. Defaults to `'top-left'`.
+   */
   readonly wolPositioning = model<Positioning>();
+
+  /**
+   * Whether event propagation to the map viewport should be stopped. If `true`, the overlay is
+   * placed in the same container as the controls (CSS class `ol-overlaycontainer-stopevent`); if
+   * `false`, it is placed in the container with the CSS class specified by `wolClassName`.
+   * Defaults to `true`.
+   */
   readonly wolStopEvent = input<boolean>();
+
+  /**
+   * Whether the overlay is inserted first in the overlay container, or appended. If placed in the
+   * same container as the controls (see `wolStopEvent`), set this to `true` so the overlay is
+   * displayed below the controls. Defaults to `true`.
+   */
   readonly wolInsertFirst = input<boolean>();
+
+  /**
+   * Pan the map when the overlay position is set, so that the overlay is entirely visible in the
+   * current viewport. Defaults to `false`.
+   */
   readonly wolAutoPan = input<PanIntoViewOptions | boolean>();
+
+  /**
+   * CSS class name for the overlay container. Defaults to `'ol-overlay-container ol-selectable'`.
+   */
   readonly wolClassName = input<string>();
+
+  /**
+   * Additional properties that will be set to the overlay instance.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Generic change event. Triggered when the revision counter is increased.
+   */
   readonly wolChange = output<BaseEvent>();
+
+  /**
+   * Generic error event. Triggered when an error occurs.
+   */
   readonly wolError = output<BaseEvent>();
+
+  /**
+   * Triggered when a property of the overlay is changed.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
 
   private instance?: Overlay;

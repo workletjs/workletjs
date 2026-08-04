@@ -2,12 +2,21 @@
 keyword: OverlayPage
 ---
 
-`Overlay` component creates an element that would be displayed over the map and attached to a single
-map location.
+Wraps an OpenLayers
+[Overlay](https://openlayers.org/en/latest/apidoc/module-ol_Overlay-Overlay.html) instance, an
+element displayed over the map and anchored to a single map location. Unlike a control, an overlay
+is tied to a geographical coordinate, so panning the map moves the overlay. The projected content is
+rendered inside the overlay's element.
 
-Like `Control` components, `Overlay` components are visible widgets. Unlike `Control` components,
-they are not in a fixed position on the screen, but are tied to a geographical coordinate, so
-panning the map will move an `Overlay` but not a `Control`.
+## Usage
+
+```html
+<wol-map>
+  <wol-overlay [wolPosition]="position">
+    <div class="popup">Popup content</div>
+  </wol-overlay>
+</wol-map>
+```
 
 ## Examples
 
