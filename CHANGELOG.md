@@ -1,3 +1,34 @@
+# 22.0.0 (2026-08-07)
+
+### 🚀 Features
+
+- **image-layer:** add wolBackground input to ImageLayer ([8047210](https://github.com/workletjs/workletjs/commit/8047210))
+- **modify-interaction:** add wolSharedVerticesEqual input to Modify ([4357e4f](https://github.com/workletjs/workletjs/commit/4357e4f))
+- **release:** render core dependency updates ([8a501e1](https://github.com/workletjs/workletjs/commit/8a501e1))
+
+### 🩹 Fixes
+
+- **ci:** checkout tag via explicit refs/tags/ ref with detached HEAD ([130558a](https://github.com/workletjs/workletjs/commit/130558a))
+- **ci:** restore CodeQL merge protection results ([6a4045b](https://github.com/workletjs/workletjs/commit/6a4045b))
+- **ci:** skip latest docs deploys for prerelease tags ([08fecb0](https://github.com/workletjs/workletjs/commit/08fecb0))
+- **ci:** serialize docs deploy jobs ([64a1870](https://github.com/workletjs/workletjs/commit/64a1870))
+- **ci:** keep deploy commit messages single-line ([558acbf](https://github.com/workletjs/workletjs/commit/558acbf))
+- **release:** include core dependency upgrades ([31fc4ff](https://github.com/workletjs/workletjs/commit/31fc4ff))
+- **release:** address changelog review feedback ([1d7af36](https://github.com/workletjs/workletjs/commit/1d7af36))
+- **release:** handle npm prerelease dist-tags ([055f100](https://github.com/workletjs/workletjs/commit/055f100))
+- **release:** mark GitHub prereleases ([6ec4663](https://github.com/workletjs/workletjs/commit/6ec4663))
+- **release:** ignore build metadata in dist-tags ([73c1dfb](https://github.com/workletjs/workletjs/commit/73c1dfb))
+- **release:** include all projects in nx release group ([c9f5ea3](https://github.com/workletjs/workletjs/commit/c9f5ea3))
+
+### ⬆️ Core Dependency Updates
+
+- update Angular 22 compatibility ([c0eeef5](https://github.com/workletjs/workletjs/commit/c0eeef5))
+- **deps:** upgrade ol to 10.9.0 ([7468243](https://github.com/workletjs/workletjs/commit/7468243))
+
+### ❤️ Thank You
+
+- Jonnytoshen @Jonnytoshen
+
 ## 22.0.0-beta.2 (2026-08-03)
 
 ### 🩹 Fixes

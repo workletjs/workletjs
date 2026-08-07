@@ -1,6 +1,6 @@
 {
   "name": "@workletjs/ngx-openlayers",
-  "version": "22.0.0-beta.2",
+  "version": "22.0.0",
   "license": "MIT",
   "description": "A modern map component library built with Angular and OpenLayers",
   "author": "Workletjs Team <workletjs@gmail.com>",

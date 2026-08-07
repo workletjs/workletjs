@@ -1,6 +1,6 @@
 {
   "name": "@workletjs/docs",
-  "version": "22.0.0-beta.2",
+  "version": "22.0.0",
   "private": true,
   "dependencies": {
     "@angular/animations": "catalog:angular",
