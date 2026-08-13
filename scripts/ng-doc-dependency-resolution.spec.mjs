@@ -1,10 +1,12 @@
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import test from 'node:test';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 
 const rootRequire = createRequire(import.meta.url);
-const docsRequire = createRequire(pathToFileURL(`${process.cwd()}/apps/docs/package.json`));
+const docsRequire = createRequire(
+  fileURLToPath(new URL('../apps/docs/package.json', import.meta.url)),
+);
 
 test('the workspace and docs app resolve one @ng-doc/app instance', () => {
   assert.equal(
