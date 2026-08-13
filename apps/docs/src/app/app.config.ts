@@ -26,7 +26,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideNativeDateAdapter(),
-    provideRouter(appRoutes),
     // Provide context of the generated documentation
     provideNgDocContext(),
     // Provide default configuration for the documentation app
