@@ -12,7 +12,7 @@
     "format:check": "nx format:check --projects=ngx-openlayers,docs",
     "test:lib": "nx test ngx-openlayers",
     "test:docs": "nx test docs",
-    "test:scripts": "node --test scripts/core-dependency-changelog-renderer.spec.cjs scripts/npm-dist-tag.spec.mjs",
+    "test:scripts": "node --test scripts/core-dependency-changelog-renderer.spec.cjs scripts/ng-doc-dependency-resolution.spec.mjs scripts/npm-dist-tag.spec.mjs",
     "test": "pnpm run test:scripts && pnpm run test:lib && pnpm run test:docs",
     "prepare": "husky",
     "commitlint": "commitlint --edit"
