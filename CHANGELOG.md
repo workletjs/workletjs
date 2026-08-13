@@ -1,3 +1,13 @@
+## 22.0.1 (2026-08-13)
+
+### 🩹 Fixes
+
+- **docs:** dedupe ng-doc dependency resolution ([d56a906](https://github.com/workletjs/workletjs/commit/d56a906))
+
+### ❤️ Thank You
+
+- Jonnytoshen @Jonnytoshen
+
 # 22.0.0 (2026-08-07)
 
 ### 🚀 Features
