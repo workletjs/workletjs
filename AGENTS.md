@@ -42,3 +42,13 @@ Commits follow Conventional Commits, enforced by Commitlint: `feat(map): add rot
 `fix(source): handle missing URL`, or `docs: update guide`. Keep each commit focused. Pull requests
 should explain the change and motivation, link related issues, list validation commands, and include
 screenshots for docs or visual changes. Ensure lint, tests, formatting, and relevant builds pass.
+
+## Agent skills
+
+### Issue tracker
+
+Issues and specs live in `.scratch/<feature-slug>/`. See `docs/agents/issue-tracker.md`.
+
+### Domain docs
+
+Single-context: root `GLOSSARY.md` and `docs/adr/`. See `docs/agents/domain.md`.
