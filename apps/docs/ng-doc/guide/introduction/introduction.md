@@ -114,13 +114,18 @@ together.
 
 ## Version Compatibility Matrix
 
-| Workletjs | Angular | OpenLayers |
-| --------- | ------- | ---------- |
-| ~22.0.0   | ~22.0.0 | ~10.9.0    |
-| ~21.2.0   | ~21.2.0 | ~10.8.0    |
-| ~21.1.0   | ~21.1.0 | ~10.8.0    |
-| ~21.0.0   | ^21.0.0 | ^10.7.0    |
-| <=0.7.0   | ^20.2.0 | ^10.6.1    |
+The current source requires Angular Core and CDK `~22.2.0`. Its package version remains `22.0.1`,
+and this Angular upgrade has not been released. Existing published versions retain their original
+peer dependencies; use the row for the release you install.
+
+| Workletjs                                     | Angular | OpenLayers |
+| --------------------------------------------- | ------- | ---------- |
+| Current source (`22.0.1`; upgrade unreleased) | ~22.2.0 | ~10.9.0    |
+| Published ~22.0.0                             | ~22.0.0 | ~10.9.0    |
+| Published ~21.2.0                             | ~21.2.0 | ~10.8.0    |
+| Published ~21.1.0                             | ~21.1.0 | ~10.8.0    |
+| Published ~21.0.0                             | ^21.0.0 | ^10.7.0    |
+| Published <=0.7.0                             | ^20.2.0 | ^10.6.1    |
 
 ## License
 
