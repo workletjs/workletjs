@@ -32,12 +32,60 @@ pnpm install --frozen-lockfile
 pnpm start          # Serve the docs app locally
 pnpm build          # Build the ngx-openlayers library
 pnpm build:docs     # Build the docs app
+pnpm build:docs-preview # Build docs for the /preview/ path
 pnpm lint           # Lint library and docs
 pnpm test           # Run script, library, and docs tests
 pnpm test:lib       # Run library tests only
 pnpm test:docs      # Run docs tests only
-pnpm test:scripts   # Run release/publish script tests only
+pnpm test:scripts   # Run release, deployment, and dependency contract tests
 ```
+
+### Documentation builds and engine fallback
+
+The docs app uses the NgDoc 22.1 Vite engine. `pnpm build:docs` builds for `/`; the preview shortcut
+builds for `/preview/`. For another deployment path, set `DOCS_BASE_HREF` with leading and trailing
+slashes:
+
+```bash
+DOCS_BASE_HREF=/v22.0.1/ pnpm build:docs
+```
+
+The output is `dist/apps/docs/browser`. The deployment workflows copy `index.html` to `404.html` for
+GitHub Pages deep-link fallback. PR checks build both the library and the production docs. Nx
+caching is disabled for docs builds so that changing the environment cannot reuse the previous
+deployment path; NgDoc's own content cache remains enabled.
+
+The official migration retains the legacy targets with a separate generated-content folder:
+
+```bash
+pnpm exec nx run docs:build-legacy
+pnpm exec nx run docs:serve-legacy
+```
+
+Both engines use the same browser output folder, so run them one at a time. The legacy builder uses
+`--base-href` for subpath builds; `DOCS_BASE_HREF` applies to the Vite engine. Angular size budgets
+remain on the legacy target; the Vite engine does not enforce them.
+
+To restore the legacy `build` and `serve` targets, first commit local changes and preview the
+[official engine revert](https://ng-doc.com/docs/upgrade/migrate-to-the-new-engine/#roll-back) using
+the docs workspace's installed schematic collection:
+
+```bash
+pnpm exec nx g \
+  "$PWD/apps/docs/node_modules/@ng-doc/builder/schematics/collection.json:migrate-to-vite" \
+  --project docs --revert --dry-run
+```
+
+Then run the same command without `--dry-run`. Keep `.ng-doc-migration/docs/`, including its
+original state and backups, committed until engine rollback is no longer needed. The revert restores
+the original targets, removes unchanged files created by the schematic, and cleans both
+generated-content folders and the engine cache. Edited generated configuration files may remain;
+dependencies and the later application, test, and deployment changes remain as well. After an engine
+revert, build preview with `pnpm exec nx build docs --base-href=/preview/` and supply `--base-href`
+for version subpaths, or revert the deployment commits to restore the old shortcuts. Use Git to undo
+the complete upgrade, including dependencies and deployment changes. The
+[migration report](.ng-doc-migration/docs/report.md) records the manual adjustments and rollback
+boundary.
 
 ---
 

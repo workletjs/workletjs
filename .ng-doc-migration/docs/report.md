@@ -85,3 +85,11 @@ dependencies. Your version control remains the primary way back.
 - The original `state.json` and backup remain unmodified. The Vite configuration has deliberate
   follow-up edits, so `--revert` may keep that file while restoring the original targets. Additional
   project files and dependencies also remain; use Git to undo the complete upgrade.
+- Deployment follow-up reads `DOCS_BASE_HREF` in the Vite configuration, defaulting to `/`.
+  `build:docs-preview` supplies `/preview/`; version deployment supplies the resolved tag path.
+  Browser output and Pages SPA fallback keep using `dist/apps/docs/browser`. PR checks now build
+  docs in production, and the root script test command runs deployment contract regressions.
+- An engine-only revert does not undo the new deployment environment interface. The restored legacy
+  builder needs `--base-href` for preview/version paths; use explicit legacy commands or revert the
+  deployment commits as part of a full Git rollback. No migration state hashes or backups were
+  rewritten to hide these follow-up changes.
