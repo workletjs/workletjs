@@ -45,5 +45,7 @@ Blocked by: None
 - 核对 92 个 secondary entry point 全部生成且导出引用的文件均存在。使用 pnpm
   10.34.5 打包后的真实 tarball 中，Angular Core/CDK 的 peer 均为 `~22.2.0`，OpenLayers 为
   `~10.9.0`。锁文件已移除 Angular 21 构建工具。
-- 库 lint 已通过；文档 lint 的三个 NgDoc generated
-  alias 模块边界错误已报告给集成工单 04。文档正式/preview 构建和浏览器冒烟检查由工单 04 继续验收。
+- 库和文档 lint 均已通过。Nx 23.3 将根目录的 NgDoc generated
+  alias 归属为应用，因而误判文档的三个合法导入。修复仅在文档 ESLint 配置中允许 `@ng-doc/generated`
+  及其子路径，完整继承共享配置的 allow、enforceBuildableLibDependency、depConstraints；库配置不变。已检查该例外不匹配相似别名或其他应用导入。
+- 文档正式/preview 构建和浏览器冒烟检查由工单 04 继续验收。
