@@ -101,6 +101,10 @@ describe('WolGoogleSourceComponent', () => {
   let olTileLayer: TileLayer;
 
   beforeEach(async () => {
+    vi.spyOn(Google.prototype, 'fetchSessionToken').mockImplementation(async () =>
+      Response.json({ error: { message: 'Invalid test API key' } }, { status: 403 }),
+    );
+
     await TestBed.configureTestingModule({
       imports: [TestGoogleSourceComponent],
     }).compileComponents();
@@ -121,11 +125,20 @@ describe('WolGoogleSourceComponent', () => {
     olTileLayer = tileLayerComponent.getInstance() as TileLayer;
   });
 
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   // --- Creation ---
 
   it('should create the Google source', () => {
     expect(component).toBeTruthy();
     expect(google).toBeInstanceOf(Google);
+  });
+
+  it('should expose errors returned by the Google session API', () => {
+    expect(google.getState()).toBe('error');
+    expect(google.getError()?.message).toBe('Invalid test API key');
   });
 
   it('should register the source on the tile layer', fakeAsync(() => {
@@ -138,6 +151,10 @@ describe('WolGoogleSourceComponent', () => {
   it('should initialize with wolKey', async () => {
     const inst = await createGoogleInstance((c) => c.wolKey.set('my-key'));
     expect(inst).toBeInstanceOf(Google);
+    expect(Google.prototype.fetchSessionToken).toHaveBeenLastCalledWith(
+      'https://tile.googleapis.com/v1/createSession?key=my-key',
+      expect.objectContaining({ method: 'POST' }),
+    );
   });
 
   it('should initialize with wolAttributions', async () => {
