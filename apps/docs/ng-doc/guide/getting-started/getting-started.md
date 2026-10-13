@@ -2,15 +2,24 @@ This guide will help you get started with `@workletjs/ngx-openlayers` in your An
 
 ## Prerequisites
 
-This library depends on the following peer dependencies:
+Builds from the current source require the following peer dependencies:
 
-- `@angular/core`: ~22.0.0
-- `@angular/cdk`: ~22.0.0
+- `@angular/core`: ~22.2.0
+- `@angular/cdk`: ~22.2.0
 - `ol`: ~10.9.0
 
 Make sure these dependencies are installed in your project.
 
+The source package version remains `22.0.1`; the Angular 22.2 upgrade has not been released.
+Previously published `22.0.x` packages require Angular Core and CDK `~22.0.0`. See the Version
+Compatibility Matrix in Introduction for historical releases.
+
 ## Installation
+
+For the current source build, use an Angular 22.2.x application with OpenLayers `~10.9.0` and CDK
+`~22.2.0`. The commands below install a published release from the registry. Choose Angular and CDK
+versions from that release's peer dependencies, which you can check with
+`npm view @workletjs/ngx-openlayers@<version> peerDependencies`.
 
 ```bash group="Installation" name="npm"
 npm install ol @angular/cdk --save           # install the peerDependencies

@@ -21,7 +21,12 @@ architecture and documented using **[NgDoc](https://ng-doc.com/)**.
 
 ## 🛠 Development Commands
 
-Use the root workspace scripts for common local tasks.
+To develop this workspace, use Node.js `>=24.15.0 <25` and pnpm `10.34.5`. CI uses Node.js 24.
+Install the lockfile-defined dependencies before running the root workspace scripts:
+
+```bash
+pnpm install --frozen-lockfile
+```
 
 ```bash
 pnpm start          # Serve the docs app locally
@@ -38,27 +43,34 @@ pnpm test:scripts   # Run release/publish script tests only
 
 ## 🛠 Prerequisites
 
-This library depends on the following peer dependencies:
+Builds from the current source require the following peer dependencies:
 
-- [`@angular/core`](https://angular.dev/): ~22.0.0
-- [`@angular/cdk`](https://material.angular.dev/cdk): ~22.0.0
+- [`@angular/core`](https://angular.dev/): ~22.2.0
+- [`@angular/cdk`](https://material.angular.dev/cdk): ~22.2.0
 - [`ol`](https://openlayers.org/): ~10.9.0
 
 Make sure these dependencies are installed in your project.
 
+The source package version remains `22.0.1`; the Angular 22.2 upgrade has not been released.
+Previously published packages retain their original peer dependencies: the published `22.0.x` series
+requires Angular Core and CDK `~22.0.0`.
+
 ## 📦 Installation
 
-Install the peerDependencies.
+For the current source build, use an Angular 22.2.x application and install matching peer
+dependencies:
 
 ```bash
-npm install ol @angular/cdk --save
+npm install 'ol@~10.9.0' '@angular/cdk@~22.2.0' --save
 // or
-yarn add ol @angular/cdk
+yarn add 'ol@~10.9.0' '@angular/cdk@~22.2.0'
 // or
-pnpm add ol @angular/cdk
+pnpm add 'ol@~10.9.0' '@angular/cdk@~22.2.0'
 ```
 
-Install this library.
+To install a published release, use the commands below. Choose Angular and CDK versions from that
+release's peer dependencies instead of the current-source requirements above. Check them with
+`npm view @workletjs/ngx-openlayers@<version> peerDependencies`.
 
 ```bash
 npm install @workletjs/ngx-openlayers --save
