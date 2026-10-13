@@ -1,6 +1,6 @@
 # 03：部署子路径与 CI
 
-Status: open
+Status: claimed
 
 Type: task
 
@@ -23,3 +23,5 @@ Blocked by: 01
 ## Comments
 
 - 实施依据：[需求设计](../spec.md)。基于 01 合入后的官方 Vite 配置实施。
+- 2026-10-13：`codex/ng-doc-deployment` 基于集成提交 `87a74c9`
+  领取，复用现有部署回归测试执行红绿验证。

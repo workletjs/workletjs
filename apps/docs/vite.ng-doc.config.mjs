@@ -21,6 +21,7 @@ const fallback = {};
 export default ({ mode }) => {
   const settings = modes[mode] ?? fallback;
   return {
+    base: process.env.DOCS_BASE_HREF ?? '/',
     root: workspace('apps/docs/src'),
     publicDir: false,
     plugins: [
