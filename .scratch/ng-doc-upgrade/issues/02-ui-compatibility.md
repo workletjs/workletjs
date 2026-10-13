@@ -1,6 +1,6 @@
 # 02：文档 UI 与导航兼容
 
-Status: open
+Status: claimed
 
 Type: task
 
@@ -22,3 +22,5 @@ Blocked by: None
 ## Comments
 
 - 实施依据：[需求设计](../spec.md)。可先在当前测试环境验证项目逻辑，与 01 的构建配置改动隔离。
+- 2026-10-13：`codex/ng-doc-ui` 领取，基于集成分支 `codex/ng-doc-upgrade` 的
+  `f410a76`。先以既有 UI 测试验证断点行为，再检查目标版本接口与样式。

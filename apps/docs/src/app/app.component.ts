@@ -59,7 +59,7 @@ export class AppComponent {
       });
 
     breakpointObserver
-      .observe(['(max-width: 1024px)'])
+      .observe(['(max-width: 900px)'])
       .pipe(takeUntilDestroyed())
       .subscribe((result) => {
         this.isSmallScreen.set(result.matches);
