@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "project": "docs",
+  "build": {
+    "name": "build",
+    "legacy": "build-legacy"
+  },
+  "serve": {
+    "name": "serve",
+    "legacy": "serve-legacy"
+  },
+  "retargets": [
+    {
+      "target": "extract-i18n",
+      "before": "docs:build",
+      "after": "docs:build-legacy"
+    }
+  ],
+  "created": {
+    "apps/docs/ng-doc.config.legacy.ts": "c9ee3f8d0a977c66da63969d78fe33dca0fc2446007a80a7a17b5aac4d0e1d76",
+    "apps/docs/tsconfig.app.legacy.json": "bb7bd282a648bdddabbd5de49cbff8b8c7c2bc0d20c3412fb91b09673a8654b0",
+    "apps/docs/vite.ng-doc.config.mjs": "33e5c40be1cbc79d1849ee7cb1873f572dd7d0bc91d7880aec5a47a9f1f8c38e"
+  },
+  "modified": {
+    ".gitignore": "2c355b0ed1f2ce6cde78c5ab5d4aaaebeb8eb7c21a75e7856c2a652ffb647fd1"
+  },
+  "dependencies": {},
+  "generatedFolder": "ng-doc/docs",
+  "cacheFolder": ".cache/ng-doc/docs",
+  "targetHashes": {
+    "build": "b3af2e3f914b2cd7e99eb2ebd3ccdcc3fd0396522b4355d2e523e0f9dbf4caca",
+    "serve": "9fb78fca4d2d6d98647eb66e2822b046be3d14259fdf1e2d02bfa75e61547719"
+  },
+  "legacyFolder": {
+    "folder": "ng-doc-legacy/ng-doc/docs",
+    "edits": [
+      {
+        "target": "build-legacy",
+        "path": [
+          "options",
+          "tsConfig"
+        ],
+        "before": "apps/docs/tsconfig.app.json",
+        "after": "apps/docs/tsconfig.app.legacy.json"
+      },
+      {
+        "target": "build-legacy",
+        "path": [
+          "options",
+          "assets"
+        ],
+        "before": [
+          {
+            "glob": "**/*",
+            "input": "node_modules/@ng-doc/ui-kit/assets",
+            "output": "assets/ng-doc/ui-kit"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@ng-doc/app/assets",
+            "output": "assets/ng-doc/app"
+          },
+          {
+            "glob": "**/*",
+            "input": "ng-doc/docs/assets",
+            "output": "assets/ng-doc"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/docs/public"
+          }
+        ],
+        "after": [
+          {
+            "glob": "**/*",
+            "input": "node_modules/@ng-doc/ui-kit/assets",
+            "output": "assets/ng-doc/ui-kit"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@ng-doc/app/assets",
+            "output": "assets/ng-doc/app"
+          },
+          {
+            "glob": "**/*",
+            "input": "ng-doc-legacy/ng-doc/docs/assets",
+            "output": "assets/ng-doc"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/docs/public"
+          }
+        ]
+      },
+      {
+        "target": "build-legacy",
+        "path": [
+          "options",
+          "ngDoc"
+        ],
+        "after": {
+          "config": "apps/docs/ng-doc.config.legacy.ts"
+        }
+      },
+      {
+        "target": "serve-legacy",
+        "path": [
+          "options"
+        ],
+        "after": {
+          "ngDoc": {
+            "config": "apps/docs/ng-doc.config.legacy.ts"
+          }
+        }
+      }
+    ]
+  }
+}
