@@ -9,6 +9,17 @@ const deployWorkflow = readFileSync(
   'utf8',
 );
 const deployVersionSection = deployWorkflow.match(/  deploy-version:\n[\s\S]*/)?.[0] ?? '';
+const previewWorkflow = readFileSync(
+  fileURLToPath(new URL('../.github/workflows/deploy-preview.yml', import.meta.url)),
+  'utf8',
+);
+const prChecksWorkflow = readFileSync(
+  fileURLToPath(new URL('../.github/workflows/pr-checks.yml', import.meta.url)),
+  'utf8',
+);
+const workspacePackage = JSON.parse(
+  readFileSync(fileURLToPath(new URL('../package.json', import.meta.url)), 'utf8'),
+);
 const deployMetadataFunctions =
   deployWorkflow
     .match(/          resolve_is_prerelease\(\) \{\n[\s\S]*?\n          \}/)?.[0]
@@ -85,13 +96,43 @@ test('deploys versioned docs from resolved tag metadata', () => {
     /ref:\s+refs\/tags\/\$\{\{ needs\.resolve-deploy-metadata\.outputs\.tag_name \}\}/,
   );
   assert.match(
-    deployWorkflow,
-    /--base-href=\/\$\{\{ needs\.resolve-deploy-metadata\.outputs\.tag_name \}\}\//,
+    deployVersionSection,
+    /DOCS_BASE_HREF:\s+\/\$\{\{ needs\.resolve-deploy-metadata\.outputs\.tag_name \}\}\//,
   );
+  assert.match(deployVersionSection, /run:\s+pnpm run build:docs/);
+  assert.doesNotMatch(deployVersionSection, /--base-href|pnpm dlx nx/);
   assert.match(
     deployWorkflow,
     /destination_dir:\s+\$\{\{ needs\.resolve-deploy-metadata\.outputs\.tag_name \}\}/,
   );
+});
+
+test('keeps the preview command and Pages fallback on the preview deployment path', () => {
+  assert.equal(
+    workspacePackage.scripts['build:docs-preview'],
+    'DOCS_BASE_HREF=/preview/ nx build docs',
+  );
+  assert.match(previewWorkflow, /run:\s+pnpm run build:docs-preview/);
+  assert.match(previewWorkflow, /destination_dir:\s+preview/);
+  assert.match(previewWorkflow, /publish_dir:\s+\.\/dist\/apps\/docs\/browser/);
+  assert.match(
+    previewWorkflow,
+    /cp \.\/dist\/apps\/docs\/browser\/index\.html \.\/dist\/apps\/docs\/browser\/404\.html/,
+  );
+});
+
+test('PR checks build both the component library and production documentation', () => {
+  const buildJob = prChecksWorkflow.match(/  build:\n[\s\S]*/)?.[0] ?? '';
+
+  assert.match(buildJob, /node-version:\s+'24'/);
+  assert.match(buildJob, /run:\s+pnpm install --frozen-lockfile/);
+  assert.match(buildJob, /run:\s+pnpm build\s*\n/);
+  assert.match(buildJob, /run:\s+pnpm build:docs\s*\n/);
+});
+
+test('the root test command includes deployment contract regressions', () => {
+  assert.match(workspacePackage.scripts['test:scripts'], /scripts\/deploy-workflow\.spec\.mjs/);
+  assert.match(workspacePackage.scripts.test, /pnpm run test:scripts/);
 });
 
 test('keeps the version deploy commit message on one line', () => {

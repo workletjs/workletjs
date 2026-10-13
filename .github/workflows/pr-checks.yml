@@ -84,3 +84,6 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      - name: Build documentation site
+        run: pnpm build:docs
