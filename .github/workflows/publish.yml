@@ -58,10 +58,9 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v6
         with:
-          # Minimum required: Node >= 22.14.0 (npm Trusted Publishing requirement).
-          # npm >= 11.5.1 is required for OIDC Trusted Publishing; since Node 22.x
-          # bundles npm 10.x, we update npm explicitly in the next step.
-          node-version: '22.14.0'
+          # Use the workspace Node 24 runtime (minimum 24.15.0).
+          # Pin npm to 11.5.1 below for OIDC Trusted Publishing.
+          node-version: '24'
           cache: 'pnpm'
 
       - name: Update npm to required minimum (11.5.1)
@@ -168,8 +167,8 @@ jobs:
           NPM_VERSION=$(npm -v)
           PNPM_VERSION=$(pnpm -v)
 
-          # npm Trusted Publishing requires Node >= 22.14.0 and npm >= 11.5.1
-          check_min_version "Node" "$NODE_VERSION" "22.14.0"
+          # Node follows the workspace minimum; npm follows Trusted Publishing requirements.
+          check_min_version "Node" "$NODE_VERSION" "24.15.0"
           check_min_version "npm"  "$NPM_VERSION"  "11.5.1"
           check_min_version "pnpm" "$PNPM_VERSION" "10.0.0"
           echo ""
