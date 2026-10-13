@@ -2,8 +2,10 @@
 
 Status: resolved
 
-Type: task  
-Labels: ready-for-agent  
+Type: task
+
+Labels: ready-for-agent
+
 Blocked by: None
 
 ## What to build

@@ -2,8 +2,10 @@
 
 Status: resolved
 
-Type: task  
-Labels: ready-for-agent  
+Type: task
+
+Labels: ready-for-agent
+
 Blocked by: None
 
 ## What to build
@@ -24,8 +26,8 @@ Blocked by: None
 
 ## Answer
 
-- 2026-10-13：已合入集成分支 `e572d22`，在独立工作树安装并验证依赖。工具链提交为
-  `d432838`；三个包的版本仍为 `22.0.1`。
+- 2026-10-13：已整合到集成分支，在独立工作树安装并验证依赖。工具链提交为 `0fd0259`；三个包的版本仍为
+  `22.0.1`。
 - catalog 中全部 Nx 包精确为 `23.3.0`，Angular 开发依赖及公开 peer、ng-packagr 为
   `~22.2.0`，Analog 为 `2.8.0`，五个 NgDoc 直接依赖仍为 `22.0.0-beta.2`。
 - 使用 Nx 23.3 CLI，以全部九个直接 Nx 包的 `23.1.0` 版本作为显式 `--from` 基线，配合
