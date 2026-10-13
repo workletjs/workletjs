@@ -13,6 +13,9 @@
 - docs 构建使用 Vite 8.3+，库及文档测试保留 Vite 7、Vitest 4.0.9、Analog 2.8.0。
 - 部署子路径使用 `DOCS_BASE_HREF`；PR CI 增加文档构建；接受官方 UI 与 budgets 差异。
 - 官方 `--revert` 恢复引擎；完整升级通过 Git 回退。
+- [03：部署子路径与 CI](issues/03-deployment-ci.md) 已完成：Vite 读取
+  `DOCS_BASE_HREF`，preview 与版本部署传入子路径，PR 构建 docs；部署回归并入根测试入口，30 项脚本测试和正式/preview 实际产物检查通过。README/迁移报告记录部署接口与引擎回退边界，保留原始 snapshot
+  state/backup。
 - [02：文档 UI 与导航兼容](issues/02-ui-compatibility.md)
   已完成：按官方 22.0/22.1 说明审查应用契约；首页响应式侧栏同步 900px，清理旧 navbar
   shadow 选择器，保留自定义导航、状态与公共 CSS。原依赖环境 docs
