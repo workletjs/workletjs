@@ -1,6 +1,6 @@
 # 01：新引擎及测试隔离
 
-Status: open
+Status: claimed
 
 Type: task
 
@@ -10,7 +10,8 @@ Blocked by: None
 
 ## What to build
 
-文档默认构建与服务运行在 NgDoc 22.1 新引擎，原有测试在兼容的 Vite 7 上执行，且旧引擎可独立运行与回退。
+文档默认构建与服务运行在 NgDoc 22.1 新引擎，原有测试在兼容的 Vite
+7 上执行，且旧引擎可独立运行与回退。
 
 ## Acceptance criteria
 
@@ -23,3 +24,5 @@ Blocked by: None
 ## Comments
 
 - 实施依据：[需求设计](../spec.md)。部署子路径由 03 完成，完整浏览器及回退演练由 04 验收。
+- 2026-10-13：已在 `codex/ng-doc-engine` 领取；基于集成分支
+  `f410a76`，执行官方迁移、依赖解析回归及真实构建验收。
