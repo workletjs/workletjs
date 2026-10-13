@@ -1,6 +1,6 @@
 # 04：集成验收及需求关闭
 
-Status: open  
+Status: claimed  
 Type: task  
 Labels: ready-for-agent  
 Blocked by: 01, 02, 03
