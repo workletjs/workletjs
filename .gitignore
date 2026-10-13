@@ -69,3 +69,9 @@ vitest.config.*.timestamp*
 
 # Local Codex worktrees
 .worktrees/
+
+# NgDoc cache
+/.cache/ng-doc
+
+# NgDoc files of the legacy builders
+/ng-doc-legacy

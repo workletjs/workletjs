@@ -7,6 +7,25 @@
   "tags": [],
   "targets": {
     "build": {
+      "executor": "@ng-doc/builder:vite-application",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "configFile": "apps/docs/vite.ng-doc.config.mjs",
+        "outputPath": "dist/apps/docs"
+      },
+      "configurations": {
+        "production": {
+          "mode": "production"
+        },
+        "development": {
+          "mode": "development"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "build-legacy": {
       "executor": "@ng-doc/builder:application",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
@@ -14,7 +33,7 @@
         "outputPath": "dist/apps/docs",
         "browser": "apps/docs/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/docs/tsconfig.app.json",
+        "tsConfig": "apps/docs/tsconfig.app.legacy.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           {
@@ -29,7 +48,7 @@
           },
           {
             "glob": "**/*",
-            "input": "ng-doc/docs/assets",
+            "input": "ng-doc-legacy/ng-doc/docs/assets",
             "output": "assets/ng-doc"
           },
           {
@@ -61,7 +80,10 @@
           "xml-utils/get-attribute.js",
           "xml-utils/find-tags-by-name.js",
           "colormap"
-        ]
+        ],
+        "ngDoc": {
+          "config": "apps/docs/ng-doc.config.legacy.ts"
+        }
       },
       "configurations": {
         "production": {
@@ -87,22 +109,43 @@
       }
     },
     "serve": {
+      "executor": "@ng-doc/builder:vite-dev-server",
+      "continuous": true,
+      "options": {
+        "configFile": "apps/docs/vite.ng-doc.config.mjs"
+      },
+      "configurations": {
+        "production": {
+          "mode": "production"
+        },
+        "development": {
+          "mode": "development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "serve-legacy": {
       "continuous": true,
       "executor": "@ng-doc/builder:dev-server",
       "defaultConfiguration": "development",
       "configurations": {
         "production": {
-          "buildTarget": "docs:build:production"
+          "buildTarget": "docs:build-legacy:production"
         },
         "development": {
-          "buildTarget": "docs:build:development"
+          "buildTarget": "docs:build-legacy:development"
+        }
+      },
+      "options": {
+        "ngDoc": {
+          "config": "apps/docs/ng-doc.config.legacy.ts"
         }
       }
     },
     "extract-i18n": {
       "executor": "@angular/build:extract-i18n",
       "options": {
-        "buildTarget": "docs:build"
+        "buildTarget": "docs:build-legacy"
       }
     },
     "serve-static": {
