@@ -2,6 +2,10 @@ import nx from '@nx/eslint-plugin';
 
 import baseConfig from '../../eslint.config.mjs';
 
+const moduleBoundaryOptions = baseConfig.findLast(
+  (config) => config.rules?.['@nx/enforce-module-boundaries'],
+).rules['@nx/enforce-module-boundaries'][1];
+
 export default [
   ...baseConfig,
   ...nx.configs['flat/angular'],
@@ -9,6 +13,14 @@ export default [
   {
     files: ['**/*.ts'],
     rules: {
+      '@nx/enforce-module-boundaries': [
+        'error',
+        {
+          ...moduleBoundaryOptions,
+          // NgDoc generates this application alias outside the docs project root.
+          allow: [...moduleBoundaryOptions.allow, '^@ng-doc/generated(?:/.+)?$'],
+        },
+      ],
       '@angular-eslint/directive-selector': [
         'error',
         {
