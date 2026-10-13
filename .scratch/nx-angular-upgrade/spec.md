@@ -1,7 +1,9 @@
 # Nx 23.3.0 与 Angular ~22.2.0 升级需求设计
 
-Status: open  
-Type: task  
+Status: resolved
+
+Type: task
+
 Labels: ready-for-agent
 
 ## Problem Statement
@@ -107,8 +109,8 @@ Labels: ready-for-agent
 ## Further Notes
 
 - 上述范围、配套依赖、Node 策略和测试验收方式均已在讨论中确认，无需重新采访。
-- 本文档记录待实施的需求与验收标准；`ready-for-agent` 表示可开始实施，升级任务状态仍为 `open`。
-- 2026-10-13 调研期间已运行的 17 项脚本测试通过，仅代表当时安装环境下的结果；完整升级验收仍待实施。
+- 本文档记录已实施的需求与验收标准；升级在独立集成分支完成验证，状态为 `resolved`。
+- 2026-10-13 的完整升级验收已完成，详见[验收记录](validation.md)。
 - `~22.2.0` 允许 22.2 系列补丁版本，不跨入 22.3；最终解析结果由更新后的锁文件记录。
 - 后续修改需求时，应保留已确认决策，并将新增讨论追加到本地 issue tracker 的 Comments 部分。
 
@@ -117,3 +119,5 @@ Labels: ready-for-agent
 - 2026-10-13：用户调整本次范围，暂不升级 NgDoc。原定升级至 `22.1.0` 的五个直接依赖改为保留
   `22.0.0-beta.2`；文档构建和运行的兼容性仍需验收。其余已确认版本目标、Node
   24 策略和库版本保持约定继续有效。
+- 2026-10-13：在 `codex/nx-angular-upgrade` 完成实施与验收，工单 01—04 已关闭。保留 NgDoc
+  beta 和库版本约定；验证结果、两轴审查与本地 MapTiler 服务限制见验收记录。

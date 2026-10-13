@@ -22,9 +22,14 @@
   已完成：README、安装指南和兼容矩阵统一当前源码的 Angular Core/CDK `~22.2.0`
   要求及贡献环境说明，格式检查通过；明确包版本仍为 `22.0.1` 且升级尚未发布，保留历史发布兼容范围。
 
+- [04：集成验收及需求关闭](issues/04-integration-validation.md)
+  已 resolved：冻结安装、全部测试、lint、格式、库/docs/preview 构建、92 个入口及 tarball
+  peers、OSM 页面交互全部通过；审查问题已修复，实施子 worktree 已清理。完整结果见[验收记录](validation.md)。
+
 ## Fog
 
-- 保留 NgDoc beta 后的真实文档构建兼容性须由工单 04 验证。
+- 无待决实施问题。保留 NgDoc
+  beta 的正式与 preview 构建已通过；本地首页 MapTiler 授权限制见[验收记录](validation.md)。
 
 ## Tickets
 
