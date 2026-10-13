@@ -8,9 +8,8 @@
   "targets": {
     "build": {
       "executor": "@ng-doc/builder:vite-application",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "cache": false,
+      "outputs": ["{options.outputPath}"],
       "options": {
         "configFile": "apps/docs/vite.ng-doc.config.mjs",
         "outputPath": "dist/apps/docs"
