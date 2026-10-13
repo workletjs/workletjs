@@ -56,16 +56,18 @@ describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let routerEvents: Subject<unknown>;
   let breakpointMatches: Subject<{ matches: boolean }>;
+  let observeBreakpoint: ReturnType<typeof vi.fn>;
 
   beforeEach(async () => {
     routerEvents = new Subject();
     breakpointMatches = new Subject();
+    observeBreakpoint = vi.fn(() => breakpointMatches);
 
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
         { provide: Router, useValue: { events: routerEvents } },
-        { provide: BreakpointObserver, useValue: { observe: () => breakpointMatches } },
+        { provide: BreakpointObserver, useValue: { observe: observeBreakpoint } },
       ],
     })
       // Strip the NgDoc-heavy template so this stays a unit test of AppComponent's own logic.
@@ -109,6 +111,10 @@ describe('AppComponent', () => {
     breakpointMatches.next({ matches: false });
 
     expect(component['isSmallScreen']()).toBe(false);
+  });
+
+  it('uses the 900px boundary of the NgDoc sidebar overlay', () => {
+    expect(observeBreakpoint).toHaveBeenCalledWith(['(max-width: 900px)']);
   });
 
   it('hides the sidebar only on the landing page for large screens', () => {

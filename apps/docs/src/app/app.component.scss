@@ -7,15 +7,7 @@
     --ng-doc-main-padding: 0;
 
     ng-doc-navbar {
-      transition: 300ms ease-in-out;
-
-      &:before {
-        transition: 300ms ease-in-out;
-      }
-
-      &:not(.has-shadow) {
-        --ng-doc-navbar-background: transparent;
-      }
+      --ng-doc-navbar-background: transparent;
     }
   }
 }
