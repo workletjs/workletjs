@@ -1,6 +1,6 @@
 # NgDoc ~22.1.0 升级与新引擎迁移需求设计
 
-Status: open
+Status: resolved
 
 Type: task
 
@@ -159,8 +159,8 @@ CI，以实际构建、浏览器行为和回退演练验收。
 
 ## Further Notes
 
-- 决策日期：2026-10-13。本规格综合已完成的需求讨论，状态为 `open`，标签为
-  `ready-for-agent`；依赖升级与引擎迁移尚待实施。
+- 决策日期：2026-10-13。本规格综合已完成的需求讨论；2026-10-14 实施及验收完成，状态为
+  `resolved`，标签为 `ready-for-agent`。详见 [验收记录](validation.md)。
 - 本任务是[前次 Nx / Angular 升级](../nx-angular-upgrade/spec.md)明确保留 NgDoc
   beta 后的独立后续工作，不修改前次已完成任务的历史范围与验收结论。
 - 官方依据：[Upgrade to 22.0](https://ng-doc.com/docs/upgrade/upgrade-to-22/)、[Migrate to the new engine](https://ng-doc.com/docs/upgrade/migrate-to-the-new-engine/)。
@@ -179,3 +179,10 @@ CI，以实际构建、浏览器行为和回退演练验收。
   环境变量替代新 builder 不支持的子路径构建参数，保留 preview 快捷命令。
 - 2026-10-13：用户要求将已讨论方案整理为需求设计文档；本文已发布到本地 issue
   tracker，未执行依赖升级、引擎迁移或部署。
+- 2026-10-14：01–04 工单完成，集成至 `codex/ng-doc-upgrade`；完整验证、官方回退演练及 Standards /
+  Spec 两轴审查通过。系统剪贴板的工具验证限制见验收记录，未发布包或部署站点。
+
+## Answer
+
+五个 NgDoc 包升级至 22.1.0，默认文档构建及服务迁至官方 Vite 新引擎；保留 legacy 与原始回退快照，隔离构建/测试 Vite，上线前的子路径和 PR 构建契约已更新。全部工单 resolved，验证结果及聚焦提交记录见
+[validation.md](validation.md)。
