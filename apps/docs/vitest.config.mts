@@ -1,12 +1,13 @@
 /// <reference types='vitest' />
-import angular from '@analogjs/vite-plugin-angular';
-import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import { defineConfig } from 'vitest/config';
+
+import { angularVitestPlugin } from '../../tools/testing/angular-vitest-plugin';
 
 export default defineConfig(() => ({
   root: import.meta.dirname,
   cacheDir: '../../node_modules/.vite/apps/docs',
-  plugins: [angular(), tsconfigPaths()],
+  plugins: [angularVitestPlugin(), tsconfigPaths()],
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [tsconfigPaths()],

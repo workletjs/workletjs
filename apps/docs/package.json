@@ -38,7 +38,7 @@
     "postcss": "catalog:docs",
     "postcss-url": "catalog:docs",
     "tailwindcss": "catalog:docs",
-    "vite": "catalog:testing",
+    "vite": "catalog:docs",
     "vite-tsconfig-paths": "catalog:testing",
     "vitest": "catalog:testing",
     "resize-observer-polyfill": "catalog:testing"

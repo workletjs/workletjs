@@ -22,13 +22,14 @@
     "node": ">=24.15.0 <25"
   },
   "devDependencies": {
-    "@angular/animations": "catalog:angular",
-    "@angular/cdk": "catalog:angular",
-    "@angular/common": "catalog:angular",
+    "@analogjs/vite-plugin-angular": "catalog:testing",
     "@angular-devkit/core": "catalog:angular",
     "@angular-devkit/schematics": "catalog:angular",
+    "@angular/animations": "catalog:angular",
     "@angular/build": "catalog:angular",
+    "@angular/cdk": "catalog:angular",
     "@angular/cli": "catalog:angular",
+    "@angular/common": "catalog:angular",
     "@angular/compiler": "catalog:angular",
     "@angular/compiler-cli": "catalog:angular",
     "@angular/core": "catalog:angular",
@@ -82,6 +83,7 @@
     "typescript": "catalog:tooling",
     "typescript-eslint": "catalog:quality",
     "verdaccio": "catalog:tooling",
+    "vite": "catalog:testing",
     "vitest": "catalog:testing",
     "zone.js": "catalog:"
   },
