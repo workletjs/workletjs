@@ -5,9 +5,12 @@ import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig(() => ({
-  root: __dirname,
+  root: import.meta.dirname,
   cacheDir: '../../node_modules/.vite/packages/ngx-openlayers',
-  plugins: [angular({ tsconfig: resolve(__dirname, 'tsconfig.spec.json') }), tsconfigPaths()],
+  plugins: [
+    angular({ tsconfig: resolve(import.meta.dirname, 'tsconfig.spec.json') }),
+    tsconfigPaths(),
+  ],
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [tsconfigPaths()],

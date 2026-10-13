@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig(() => ({
-  root: __dirname,
+  root: import.meta.dirname,
   cacheDir: '../../node_modules/.vite/apps/docs',
   plugins: [angular(), tsconfigPaths()],
   // Uncomment this if you are using workers.
