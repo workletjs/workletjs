@@ -1,6 +1,6 @@
 # 02：文档版本与 NEW 标签
 
-Status: open
+Status: claimed
 
 Type: task
 
