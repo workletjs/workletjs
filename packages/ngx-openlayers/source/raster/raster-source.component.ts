@@ -18,7 +18,9 @@ import { EventsKey } from 'ol/events';
 import BaseEvent from 'ol/events/Event';
 import Layer from 'ol/layer/Layer';
 import { Source } from 'ol/source';
+import DataTileSource from 'ol/source/DataTile';
 import { ImageSourceEvent } from 'ol/source/Image';
+import ImageTileSource from 'ol/source/ImageTile';
 import RasterSource, { Operation, RasterOperationType, RasterSourceEvent } from 'ol/source/Raster';
 import { AttributionLike } from 'ol/source/Source';
 
@@ -205,10 +207,15 @@ export class WolRasterSourceComponent implements OnChanges {
       return;
     }
 
-    const layers = createLayers(this.sources.getArray());
+    const sources = this.sources.getArray();
+    const layers = createLayers(sources);
     const layerStatesArray = layers.map((layer) => layer.getLayerState());
 
-    this.instance['layers_'] = createLayers(this.sources.getArray());
+    // Keep the native-array sampling mode aligned with OpenLayers 10.11 source order.
+    this.instance['sampleArrayData_'] = sources.map(
+      (source) => source instanceof DataTileSource && !(source instanceof ImageTileSource),
+    );
+    this.instance['layers_'] = layers;
     this.instance['frameState_'] = {
       ...this.instance['frameState_'],
       layerStatesArray,
