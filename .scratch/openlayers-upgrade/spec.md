@@ -80,6 +80,8 @@ Raster 组件现有的动态 source 增删逻辑直接同步 OpenLayers 内部 l
 36. 作为文档读者，我希望 `EXPERIMENTAL` 等其他状态继续显示，以便仍能判断组件的实验状态。
 37. 作为文档维护者，我希望正式与 preview 构建都包含标签清理结果，以便生成内容不会保留过时的 `NEW`
     标记。
+38. 作为 BingMaps 使用者，我希望页面显示 `Deprecated` 标签，并通过 NgDoc Alert
+    Callout 了解上游弃用原因和迁移指引，以便醒目地识别服务生命周期风险。
 
 ## Implementation Decisions
 
@@ -104,7 +106,9 @@ Raster 组件现有的动态 source 增删逻辑直接同步 OpenLayers 内部 l
   capabilities 的 extent、wrapX 和 tile matrix limits 变化。
 - 沿用上游对 `Intl.Segmenter`
   的要求。需要兼容缺少该能力的旧浏览器时，由宿主应用提供polyfill；组件库不新增对应运行时依赖。
-- 保留现有 BingMaps 组件及接口，注明上游弃用状态，不在本次迁移到其他地图服务。
+- 保留现有 BingMaps 组件及接口，注明上游弃用状态，不在本次迁移到其他地图服务。页面使用
+  `@status:alert Deprecated` 标签，并将弃用说明放入 `> **Alert**`
+  Callout；正式与 preview 构建均应正确展示。
 - 同步根目录与库 README、入门指南和 Introduction 中当前源码的兼容要求；更新 Snap 文档中的固定版本 API 链接。历史发布兼容矩阵、历史升级验收记录以及测试中的历史版本样例保留原值。
 - 文档继续区分当前源码与已发布包，并指导使用者查看所选发布版本的 peerDependencies。
 - 组件文档清理覆盖全部组件分类及组件目录中的相关文档页面，移除 NgDoc 页面元数据中的
@@ -179,3 +183,6 @@ Raster 组件现有的动态 source 增删逻辑直接同步 OpenLayers 内部 l
   实施，全部工单交付。2377 项测试、库及正式/preview 文档构建、真实 tarball 和导航检查通过；Standards
   / Spec 均为 0
   findings。两项 GeoTIFF 示例的远端数据限制如实记录，未记为通过。实现者 worktree 已清理，未发布或部署。
+- 2026-10-14：PR #52 创建后，用户补充要求为 BingMaps Source 添加 `Deprecated`
+  标签，并将说明改为NgDoc Alert
+  Callout；由[04 工单](issues/04-bingmaps-deprecation.md)追踪和补充验收。

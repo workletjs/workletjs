@@ -166,3 +166,27 @@ Commits，依赖、行为修复、测试适配和文档分别记录。工单状�
 下创建，全部交付合入后已移除，三个临时实现分支也已安全删除；当前项目保留集成分支。临时浏览器及本机静态服务已关闭，未发布包或部署站点。
 
 审查汇总：Standards 0 项；Spec 0 项。
+
+## BingMaps 弃用展示补充验收
+
+2026-10-14，按 [PR #52](https://github.com/workletjs/workletjs/pull/52) 创建后的补充需求完成
+[04 工单](issues/04-bingmaps-deprecation.md)。BingMaps 页面使用 `@status:alert Deprecated`
+标签，现有弃用段落按 [NgDoc 官方用法](https://ng-doc.com/docs/write-content/markdown-and-callouts/)
+改为 Alert Callout，保留弃用原因、现有 API 可用说明和上游迁移链接。
+
+- `NX_DAEMON=false NX_ISOLATE_PLUGINS=false NX_SKIP_NX_CACHE=true pnpm test:docs` 通过。
+- 相同环境下 `pnpm nx lint docs --output-style=static` 通过。
+- 相同环境下 `pnpm build:docs`、`pnpm build:docs-preview` 通过，分别实际生成 `/` 和 `/preview/`。
+- 相关 Markdown、页面配置的 Prettier 检查及 `git diff --check` 通过。
+- 生成导航保持 0 个 NEW、3 个 EXPERIMENTAL，仅 BingMaps 新增 1 个 Deprecated。生成正文含原生
+  `type="alert"` Callout。
+- 两种构建均通过本地实际页面检查：侧栏显示红色 Deprecated 标签，正文显示红色 Alert、完整说明及迁移链接。
+- 只读独立审阅无发现；没有组件运行时行为变更，未新增镜像实现的测试。
+
+浏览器首次使用错误路径 `/source/bing-maps`，后改为生成路由中的
+`/components/sources/bing-maps`；期间有一次动态 chunk 加载失败。构建完成后重新访问正确路径，正式与 preview 均成功显示，没有据此更改组件或文档配置。示例沿用原 API
+key，本次仅验收标签与 Callout，不将 Bing Maps 底图加载列为通过项。
+
+![正式文档的 Deprecated 标签与 Alert](screenshots/bingmaps-deprecated-production.jpg)
+
+![preview 文档的 Deprecated 标签与 Alert](screenshots/bingmaps-deprecated-preview.jpg)
