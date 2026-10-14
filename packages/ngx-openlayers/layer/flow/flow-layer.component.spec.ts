@@ -64,7 +64,7 @@ describe('WolFlowLayerComponent', () => {
 
   it('should update style when wolStyle input changes', () => {
     const updateStyleSpy = vi.spyOn(flowLayer, 'updateStyleVariables');
-    const newStyle: Style = { color: 'blue' };
+    const newStyle: Style = { color: '#0000ff' };
     testComponent.style.set(newStyle);
     fixture.detectChanges();
     expect(updateStyleSpy).toHaveBeenCalledWith(newStyle);
@@ -318,7 +318,8 @@ class TestFlowLayerComponent {
   maxSpeed = signal(100);
   speedFactor = signal(0.1);
   particles = signal(256);
-  style = signal<Style>({ color: 'red' });
+  // Hex colors use OpenLayers' fast parser; jsdom does not provide a canvas.
+  style = signal<Style>({ color: '#ff0000' });
   className = signal('custom-class');
   opacity = signal(0.8);
   visible = signal(true);

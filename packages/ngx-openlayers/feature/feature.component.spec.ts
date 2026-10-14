@@ -244,7 +244,8 @@ describe('WolFeatureComponent', () => {
       fixture.detectChanges();
 
       const feature = featureComponent.getInstance();
-      expect(feature?.getStyle()).toBeUndefined();
+      expect(feature?.getStyle()).toBeNull();
+      expect(feature?.getStyleFunction()).toBeUndefined();
     }));
   });
 
