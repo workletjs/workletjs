@@ -8,6 +8,8 @@
 - 01、02 可并行；03 依赖 01、02。各实现分支完成后合入集成分支，再执行两轴审查。
 - 工单使用独立文件及 `Status: open`、`claimed`、`resolved`；关闭时附 Answer 和本图摘要。
 - 独立 `tdd` 技能未安装；实现沿现有测试完成失败回归、最小修复和通过验证。
+- PR：[workletjs/workletjs#52](https://github.com/workletjs/workletjs/pull/52)。创建后的补充需求由
+  [04：BingMaps 弃用标签与 Alert Callout](issues/04-bingmaps-deprecation.md)追踪。
 
 ## Decisions-so-far
 
@@ -27,6 +29,9 @@
 - 固定范围 `b96207d...5488711` 的 Standards / Spec 两轴审查均为 0
   findings。三个实现者 worktree 和已合入临时分支均已清理，规格与全部工单关闭；保留集成分支
   `codex/openlayers-upgrade` 及完整提交历史。
+- [04：BingMaps 弃用标签与 Alert Callout](issues/04-bingmaps-deprecation.md)已完成：添加
+  `@status:alert Deprecated`，现有弃用说明使用 NgDoc Alert
+  Callout；docs 测试、lint、正式及 preview 构建、页面视觉验收均通过，截图附于[验收记录](validation.md#bingmaps-弃用展示补充验收)。
 
 ## Fog
 
@@ -37,3 +42,4 @@
 - [01：依赖升级与 Raster 兼容](issues/01-dependencies-and-raster.md)
 - [02：文档版本与 NEW 标签](issues/02-docs-and-statuses.md)
 - [03：集成验收](issues/03-integration-validation.md)
+- [04：BingMaps 弃用标签与 Alert Callout](issues/04-bingmaps-deprecation.md)
