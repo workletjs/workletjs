@@ -1,6 +1,6 @@
 # 03：集成验收
 
-Status: open
+Status: claimed
 
 Type: task
 
@@ -27,3 +27,4 @@ Blocked by: 01, 02
 
 - 2026-10-14：依赖 01、02 合入；本地 Nx 检查可使用 `NX_DAEMON=false NX_ISOLATE_PLUGINS=false`。
 - 审查固定基线为 `b96207ddddbd39bb36e2fdf918142f3da91cbdd2`。
+- 2026-10-14：01、02 均已 resolved 并合入集成分支，开始完整检查、产物和浏览器验收及两轴审查。

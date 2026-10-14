@@ -17,6 +17,11 @@
 - [02：文档版本与 NEW 标签](issues/02-docs-and-statuses.md)已完成并快进合入：`6c98d72`
   同步 OpenLayers 10.11 版本与迁移说明，`4441165`
   移除 82 个组件 NEW 声明并保留 3 个 EXPERIMENTAL；docs 测试、lint 和受影响文件格式检查通过。
+- [01：依赖升级与 Raster 兼容](issues/01-dependencies-and-raster.md)已完成并快进合入：`690e678`
+  升级依赖，`d18f771` 修复动态 Raster 原生浮点采样，`cd9aff5`
+  适配上游测试行为；真实失败回归已确认，修复后 29 项 Raster 测试和全库 2311 项测试通过。完成记录为
+  `52bd57a`。
+- 01、02 均已 resolved，[03：集成验收](issues/03-integration-validation.md)已 claimed，开始完整验证、产物和浏览器验收及两轴审查。
 
 ## Fog
 
