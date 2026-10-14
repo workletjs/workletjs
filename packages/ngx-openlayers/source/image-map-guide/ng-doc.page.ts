@@ -3,9 +3,6 @@ import { NgDocPage } from '@ng-doc/core';
 import SourcesCategory from '../../ng-doc/sources/ng-doc.category';
 import { WolMapGuideUntiledExampleComponent } from './examples';
 
-/**
- * @status:info NEW
- */
 const ImageMapGuideSourcePage: NgDocPage = {
   title: 'ImageMapGuide',
   mdFile: './docs/index.md',

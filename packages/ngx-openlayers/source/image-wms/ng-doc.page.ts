@@ -8,9 +8,6 @@ import {
   WolSingleImageWMSExampleComponent,
 } from './examples';
 
-/**
- * @status:info NEW
- */
 const ImageWMSSourcePage: NgDocPage = {
   title: 'ImageWMS',
   mdFile: './docs/index.md',

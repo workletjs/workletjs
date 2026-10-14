@@ -6,9 +6,6 @@ import {
   WolSnapInteractionExampleComponent,
 } from './examples';
 
-/**
- * @status:info NEW
- */
 const SnapInteractionPage: NgDocPage = {
   title: 'Snap',
   mdFile: './docs/index.md',

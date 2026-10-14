@@ -95,13 +95,16 @@ Builds from the current source require the following peer dependencies:
 
 - [`@angular/core`](https://angular.dev/): ~22.2.0
 - [`@angular/cdk`](https://material.angular.dev/cdk): ~22.2.0
-- [`ol`](https://openlayers.org/): ~10.9.0
+- [`ol`](https://openlayers.org/): ~10.11.0
 
 Make sure these dependencies are installed in your project.
 
-The source package version remains `22.0.1`; the Angular 22.2 upgrade has not been released.
-Previously published packages retain their original peer dependencies: the published `22.0.x` series
-requires Angular Core and CDK `~22.0.0`.
+Text along paths requires `Intl.Segmenter`. Host applications supporting browsers without it must
+provide a [polyfill](https://formatjs.github.io/docs/polyfills/intl-segmenter/).
+
+The source package version remains `22.0.1`; the Angular 22.2 and OpenLayers 10.11 upgrades have not
+been released. Previously published packages retain their original peer dependencies: the published
+`22.0.x` series requires Angular Core and CDK `~22.0.0` and OpenLayers `~10.9.0`.
 
 ## 📦 Installation
 
@@ -109,16 +112,16 @@ For the current source build, use an Angular 22.2.x application and install matc
 dependencies:
 
 ```bash
-npm install 'ol@~10.9.0' '@angular/cdk@~22.2.0' --save
+npm install 'ol@~10.11.0' '@angular/cdk@~22.2.0' --save
 // or
-yarn add 'ol@~10.9.0' '@angular/cdk@~22.2.0'
+yarn add 'ol@~10.11.0' '@angular/cdk@~22.2.0'
 // or
-pnpm add 'ol@~10.9.0' '@angular/cdk@~22.2.0'
+pnpm add 'ol@~10.11.0' '@angular/cdk@~22.2.0'
 ```
 
-To install a published release, use the commands below. Choose Angular and CDK versions from that
-release's peer dependencies instead of the current-source requirements above. Check them with
-`npm view @workletjs/ngx-openlayers@<version> peerDependencies`.
+To install a published release, use the commands below. Choose Angular, CDK and OpenLayers versions
+from that release's peer dependencies instead of the current-source requirements above. Check them
+with `npm view @workletjs/ngx-openlayers@<version> peerDependencies`.
 
 ```bash
 npm install @workletjs/ngx-openlayers --save

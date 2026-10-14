@@ -3,9 +3,6 @@ import { NgDocPage } from '@ng-doc/core';
 import SourcesCategory from '../../ng-doc/sources/ng-doc.category';
 import { WolSeaLevelExampleComponent } from './examples';
 
-/**
- * @status:info NEW
- */
 const RasterSourcePage: NgDocPage = {
   title: 'Raster',
   mdFile: './docs/index.md',

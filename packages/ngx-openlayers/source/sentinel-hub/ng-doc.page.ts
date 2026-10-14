@@ -6,9 +6,6 @@ import {
   WolSentinelHubExampleComponent,
 } from './examples';
 
-/**
- * @status:info NEW
- */
 const SentinelHubSourcePage: NgDocPage = {
   title: 'SentinelHub',
   mdFile: './docs/index.md',

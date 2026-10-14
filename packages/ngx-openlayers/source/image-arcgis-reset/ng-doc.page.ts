@@ -3,9 +3,6 @@ import { NgDocPage } from '@ng-doc/core';
 import SourcesCategory from '../../ng-doc/sources/ng-doc.category';
 import { WolArcGISImageExampleComponent } from './examples';
 
-/**
- * @status:info NEW
- */
 const ImageArcGISResetSourcePage: NgDocPage = {
   title: 'ImageArcGISRest',
   mdFile: './docs/index.md',

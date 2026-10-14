@@ -6,9 +6,6 @@ import {
   WolFullScreenControlSourceExampleComponent,
 } from './examples';
 
-/**
- * @status:info NEW
- */
 const FullscreenControlPage: NgDocPage = {
   title: 'Fullscreen',
   mdFile: './docs/index.md',

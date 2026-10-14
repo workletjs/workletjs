@@ -6,9 +6,6 @@ import {
   WolStadiaMapsSourceStamenTileLayerCompositionExampleComponent,
 } from './examples';
 
-/**
- * @status:info NEW
- */
 const StadiaMapsSourcePage: NgDocPage = {
   title: 'StadiaMaps',
   mdFile: './docs/index.md',

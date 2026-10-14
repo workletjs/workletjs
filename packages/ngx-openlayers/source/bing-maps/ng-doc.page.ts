@@ -3,9 +3,6 @@ import { NgDocPage } from '@ng-doc/core';
 import SourcesCategory from '../../ng-doc/sources/ng-doc.category';
 import { WolBingMapsExampleComponent } from './examples';
 
-/**
- * @status:info NEW
- */
 const BingMapsSourcePage: NgDocPage = {
   title: 'BingMaps',
   mdFile: './docs/index.md',

@@ -14,6 +14,9 @@
 - Raster 保留实例并同步原生 DataTile 采样状态，通过真实公开读取验证。
 - 从全部组件文档元数据移除 NEW，保留 EXPERIMENTAL；安装与迁移说明同步。
 - 不执行包发布或站点部署。
+- [02：文档版本与 NEW 标签](issues/02-docs-and-statuses.md)已完成并快进合入：`6c98d72`
+  同步 OpenLayers 10.11 版本与迁移说明，`4441165`
+  移除 82 个组件 NEW 声明并保留 3 个 EXPERIMENTAL；docs 测试、lint 和受影响文件格式检查通过。
 
 ## Fog
 

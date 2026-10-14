@@ -6,9 +6,6 @@ import {
   WolOGCVectorTilesGeographicExampleComponent,
 } from './examples';
 
-/**
- * @status:info NEW
- */
 const OGCVectorTileSourcePage: NgDocPage = {
   title: 'OGCVectorTile',
   mdFile: './docs/index.md',

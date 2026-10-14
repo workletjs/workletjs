@@ -9,9 +9,6 @@ import {
   WolCoordinateToStringXYExampleComponent,
 } from './examples';
 
-/**
- * @status:info NEW
- */
 const CoordinatePage: NgDocPage = {
   title: 'Coordinate',
   mdFile: './docs/index.md',

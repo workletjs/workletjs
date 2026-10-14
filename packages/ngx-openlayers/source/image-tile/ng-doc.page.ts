@@ -7,9 +7,6 @@ import {
   WolImageTileXYZRetinaExampleComponent,
 } from './examples';
 
-/**
- * @status:info NEW
- */
 const ImageTileSourcePage: NgDocPage = {
   title: 'ImageTile',
   mdFile: './docs/index.md',
