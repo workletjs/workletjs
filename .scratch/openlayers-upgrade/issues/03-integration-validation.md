@@ -1,6 +1,6 @@
 # 03：集成验收
 
-Status: claimed
+Status: resolved
 
 Type: task
 
@@ -20,8 +20,8 @@ Blocked by: 01, 02
 - [x] 正式与 preview 导航元数据不含 NEW，保留全部 EXPERIMENTAL 和原有页面结构。
 - [x] 浏览器检查 OSM 交互、向量图层旋转、矢量瓦片及 GeoTIFF/WebGL，保存截图与控制台检查结果。
 - [x] 浏览器中组件导航和页面不展示 NEW，EXPERIMENTAL 仍显示；外部服务限制如实记录。
-- [ ] 保存验收记录并关闭工单；集成分支完成 Standards / Spec 两轴审查、解决发现后关闭规格。
-- [ ] 清理实现者 worktree，保留集成分支和清晰提交记录，不发布或部署。
+- [x] 保存验收记录并关闭工单；集成分支完成 Standards / Spec 两轴审查、解决发现后关闭规格。
+- [x] 清理实现者 worktree，保留集成分支和清晰提交记录，不发布或部署。
 
 ## Comments
 
@@ -29,6 +29,8 @@ Blocked by: 01, 02
 - 审查固定基线为 `b96207ddddbd39bb36e2fdf918142f3da91cbdd2`。
 - 2026-10-14：01、02 均已 resolved 并合入集成分支，开始完整检查、产物和浏览器验收及两轴审查。
 - 2026-10-14：独立验收完成；两轴审查、规格关闭及实现者工作区清理由父集成流程在合入后继续完成，末两项在实际完成时勾选。
+- 2026-10-14：集成后两轴审查均为 0
+  findings；三个实现者 worktree 及已合入临时分支清理完成，关闭本工单与规格。
 
 ## Answer
 
@@ -41,3 +43,6 @@ Blocked by: 01, 02
   403 或重定向为 HTML 而未通过，记录 2 条请求错误及获准联网的 HEAD /
   Range 请求证据，没有修改 URL 或授权配置。
 - 截图、命令、真实统计、产物检查及限制详见[验收记录](../validation.md)。临时旋转 fixture 仅使用现有公开输入，构建后已还原，不进入提交；未发布或部署。
+- 已完成 `b96207d...5488711` 的独立 Standards / Spec 审查，均为 0
+  findings。已清理全部三个实现者 worktree 和对应临时分支；临时浏览器及本机服务已关闭，保留集成分支
+  `codex/openlayers-upgrade` 和全部实施提交。

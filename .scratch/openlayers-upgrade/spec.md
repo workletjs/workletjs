@@ -1,6 +1,6 @@
 # OpenLayers ~10.11.0 升级与组件 NEW 标签移除需求设计
 
-Status: open
+Status: resolved
 
 Type: task
 
@@ -157,7 +157,7 @@ Raster 组件现有的动态 source 增删逻辑直接同步 OpenLayers 内部 l
 
 - 本文根据已完成的需求讨论整理。统一 peer 范围、限定升级范围、宿主提供 polyfill 以及接受上游行为修正均已由用户确认；后续实施不需要重新采访这些决策。
 - 用户后续补充的全部组件文档 `NEW` 标签移除已纳入本次范围，并复用文档同步与集成验收任务。
-- 其余默认约定沿用已提出的完整计划：保留包版本和工具链，以公开行为、实际 tarball 和浏览器示例验收。本次文档发布仅表示需求可供实施，不表示升级或验证已经完成。
+- 其余默认约定沿用已提出的完整计划：保留包版本和工具链，以公开行为、实际 tarball 和浏览器示例验收。本次已在独立集成分支完成实施、验收及两轴审查；结果与外部数据服务限制见[验收记录](validation.md)。
 - 实施需同时参考两个跨越版本的官方说明：
   [OpenLayers 10.10.0](https://github.com/openlayers/openlayers/releases/tag/v10.10.0) 和
   [OpenLayers 10.11.0](https://github.com/openlayers/openlayers/releases/tag/v10.11.0)。
@@ -175,3 +175,7 @@ Raster 组件现有的动态 source 增删逻辑直接同步 OpenLayers 内部 l
   `ready-for-agent`。
 - 2026-10-14：用户补充要求移除文档中所有组件的 `NEW`
   标签；已补充用户故事、来源清理方案及正式和 preview 文档验收要求，保留其他状态标签。
+- 2026-10-14：按用户要求在 `codex/openlayers-upgrade`
+  实施，全部工单交付。2377 项测试、库及正式/preview 文档构建、真实 tarball 和导航检查通过；Standards
+  / Spec 均为 0
+  findings。两项 GeoTIFF 示例的远端数据限制如实记录，未记为通过。实现者 worktree 已清理，未发布或部署。
