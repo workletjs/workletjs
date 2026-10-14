@@ -1,0 +1,193 @@
+{
+  "checkedAt": "2026-10-14T01:45:18.552881+00:00",
+  "checks": [
+    {
+      "url": "https://openlayers.org/data/raster/no-overviews.tif",
+      "method": "HEAD",
+      "requestHeaders": {
+        "Origin": "http://127.0.0.1:4195"
+      },
+      "status": 403,
+      "headers": {
+        "Date": "Wed, 14 Oct 2026 01:45:13 GMT",
+        "Content-Type": "text/plain; charset=UTF-8",
+        "Content-Length": "17",
+        "Connection": "close",
+        "Cache-Control": "private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+        "Expires": "Thu, 01 Jan 1970 00:00:01 GMT",
+        "Referrer-Policy": "same-origin",
+        "X-Frame-Options": "SAMEORIGIN",
+        "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=BxjNeMKpM8MBgNef25%2FO%2BiPi4HCUT1dPjH4TtpZtUTJyt40b6OO9%2FFFDwJA9nV0yVLXOyLpztOpjBwwwgS8zoQrGI4kXhUZwzLv1myHfrUqa7S52MdlnYEOOfYPeqmIk4A%3D%3D\"}]}",
+        "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "Server-Timing": "cfEdge;dur=5,cfOrigin;dur=0",
+        "Server": "cloudflare",
+        "CF-RAY": "a4a2e7466bae9465-SJC",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      },
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://openlayers.org/data/raster/no-overviews.tif",
+      "method": "GET",
+      "requestHeaders": {
+        "Origin": "http://127.0.0.1:4195",
+        "Range": "bytes=0-1023"
+      },
+      "status": 403,
+      "headers": {
+        "Date": "Wed, 14 Oct 2026 01:45:13 GMT",
+        "Content-Type": "text/plain; charset=UTF-8",
+        "Content-Length": "17",
+        "Connection": "close",
+        "Cache-Control": "private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+        "Expires": "Thu, 01 Jan 1970 00:00:01 GMT",
+        "Referrer-Policy": "same-origin",
+        "Server-Timing": "cfEdge;dur=2,cfOrigin;dur=0",
+        "X-Frame-Options": "SAMEORIGIN",
+        "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Cr86PZ2WmFkonkNpcdbl5vNn6JqMZUxFnYOiB7Mpz9WT0uB%2Fr0%2B%2B%2F2fjP8TXgske%2BcKf9WQNt1ng2YO3YMdfwW04htX4Cv%2BxRYKVXazJl7HwqRf9hz4nEXLAswWY4uAqZQ%3D%3D\"}]}",
+        "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "Server": "cloudflare",
+        "CF-RAY": "a4a2e7466efdeb22-SJC",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      },
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://openlayers.org/data/raster/no-overviews.tif.ovr",
+      "method": "HEAD",
+      "requestHeaders": {
+        "Origin": "http://127.0.0.1:4195"
+      },
+      "status": 403,
+      "headers": {
+        "Date": "Wed, 14 Oct 2026 01:45:14 GMT",
+        "Content-Type": "text/plain; charset=UTF-8",
+        "Content-Length": "17",
+        "Connection": "close",
+        "Cache-Control": "private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+        "Expires": "Thu, 01 Jan 1970 00:00:01 GMT",
+        "Referrer-Policy": "same-origin",
+        "X-Frame-Options": "SAMEORIGIN",
+        "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=xILGsr1M%2BQCIXONmpSckp9331HYYhcjEQ2V1LDyLFS3QKGdwMsd%2B5n8Ii4JRWKj3IXhmFbR2aMjh9oqxkeJemOxaLtGGYQOVhaLF6irglG3eRKKji%2FH5hk0S1ULhG6rD2Q%3D%3D\"}]}",
+        "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "Server-Timing": "cfEdge;dur=5,cfOrigin;dur=0",
+        "Server": "cloudflare",
+        "CF-RAY": "a4a2e748ada69e56-SJC",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      },
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://openlayers.org/data/raster/no-overviews.tif.ovr",
+      "method": "GET",
+      "requestHeaders": {
+        "Origin": "http://127.0.0.1:4195",
+        "Range": "bytes=0-1023"
+      },
+      "status": 403,
+      "headers": {
+        "Date": "Wed, 14 Oct 2026 01:45:14 GMT",
+        "Content-Type": "text/plain; charset=UTF-8",
+        "Content-Length": "17",
+        "Connection": "close",
+        "Cache-Control": "private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+        "Expires": "Thu, 01 Jan 1970 00:00:01 GMT",
+        "Referrer-Policy": "same-origin",
+        "Server-Timing": "cfEdge;dur=1,cfOrigin;dur=0",
+        "X-Frame-Options": "SAMEORIGIN",
+        "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2BADKIKct7r73KiQ1aLq7ilyJMIlNKf9souCX9ptKW3QpYj32DtY5s2N2YduyjvNTFEGuAuAZgln%2BLszrvjAh3XecicsT3UHxENt%2FZVs%2FhmK4K1fc5UEPHPZZ6EgmWRliYg%3D%3D\"}]}",
+        "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "Server": "cloudflare",
+        "CF-RAY": "a4a2e748bbe9eb31-SJC",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      },
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://s2downloads.eox.at/demo/Sentinel-2/3857/R10m.tif",
+      "method": "HEAD",
+      "requestHeaders": {
+        "Origin": "http://127.0.0.1:4195"
+      },
+      "status": 200,
+      "finalUrl": "https://cloudlessdownloads.eox.at/share/jvu06wnt",
+      "headers": {
+        "cache-control": "no-cache, no-store, must-revalidate",
+        "content-type": "text/html; charset=utf-8",
+        "x-xss-protection": "1; mode=block",
+        "date": "Wed, 14 Oct 2026 01:45:18 GMT",
+        "x-envoy-upstream-service-time": "1",
+        "vary": "Accept-Encoding",
+        "server": "envoy",
+        "connection": "close",
+        "transfer-encoding": "chunked"
+      },
+      "firstBytesRead": 0
+    },
+    {
+      "url": "https://s2downloads.eox.at/demo/Sentinel-2/3857/R10m.tif",
+      "method": "GET",
+      "requestHeaders": {
+        "Origin": "http://127.0.0.1:4195",
+        "Range": "bytes=0-1023"
+      },
+      "status": 200,
+      "finalUrl": "https://cloudlessdownloads.eox.at/share/jvu06wnt",
+      "headers": {
+        "cache-control": "no-cache, no-store, must-revalidate",
+        "content-type": "text/html; charset=utf-8",
+        "x-xss-protection": "1; mode=block",
+        "date": "Wed, 14 Oct 2026 01:45:18 GMT",
+        "x-envoy-upstream-service-time": "1",
+        "vary": "Accept-Encoding",
+        "server": "envoy",
+        "connection": "close",
+        "transfer-encoding": "chunked"
+      },
+      "firstBytesRead": 1024
+    },
+    {
+      "url": "https://s2downloads.eox.at/demo/Sentinel-2/3857/R60m.tif",
+      "method": "HEAD",
+      "requestHeaders": {
+        "Origin": "http://127.0.0.1:4195"
+      },
+      "status": 200,
+      "finalUrl": "https://cloudlessdownloads.eox.at/share/jvu06wnt",
+      "headers": {
+        "cache-control": "no-cache, no-store, must-revalidate",
+        "content-type": "text/html; charset=utf-8",
+        "x-xss-protection": "1; mode=block",
+        "date": "Wed, 14 Oct 2026 01:45:18 GMT",
+        "x-envoy-upstream-service-time": "0",
+        "vary": "Accept-Encoding",
+        "server": "envoy",
+        "connection": "close",
+        "transfer-encoding": "chunked"
+      },
+      "firstBytesRead": 0
+    },
+    {
+      "url": "https://s2downloads.eox.at/demo/Sentinel-2/3857/R60m.tif",
+      "method": "GET",
+      "requestHeaders": {
+        "Origin": "http://127.0.0.1:4195",
+        "Range": "bytes=0-1023"
+      },
+      "status": 200,
+      "finalUrl": "https://cloudlessdownloads.eox.at/share/jvu06wnt",
+      "headers": {
+        "cache-control": "no-cache, no-store, must-revalidate",
+        "content-type": "text/html; charset=utf-8",
+        "x-xss-protection": "1; mode=block",
+        "date": "Wed, 14 Oct 2026 01:45:18 GMT",
+        "x-envoy-upstream-service-time": "1",
+        "vary": "Accept-Encoding",
+        "server": "envoy",
+        "connection": "close",
+        "transfer-encoding": "chunked"
+      },
+      "firstBytesRead": 1024
+    }
+  ]
+}
