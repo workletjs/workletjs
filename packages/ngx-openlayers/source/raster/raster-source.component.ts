@@ -45,6 +45,13 @@ export class WolRasterSourceComponent implements OnChanges {
    */
   readonly wolSources = input<Source[] | Layer[]>();
   readonly wolOperation = input<Operation>();
+
+  /**
+   * Resample the output image using linear interpolation by default (`true`).
+   * Set to `false` to use nearest-neighbor resampling instead.
+   */
+  readonly wolInterpolate = input<boolean>();
+
   readonly wolLib = input<Record<string, WolSafeAny>>();
   readonly wolThreads = input<number>();
   readonly wolOperationType = input<RasterOperationType>();
@@ -75,6 +82,7 @@ export class WolRasterSourceComponent implements OnChanges {
       const rasterSource = new RasterSource({
         sources: this.wolSources() ?? this.sources.getArray(),
         operation: this.wolOperation(),
+        interpolate: this.wolInterpolate(),
         lib: this.wolLib(),
         threads: this.wolThreads(),
         operationType: this.wolOperationType(),

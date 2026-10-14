@@ -53,6 +53,7 @@ async function createRasterSourceInstance(
           <wol-raster-source
             [wolSources]="sources()"
             [wolAttributions]="attributions()"
+            [wolInterpolate]="interpolate()"
             [wolOperation]="operation()"
             [wolLib]="lib()"
             [wolThreads]="threads()"
@@ -77,6 +78,7 @@ async function createRasterSourceInstance(
 class TestRasterSourceComponent {
   sources = signal<Source[] | Layer[]>([makeXYZSource()]);
   attributions = signal<AttributionLike | undefined>(undefined);
+  interpolate = signal<boolean | undefined>(undefined);
   operation = signal<Operation | undefined>(undefined);
   lib = signal<Record<string, WolSafeAny> | undefined>(undefined);
   threads = signal<number | undefined>(undefined);
@@ -141,6 +143,20 @@ describe('WolRasterSourceComponent', () => {
   it('should initialize with wolAttributions', async () => {
     const inst = await createRasterSourceInstance((c) => c.attributions.set('© Raster'));
     expect(inst).toBeInstanceOf(RasterSource);
+  });
+
+  it('should default to interpolation when wolInterpolate is undefined', () => {
+    expect(rasterSource.getInterpolate()).toBe(true);
+  });
+
+  it('should initialize with wolInterpolate = true', async () => {
+    const inst = await createRasterSourceInstance((c) => c.interpolate.set(true));
+    expect(inst.getInterpolate()).toBe(true);
+  });
+
+  it('should initialize with wolInterpolate = false', async () => {
+    const inst = await createRasterSourceInstance((c) => c.interpolate.set(false));
+    expect(inst.getInterpolate()).toBe(false);
   });
 
   it('should initialize with wolLib', async () => {
