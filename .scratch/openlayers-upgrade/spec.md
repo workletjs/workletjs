@@ -107,7 +107,7 @@ Raster 组件现有的动态 source 增删逻辑直接同步 OpenLayers 内部 l
 - 沿用上游对 `Intl.Segmenter`
   的要求。需要兼容缺少该能力的旧浏览器时，由宿主应用提供polyfill；组件库不新增对应运行时依赖。
 - 保留现有 BingMaps 组件及接口，注明上游弃用状态，不在本次迁移到其他地图服务。页面使用
-  `@status:alert Deprecated` 标签，并将弃用说明放入 `> **Alert**`
+  `@status:alert Deprecated` 标签，并将弃用说明放入标题为 `Deprecated` 的 Alert
   Callout；正式与 preview 构建均应正确展示。
 - 同步根目录与库 README、入门指南和 Introduction 中当前源码的兼容要求；更新 Snap 文档中的固定版本 API 链接。历史发布兼容矩阵、历史升级验收记录以及测试中的历史版本样例保留原值。
 - 文档继续区分当前源码与已发布包，并指导使用者查看所选发布版本的 peerDependencies。

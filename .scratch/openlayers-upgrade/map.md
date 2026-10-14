@@ -30,7 +30,7 @@
   findings。三个实现者 worktree 和已合入临时分支均已清理，规格与全部工单关闭；保留集成分支
   `codex/openlayers-upgrade` 及完整提交历史。
 - [04：BingMaps 弃用标签与 Alert Callout](issues/04-bingmaps-deprecation.md)已完成：添加
-  `@status:alert Deprecated`，现有弃用说明使用 NgDoc Alert
+  `@status:alert Deprecated`，现有弃用说明使用标题为 `Deprecated` 的 NgDoc Alert
   Callout；docs 测试、lint、正式及 preview 构建、页面视觉验收均通过，截图附于[验收记录](validation.md#bingmaps-弃用展示补充验收)。
 
 ## Fog
