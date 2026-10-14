@@ -49,6 +49,16 @@ export class WolGoogleSourceComponent implements OnChanges {
   readonly wolReprojectionErrorThreshold = input<number>();
   readonly wolTileLoadFunction = input<LoadFunction>();
   readonly wolApiOptions = input<string[]>();
+  /**
+   * Custom function for creating and renewing Google Map Tiles API sessions.
+   * Receives the `createSession` URL and request configuration and returns a response promise.
+   * When omitted, OpenLayers uses `fetch`.
+   *
+   * Persisting session tokens across page reloads lets tile URLs remain stable and cached tiles
+   * be reused. Include the token's `expiry` in the response so OpenLayers can renew it in time.
+   * This input is used only when the source is initialized.
+   */
+  readonly wolFetchSessionToken = input<(url: string, config: RequestInit) => Promise<Response>>();
   readonly wolWrapX = input<boolean>();
   readonly wolTransition = input<number>();
   readonly wolZDirection = input<number | NearestDirectionFunction>();
@@ -91,6 +101,7 @@ export class WolGoogleSourceComponent implements OnChanges {
         reprojectionErrorThreshold: this.wolReprojectionErrorThreshold(),
         tileLoadFunction: this.wolTileLoadFunction(),
         apiOptions: this.wolApiOptions(),
+        fetchSessionToken: this.wolFetchSessionToken(),
         wrapX: this.wolWrapX(),
         transition: this.wolTransition(),
         zDirection: this.wolZDirection(),

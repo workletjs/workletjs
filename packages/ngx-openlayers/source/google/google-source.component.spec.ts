@@ -40,6 +40,7 @@ async function createGoogleInstance(
         @if (!destroySource()) {
           <wol-google-source
             [wolKey]="wolKey()"
+            [wolFetchSessionToken]="fetchSessionToken()"
             [wolAttributions]="attributions()"
             [wolAttributionsCollapsible]="attributionsCollapsible()"
             [wolMapType]="mapType()"
@@ -69,6 +70,9 @@ async function createGoogleInstance(
 })
 class TestGoogleSourceComponent {
   wolKey = signal('test-api-key');
+  fetchSessionToken = signal<((url: string, config: RequestInit) => Promise<Response>) | undefined>(
+    undefined,
+  );
   attributions = signal<AttributionLike | undefined>(undefined);
   attributionsCollapsible = signal<boolean | undefined>(undefined);
   mapType = signal<string | undefined>(undefined);
@@ -155,6 +159,135 @@ describe('WolGoogleSourceComponent', () => {
       'https://tile.googleapis.com/v1/createSession?key=my-key',
       expect.objectContaining({ method: 'POST' }),
     );
+  });
+
+  it('should use the default session fetcher when wolFetchSessionToken is undefined', async () => {
+    const inst = await createGoogleInstance();
+
+    expect(inst.fetchSessionToken).toBe(Google.prototype.fetchSessionToken);
+    expect(Google.prototype.fetchSessionToken).toHaveBeenLastCalledWith(
+      'https://tile.googleapis.com/v1/createSession?key=test-api-key',
+      expect.objectContaining({ method: 'POST' }),
+    );
+  });
+
+  it('should request a session and use its token with wolFetchSessionToken', async () => {
+    const fetchSessionToken = vi.fn().mockResolvedValue(
+      Response.json({
+        session: 'cached-session-token',
+        expiry: String(Math.floor(Date.now() / 1000) + 3600),
+        tileWidth: 256,
+        tileHeight: 256,
+        imageFormat: 'png',
+      }),
+    );
+    vi.mocked(Google.prototype.fetchSessionToken).mockClear();
+
+    const inst = await createGoogleInstance((c) => {
+      c.wolKey.set('custom-key');
+      c.mapType.set('satellite');
+      c.language.set('de');
+      c.region.set('DE');
+      c.fetchSessionToken.set(fetchSessionToken);
+    });
+
+    try {
+      await vi.waitFor(() => expect(inst.getState()).toBe('ready'));
+      expect(fetchSessionToken).toHaveBeenCalledExactlyOnceWith(
+        'https://tile.googleapis.com/v1/createSession?key=custom-key',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ mapType: 'satellite', language: 'de', region: 'DE' }),
+        },
+      );
+      expect(Google.prototype.fetchSessionToken).not.toHaveBeenCalled();
+      expect(inst.fetchSessionToken).toBe(fetchSessionToken);
+      expect(inst.getState()).toBe('ready');
+      expect(inst.getError()).toBeNull();
+      expect(inst.getTileGrid()?.getTileSize(0)).toEqual([256, 256]);
+
+      const projection = inst.getProjection();
+      if (!projection) {
+        throw new Error('Google source projection is missing');
+      }
+      expect(inst.getTileUrlFunction()([2, 1, 3], 1, projection)).toBe(
+        'https://tile.googleapis.com/v1/2dtiles/2/1/3?session=cached-session-token&key=custom-key',
+      );
+    } finally {
+      inst.dispose();
+    }
+  });
+
+  it('should renew an expiring session with wolFetchSessionToken', async () => {
+    const now = Math.floor(Date.now() / 1000) * 1000;
+    vi.spyOn(Date, 'now').mockReturnValue(now);
+    const setTimeoutSpy = vi.spyOn(globalThis, 'setTimeout');
+    const fetchSessionToken = vi
+      .fn()
+      .mockResolvedValueOnce(
+        Response.json({
+          session: 'initial-session-token',
+          expiry: String(now / 1000 + 120),
+          tileWidth: 256,
+          tileHeight: 256,
+          imageFormat: 'png',
+        }),
+      )
+      .mockResolvedValue(
+        Response.json({
+          session: 'renewed-session-token',
+          expiry: String(now / 1000 + 3600),
+          tileWidth: 256,
+          tileHeight: 256,
+          imageFormat: 'png',
+        }),
+      );
+    const inst = await createGoogleInstance((c) => c.fetchSessionToken.set(fetchSessionToken));
+
+    try {
+      await vi.waitFor(() => expect(inst.getState()).toBe('ready'));
+      const refreshCallIndex = setTimeoutSpy.mock.calls.findIndex(
+        ([, timeout]) => timeout === 60000,
+      );
+      expect(refreshCallIndex).toBeGreaterThanOrEqual(0);
+      const refresh = setTimeoutSpy.mock.calls[refreshCallIndex][0];
+      clearTimeout(setTimeoutSpy.mock.results[refreshCallIndex].value);
+      if (typeof refresh !== 'function') {
+        throw new Error('Google session refresh callback is missing');
+      }
+      await refresh();
+
+      expect(fetchSessionToken).toHaveBeenCalledTimes(2);
+      expect(fetchSessionToken).toHaveBeenNthCalledWith(2, ...fetchSessionToken.mock.calls[0]);
+      expect(inst.getState()).toBe('ready');
+      const projection = inst.getProjection();
+      if (!projection) {
+        throw new Error('Google source projection is missing');
+      }
+      expect(inst.getTileUrlFunction()([2, 1, 3], 1, projection)).toBe(
+        'https://tile.googleapis.com/v1/2dtiles/2/1/3?session=renewed-session-token&key=test-api-key',
+      );
+    } finally {
+      inst.dispose();
+    }
+  });
+
+  it('should expose HTTP errors returned by wolFetchSessionToken', async () => {
+    const fetchSessionToken = vi
+      .fn()
+      .mockResolvedValue(
+        Response.json({ error: { message: 'Custom session request denied' } }, { status: 403 }),
+      );
+    vi.mocked(Google.prototype.fetchSessionToken).mockClear();
+
+    const inst = await createGoogleInstance((c) => c.fetchSessionToken.set(fetchSessionToken));
+
+    await vi.waitFor(() => expect(inst.getState()).toBe('error'));
+    expect(fetchSessionToken).toHaveBeenCalledOnce();
+    expect(Google.prototype.fetchSessionToken).not.toHaveBeenCalled();
+    expect(inst.getState()).toBe('error');
+    expect(inst.getError()?.message).toBe('Custom session request denied');
   });
 
   it('should initialize with wolAttributions', async () => {
