@@ -41,6 +41,15 @@ export class WolSentinelHubSourceComponent implements OnChanges {
   readonly wolAuth = input<AuthConfig | string>();
   readonly wolData = input<ProcessRequestInputDataItem[]>();
   readonly wolEvalscript = input<Evalscript | string>();
+
+  /**
+   * MIME type for Sentinel Hub Processing API tile responses (`responses[].format.type`).
+   * Supports `image/png`, `image/jpeg`, and `image/webp`; defaults to `image/png`.
+   * Changes update the existing source and reload tiles when the source is ready.
+   * Setting the input to `undefined` restores the default. Unsupported formats throw an error.
+   */
+  readonly wolFormat = input<string>();
+
   readonly wolTileSize = input<number | Size>();
   readonly wolUrl = input<string>();
   readonly wolProjection = input<Projection>();
@@ -73,6 +82,7 @@ export class WolSentinelHubSourceComponent implements OnChanges {
         auth: this.wolAuth(),
         data: this.wolData(),
         evalscript: this.wolEvalscript(),
+        format: this.wolFormat(),
         tileSize: this.wolTileSize(),
         url: this.wolUrl(),
         projection: this.wolProjection(),
@@ -160,6 +170,9 @@ export class WolSentinelHubSourceComponent implements OnChanges {
           break;
         case 'wolEvalscript':
           this.instance.setEvalscript(change.currentValue);
+          break;
+        case 'wolFormat':
+          this.instance.setFormat(change.currentValue ?? 'image/png');
           break;
         case 'wolProperties':
           this.instance.setProperties(change.currentValue ?? {});

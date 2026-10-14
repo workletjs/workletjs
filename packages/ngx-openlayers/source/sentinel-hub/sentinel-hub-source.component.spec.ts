@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ErrorHandler, signal } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -32,6 +32,32 @@ async function createSentinelHubInstance(
     .componentInstance.getInstance() as SentinelHub;
 }
 
+function configureProcessing(c: TestSentinelHubSourceComponent): void {
+  c.auth.set('test-token');
+  c.data.set([{ type: 'S2L2A' }]);
+  c.evalscript.set('//VERSION=3\nfunction evaluatePixel(s){return[s.B04,s.B03,s.B02]}');
+}
+
+function expectProcessRequestFormat(source: SentinelHub, format: string): void {
+  const fetchSpy = vi
+    .spyOn(globalThis, 'fetch')
+    .mockRejectedValue(new Error('Processing request is mocked'));
+
+  try {
+    const tile = source.getTile(0, 0, 0, 1);
+    expect(tile).not.toBeNull();
+    tile?.load();
+
+    expect(fetchSpy).toHaveBeenCalledOnce();
+    const requestBody = JSON.parse(fetchSpy.mock.calls[0][1]?.body as string);
+    expect(requestBody).toMatchObject({
+      output: { responses: [{ format: { type: format } }] },
+    });
+  } finally {
+    fetchSpy.mockRestore();
+  }
+}
+
 @Component({
   selector: 'wol-test-sentinel-hub-source',
   imports: [
@@ -51,6 +77,7 @@ async function createSentinelHubInstance(
             [wolAuth]="auth()"
             [wolData]="data()"
             [wolEvalscript]="evalscript()"
+            [wolFormat]="format()"
             [wolTileSize]="tileSize()"
             [wolUrl]="url()"
             [wolInterpolate]="interpolate()"
@@ -70,6 +97,7 @@ class TestSentinelHubSourceComponent {
   auth = signal<AuthConfig | string | undefined>(undefined);
   data = signal<ProcessRequestInputDataItem[] | undefined>(undefined);
   evalscript = signal<Evalscript | string | undefined>(undefined);
+  format = signal<string | undefined>(undefined);
   tileSize = signal<number | Size | undefined>(undefined);
   url = signal<string | undefined>(undefined);
   interpolate = signal<boolean | undefined>(undefined);
@@ -150,6 +178,42 @@ describe('WolSentinelHubSourceComponent', () => {
     expect(inst).toBeInstanceOf(SentinelHub);
   });
 
+  it('should request PNG by default when wolFormat is undefined', async () => {
+    const inst = await createSentinelHubInstance(configureProcessing);
+    expectProcessRequestFormat(inst, 'image/png');
+  });
+
+  it.each(['image/png', 'image/jpeg', 'image/webp'])(
+    'should initialize with wolFormat = %s',
+    async (format) => {
+      const inst = await createSentinelHubInstance((c) => {
+        configureProcessing(c);
+        c.format.set(format);
+      });
+
+      expectProcessRequestFormat(inst, format);
+    },
+  );
+
+  it('should reject unsupported wolFormat during initialization', async () => {
+    const errorSpy = vi
+      .spyOn(TestBed.inject(ErrorHandler), 'handleError')
+      .mockImplementation(() => undefined);
+
+    try {
+      const inst = await createSentinelHubInstance((c) => c.format.set('image/tiff'));
+
+      expect(inst).toBeUndefined();
+      expect(errorSpy).toHaveBeenCalledExactlyOnceWith(
+        expect.objectContaining({
+          message: expect.stringContaining('Unsupported format: image/tiff'),
+        }),
+      );
+    } finally {
+      errorSpy.mockRestore();
+    }
+  });
+
   it('should initialize with wolTileSize', async () => {
     const inst = await createSentinelHubInstance((c) => c.tileSize.set(512));
     expect(inst).toBeInstanceOf(SentinelHub);
@@ -214,6 +278,58 @@ describe('WolSentinelHubSourceComponent', () => {
     testComponent.evalscript.set(script);
     fixture.detectChanges();
     expect(spy).toHaveBeenCalledWith(script);
+  });
+
+  it.each(['image/jpeg', 'image/webp'])(
+    'should update the process response and cache key when wolFormat changes to %s',
+    (format) => {
+      configureProcessing(testComponent);
+      fixture.detectChanges();
+      const previousKey = sentinelHub.getKey();
+      const spy = vi.spyOn(sentinelHub, 'setFormat');
+
+      testComponent.format.set(format);
+      fixture.detectChanges();
+
+      expect(spy).toHaveBeenCalledExactlyOnceWith(format);
+      expect(component.getInstance()).toBe(sentinelHub);
+      expect(olTileLayer.getSource()).toBe(sentinelHub);
+      expect(sentinelHub.getKey()).not.toBe(previousKey);
+      expectProcessRequestFormat(sentinelHub, format);
+    },
+  );
+
+  it('should reset process responses to PNG when wolFormat becomes undefined', () => {
+    configureProcessing(testComponent);
+    fixture.detectChanges();
+    const pngKey = sentinelHub.getKey();
+
+    testComponent.format.set('image/jpeg');
+    fixture.detectChanges();
+    const jpegKey = sentinelHub.getKey();
+    const spy = vi.spyOn(sentinelHub, 'setFormat');
+
+    testComponent.format.set(undefined);
+    fixture.detectChanges();
+
+    expect(spy).toHaveBeenCalledExactlyOnceWith('image/png');
+    expect(component.getInstance()).toBe(sentinelHub);
+    expect(sentinelHub.getKey()).not.toBe(jpegKey);
+    expect(sentinelHub.getKey()).toBe(pngKey);
+    expectProcessRequestFormat(sentinelHub, 'image/png');
+  });
+
+  it('should preserve the previous format when an unsupported wolFormat update is rejected', () => {
+    configureProcessing(testComponent);
+    fixture.detectChanges();
+    const previousKey = sentinelHub.getKey();
+
+    testComponent.format.set('image/tiff');
+    expect(() => fixture.detectChanges()).toThrow('Unsupported format: image/tiff');
+
+    expect(component.getInstance()).toBe(sentinelHub);
+    expect(sentinelHub.getKey()).toBe(previousKey);
+    expectProcessRequestFormat(sentinelHub, 'image/png');
   });
 
   it('should update properties when wolProperties changes', () => {
