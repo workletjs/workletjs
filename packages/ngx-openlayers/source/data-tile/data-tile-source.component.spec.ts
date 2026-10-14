@@ -50,6 +50,7 @@ async function createDataTileSourceInstance(
             [wolWrapX]="wrapX()"
             [wolTransition]="transition()"
             [wolBandCount]="bandCount()"
+            [wolHasAlpha]="hasAlpha()"
             [wolInterpolate]="interpolate()"
             [wolKey]="key()"
             [wolProperties]="properties()"
@@ -79,6 +80,7 @@ class TestDataTileSourceComponent {
   wrapX = signal<boolean | undefined>(undefined);
   transition = signal<number | undefined>(undefined);
   bandCount = signal<number | undefined>(undefined);
+  hasAlpha = signal<boolean | undefined>(undefined);
   interpolate = signal<boolean | undefined>(undefined);
   key = signal<string | undefined>(undefined);
   properties = signal<WolProperties | undefined>(undefined);
@@ -179,6 +181,41 @@ describe('WolDataTileSourceComponent', () => {
     const inst = await createDataTileSourceInstance((c) => c.bandCount.set(4));
     expect(inst).toBeInstanceOf(DataTileSource);
   });
+
+  it('should leave wolHasAlpha undefined by default', () => {
+    expect(component.wolHasAlpha()).toBeUndefined();
+  });
+
+  it('should use wolHasAlpha = false instead of inferring alpha from four bands', async () => {
+    const inst = await createDataTileSourceInstance((c) => {
+      c.bandCount.set(4);
+      c.hasAlpha.set(false);
+    });
+    expect(inst.hasAlpha).toBe(false);
+  });
+
+  it('should use wolHasAlpha = true instead of inferring no alpha from three bands', async () => {
+    const inst = await createDataTileSourceInstance((c) => {
+      c.bandCount.set(3);
+      c.hasAlpha.set(true);
+    });
+    expect(inst.hasAlpha).toBe(true);
+  });
+
+  it.each([
+    { bandCount: undefined, hasAlpha: true },
+    { bandCount: 1, hasAlpha: false },
+    { bandCount: 2, hasAlpha: true },
+    { bandCount: 3, hasAlpha: false },
+    { bandCount: 4, hasAlpha: true },
+    { bandCount: 5, hasAlpha: false },
+  ])(
+    'should infer hasAlpha = $hasAlpha for wolBandCount = $bandCount when wolHasAlpha is omitted',
+    async ({ bandCount, hasAlpha }) => {
+      const inst = await createDataTileSourceInstance((c) => c.bandCount.set(bandCount));
+      expect(inst.hasAlpha).toBe(hasAlpha);
+    },
+  );
 
   it('should initialize with wolInterpolate = true', async () => {
     const inst = await createDataTileSourceInstance((c) => c.interpolate.set(true));

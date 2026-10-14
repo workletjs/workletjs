@@ -50,6 +50,17 @@ export class WolDataTileSourceComponent implements OnChanges {
   readonly wolWrapX = input<boolean>();
   readonly wolTransition = input<number>();
   readonly wolBandCount = input<number>();
+
+  /**
+   * Whether the tile data already contains an alpha band.
+   * When `false`, reprojection appends a coverage alpha band to make areas outside
+   * the source footprint transparent. When `true`, no coverage band is appended.
+   * If omitted, OpenLayers infers `true` for 2 (luminance alpha) or 4 (RGBA) bands
+   * and `false` for other band counts. The default band count is 4.
+   * This option is only used when the source is created.
+   */
+  readonly wolHasAlpha = input<boolean>();
+
   readonly wolInterpolate = input<boolean>();
   readonly wolCrop = input<CrossOriginAttribute>();
   readonly wolKey = input<string>();
@@ -91,6 +102,7 @@ export class WolDataTileSourceComponent implements OnChanges {
         wrapX: this.wolWrapX(),
         transition: this.wolTransition(),
         bandCount: this.wolBandCount(),
+        hasAlpha: this.wolHasAlpha(),
         interpolate: this.wolInterpolate(),
         crossOrigin: this.wolCrop(),
         key: this.wolKey(),
