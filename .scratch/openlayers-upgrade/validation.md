@@ -190,3 +190,15 @@ key，本次仅验收标签与 Callout，不将 Bing Maps 底图加载列为通�
 ![正式文档的 Deprecated 标签与 Alert](screenshots/bingmaps-deprecated-production.jpg)
 
 ![preview 文档的 Deprecated 标签与 Alert](screenshots/bingmaps-deprecated-preview.jpg)
+
+### Callout 标题调整
+
+2026-10-14，用户要求将 Callout 标题由 `Alert` 改为 `Deprecated`。改用 NgDoc 原生
+`<ng-doc-blockquote type="alert" label="Deprecated">`，保留 Alert 样式和全部原有说明。
+
+相同 Nx 环境下正式及 preview 文档构建均通过；相关文件 Prettier 和 `git diff --check`
+通过。生成正文保留 `type="alert"` 与
+`label="Deprecated"`，Markdown 正文及迁移链接正常解析。实际页面的提示框标题为 `Deprecated`，DOM 的
+`data-ng-doc-type` 仍为 `alert`。只读独立审阅无发现。
+
+![Deprecated 标题和 Alert 样式](screenshots/bingmaps-deprecated-title.jpg)
