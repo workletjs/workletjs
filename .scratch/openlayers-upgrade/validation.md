@@ -46,6 +46,8 @@ terminalOutputs，合计 2377 项，未从历史结果推算。
 kB，并输出插件耗时诊断。组件库测试输出包含 jsdom 外部请求的 `ENOTFOUND api.example.com`
 等诊断，所有断言仍通过；这些诊断不作为真实浏览器渲染的证据。
 
+额外尝试的独立测试类型检查（非既有测试入口）未通过：对照 10.9 安装有 21 项既有诊断，10.11 可空声明又暴露现有测试的 29 项诊断。新增 Raster 回归没有引入类型诊断；本次未扩大为既有测试的整体类型清理，详情见[工单 01](issues/01-dependencies-and-raster.md)。正式库构建和既有测试入口的结果如上表。
+
 原始命令日志保存在 `/private/tmp/openlayers-upgrade-*.log`；其中
 `test-library-output.log`、`test-docs-output.log`、`build-library-output.log` 和
 `build-docs-preview-output.log` 保留了 Nx 隐藏在简要输出后的实际任务输出。
@@ -129,8 +131,38 @@ GET，请求带实际浏览器 Origin：
 [geotiff-console-errors.json](screenshots/geotiff-console-errors.json) 和
 [geotiff-remote-checks.json](screenshots/geotiff-remote-checks.json)。
 
-## 后续集成收尾
+## Standards
 
-以上工作区检查、真实产物、元数据与浏览器验收完成，外部服务限制已明确记录。集成分支的 Standards /
-Spec 两轴审查、规格关闭与实现者 worktree 清理由集成流程继续完成并记录于
-[实施图](map.md)，不由本记录提前宣称完成。
+独立审查固定范围 `b96207d...5488711`，按 AGENTS、issue-tracker、domain 规范和 Fowler smell
+baseline 核对：**0 findings**。
+
+行为变更具备 colocated 回归，覆盖真实采样、动态增删、嵌套销毁、宿主解绑和实例身份。提交符合 Conventional
+Commits，依赖、行为修复、测试适配和文档分别记录。工单状态与审查时的实施阶段一致，未提前宣称审查或清理完成；未发现可行动的规范违反或新增 smell。
+
+## Spec
+
+独立审查同一固定范围，对照本次规格、工单和验收证据：**0 findings**。
+
+依赖范围、必要传递依赖、Raster 原实例采样同步、NEW 清理与 EXPERIMENTAL 保留，以及真实 tarball 和导航结果均符合需求。未发现需求遗漏、范围扩展或错误实现；两项 GeoTIFF 受限场景有 HTTP 证据且明确未计为通过。审查后的改动仅补齐工单关闭与本记录，不改变已验收代码。
+
+## 提交记录与收尾
+
+| 提交                            | 内容                                        |
+| ------------------------------- | ------------------------------------------- |
+| `800eb6e`                       | 需求设计、实施图与工单依赖图                |
+| `690e678`                       | OpenLayers 10.11.0 与必要传递依赖           |
+| `6c98d72`                       | 当前源码兼容要求与迁移说明                  |
+| `4441165`                       | 移除 82 个 NEW 声明，保留 3 个 EXPERIMENTAL |
+| `d18f771`                       | Raster 动态采样修复、5 项回归及生命周期验证 |
+| `cd9aff5`                       | Feature 与 Flow 的上游行为测试适配          |
+| `1dbb75b`、`52bd57a`、`0f6f5cb` | 工单交付与集成状态记录                      |
+| `e9912e1`                       | 实现分支同步集成分支                        |
+| `c83b3f5`                       | 完整验收、截图和外部数据服务证据            |
+| `5488711`                       | 验收交付整合                                |
+
+集成分支为
+`codex/openlayers-upgrade`，保留全部聚焦提交及一次必要的分支同步 merge。三个实现者 worktree 均在项目
+`.worktrees/`
+下创建，全部交付合入后已移除，三个临时实现分支也已安全删除；当前项目保留集成分支。临时浏览器及本机静态服务已关闭，未发布包或部署站点。
+
+审查汇总：Standards 0 项；Spec 0 项。
