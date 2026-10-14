@@ -7,9 +7,6 @@ import {
   WolSelectMultipleFeaturesExampleComponent,
 } from './examples';
 
-/**
- * @status:info NEW
- */
 const SelectInteractionPage: NgDocPage = {
   title: 'Select',
   mdFile: './docs/index.md',

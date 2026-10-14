@@ -2,9 +2,6 @@ import { NgDocPage } from '@ng-doc/core';
 
 import SourcesCategory from '../../ng-doc/sources/ng-doc.category';
 
-/**
- * @status:info NEW
- */
 const OSMSourcePage: NgDocPage = {
   title: 'OSM',
   mdFile: './docs/index.md',

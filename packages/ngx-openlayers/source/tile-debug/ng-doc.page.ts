@@ -3,9 +3,6 @@ import { NgDocPage } from '@ng-doc/core';
 import SourcesCategory from '../../ng-doc/sources/ng-doc.category';
 import { WolCanvasTilesExampleComponent } from './examples';
 
-/**
- * @status:info NEW
- */
 const TileDebugSourcePage: NgDocPage = {
   title: 'TileDebug',
   mdFile: './docs/index.md',
