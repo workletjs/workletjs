@@ -6,19 +6,19 @@ Builds from the current source require the following peer dependencies:
 
 - `@angular/core`: ~22.2.0
 - `@angular/cdk`: ~22.2.0
-- `ol`: ~10.9.0
+- `ol`: ~10.11.0
 
 Make sure these dependencies are installed in your project.
 
-The source package version remains `22.0.1`; the Angular 22.2 upgrade has not been released.
-Previously published `22.0.x` packages require Angular Core and CDK `~22.0.0`. See the Version
-Compatibility Matrix in Introduction for historical releases.
+The source package version remains `22.0.1`; the Angular 22.2 and OpenLayers 10.11 upgrades have not
+been released. Previously published `22.0.x` packages require Angular Core and CDK `~22.0.0` and
+OpenLayers `~10.9.0`. See the Version Compatibility Matrix in Introduction for historical releases.
 
 ## Installation
 
-For the current source build, use an Angular 22.2.x application with OpenLayers `~10.9.0` and CDK
-`~22.2.0`. The commands below install a published release from the registry. Choose Angular and CDK
-versions from that release's peer dependencies, which you can check with
+For the current source build, use an Angular 22.2.x application with OpenLayers `~10.11.0` and CDK
+`~22.2.0`. The commands below install a published release from the registry. Choose Angular, CDK and
+OpenLayers versions from that release's peer dependencies, which you can check with
 `npm view @workletjs/ngx-openlayers@<version> peerDependencies`.
 
 ```bash group="Installation" name="npm"
@@ -35,6 +35,27 @@ yarn add @workletjs/ngx-openlayers # install this library
 pnpm add ol @angular/cdk           # install the peerDependencies
 pnpm add @workletjs/ngx-openlayers # install this library
 ```
+
+## Upgrading to OpenLayers 10.11
+
+The current source adopts the upstream behavior changes in
+[OpenLayers 10.10](https://github.com/openlayers/openlayers/releases/tag/v10.10.0) and
+[OpenLayers 10.11](https://github.com/openlayers/openlayers/releases/tag/v10.11.0), while preserving
+the existing Angular component API:
+
+- Text drawn along a path requires `Intl.Segmenter`. If your application supports browsers without
+  it, provide a [polyfill](https://formatjs.github.io/docs/polyfills/intl-segmenter/) in the host
+  application; the component library does not include one.
+- GeoJSON geometries with empty coordinate arrays are read as `null` geometries, except for
+  `GeometryCollection`. Review any application handling of empty geometries.
+- The `interpolate` style operator now mixes colors in sRGB on both Canvas and WebGL. Canvas
+  gradients may change; use `interpolate-hcl` on Canvas to retain the previous gradient.
+- WMTS capability parsing honors `TileMatrixSetLimits`. The tile grid extent comes only from an
+  advertised `BoundingBox`, and `tileGrid.getExtent()` returns `null` without one. The first tile
+  matrix determines world wrapping; override `wrapX: false` if a regional layer should stay in one
+  world copy.
+- OpenLayers has deprecated its BingMaps source. The existing BingMaps component remains available;
+  plan a service migration using the upstream guidance.
 
 ## Usage
 

@@ -5,6 +5,11 @@ keyword: BingMapsSourcePage
 Layer source for Bing Maps tile data. To use this source component you should get `Bing Maps API`
 key at [https://www.bingmapsportal.com/](https://www.bingmapsportal.com/).
 
+OpenLayers deprecated the BingMaps source in 10.10 because Bing Maps for Enterprise is retiring.
+This component remains available with its existing API. See the
+[upstream migration guidance](https://github.com/openlayers/openlayers/releases/tag/v10.10.0) when
+planning a replacement service.
+
 ## Examples
 
 ### Bing Maps
