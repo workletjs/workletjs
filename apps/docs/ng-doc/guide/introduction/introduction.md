@@ -32,7 +32,7 @@ constructs into Angular components.
 
 **Without Workletjs (Imperative):**
 
-```typescript {10,21-32} name="app.component.ts" icon="angular"
+```typescript {11,24-35} name="app.component.ts" icon="angular"
 import { Component, afterNextRender } from '@angular/core';
 
 import Map from 'ol/Map';
@@ -75,7 +75,7 @@ export class AppComponent {
 
 **With Workletjs (Declarative):**
 
-```typescript {11-16} name="app.component.ts" icon="angular"
+```typescript {12-17} name="app.component.ts" icon="angular"
 import { Component } from '@angular/core';
 
 import { WolTileLayerModule } from '@workletjs/ngx-openlayers/layer/tile';
