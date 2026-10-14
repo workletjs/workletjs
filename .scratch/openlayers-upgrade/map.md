@@ -22,6 +22,8 @@
   适配上游测试行为；真实失败回归已确认，修复后 29 项 Raster 测试和全库 2311 项测试通过。完成记录为
   `52bd57a`。
 - 01、02 均已 resolved，[03：集成验收](issues/03-integration-validation.md)已 claimed，开始完整验证、产物和浏览器验收及两轴审查。
+- [03：集成验收](issues/03-integration-validation.md)的独立验收交付已于 `c83b3f5` 快进合入；
+  [验收记录](validation.md)包含 2377 项通过测试、三种构建、实际 tarball、导航元数据和浏览器截图。两项 GeoTIFF 示例受原有外部 URL 访问限制；两轴审查、worktree 清理及 03 和规格关闭由父集成流程继续完成，03 保持 claimed。
 
 ## Fog
 
