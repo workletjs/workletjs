@@ -3,9 +3,6 @@ import { NgDocPage } from '@ng-doc/core';
 import SourcesCategory from '../../ng-doc/sources/ng-doc.category';
 import { WolTileJSONSourceExampleComponent } from './examples';
 
-/**
- * @status:info NEW
- */
 const TileJSONSourcePage: NgDocPage = {
   title: 'TileJSON',
   mdFile: './docs/index.md',

@@ -6,9 +6,6 @@ import {
   WolOGCMapTilesGeographicExampleComponent,
 } from './examples';
 
-/**
- * @status:info NEW
- */
 const OGCMapTileSourcePage: NgDocPage = {
   title: 'OGCMapTile',
   mdFile: './docs/index.md',

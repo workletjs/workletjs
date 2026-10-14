@@ -6,9 +6,6 @@ import {
   WolHeatmapTrajectoriesExampleComponent,
 } from './examples';
 
-/**
- * @status:info NEW
- */
 const HeatmapLayerPage: NgDocPage = {
   title: 'HeatmapLayer',
   mdFile: './docs/index.md',

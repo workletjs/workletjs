@@ -8,9 +8,6 @@ import {
   WolWMSTimeExampleComponent,
 } from './examples';
 
-/**
- * @status:info NEW
- */
 const TileWMSSourcePage: NgDocPage = {
   title: 'TileWMS',
   mdFile: './docs/index.md',

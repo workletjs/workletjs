@@ -8,9 +8,6 @@ import {
   WolDrawShapesExampleComponent,
 } from './examples';
 
-/**
- * @status:info NEW
- */
 const DrawInteractionPage: NgDocPage = {
   title: 'Draw',
   mdFile: './docs/index.md',

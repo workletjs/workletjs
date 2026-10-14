@@ -3,9 +3,6 @@ import { NgDocPage } from '@ng-doc/core';
 import SourcesCategory from '../../ng-doc/sources/ng-doc.category';
 import { WolCartoDBSourceExampleComponent } from './examples';
 
-/**
- * @status:info NEW
- */
 const CartoDBSourcePage: NgDocPage = {
   title: 'CartoDB',
   mdFile: './docs/index.md',

@@ -3,9 +3,6 @@ import { NgDocPage } from '@ng-doc/core';
 import GeneralCategory from '../ng-doc/general/ng-doc.category';
 import { WolAccessibleMapExampleComponent, WolSimpleMapExampleComponent } from './examples';
 
-/**
- * @status:info NEW
- */
 const MapPage: NgDocPage = {
   title: 'Map',
   mdFile: './docs/index.md',

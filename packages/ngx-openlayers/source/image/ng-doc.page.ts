@@ -3,9 +3,6 @@ import { NgDocPage } from '@ng-doc/core';
 import SourcesCategory from '../../ng-doc/sources/ng-doc.category';
 import { WolMapServerWMSExampleComponent, WolWMSImageSVGExampleComponent } from './examples';
 
-/**
- * @status:info NEW
- */
 const ImageSourcePage: NgDocPage = {
   title: 'Image',
   mdFile: './docs/index.md',

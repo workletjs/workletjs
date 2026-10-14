@@ -9,9 +9,6 @@ import {
   WolGeoTIFFWithOverviewsExampleComponent,
 } from './examples';
 
-/**
- * @status:info NEW
- */
 const GeoTIFFSourcePage: NgDocPage = {
   title: 'GeoTIFF',
   mdFile: './docs/index.md',

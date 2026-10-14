@@ -3,9 +3,6 @@ import { NgDocPage } from '@ng-doc/core';
 import LayersCategory from '../../ng-doc/layers/ng-doc.category';
 import { WolGraticuleLayerExampleComponent, WolSphereMollweideExampleComponent } from './examples';
 
-/**
- * @status:info NEW
- */
 const GraticuleLayerPage: NgDocPage = {
   title: 'GraticuleLayer',
   mdFile: './docs/index.md',

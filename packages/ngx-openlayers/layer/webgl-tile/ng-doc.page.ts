@@ -8,9 +8,6 @@ import {
   WolWebGLTilesExampleComponent,
 } from './examples';
 
-/**
- * @status:info NEW
- */
 const WebGLTileLayerPage: NgDocPage = {
   title: 'WebGLTileLayer',
   mdFile: './docs/index.md',
