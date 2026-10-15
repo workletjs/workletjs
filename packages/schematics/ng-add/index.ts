@@ -1,10 +1,17 @@
-import { Rule, SchematicsException } from '@angular-devkit/schematics';
+import { Rule, SchematicsException, chain } from '@angular-devkit/schematics';
 
+import { applySetup, prepareSetup, scheduleInstall } from '../utility/setup';
 import { Schema } from './schema';
 
 export function ngAdd(options: Schema): Rule {
-  void options;
-  return () => {
-    throw new SchematicsException('The ng-add implementation is not available yet.');
+  return async (tree) => {
+    const setup = await prepareSetup(tree, options.project);
+    if (options.example) {
+      throw new SchematicsException('The map example implementation is not available yet.');
+    }
+    return chain([
+      applySetup(setup),
+      scheduleInstall(options.skipInstall, setup.dependencies.length > 0),
+    ]);
   };
 }
