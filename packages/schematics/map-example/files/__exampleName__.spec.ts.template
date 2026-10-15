@@ -1,0 +1,41 @@
+import { Component, input } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+
+import { <%= className %> } from './<%= exampleName %>';
+
+@Component({ selector: 'wol-map', template: '<ng-content />', host: { style: 'display: block' } })
+class MapStub {}
+
+@Component({ selector: 'wol-view', template: '' })
+class ViewStub {
+  readonly wolCenter = input<number[]>();
+  readonly wolZoom = input<number>();
+}
+
+@Component({ selector: 'wol-tile-layer', template: '<ng-content />' })
+class TileStub {}
+
+@Component({ selector: 'wol-osm-source', template: '' })
+class OsmStub {}
+
+describe('<%= className %>', () => {
+  it('renders a focusable OSM map with the initial world view', async () => {
+    await TestBed.configureTestingModule({ imports: [<%= className %>] })
+      .overrideComponent(<%= className %>, {
+        set: { imports: [MapStub, ViewStub, TileStub, OsmStub] },
+      })
+      .compileComponents();
+    const fixture = TestBed.createComponent(<%= className %>);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const map = fixture.nativeElement.querySelector('wol-map') as HTMLElement;
+    const view = fixture.debugElement.query(By.directive(ViewStub)).componentInstance as ViewStub;
+    expect(map.tabIndex).toBe(0);
+    expect(getComputedStyle(map).height).toBe('400px');
+    expect(map.querySelector('wol-tile-layer > wol-osm-source')).not.toBeNull();
+    expect(view.wolCenter()).toEqual([0, 0]);
+    expect(view.wolZoom()).toBe(2);
+  });
+});

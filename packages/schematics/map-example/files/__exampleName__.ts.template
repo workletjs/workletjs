@@ -1,0 +1,15 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+import { WolTileLayerComponent } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
+import { WolOSMSourceComponent } from '@workletjs/ngx-openlayers/source/osm';
+import { WolViewComponent } from '@workletjs/ngx-openlayers/view';
+
+@Component({
+  selector: '<%= selector %>',
+  imports: [WolMapComponent, WolViewComponent, WolTileLayerComponent, WolOSMSourceComponent],
+  templateUrl: './<%= exampleName %>.html',
+  styleUrl: './<%= exampleName %>.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class <%= className %> {}

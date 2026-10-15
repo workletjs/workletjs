@@ -75,8 +75,8 @@ describe('ng-add published command', () => {
     expect(runner.tasks).toEqual([]);
   });
 
-  it('does not silently ignore an explicitly requested example before its implementation', async () => {
-    await expect(run({ example: true })).rejects.toThrow(/map example/i);
+  it('rejects an explicitly requested example when the host has no bootstrap', async () => {
+    await expect(run({ example: true })).rejects.toThrow(/standalone|build target/i);
   });
 
   it('selects the explicit application without changing other applications', async () => {
