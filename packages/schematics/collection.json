@@ -1,0 +1,15 @@
+{
+  "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ng-add": {
+      "description": "Add ngx-openlayers dependencies, styles, and an optional map example.",
+      "factory": "./ng-add/index#ngAdd",
+      "schema": "./ng-add/schema.json"
+    },
+    "application": {
+      "description": "Create a standalone Angular application with an OpenLayers map.",
+      "factory": "./application/index#application",
+      "schema": "./application/schema.json"
+    }
+  }
+}

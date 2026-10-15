@@ -1,0 +1,21 @@
+{
+  "name": "schematics",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/schematics",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": ["production", "{workspaceRoot}/scripts/build-schematics.mjs"],
+      "outputs": ["{workspaceRoot}/dist/packages/schematics"],
+      "options": {
+        "command": "node scripts/build-schematics.mjs"
+      }
+    },
+    "test": {
+      "dependsOn": [],
+      "inputs": ["default", "{workspaceRoot}/scripts/build-schematics.mjs"]
+    }
+  }
+}

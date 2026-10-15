@@ -55,7 +55,7 @@
     }
   },
   "release": {
-    "projects": ["*"],
+    "projects": ["*", "!schematics"],
     "version": {
       "conventionalCommits": true
     },
