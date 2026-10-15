@@ -2,8 +2,8 @@
 keyword: GeoZarrSourcePage
 ---
 
-> **Warning** GeoZarr is experimental. The underlying OpenLayers GeoZarr source is not part of the
-> stable API and may change between releases.
+> **Warning** **CRITICAL:** GeoZarr is experimental. The underlying OpenLayers GeoZarr source is not
+> part of the stable API and may change between releases.
 
 `wol-geozarr-source` provides geospatial raster data from a GeoZarr store to a compatible host. It
 wraps the OpenLayers 10.11
