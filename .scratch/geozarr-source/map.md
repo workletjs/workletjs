@@ -24,3 +24,7 @@
 - [02：交互示例及竞态测试](issues/02-interactive-example.md)
 - [03：NgDoc 页面与使用说明](issues/03-ngdoc-documentation.md)
 - [04：集成验收及两轴审查](issues/04-integration-validation.md)
+
+## Completed work
+
+- [03：NgDoc 页面与使用说明](issues/03-ngdoc-documentation.md) 已完成；实现提交 `d5dea9a`，新增 GeoZarr 页面、接口与生命周期说明；格式及库 lint 通过，文档构建待集成验收。
