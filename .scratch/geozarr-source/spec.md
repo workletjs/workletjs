@@ -1,6 +1,6 @@
 # GeoZarr Source 组件需求设计
 
-Status: claimed
+Status: resolved
 
 Type: task
 
@@ -182,8 +182,9 @@ API 页面和一个完整交互示例。示例采用官方的两个预设场景�
 - 本次核对的两个预设数据地址为
   [Krasnokuts'k 场景](https://s3.explorer.eopf.copernicus.eu/esa-zarr-sentinel-explorer-fra/tests-output/sentinel-2-l2a/S2C_MSIL2A_20260120T084301_N0511_R064_T36UXA_20260120T122910.zarr/measurements/reflectance)
   和
-  [Hvolsvöllur 场景](https://s3.explorer.eopf.copernicus.eu/esa-zarr-sentinel-explorer-fra/tests-output/sentinel-2-l2a/S2B_MSIL2A_20260120T125339_N0511_R138_T27VWL_20260120T131151.zarr/measurements/reflectance)。讨论阶段确认了官方页面及用法，尚未完成这些远端数据的实际渲染验收；实施时应进行真实浏览器验证并记录结果。
-- 实施验收结果另行记录；本需求文档的 ready-for-agent 标签表示需求已可实施，不表示组件已经完成。
+  [Hvolsvöllur 场景](https://s3.explorer.eopf.copernicus.eu/esa-zarr-sentinel-explorer-fra/tests-output/sentinel-2-l2a/S2B_MSIL2A_20260120T125339_N0511_R138_T27VWL_20260120T131151.zarr/measurements/reflectance)。讨论阶段确认了官方页面及用法；本次实施已完成两个预设的真实读取与浏览器渲染验收，结果见集成验收记录。
+- 实施验收结果见 [集成验收记录](validation.md)；需求已按本地 issue
+  tracker 约定关闭。ready-for-agent 标签保留需求的分流记录，完成状态以 Status 为准。
 
 ## Comments
 
@@ -197,3 +198,18 @@ API 页面和一个完整交互示例。示例采用官方的两个预设场景�
   tracker 约定发布为 open，并标记 ready-for-agent。
 
 - 2026-10-15：用户要求在独立 worktree 实施，使用集成分支 codex/geozarr-source，所有提交 scope 为 geozarr-source。
+
+- 2026-10-15：已在独立 managed worktree 完成实施及验收，全部提交使用 geozarr-source
+  scope；组件、交互示例、NgDoc 页面和集成验收工单均 resolved。
+
+## Answer
+
+- 完整交付 OpenLayers 10.11 GeoZarr
+  Source 薄封装、独立入口及 NgModule、六个原生输出、四类 DataTile 宿主绑定与生命周期清理；构造输入保持初始化语义，归属与属性支持更新。
+- 交付单个完整交互示例及 EXPERIMENTAL-only NgDoc 页面，涵盖官方两个场景、Custom
+  URL、显式 Load 与同 URL 重试、RGB/gamma 样式、视图复位、初始化/瓦片失败及过期异步结果处理。
+- 组件 18 项、示例 12 项公开行为测试已集成，全量 2407 项测试、lint、格式、库与正式/preview 文档构建通过；两个预设的真实影像、交互、错误恢复、preview 深链接刷新和独立瓦片失败提示均完成浏览器验收。
+- Standards 的 1 项 P3 已修复并复核为 0；Spec 审查 0 项。完整检查、已处理的环境限制、截图和原始审查报告见
+  [集成验收记录](validation.md)，工单图见 [实施图](map.md)。
+- 集成分支为 `codex/geozarr-source`，所有提交 scope 为
+  `geozarr-source`；保持依赖、锁文件、包版本，不执行发版、部署或创建 PR。

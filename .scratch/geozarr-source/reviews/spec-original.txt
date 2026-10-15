@@ -1,0 +1,15 @@
+## Spec
+
+Reviewed the frozen diff `bbf83cef2c36c4ddd629fe2e6a701ae53ed8e771...75f3d2e58b85830b5ee9a87f3abad9aa50859068` against the full approved `.scratch/geozarr-source/spec.md`.
+
+No actionable missing or partial implementation requirements, unasked scope, or incorrectly implemented requirements found.
+
+The public component covers every current OpenLayers 10.11 GeoZarr constructor option using upstream member types, preserves undefined/false/zero, updates attribution/properties separately, retains instance identity for constructor input changes, forwards all six native events, and reuses the existing four-host binding contract. Destruction cleans subscriptions and instance access and guards deferred mounting. The tests exercise those public behaviors through existing Angular host seams.
+
+The example implements the approved presets, draft-only edits, trimmed custom URLs, repeated Load remounts and view reset, OSM plus official RGB/gamma styling, readiness-gated concrete view resolution, distinct initialization/tile failure feedback, and current ID/component/source/destruction checks for asynchronous results. Tests use genuine map/source components with remote GeoZarr initialization replaced, including stale resolve/reject and destruction cases. The official 10.11 example and locally installed OpenLayers implementation confirm the selected style, transforms and native initialization failure semantics.
+
+The secondary entry point, NgModule, API/demo registration, EXPERIMENTAL-only marker, constructor/runtime dimension distinction, and glossary additions match the specification. Every reviewed new commit uses the requested `geozarr-source` scope. No dependency or package-version changes occur in this diff.
+
+Ticket 04 final builds, browser evidence and closure remain with the integration validator and are deliberately not treated as review defects. This is a static spec review, not a claim that real remote imagery/browser acceptance has passed.
+
+Summary: 0 findings; worst issue: none.
