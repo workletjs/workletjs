@@ -29,3 +29,4 @@
 
 - [03：NgDoc 页面与使用说明](issues/03-ngdoc-documentation.md) 已完成；实现提交 `d5dea9a`，新增 GeoZarr 页面、接口与生命周期说明；格式及库 lint 通过，文档构建待集成验收。
 - [01：组件及行为测试](issues/01-source-component.md) 已完成；实现提交 `e77c9f5`、验证记录 `f46c1f7`，新增完整 GeoZarr 入口及 18 个公开行为测试；库测试 2329/2329、库 lint 和新增文件格式检查通过。
+- [02：交互示例及竞态测试](issues/02-interactive-example.md) 已完成；实现提交 `42d6b0f`，新增完整交互示例及 12 个公开行为测试；库测试 2341/2341、库 lint 和受影响示例格式检查通过，浏览器渲染待 04 集成验收。
