@@ -1,6 +1,6 @@
 # 04：地图应用模板
 
-Status: open
+Status: claimed
 
 Type: task
 
@@ -31,3 +31,5 @@ workspace 创建可运行、测试和构建的地图应用。
 
 - 实施依据：[需求设计](../spec.md)。首版模板不暴露 SSR、样式框架、Router 或 zoneless 的变体选项。
 - 真实 tarball 下的新应用测试、生产构建和浏览器验收由 05 执行。
+
+- 2026-10-16：在独立 worktree `codex/schematics-04` 领取，基于集成分支 `97f9016`，复用 02、03 的接入与地图示例规则，按公开 collection 边界红绿实现。
