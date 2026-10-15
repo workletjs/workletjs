@@ -1,0 +1,6 @@
+<wol-map tabindex="0" aria-label="OpenStreetMap">
+  <wol-view [wolCenter]="[0, 0]" [wolZoom]="2" />
+  <wol-tile-layer>
+    <wol-osm-source />
+  </wol-tile-layer>
+</wol-map>
