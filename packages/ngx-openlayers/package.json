@@ -35,7 +35,6 @@
     "@angular/build": "catalog:angular",
     "@angular/cdk": "catalog:angular",
     "@angular/common": "catalog:angular",
-    "@angular/compiler": "catalog:angular",
     "@angular/compiler-cli": "catalog:angular",
     "@angular/core": "catalog:angular",
     "@angular/forms": "catalog:angular",
@@ -57,5 +56,17 @@
     "vitest": "catalog:testing",
     "zone.js": "catalog:"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "schematics": "./schematics/collection.json",
+  "ng-add": {
+    "save": "dependencies"
+  },
+  "dependencies": {
+    "@angular-devkit/core": "catalog:angular",
+    "@angular-devkit/schematics": "catalog:angular",
+    "@angular/compiler": "catalog:angular",
+    "@schematics/angular": "catalog:angular",
+    "semver": "catalog:tooling",
+    "typescript": "catalog:tooling"
+  }
 }

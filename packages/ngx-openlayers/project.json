@@ -14,6 +14,37 @@
   "tags": [],
   "targets": {
     "build": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": [
+        "production",
+        "^production",
+        "{workspaceRoot}/scripts/package-schematics.mjs",
+        "{workspaceRoot}/scripts/build-schematics.mjs"
+      ],
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "dependsOn": [
+        {
+          "target": "package",
+          "params": "forward"
+        },
+        "^build"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "command": "node scripts/package-schematics.mjs"
+      },
+      "configurations": {
+        "production": {},
+        "development": {}
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
+    "package": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "defaultConfiguration": "production",
@@ -27,11 +58,7 @@
         },
         "development": {}
       }
-    },
-    "nx-release-publish": {
-      "options": {
-        "packageRoot": "dist/{projectRoot}"
-      }
     }
-  }
+  },
+  "implicitDependencies": ["schematics"]
 }

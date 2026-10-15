@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "NgxOpenlayersNgAdd",
+  "title": "Add ngx-openlayers to an application",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "The application to configure.",
+      "$default": { "$source": "projectName" }
+    },
+    "example": {
+      "type": "boolean",
+      "description": "Generate and register a lazy map example.",
+      "default": false,
+      "x-prompt": "Generate a map example?"
+    },
+    "exampleName": {
+      "type": "string",
+      "description": "The map example component name (one lowercase kebab-case segment).",
+      "default": "map-example"
+    },
+    "route": {
+      "type": "string",
+      "description": "The map route (one lowercase kebab-case segment).",
+      "default": "map"
+    },
+    "skipInstall": {
+      "type": "boolean",
+      "description": "Skip the follow-up dependency installation.",
+      "default": false
+    }
+  }
+}

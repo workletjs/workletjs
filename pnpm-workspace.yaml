@@ -89,6 +89,8 @@ catalogs:
     jiti: '2.4.2'
     ng-packagr: '~22.2.0'
     typescript: '6.0.3'
+    semver: '^7.8.5'
+    '@types/semver': '^7.8.0'
     verdaccio: '6.7.4'
 autoInstallPeers: true
 strictPeerDependencies: false

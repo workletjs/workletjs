@@ -10,6 +10,15 @@ export default [
       '@nx/dependency-checks': [
         'error',
         {
+          // These are used by the bundled collection, whose source is a separate internal project.
+          ignoredDependencies: [
+            '@angular-devkit/core',
+            '@angular-devkit/schematics',
+            '@angular/compiler',
+            '@schematics/angular',
+            'semver',
+            'typescript',
+          ],
           ignoredFiles: [
             '{projectRoot}/eslint.config.{js,cjs,mjs,ts,cts,mts}',
             '{projectRoot}/test-setup.ts',

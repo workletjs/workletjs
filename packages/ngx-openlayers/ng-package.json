@@ -3,5 +3,13 @@
   "dest": "../../dist/packages/ngx-openlayers",
   "lib": {
     "entryFile": "public-api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": [
+    "@angular-devkit/core",
+    "@angular-devkit/schematics",
+    "@angular/compiler",
+    "@schematics/angular",
+    "semver",
+    "typescript"
+  ]
 }

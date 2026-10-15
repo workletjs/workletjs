@@ -226,6 +226,9 @@ catalogs:
     '@types/node':
       specifier: 20.19.9
       version: 20.19.9
+    '@types/semver':
+      specifier: ^7.8.0
+      version: 7.8.0
     baseline-browser-mapping:
       specifier: ^2.9.19
       version: 2.9.19
@@ -238,6 +241,9 @@ catalogs:
     ng-packagr:
       specifier: ~22.2.0
       version: 22.2.4
+    semver:
+      specifier: ^7.8.5
+      version: 7.8.5
     typescript:
       specifier: 6.0.3
       version: 6.0.3
@@ -360,6 +366,9 @@ importers:
       '@types/node':
         specifier: catalog:tooling
         version: 20.19.9
+      '@types/semver':
+        specifier: catalog:tooling
+        version: 7.8.0
       '@typescript-eslint/utils':
         specifier: catalog:quality
         version: 8.64.0(eslint@9.37.0(jiti@2.4.2))(typescript@6.0.3)
@@ -420,6 +429,9 @@ importers:
       rxjs:
         specifier: 'catalog:'
         version: 7.8.2
+      semver:
+        specifier: catalog:tooling
+        version: 7.8.5
       tslib:
         specifier: 'catalog:'
         version: 2.8.1
@@ -559,9 +571,27 @@ importers:
 
   packages/ngx-openlayers:
     dependencies:
+      '@angular-devkit/core':
+        specifier: catalog:angular
+        version: 22.2.2(chokidar@5.0.0)
+      '@angular-devkit/schematics':
+        specifier: catalog:angular
+        version: 22.2.2(chokidar@5.0.0)
+      '@angular/compiler':
+        specifier: catalog:angular
+        version: 22.2.2
+      '@schematics/angular':
+        specifier: catalog:angular
+        version: 22.2.2(chokidar@5.0.0)
       ol:
         specifier: 'catalog:'
         version: 10.11.0
+      semver:
+        specifier: catalog:tooling
+        version: 7.8.5
+      typescript:
+        specifier: catalog:tooling
+        version: 6.0.3
     devDependencies:
       '@analogjs/vite-plugin-angular':
         specifier: catalog:testing
@@ -581,9 +611,6 @@ importers:
       '@angular/common':
         specifier: catalog:angular
         version: 22.2.2(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2)
-      '@angular/compiler':
-        specifier: catalog:angular
-        version: 22.2.2
       '@angular/compiler-cli':
         specifier: catalog:angular
         version: 22.2.2(@angular/compiler@22.2.2)(typescript@6.0.3)
@@ -644,6 +671,37 @@ importers:
       zone.js:
         specifier: 'catalog:'
         version: 0.16.2
+
+  packages/schematics:
+    dependencies:
+      '@angular-devkit/core':
+        specifier: catalog:angular
+        version: 22.2.2(chokidar@5.0.0)
+      '@angular-devkit/schematics':
+        specifier: catalog:angular
+        version: 22.2.2(chokidar@5.0.0)
+      '@angular/compiler':
+        specifier: catalog:angular
+        version: 22.2.2
+      '@schematics/angular':
+        specifier: catalog:angular
+        version: 22.2.2(chokidar@5.0.0)
+      semver:
+        specifier: catalog:tooling
+        version: 7.8.5
+      typescript:
+        specifier: catalog:tooling
+        version: 6.0.3
+    devDependencies:
+      '@types/node':
+        specifier: catalog:tooling
+        version: 20.19.9
+      '@types/semver':
+        specifier: catalog:tooling
+        version: 7.8.0
+      vitest:
+        specifier: catalog:testing
+        version: 4.0.9(@types/debug@4.1.12)(@types/node@20.19.9)(@vitest/ui@4.0.9)(jiti@2.6.1)(jsdom@22.1.0)(less@4.6.4)(lightningcss@1.33.0)(sass-embedded@1.105.1)(sass@1.105.1)(terser@5.46.2)(yaml@2.9.0)
 
 packages:
 
