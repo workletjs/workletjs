@@ -26,6 +26,9 @@
 - Standards 原 P3 在 `878c296` 修复后复核为 0，Spec 审查 0 项；[完整验收记录](validation.md)
   保留原始报告、截图与环境说明。[需求](spec.md) 和全部四个工单均已 resolved。
 
+- [03 文档后续精简](issues/03-ngdoc-documentation.md)：按用户反馈将四节合并为 Usage
+  notes，移除与自动 API 重复的清单和基础示例；受影响 Markdown 格式、preview 文档构建及真实浏览器页面复核通过，保留[页面截图](evidence/docs-usage-notes.jpg)。
+
 ## Fog
 
 - 无未决验收项。

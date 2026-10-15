@@ -23,6 +23,10 @@ Blocked by: None
 
 - 可与 01 并行编写，演示实现由 02 提供；提交使用 geozarr-source scope，完成前合并集成分支 tip。
 
+- 2026-10-15：按用户后续反馈，将 Imports and hosts、Inputs、Instance access and non-spatial
+  dimensions、Events and initialization state 合并为 Usage
+  notes，删除重复的手写 API 表格及基础导入/模板示例，与其它 Source 页保持短说明、示例、自动 API 的组织方式。
+
 ## Answer
 
 - 新增 Sources/GeoZarr 的 NgDoc 页面，路由为 geozarr，注册 WolGeoZarrSourceExampleComponent，并使用 EXPERIMENTAL 状态，不添加 NEW。
@@ -32,3 +36,7 @@ Blocked by: None
 - 验证通过：受影响文件的 Prettier 检查、git diff --check，以及 NX_DAEMON=false
   NX_ISOLATE_PLUGINS=false pnpm nx lint ngx-openlayers。
 - 该工单只改文档注册与说明，无运行时行为变化，不新增镜像测试。完整 API/演示解析及正式和 preview 文档构建由 04 在 01、02、03 集成后集中验收。
+
+- 后续文档精简复核：正文从 158 行缩为 67 行，保留初始化输入、维度更新及异步错误语义；接口明细由 NgDoc
+  API 展示。受影响 Markdown 的 Prettier 检查、git diff --check 和 pnpm
+  build:docs-preview 通过；真实浏览器确认新目录、示例及自动 API 正常，控制台 warn/error 为空。此轮没有运行时行为改动，未重复组件测试。截图见[优化后的页面](../evidence/docs-usage-notes.jpg)。
