@@ -24,6 +24,10 @@
 - 自动化测试优先使用公开 collection 到输出 Tree 的行为边界；实际 tarball、生成应用构建和浏览器检查负责交付验收。
 - 此处记录的是已确认的设计选择；各项实施结果由对应工单完成后补充。
 
+- [01：内部项目与打包](issues/01-internal-project-and-packaging.md) 已完成：独立 CommonJS
+  collection 构建、主库合并打包与缓存依赖、私有发布排除、Node
+  collection 测试和根级检查入口已建立；两种主库构建及内部 build/test/lint 验证通过。
+
 ## Fog
 
 - 无待用户决定的产品选项。运行依赖兼容性、发布包加载和生成应用行为仍需实施期间按工单验证，当前不宣称通过。
