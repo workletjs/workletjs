@@ -1,0 +1,6 @@
+Skipping installation: Package already installed
+CREATE projects/plain-host/src/app/city-map/city-map.css (58 bytes)
+CREATE projects/plain-host/src/app/city-map/city-map.html (173 bytes)
+CREATE projects/plain-host/src/app/city-map/city-map.spec.ts (1938 bytes)
+CREATE projects/plain-host/src/app/city-map/city-map.ts (635 bytes)
+UPDATE projects/plain-host/src/app/app.routes.ts (170 bytes)

@@ -1,0 +1,13 @@
+❯ Building...
+✔ Building...
+Application bundle generation complete. [0.570 seconds] - 2026-10-16T00:05:14.657Z
+
+
+ RUN  v5.0.4 /private/tmp/workletjs-schematics-acceptance
+
+
+ Test Files  2 passed (2)
+      Tests  3 passed (3)
+   Start at  08:05:14
+   Duration  603ms (environment 63%, setup 16%, transform 9%, tests 9%, import 3%, worker 1%)
+
