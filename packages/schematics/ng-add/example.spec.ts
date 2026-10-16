@@ -82,6 +82,16 @@ describe('ng-add routed example through the published collection', () => {
       tree,
     );
 
+  it('isolates published library runtime imports in the generated shallow template test', async () => {
+    const result = await run();
+    const spec = result.readText(componentFile(undefined, 'spec.ts'));
+    for (const entry of ['map', 'view', 'layer/tile', 'source/osm']) {
+      expect(spec).toContain(`vi.mock('@workletjs/ngx-openlayers/${entry}', () =>`);
+    }
+    expect(spec).toContain('overrideComponent(MapExample');
+    expect(spec).not.toContain('importOriginal');
+  });
+
   it('generates a minimal map and puts its lazy route first without changing existing UI', async () => {
     const tree = host();
     const originalRoot = tree.readText(`${root}/shell/root.ts`);
