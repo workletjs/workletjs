@@ -1,6 +1,6 @@
 # Angular Schematics 功能需求设计
 
-Status: open
+Status: resolved
 
 Type: task
 
@@ -216,7 +216,7 @@ ng generate @workletjs/ngx-openlayers:application map-app
 - 路由顺序依据：[Angular 路由匹配规则](https://angular.dev/guide/routing/define-routes#how-angular-matches-urls)。新增静态示例路由放在根数组首位，使其优先于动态参数、空路径壳或通配符。
 - 本需求使用本地 Markdown issue
   tracker 发布为 open，标记 ready-for-agent。实施拆分及依赖关系见[实施图](map.md)，每个任务使用独立编号工单。
-- 本文只记录已确认的功能与交付要求，未执行实现、构建或浏览器验收；后续验收结果应另行如实记录。
+- 本文记录已确认的功能与交付要求；实施、构建、真实 CLI 与浏览器验收已完成，结果另见[验收记录](validation.md)与[代码评审](review.md)。
 
 ## Comments
 
@@ -230,3 +230,16 @@ ng generate @workletjs/ngx-openlayers:application map-app
 - 2026-10-15：用户通过 to-spec 要求将对话写成功能需求设计文档，现按本地 tracker 约定保存为 open 需求并标记 ready-for-agent。
 
 - 2026-10-15：用户通过 implement-spec 授权在独立 worktree 实施全部规格，要求清晰提交记录，全部提交 scope 为 schematics。
+
+- 2026-10-16：完成全部实施、完整仓库检查、真实 tarball/CLI/浏览器验收及双轴评审修复，按本地 tracker 关闭规格。
+
+## Answer
+
+已在独立 worktree 的 `codex/schematics` 集成分支实现两个公开入口，内部项目及私有包分别为
+`schematics`、`@workletjs/schematics`，随主库交付。01—05 工单全部 resolved，新增提交均使用
+`schematics` scope。
+
+完整测试共 2570 项通过，其中 Schematics
+138 项；lint、格式、主库 production/development、文档构建和构建缓存检查通过。实际安装包的命令、生成应用测试/构建、地图显示、导航、缩放及键盘聚焦均已验收。Standards 与 Spec 评审发现已全部修复并独立复核，无未解决问题。
+
+完整证据见[验收记录](validation.md)、[双轴评审](review.md)与[实施图](map.md)。

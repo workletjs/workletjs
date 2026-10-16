@@ -1,0 +1,4 @@
+
+> @workletjs/source@22.0.1 format:check /Users/chao/Documents/Coding/workletjs/.worktrees/schematics-review-fix
+> nx format:check --projects=ngx-openlayers,docs,schematics
+

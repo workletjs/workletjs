@@ -1,0 +1,14 @@
+
+> @workletjs/source@22.0.1 build /Users/chao/Documents/Coding/workletjs/.worktrees/schematics-review-fix
+> nx build ngx-openlayers
+
+
+ NX   3 tasks: 3 succeeded
+
+
+Re-run with --output-style=static to inline logs.
+
+  Run duration:      15.7s
+  Cache:             Skipped (--skip-nx-cache)
+  Critical path:     15.7s (3 tasks)
+  Recoverable time:  <1ms
