@@ -8,6 +8,7 @@ import {
   getWorkspace,
   writeWorkspace,
 } from '@schematics/angular/utility/workspace';
+import { posix } from 'node:path';
 
 import { DependencyAddition, prepareDependencies } from './dependencies';
 
@@ -100,9 +101,39 @@ function openLayersStyles(styles: json.JsonValue | undefined): json.JsonArray {
       input.replaceAll('\\', '/').replace(/^\.\//, '') !== 'node_modules/ol/ol.css'
     )
       return true;
+    // Deferred bundles do not load global styles; retain their user-defined output options.
+    if (style && typeof style === 'object' && !Array.isArray(style) && style['inject'] === false)
+      return true;
     if (found) return false;
     found = true;
     return true;
   });
-  return found ? result : ['node_modules/ol/ol.css', ...result];
+  if (found) return result;
+  const bundleNames = new Set(result.map(styleBundleName));
+  const deferredDefault = result.some(
+    (style) =>
+      style &&
+      typeof style === 'object' &&
+      !Array.isArray(style) &&
+      style['inject'] === false &&
+      styleBundleName(style) === 'styles',
+  );
+  if (!deferredDefault) return ['node_modules/ol/ol.css', ...result];
+  // Angular forbids mixing injected and deferred entries within a named bundle.
+  let bundleName = 'ngx-openlayers';
+  for (let suffix = 1; bundleNames.has(bundleName); suffix++) {
+    bundleName = `ngx-openlayers-${suffix}`;
+  }
+  return [{ input: 'node_modules/ol/ol.css', bundleName, inject: true }, ...result];
+}
+
+function styleBundleName(style: json.JsonValue): string {
+  if (!style || typeof style !== 'object' || Array.isArray(style)) return 'styles';
+  if (typeof style['bundleName'] === 'string' && style['bundleName']) return style['bundleName'];
+  const input = style['input'];
+  if (style['inject'] === false && typeof input === 'string') {
+    const path = input.replaceAll('\\', '/');
+    return posix.basename(path, posix.extname(path));
+  }
+  return 'styles';
 }
