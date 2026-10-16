@@ -1,7 +1,0 @@
-## Standards
-
-- **[P3] Documented-standard violation — ticket closure summaries are outside `Decisions-so-far`.** In `.scratch/geozarr-source/map.md:28–32`, resolved tickets 01, 02 and 03 have summaries and links under `## Completed work`. The issue-tracker convention (`docs/agents/issue-tracker.md`, “Wayfinding operations”) explicitly requires closing a ticket by “adding a summary and ticket link to the map's Decisions-so-far section.” Move these three entries into `## Decisions-so-far`, and record subsequent closures there as well.
-
-No actionable Fowler baseline smells found. Existing thin-wrapper/event-forwarding patterns intentionally satisfy this repository's Source architecture.
-
-Standards: 1 finding; worst: P3 ticket closure bookkeeping.
