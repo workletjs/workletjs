@@ -78,3 +78,17 @@ vitest.config.*.timestamp*
 
 # Local skill artifacts
 /.scratch/
+
+# Local migration artifacts
+/.nx/migrate-runs/
+/tools/ai-migrations/
+/migrations.json
+
+# Local environment configuration
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# pnpm debug logs
+pnpm-debug.log*
