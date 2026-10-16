@@ -47,7 +47,9 @@ screenshots for docs or visual changes. Ensure lint, tests, formatting, and rele
 
 ### Issue tracker
 
-Issues and specs live in `.scratch/<feature-slug>/`. See `docs/agents/issue-tracker.md`.
+Issues and specs live in `.scratch/<feature-slug>/` as disposable local artifacts. This directory is
+ignored by Git; do not commit its contents. Recreate it as needed. See
+`docs/agents/issue-tracker.md`.
 
 ### Domain docs
 
