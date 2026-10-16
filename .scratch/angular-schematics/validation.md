@@ -95,6 +95,24 @@ Schematics 测试从临时发布布局加载编译后的公开 collection，使�
 - Angular CLI 执行 schematic 前完成的库安装不因后续 Tree 验证失败自动回滚。
 - 当前源码仍使用 22.0.1 包版本，新增能力和 peer 升级尚未因此执行发版；历史包依旧遵循自身 peerDependencies。
 
+## Code review 后的修复验证
+
+- 审查基线为 `c0f0a40`。Standards 轴没有硬性违例，提出 1 项 P3 重复代码建议； `c231fcf`
+  将 Component 装饰器识别和静态元数据读取统一到内部 StaticSource 方法，调用者保留各自的宿主条件和错误语义，没有新增公开 collection
+  API。
+- Spec 轴发现 1 项 P2：根模板只有 `ngNonBindable`
+  容器中的原生 router-outlet 标签时，原逻辑会误认其为真实出口。 `43ecf0f`
+  在检查当前元素后跳过禁止绑定的子树；保留 outlet 元素自身带 ngNonBindable 时的实际 RouterOutlet 语义。
+- Angular 22.2
+  TestBed 直接验证：容器禁止绑定时 DOM 中有一个 outlet 标签，但实际 RouterOutlet 指令为零；outlet 自身带该属性时实际指令为一个；另有正常出口共存时实际指令也为一个。本机探针为
+  `/private/tmp/workletjs-schematics-outlet-runtime-fix.cjs`。
+- 重构前后既有 134 个公开 collection 测试均通过。正确性修复新增两条拒绝回归，先确认错误接受导致测试失败，再实现转绿；另两条允许回归保护真实出口共存及 host 属性语义。当前 Schematics 合计 4 个文件、138 个测试，失败场景同时断言全部宿主文件保持原样。
+- 修复后重新运行完整 `pnpm test`、`pnpm lint`、`pnpm format:check` 和 `pnpm build`，均通过；命令使用
+  `NX_DAEMON=false NX_ISOLATE_PLUGINS=false NX_SKIP_NX_CACHE=true`（格式检查无需 cache 选项）。显式受改动 TypeScript 的 Prettier 检查和
+  `git diff --check` 也通过。
+- 本轮完整检查日志为
+  `/private/tmp/workletjs-schematics-review-fix-{test,lint,format,build}.log`。规格仍保持 open；以上代码修复改变了集合 runtime，最终真实 tarball 的重新安装与 CLI 验证由集成负责人补充，不能将旧包证据直接视为本次修复后的包验证。
+
 ## 完成状态与后续确认
 
 工单 05 的文档、领域词条、仓库回归及上述功能包/真实 CLI/浏览器证据已齐全。规格暂保留 open，等待集成分支最终 code-review 及其可能修复。
