@@ -169,21 +169,8 @@ function assertPrimaryOutlet(tree: Tree, source: StaticSource, bootstrap: ts.Cal
     exampleError('the bootstrapped root component is not static');
   const root = source.declaration(identifier);
   if (!ts.isClassDeclaration(root)) exampleError('the bootstrapped root component is not a class');
-  const decorator = ts
-    .getDecorators(root)
-    ?.find(
-      (candidate) =>
-        ts.isCallExpression(candidate.expression) &&
-        source.importedName(candidate.expression.expression, '@angular/core') === 'Component',
-    );
-  if (
-    !decorator ||
-    !ts.isCallExpression(decorator.expression) ||
-    !decorator.expression.arguments[0]
-  ) {
-    exampleError('the root @Component metadata cannot be analyzed');
-  }
-  const metadata = source.object(decorator.expression.arguments[0], 'root component metadata');
+  const metadata = source.componentMetadata(root, 'root component metadata');
+  if (!metadata) exampleError('the root @Component metadata cannot be analyzed');
   const standalone = property(metadata, 'standalone');
   if (standalone && standalone.kind !== ts.SyntaxKind.TrueKeyword) {
     exampleError('automatic examples support standalone root components only');

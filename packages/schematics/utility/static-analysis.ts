@@ -36,6 +36,27 @@ export class StaticSource {
     return binding?.module === module ? binding.name : undefined;
   }
 
+  componentMetadata(
+    component: ts.ClassDeclaration,
+    label: string,
+  ): ts.ObjectLiteralExpression | undefined {
+    const decorator = ts
+      .getDecorators(component)
+      ?.find(
+        (candidate) =>
+          ts.isCallExpression(candidate.expression) &&
+          this.importedName(candidate.expression.expression, '@angular/core') === 'Component',
+      );
+    if (
+      !decorator ||
+      !ts.isCallExpression(decorator.expression) ||
+      !decorator.expression.arguments[0]
+    ) {
+      return undefined;
+    }
+    return this.object(decorator.expression.arguments[0], label);
+  }
+
   declaration(identifier: ts.Identifier): ts.Declaration {
     const source = identifier.getSourceFile();
     const imported = this.imported(identifier);
