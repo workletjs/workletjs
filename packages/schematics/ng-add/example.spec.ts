@@ -337,12 +337,26 @@ bootstrapApplication(Root, { providers: [provideRouter([])] });`,
     ['bound dynamic outlet', '<router-outlet [name]="name" />'],
     ['inert template outlet', '<ng-template><router-outlet /></ng-template>'],
     ['conditional outlet', '@if (visible) { <router-outlet /> }'],
+    ['non-bindable subtree outlet', '<div ngNonBindable><router-outlet /></div>'],
+    [
+      'nested non-bindable subtree outlet',
+      '<section ngNonBindable><div><router-outlet /></div></section>',
+    ],
   ])('rejects %s and preserves all host files', async (_name, html) => {
     const tree = host();
     tree.overwrite(`${root}/shell/root.html`, html);
     const before = snapshot(tree);
     await expect(run(tree)).rejects.toThrow(/primary.*router-outlet/);
     expect(snapshot(tree)).toEqual(before);
+  });
+
+  it.each([
+    ['another real outlet', '<div ngNonBindable><router-outlet /></div><router-outlet />'],
+    ['the outlet host itself', '<router-outlet ngNonBindable />'],
+  ])('accepts %s when ngNonBindable only disables descendant directives', async (_name, html) => {
+    const tree = host();
+    tree.overwrite(`${root}/shell/root.html`, html);
+    expect((await run(tree)).exists(componentFile())).toBe(true);
   });
 
   it('accepts a statically bound primary outlet', async () => {

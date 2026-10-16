@@ -218,6 +218,8 @@ function hasPrimaryOutlet(nodes: readonly unknown[]): boolean {
       }
       if (!name || name.value === 'primary') return true;
     }
+    // ngNonBindable disables child directives while preserving directives on its host.
+    if (node.attributes.some((attribute) => attribute.name === 'ngNonBindable')) return false;
     return hasPrimaryOutlet(node.children);
   });
 }
