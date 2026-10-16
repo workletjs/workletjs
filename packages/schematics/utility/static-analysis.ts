@@ -117,6 +117,19 @@ export class StaticSource {
 
   private assertUnchangedReferences(source: ts.SourceFile, name: string): void {
     const visit = (node: ts.Node): void => {
+      const aliasDeclaration =
+        ts.isVariableDeclaration(node) &&
+        node.initializer &&
+        rootIdentifier(node.initializer) === name;
+      const aliasAssignment =
+        ts.isBinaryExpression(node) &&
+        node.operatorToken.kind >= ts.SyntaxKind.FirstAssignment &&
+        node.operatorToken.kind <= ts.SyntaxKind.LastAssignment &&
+        rootIdentifier(node.right) === name;
+      // A new reference can mutate the same array/object outside the supported static graph.
+      if (aliasDeclaration || aliasAssignment) {
+        exampleError(`alias escape of "${name}" can mutate the configuration and is unsupported`);
+      }
       const assignment =
         ts.isBinaryExpression(node) &&
         node.operatorToken.kind >= ts.SyntaxKind.FirstAssignment &&

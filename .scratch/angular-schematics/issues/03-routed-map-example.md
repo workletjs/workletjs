@@ -52,3 +52,7 @@ Blocked by: 02
 - 验证通过：`pnpm nx test schematics`（3 个文件、92 个测试，其中 59 个示例测试）、`pnpm nx build schematics`、`pnpm nx lint schematics`、`pnpm nx format:check --projects=schematics`、变更 TypeScript 与本工单的显式 Prettier 检查、`git diff --check`。Nx 命令使用
   `NX_DAEMON=false NX_ISOLATE_PLUGINS=false`。
 - 实际 tarball 下的消费端单元测试、生产构建和浏览器地图/路由交互按约定留给 05；此工单未声称这些集成验收已完成。
+
+- 2026-10-16 后续边界修复：拒绝路由、应用配置及 providers 数组经变量声明或赋值产生的引用别名逃逸，避免别名突变使前置检查遗漏既有路由。直接相对导入的本地别名同样受检；继续支持官方静态 const 结构和命名 import
+  alias，不扩大动态配置分析范围。
+- 新增 9 个公开 collection 回归，先全部观察失败，再修复通过；覆盖别名 push、索引赋值、未知调用、赋值别名、别名链、跨文件导入别名和配置/providers 别名，每个失败均验证完整 Tree 快照不变。与样式修复合并后共 108 个测试通过，内部 build/lint 和改动文件格式检查通过。此追加不改变工单主状态；实际打包消费端与浏览器验收仍由05记录。
