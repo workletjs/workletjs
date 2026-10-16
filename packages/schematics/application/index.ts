@@ -89,23 +89,12 @@ async function prepareRoot(tree: Tree, projectName: string) {
       'The generated application root must be a named component class.',
     );
   }
-  const decorator = ts
-    .getDecorators(root)
-    ?.find(
-      (candidate) =>
-        ts.isCallExpression(candidate.expression) &&
-        source.importedName(candidate.expression.expression, '@angular/core') === 'Component',
-    );
-  if (
-    !decorator ||
-    !ts.isCallExpression(decorator.expression) ||
-    !decorator.expression.arguments[0]
-  ) {
+  const metadata = source.componentMetadata(root, 'generated component metadata');
+  if (!metadata) {
     throw new SchematicsException(
       'The generated application root has no static Component metadata.',
     );
   }
-  const metadata = source.object(decorator.expression.arguments[0], 'generated component metadata');
   const selector = stringValue(property(metadata, 'selector'));
   const templateUrl = stringValue(property(metadata, 'templateUrl'));
   const styleUrl = stringValue(property(metadata, 'styleUrl'));
