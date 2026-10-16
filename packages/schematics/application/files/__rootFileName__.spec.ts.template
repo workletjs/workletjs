@@ -1,0 +1,24 @@
+import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+
+import { <%= rootClassName %> } from './<%= rootFileName %>';
+
+describe('<%= rootClassName %>', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [<%= rootClassName %>],
+      providers: [provideRouter([])],
+    }).compileComponents();
+  });
+
+  it('creates the application', () => {
+    const fixture = TestBed.createComponent(<%= rootClassName %>);
+    expect(fixture.componentInstance).toBeTruthy();
+  });
+
+  it('renders the primary router outlet', async () => {
+    const fixture = TestBed.createComponent(<%= rootClassName %>);
+    await fixture.whenStable();
+    expect(fixture.nativeElement.querySelector('router-outlet')).not.toBeNull();
+  });
+});
