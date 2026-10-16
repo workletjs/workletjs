@@ -1,0 +1,16 @@
+❯ Building...
+✔ Building...
+Initial chunk files | Names         |  Raw size | Estimated transfer size
+chunk-I7MLHAGR.js   | -             | 114.12 kB |                34.41 kB
+main-XSCBKY7F.js    | main          |  88.48 kB |                22.43 kB
+styles-TA3IRZ42.css | styles        |   5.35 kB |                 1.16 kB
+
+                    | Initial total | 207.95 kB |                58.01 kB
+
+Lazy chunk files    | Names         |  Raw size | Estimated transfer size
+chunk-PNAEBMAS.js   | world-map     | 369.70 kB |                87.39 kB
+
+Application bundle generation complete. [1.137 seconds] - 2026-10-16T00:05:14.173Z
+
+Output location: /private/tmp/workletjs-schematics-acceptance/dist/custom-map
+
