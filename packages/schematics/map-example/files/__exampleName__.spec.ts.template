@@ -1,8 +1,16 @@
 import { Component, input } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { vi } from 'vitest';
 
 import { <%= className %> } from './<%= exampleName %>';
+
+// Keep external OpenLayers code out of this shallow template test.
+vi.mock('@workletjs/ngx-openlayers/map', () => ({ WolMapComponent: class {} }));
+vi.mock('@workletjs/ngx-openlayers/view', () => ({ WolViewComponent: class {} }));
+vi.mock('@workletjs/ngx-openlayers/layer/tile', () => ({ WolTileLayerComponent: class {} }));
+vi.mock('@workletjs/ngx-openlayers/source/osm', () => ({ WolOSMSourceComponent: class {} }));
+
 
 @Component({ selector: 'wol-map', template: '<ng-content />', host: { style: 'display: block' } })
 class MapStub {}
