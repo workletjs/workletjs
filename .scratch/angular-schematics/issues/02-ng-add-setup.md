@@ -53,3 +53,10 @@ Blocked by: 01
 - 实现提交：`486a300 feat(schematics): configure ng add dependencies and styles`。
 - 独立依赖安装尝试因离线 store 缺少 tarball 失败，随后使用 APFS
   clone 复制集成 worktree 的已安装依赖到本 worktree；未改写主工作区或集成 worktree 的依赖。
+
+- 2026-10-16 后续边界修复：只存在 `inject: false`
+  的 OpenLayers 样式对象不再被误认为接入完成。保留非注入对象及其 bundle 选项，同时补齐实际注入的样式；省略
+  `inject` 或显式为 true 的既有入口仍参与去重，重复执行保持不变。对名为 `styles`
+  的非注入 bundle，使用未占用的独立注入 bundle，避免 Angular 拒绝混合注入标志。
+- 新增 7 个公开 collection 样式回归，先观察最初 5 个用例失败，再实现并通过；覆盖默认/自定义非注入 bundle、混合对象和字符串、configuration、幂等及注入 bundle 名称冲突。与别名安全修复合并验证后共 108 个测试通过，`pnpm nx run-many -t test,lint,build -p schematics --parallel=1 --output-style=static`、改动文件 Prettier 和
+  `git diff --check` 通过。未改动04或执行消费端与浏览器验收。

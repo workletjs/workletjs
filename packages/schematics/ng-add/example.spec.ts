@@ -432,6 +432,69 @@ export const config = { providers: [provideRouter(routes)] };`,
     await expect(run(tree).then(() => undefined)).rejects.toThrow(/mutation/);
   });
 
+  it.each([
+    `const alias = routes; alias.push({ path: 'map', redirectTo: 'business' });`,
+    `const alias = routes; alias[0] = { path: 'map', redirectTo: 'business' };`,
+    `const alias = routes; mutate(alias);`,
+    `let alias; alias = routes; alias.push({ path: 'map', redirectTo: 'business' });`,
+    `const first = routes; const second = first; second.push({ path: 'map', redirectTo: 'business' });`,
+  ])('rejects route-array alias escape atomically: %s', async (mutation) => {
+    const tree = host();
+    tree.overwrite(`${root}/pages.ts`, `export const routes = []; ${mutation}`);
+    const before = snapshot(tree);
+    await expect(run(tree).then(() => undefined)).rejects.toThrow(/alias|mutation/);
+    expect(snapshot(tree)).toEqual(before);
+  });
+
+  it('rejects a locally aliased direct route import before any writes', async () => {
+    const tree = host();
+    tree.overwrite(
+      `${root}/settings.ts`,
+      `
+import { provideRouter } from '@angular/router';
+import { routes as pages } from './pages';
+const alias = pages;
+alias.push({ path: 'map', component: Business });
+export const config = { providers: [provideRouter(pages)] };`,
+    );
+    const before = snapshot(tree);
+    await expect(run(tree).then(() => undefined)).rejects.toThrow(/alias|mutation/);
+    expect(snapshot(tree)).toEqual(before);
+  });
+
+  it.each([
+    `const alias = config; alias.providers = [];`,
+    `const alias = config.providers; alias.push(provideRouter([{ path: 'map', component: Business }]));`,
+  ])('rejects configuration aliases atomically: %s', async (mutation) => {
+    const tree = host();
+    tree.overwrite(
+      `${root}/settings.ts`,
+      `
+import { provideRouter } from '@angular/router';
+export const config = { providers: [provideRouter([])] };
+${mutation}`,
+    );
+    const before = snapshot(tree);
+    await expect(run(tree).then(() => undefined)).rejects.toThrow(/alias|mutation/);
+    expect(snapshot(tree)).toEqual(before);
+  });
+
+  it('rejects providers-array aliases before any writes', async () => {
+    const tree = host();
+    tree.overwrite(
+      `${root}/settings.ts`,
+      `
+import { provideRouter } from '@angular/router';
+const providers = [provideRouter([])];
+const alias = providers;
+alias.push(provideRouter([{ path: 'map', component: Business }]));
+export const config = { providers };`,
+    );
+    const before = snapshot(tree);
+    await expect(run(tree).then(() => undefined)).rejects.toThrow(/alias|mutation/);
+    expect(snapshot(tree)).toEqual(before);
+  });
+
   it('rejects empty-path lazy children whose path collisions cannot be checked', async () => {
     const tree = host();
     tree.overwrite(

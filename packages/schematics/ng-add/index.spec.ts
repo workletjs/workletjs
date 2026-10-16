@@ -255,6 +255,87 @@ describe('ng-add published command', () => {
     expect(readJson(result, '/angular.json').projects.app.architect.test.options).toEqual({});
   });
 
+  it.each([undefined, 'deferred-map'])(
+    'injects OpenLayers while preserving the non-injected bundle %j and configuration',
+    async (bundleName) => {
+      const deferred = {
+        input: 'node_modules/ol/ol.css',
+        ...(bundleName ? { bundleName } : {}),
+        inject: false,
+      };
+      const app = application([deferred, 'src/styles.css']);
+      app.architect.build.configurations.production.styles = [deferred, 'src/production.css'];
+      const once = await run({}, workspace({ app }));
+      const build = readJson(once, '/angular.json').projects.app.architect.build;
+      expect(build.options.styles).toEqual(['node_modules/ol/ol.css', deferred, 'src/styles.css']);
+      expect(build.configurations.production.styles).toEqual([
+        'node_modules/ol/ol.css',
+        deferred,
+        'src/production.css',
+      ]);
+      const twice = await run({}, once);
+      expect(twice.readText('/angular.json')).toBe(once.readText('/angular.json'));
+    },
+  );
+
+  it.each([{}, { inject: true }])(
+    'keeps an existing injected style object %j alongside lazy bundles',
+    async (injection) => {
+      const deferred = { input: 'node_modules/ol/ol.css', inject: false };
+      const injected = { input: './node_modules/ol/ol.css', bundleName: 'map', ...injection };
+      const result = await run(
+        {},
+        workspace({
+          app: application([deferred, injected, 'node_modules/ol/ol.css', 'src/styles.css']),
+        }),
+      );
+      expect(readJson(result, '/angular.json').projects.app.architect.build.options.styles).toEqual(
+        [deferred, injected, 'src/styles.css'],
+      );
+    },
+  );
+
+  it('preserves non-injected bundle options when injected strings occur first', async () => {
+    const deferred = { input: 'node_modules/ol/ol.css', inject: false, bundleName: 'map-download' };
+    const result = await run(
+      {},
+      workspace({ app: application(['node_modules/ol/ol.css', deferred, 'src/styles.css']) }),
+    );
+    expect(readJson(result, '/angular.json').projects.app.architect.build.options.styles).toEqual([
+      'node_modules/ol/ol.css',
+      deferred,
+      'src/styles.css',
+    ]);
+  });
+
+  it('avoids mixing injection flags when the deferred bundle is named styles', async () => {
+    const deferred = { input: 'node_modules/ol/ol.css', bundleName: 'styles', inject: false };
+    const result = await run({}, workspace({ app: application([deferred]) }));
+    const styles = readJson(result, '/angular.json').projects.app.architect.build.options.styles;
+    expect(styles).toContainEqual(deferred);
+    expect(styles).toContainEqual({
+      input: 'node_modules/ol/ol.css',
+      bundleName: 'ngx-openlayers',
+      inject: true,
+    });
+    const twice = await run({}, result);
+    expect(twice.readText('/angular.json')).toBe(result.readText('/angular.json'));
+  });
+
+  it('chooses an unused injected bundle name without altering existing deferred outputs', async () => {
+    const deferred = { input: 'node_modules/ol/ol.css', bundleName: 'styles', inject: false };
+    const reserved = { input: 'src/download.css', bundleName: 'ngx-openlayers', inject: false };
+    const result = await run({}, workspace({ app: application([deferred, reserved]) }));
+    expect(readJson(result, '/angular.json').projects.app.architect.build.options.styles).toEqual([
+      { input: 'node_modules/ol/ol.css', bundleName: 'ngx-openlayers-1', inject: true },
+      deferred,
+      reserved,
+    ]);
+    expect((await run({}, result)).readText('/angular.json')).toBe(
+      result.readText('/angular.json'),
+    );
+  });
+
   it('creates build options styles when absent', async () => {
     const app = application();
     delete (app.architect.build.options as { styles?: unknown[] }).styles;
