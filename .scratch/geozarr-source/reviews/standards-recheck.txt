@@ -1,5 +1,0 @@
-## Standards recheck
-
-Verified commit `878c296` in the validation worktree. All resolved-ticket summaries and links (01, 02, 03) are now inside `## Decisions-so-far`, as required by `docs/agents/issue-tracker.md`. The `## Completed work` heading was removed. The original P3 finding is resolved.
-
-Remaining Standards findings: 0; worst: none.

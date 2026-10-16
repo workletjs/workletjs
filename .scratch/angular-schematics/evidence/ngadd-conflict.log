@@ -1,2 +1,0 @@
-Skipping installation: Package already installed
-Cannot add the map example: component file conflict: "/projects/plain-host/src/app/city-map/city-map.ts" already exists. Configure a standalone application with an existing provideRouter static route array and primary root <router-outlet>, or run ng add with --no-example and integrate a map manually.
