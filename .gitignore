@@ -75,3 +75,6 @@ vitest.config.*.timestamp*
 
 # NgDoc files of the legacy builders
 /ng-doc-legacy
+
+# Local skill artifacts
+/.scratch/
