@@ -97,7 +97,9 @@ Schematics 测试从临时发布布局加载编译后的公开 collection，使�
 
 ## Code review 后的修复验证
 
-- 审查基线为 `c0f0a40`。Standards 轴没有硬性违例，提出 1 项 P3 重复代码建议； `c231fcf`
+- 初审目标为 `c0f0a40`，比较基线为
+  `499a1d36db25b05ed3382e226fcc960102355834`。Standards 轴没有硬性违例，提出 1 项 P3 重复代码建议；
+  `c231fcf`
   将 Component 装饰器识别和静态元数据读取统一到内部 StaticSource 方法，调用者保留各自的宿主条件和错误语义，没有新增公开 collection
   API。
 - Spec 轴发现 1 项 P2：根模板只有 `ngNonBindable`
@@ -111,11 +113,30 @@ Schematics 测试从临时发布布局加载编译后的公开 collection，使�
   `NX_DAEMON=false NX_ISOLATE_PLUGINS=false NX_SKIP_NX_CACHE=true`（格式检查无需 cache 选项）。显式受改动 TypeScript 的 Prettier 检查和
   `git diff --check` 也通过。
 - 本轮完整检查日志为
-  `/private/tmp/workletjs-schematics-review-fix-{test,lint,format,build}.log`。规格仍保持 open；以上代码修复改变了集合 runtime，最终真实 tarball 的重新安装与 CLI 验证由集成负责人补充，不能将旧包证据直接视为本次修复后的包验证。
+  `/private/tmp/workletjs-schematics-review-fix-{test,lint,format,build}.log`。以上代码修复改变了集合 runtime；修复后的真实包验证另行执行，结果见下节。
 
-## 完成状态与后续确认
+## 最终集成产物
 
-工单 05 的文档、领域词条、仓库回归及上述功能包/真实 CLI/浏览器证据已齐全。规格暂保留 open，等待集成分支最终 code-review 及其可能修复。
+- 代码及文档全部合入 `e0b2868` 后，重新运行 production 主库构建，3 个 Nx 任务通过；使用配置的 pnpm
+  10.34.5 打包。
+- 最终本地产物：`/private/tmp/workletjs-schematics-artifacts/reviewed/workletjs-ngx-openlayers-22.0.1.tgz`；SHA256 为
+  `a4eb778e487b253c7b684b033049f68f449e6d0e8acbde89531551a69b0e6556`。
+- [产物检查报告](evidence/tarball-reviewed.json)确认 319 个文件、两个公开入口、factory/声明/schema/模板完整、最小 CommonJS 包边界、依赖版本全部解析、无私有包运行依赖。
+- 重新在临时消费者安装该 tarball。真实 `ng add --project map-app --no-example` 幂等通过；真实
+  `ng generate @workletjs/ngx-openlayers:application reviewed-map --skip-install`
+  成功，两条命令从安装包加载 factory。
+- 在真实已有应用中临时将根模板替换为仅包含 ngNonBindable 下的展示用出口，再执行真实
+  `ng add --example`：正确拒绝；对 workspace 配置、package.json 和宿主全部文件逐一摘要比较，没有任何部分写入，也没有生成组件目录。测试结束恢复原模板。[失败日志](evidence/ngadd-reviewed-regression.log)。
+- 最终产物新生成的 reviewed-map 测试 2 个文件、3 项全部通过，生产构建通过并输出独立懒加载地图块。[测试日志](evidence/reviewed-map-tests.log)、[构建日志](evidence/reviewed-map-build.log)。
+- 逐文件比较确认最终产物的全部生成模板和浏览器组件库 bundle 与已完成浏览器验收的功能包字节相同；出口安全检查和元数据解析修复已由新包 CLI 单独验证，历史截图没有被表述为重新采集。
+- 最后一次完整仓库测试通过：脚本 30、组件库 2366、Schematics
+  138、文档 36，共 2570 项。修复后的完整 lint、format:check 和主库构建也通过。日志保存在
+  [evidence](evidence/) 的 review-fix-\* 文件；development、文档构建及缓存验收记录见前文。
+- 两个独立评审者均复核通过，未解决问题为零；完整报告见
+  [review.md](review.md)。本地产物的最终记录变更不改变运行代码。
 
-本文档提交后仍需由集成负责人合入文档、重新打包最终产物，并比较已验证 3053d19 的 schematics
-runtime 子树，执行实际安装、factory 加载及 CLI 确认。该文档合入后的重包尚未在本记录中宣称通过；最终结果由负责人追加。
+## 完成状态
+
+01—05 工单与需求规格均已完成。集成分支为
+`codex/schematics`，保留交付 worktree；所有新增提交 scope 为
+`schematics`。临时消费者服务已停止，本次没有执行远程推送、npm 发布或部署。

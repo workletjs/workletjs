@@ -3,7 +3,7 @@
 ## Notes
 
 - 需求：[spec.md](spec.md)。集成分支：`codex/schematics`；基线：`499a1d36db25b05ed3382e226fcc960102355834`。
-- 本图及工单记录实施顺序，不表示功能已经实现或验收通过。
+- 本图及工单记录实施顺序，完成结果以各工单 Answer、验收记录及评审报告为准。
 - 全部实施提交的 scope 为 `schematics`，在独立 worktree 中完成。
 - 所有工单初始为 `Status: open`、`Type: task`、`Labels: ready-for-agent`。
 - 依赖顺序为 01 → 02 → 03 → 04；05 在前四项完成后执行文档和集成验收。
@@ -41,9 +41,11 @@
 - [05：文档与集成验收](issues/05-documentation-and-validation.md)
   已完成：三份使用文档和领域词条已同步；仓库全部测试、lint、格式、两种库构建、文档构建及缓存恢复/失效检查通过。3053d19 功能包的实际 CLI 和浏览器证据、截图与日志已汇总至[验收记录](validation.md)。规格仍 open，最终文档合入后的重包及 code-review 由集成负责人继续确认。
 
+- 全部工单及规格已完成；最终产物经过评审修复后的真实 CLI 验证，完整测试 2570 项通过。Standards 与 Spec 轴的发现均已解决并独立复核，详见[验收记录](validation.md)与[评审报告](review.md)。
+
 ## Fog
 
-- 无待用户决定的产品选项。功能包、CLI、浏览器及仓库检查已按验收记录验证；最终文档合入后的重包确认与集成分支 code-review 尚待完成，规格仍保持 open。
+- 无未解决的需求或评审事项。
 
 ## Tickets
 
