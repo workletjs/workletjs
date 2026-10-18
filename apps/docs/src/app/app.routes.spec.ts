@@ -88,4 +88,15 @@ describe('documentation routes', () => {
     await harness.navigateByUrl(`${url}?search=map&tag=a&tag=b#old-heading`);
     expect(router.url).toBe(`${target}?search=map&tag=a&tag=b#old-heading`);
   });
+
+  it.each([
+    ['/guide', '/get-started/overview'],
+    ['/guide/introduction', '/get-started/overview'],
+    ['/guide/getting-started', '/get-started/installation'],
+  ])('does not retain a previous fragment when %s has none', async (url, target) => {
+    await harness.navigateByUrl('/get-started/overview#previous-heading');
+    await harness.navigateByUrl(`${url}?search=map`);
+    expect(router.url).toBe(`${target}?search=map`);
+    expect(router.parseUrl(router.url).fragment).toBeNull();
+  });
 });

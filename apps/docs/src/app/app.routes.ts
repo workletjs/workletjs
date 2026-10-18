@@ -20,7 +20,7 @@ function documentationCategory(path: string, defaultPage: string): Route {
 
 function legacyGuideRedirect(target: string): RedirectFunction {
   return ({ queryParams, fragment }) =>
-    inject(Router).createUrlTree([target], { queryParams, fragment });
+    inject(Router).createUrlTree([target], { queryParams, fragment: fragment ?? undefined });
 }
 
 export const appRoutes: Route[] = [
