@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterLink, provideRouter } from '@angular/router';
 
@@ -34,20 +35,7 @@ describe('LandingComponent', () => {
       .overrideComponent(LandingComponent, {
         set: {
           imports: [RouterLink],
-          template: `
-            <a class="cta" [routerLink]="['guide']">Get Started</a>
-            @for (badge of badges; track badge.name) {
-              <a class="badge" [href]="badge.link">
-                <img [src]="badge.img" [alt]="badge.name" />
-              </a>
-            }
-            @for (feature of features; track feature.title) {
-              <section class="feature">
-                <h2>{{ feature.title }}</h2>
-                <p>{{ feature.description }}</p>
-              </section>
-            }
-          `,
+          schemas: [NO_ERRORS_SCHEMA],
         },
       })
       .compileComponents();
@@ -91,7 +79,7 @@ describe('LandingComponent', () => {
   });
 
   it('renders one badge image per badge definition', () => {
-    const badges = Array.from(fixture.nativeElement.querySelectorAll('.badge img'));
+    const badges = Array.from(fixture.nativeElement.querySelectorAll('a[target="_blank"] img'));
 
     expect(badges).toHaveLength(component.badges.length);
     expect(badges.map((badge) => badge.getAttribute('alt'))).toEqual(
@@ -100,15 +88,19 @@ describe('LandingComponent', () => {
   });
 
   it('renders each feature title and description', () => {
-    const features = Array.from(fixture.nativeElement.querySelectorAll('.feature'));
+    const features = Array.from(
+      fixture.nativeElement.querySelectorAll('section:nth-of-type(2) h2'),
+    );
 
     expect(features).toHaveLength(component.features.length);
-    expect(features.map((feature) => feature.querySelector('h2')?.textContent?.trim())).toEqual(
+    expect(features.map((feature) => feature.textContent?.trim())).toEqual(
       component.features.map((feature) => feature.title),
     );
   });
 
   it('renders the get started call to action', () => {
-    expect(fixture.nativeElement.querySelector('.cta')?.textContent?.trim()).toBe('Get Started');
+    const link: HTMLAnchorElement = fixture.nativeElement.querySelector('a[ng-doc-button-flat]');
+    expect(link.textContent?.trim()).toBe('Get Started');
+    expect(link.getAttribute('href')).toBe('/get-started/installation');
   });
 });
