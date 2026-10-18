@@ -5,7 +5,7 @@ import MapBrowserEvent from 'ol/MapBrowserEvent';
 
 import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 
-import { ComponentUsageExampleComponent } from '../ng-doc/development/component-usage/examples/component-usage-example.component';
+import { ComponentUsageExampleComponent } from './component-usage-example.component';
 
 describe('Component Usage example', () => {
   async function renderExample() {
