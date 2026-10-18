@@ -49,7 +49,7 @@ describe('Component Usage example', () => {
     fixture.destroy();
   });
 
-  it('guards instance access and invokes View animation from the user action', async () => {
+  it('guards instance access and resets the real View from the rendered action', async () => {
     const fixture = TestBed.createComponent(ComponentUsageExampleComponent);
     expect(() => fixture.componentInstance.resetView()).not.toThrow();
     fixture.detectChanges();
@@ -60,9 +60,16 @@ describe('Component Usage example', () => {
     if (!view) {
       throw new Error('Expected the rendered View instance');
     }
-    const animate = vi.spyOn(view, 'animate');
+    view.setCenter([120, 30]);
+    view.setZoom(5);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.zoom()).toBe(5);
     fixture.nativeElement.querySelectorAll('button')[1].click();
-    expect(animate).toHaveBeenCalledWith({ center: [0, 0], zoom: 2, duration: 500 });
+    fixture.detectChanges();
+    expect(view.getCenter()).toEqual([0, 0]);
+    expect(view.getZoom()).toBe(2);
+    expect(fixture.componentInstance.zoom()).toBe(2);
+    expect(fixture.nativeElement.textContent).toContain('Zoom: 2');
     fixture.destroy();
     expect(fixture.componentInstance.view()?.getInstance()).toBeUndefined();
     expect(() => fixture.componentInstance.resetView()).not.toThrow();

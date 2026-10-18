@@ -12,7 +12,7 @@ import { WolViewComponent } from '@workletjs/ngx-openlayers/view';
   imports: [WolMapComponent, WolViewComponent, WolTileLayerComponent, WolOSMSourceComponent],
   template: `
     <button type="button" (click)="zoom.set(zoom() + 1)">Zoom in</button>
-    <button type="button" (click)="resetView()">Animate to start</button>
+    <button type="button" (click)="resetView()">Reset view</button>
     <p>Zoom: {{ zoom() }}</p>
     <p>Last click: {{ lastClick() }}</p>
     <wol-map tabindex="0" (wolSingleClick)="onSingleClick($event)">
@@ -38,6 +38,7 @@ export class ComponentUsageExampleComponent {
   resetView(): void {
     const instance = this.view()?.getInstance();
     if (!instance) return;
-    instance.animate({ center: [0, 0], zoom: 2, duration: 500 });
+    instance.setCenter([0, 0]);
+    instance.setZoom(2);
   }
 }
