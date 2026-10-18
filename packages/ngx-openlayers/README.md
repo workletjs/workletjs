@@ -8,6 +8,11 @@ This library developed under the
 **[Nx monorepo](https://nx.dev/docs/getting-started/tutorials/angular-monorepo-tutorial)**
 architecture and documented using **[NgDoc](https://ng-doc.com/)**.
 
+Read the documentation: [Installation](https://workletjs.github.io/get-started/installation),
+[First Map](https://workletjs.github.io/get-started/first-map),
+[Component Usage](https://workletjs.github.io/development/component-usage), and
+[Compatibility](https://workletjs.github.io/reference/compatibility).
+
 ---
 
 ## 🚀 Features
@@ -192,7 +197,7 @@ import { WolViewModule } from '@workletjs/ngx-openlayers/view';
   selector: 'app-root',
   imports: [WolMapModule, WolViewModule, WolTileLayerModule, WolOSMSourceModule],
   template: `
-    <wol-map>
+    <wol-map tabindex="0">
       <wol-view [wolCenter]="[0, 0]" [wolZoom]="2" />
       <wol-tile-layer>
         <wol-osm-source />
