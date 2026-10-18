@@ -26,7 +26,10 @@ export default defineConfig(() => ({
     watch: false,
     globals: true,
     environment: 'jsdom',
-    include: ['{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    include: [
+      'src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
+      'ng-doc/**/examples/**/*.spec.ts',
+    ],
     setupFiles: ['src/test-setup.ts'],
     reporters: ['default'],
     coverage: {

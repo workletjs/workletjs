@@ -11,6 +11,8 @@
     "../../packages/ngx-openlayers/**/examples/**/*.ts"
   ],
   "exclude": [
+    "ng-doc/**/*.spec.ts",
+    "ng-doc/**/*.test.ts",
     "../../packages/ngx-openlayers/**/*.spec.ts",
     "../../packages/ngx-openlayers/**/*.test.ts",
     "jest.config.ts",

@@ -8,7 +8,7 @@ import OSM from 'ol/source/OSM';
 
 import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 
-import { FirstMapExampleComponent } from '../ng-doc/get-started/first-map/examples/first-map-example.component';
+import { FirstMapExampleComponent } from './first-map-example.component';
 
 describe('First Map example', () => {
   it('creates a keyboard-focusable map with the documented View and OSM layer', async () => {

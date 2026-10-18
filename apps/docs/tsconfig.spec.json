@@ -18,8 +18,7 @@
     "src/**/*.test.jsx",
     "src/**/*.spec.jsx",
     "src/**/*.d.ts",
-    "ng-doc/**/*.ts",
-    "tests/**/*.spec.ts"
+    "ng-doc/**/*.ts"
   ],
   "files": ["src/test-setup.ts"]
 }
