@@ -71,9 +71,10 @@ array in place is not a supported promise of synchronization with OpenLayers.
 
 ## Instances and lifecycle
 
-The example queries `WolViewComponent` with `viewChild`. **Animate to start** obtains its current
-OpenLayers View through `getInstance()` and calls `animate()` only after checking that the instance
-exists. Resolve it when needed instead of retaining a reference across component removal.
+The example queries `WolViewComponent` with `viewChild`. **Reset view** obtains its current
+OpenLayers View through `getInstance()` and calls `setCenter([0, 0])` and `setZoom(2)` only after
+checking that the instance exists. Resolve it when needed instead of retaining a reference across
+component removal.
 
 The View creates its instance after Angular renders, using `afterNextRender`. A component query can
 exist before that instance does; an Angular lifecycle hook such as `ngAfterViewInit` is not a
