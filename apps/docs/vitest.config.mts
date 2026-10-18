@@ -1,4 +1,5 @@
 /// <reference types='vitest' />
+import { fileURLToPath } from 'node:url';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vitest/config';
 
@@ -6,6 +7,14 @@ import { angularVitestPlugin } from '../../tools/testing/angular-vitest-plugin';
 
 export default defineConfig(() => ({
   root: import.meta.dirname,
+  resolve: {
+    alias: [
+      {
+        find: /^@ng-doc\/generated$/,
+        replacement: fileURLToPath(new URL('./src/testing/ng-doc-generated.ts', import.meta.url)),
+      },
+    ],
+  },
   cacheDir: '../../node_modules/.vite/apps/docs',
   plugins: [angularVitestPlugin(), tsconfigPaths()],
   // Uncomment this if you are using workers.
