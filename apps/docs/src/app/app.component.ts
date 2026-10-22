@@ -1,68 +1,88 @@
 import {
+  NG_DOC_CONTEXT,
   NgDocCustomSidebarDirective,
   NgDocNavbarComponent,
   NgDocRootComponent,
   NgDocThemeToggleComponent,
 } from '@ng-doc/app';
-import {
-  NgDocButtonIconComponent,
-  NgDocIconComponent,
-  NgDocTooltipDirective,
-} from '@ng-doc/ui-kit';
+import { NgDocButtonIconComponent, NgDocTooltipDirective } from '@ng-doc/ui-kit';
 
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Location } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 
-import { filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
-import { SidebarComponent } from './components';
+import { LayoutSidebarComponent } from './components/layout-sidebar';
+
+/** Top-level sections of the site, linked from the header. */
+type SiteSection = 'guides' | 'components';
 
 @Component({
-  selector: 'app-root',
+  selector: 'wol-docs-root',
   imports: [
     RouterLink,
     RouterOutlet,
     NgDocRootComponent,
     NgDocNavbarComponent,
-    NgDocCustomSidebarDirective,
     NgDocButtonIconComponent,
     NgDocThemeToggleComponent,
     NgDocTooltipDirective,
-    NgDocIconComponent,
-    SidebarComponent,
+    NgDocCustomSidebarDirective,
+    LayoutSidebarComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    '[class.workletjs-landing-page]': `this.isLandingPage()`,
+    '[attr.data-ng-doc-is-landing]': 'isLandingPage()',
   },
 })
 export class AppComponent {
-  protected readonly isLandingPage = signal(true);
-  protected readonly isSmallScreen = signal(true);
-  protected readonly showSidebar = computed(() => !this.isLandingPage() || this.isSmallScreen());
+  protected readonly context = inject(NG_DOC_CONTEXT);
+  protected readonly year = new Date().getFullYear();
 
-  constructor() {
-    const router = inject(Router);
-    const breakpointObserver = inject(BreakpointObserver);
+  private readonly router = inject(Router);
+  private readonly location = inject(Location);
 
-    router.events
-      .pipe(
-        takeUntilDestroyed(),
-        filter((event) => event instanceof NavigationEnd),
-      )
-      .subscribe((event) => {
-        this.isLandingPage.set(event.url === '/');
-      });
+  private readonly path = toSignal(
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map(() => this.currentPath()),
+    ),
+    { initialValue: this.currentPath() },
+  );
 
-    breakpointObserver
-      .observe(['(max-width: 900px)'])
-      .pipe(takeUntilDestroyed())
-      .subscribe((result) => {
-        this.isSmallScreen.set(result.matches);
-      });
+  protected readonly isLandingPage = computed(() => this.path() === '/');
+
+  protected readonly section = computed<SiteSection | null>(() => {
+    const path = this.path();
+
+    if (path === '/guides' || path.startsWith('/guides/')) {
+      return 'guides';
+    }
+
+    if (path === '/components' || path.startsWith('/components/')) {
+      return 'components';
+    }
+
+    return null;
+  });
+
+  protected readonly navigation = computed(() => {
+    const section = this.section();
+
+    if (section) {
+      return (
+        this.context.navigation.find((nav) => nav.route.startsWith(`/${section}`))?.children ?? []
+      );
+    }
+
+    return this.context.navigation;
+  });
+
+  private currentPath(): string {
+    return '/' + this.location.path().split(/[?#]/)[0].replace(/^\//, '');
   }
 }

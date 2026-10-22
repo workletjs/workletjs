@@ -1,0 +1,32 @@
+<nav class="wol-docs-layout-sidebar-wrapper" aria-label="Documentation">
+  @for (item of wolNavigation(); track item) {
+    <ng-container *ngTemplateOutlet="sidebarTemplate; context: { item: item, root: true }" />
+  }
+
+  <ng-template let-item="item" let-root="root" #sidebarTemplate>
+    @if (item.children?.length) {
+      @if (!item.hidden) {
+        <wol-docs-layout-sidebar-category
+          [category]="item"
+          [expandable]="!!item?.expandable"
+          [expanded]="
+            !!item?.expanded || !item?.expandable || (matchRoute | bind: this | execute: item.route)
+          "
+          [isRoot]="!!root"
+          [content]="categoryContent"
+        />
+      }
+      <ng-template #categoryContent>
+        @for (child of getNavigation | bind: this | execute: item; track child) {
+          <ng-container
+            *ngTemplateOutlet="sidebarTemplate; context: { item: child, root: false }"
+          />
+        }
+      </ng-template>
+    } @else {
+      @if (!item.hidden) {
+        <wol-docs-layout-sidebar-item [item]="item" [isRoot]="!!root" />
+      }
+    }
+  </ng-template>
+</nav>

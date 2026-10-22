@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
 import { HeroBannerComponent } from './components';
 
 @Component({
-  selector: 'app-landing',
+  selector: 'wol-docs-landing',
   imports: [
     RouterLink,
     NgDocTextComponent,

@@ -1,0 +1,41 @@
+// The sidebar rhythm: one 32px row and one 14px sans size for headers and pages, 2px between
+// collapsed categories and 8px around an open one.
+:host {
+  display: block;
+  height: calc(100vh - var(--ng-doc-navbar-height));
+  width: 100%;
+  overflow: hidden;
+  background: var(--ng-doc-sidebar-background);
+  border-right: 1px solid var(--ng-doc-border-color);
+  box-shadow: var(--ng-doc-sidebar-shadow);
+  font-family: var(--ng-doc-font-family);
+  font-size: var(--ng-doc-text-sm-size);
+  line-height: 20px;
+  --ng-doc-sidebar-item-indent: var(--ng-doc-space-2);
+}
+
+.wol-docs-layout-sidebar-wrapper {
+  position: relative;
+  overflow: auto;
+  max-height: 100%;
+  padding: calc(var(--ng-doc-sidebar-padding) + var(--ng-doc-space-1))
+    calc(var(--ng-doc-sidebar-horizontal-padding) / 2) calc(var(--ng-doc-sidebar-padding) * 2.5);
+}
+
+.wol-docs-layout-sidebar-wrapper > * + *,
+wol-docs-layout-sidebar-category + wol-docs-layout-sidebar-category {
+  margin-top: 2px;
+}
+
+.wol-docs-layout-sidebar-wrapper wol-docs-layout-sidebar-category[data-ng-doc-expanded='true'] + *,
+.wol-docs-layout-sidebar-wrapper * + wol-docs-layout-sidebar-category[data-ng-doc-expanded='true'] {
+  margin-top: var(--ng-doc-space-2);
+}
+
+// Pages inside a category are spaced by the category's own grid.
+.wol-docs-layout-sidebar-wrapper
+  wol-docs-layout-sidebar-category
+  wol-docs-layout-sidebar-item
+  + wol-docs-layout-sidebar-item {
+  margin-top: 0;
+}

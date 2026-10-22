@@ -1,0 +1,13 @@
+<a
+  class="wol-docs-layout-sidebar-link"
+  [routerLink]="[item().route]"
+  routerLinkActive="active"
+  ariaCurrentWhenActive="page"
+>
+  <span class="wol-docs-layout-sidebar-link-title">{{ item().title }}</span>
+  @for (status of statuses(); track $index) {
+    <span class="wol-docs-layout-sidebar-status" [attr.data-ng-doc-color]="status.type">{{
+      status.text
+    }}</span>
+  }
+</a>

@@ -8,7 +8,11 @@
   --font-nunito-sans: 'Nunito Sans', sans-serif;
   --font-nunito: 'Nunito', sans-serif;
 
+  --font-ng-doc-font-family: var(--ng-doc-font-family);
   --color-ng-doc-primary: var(--ng-doc-primary);
+  --color-ng-doc-text: var(--ng-doc-text);
+  --color-ng-doc-heading-color: var(--ng-doc-heading-color);
+  --color-ng-doc-border-color: var(--ng-doc-border-color);
 }
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-components',
+  selector: 'wol-docs-components',
   imports: [RouterOutlet],
   templateUrl: './components.component.html',
   styleUrl: './components.component.scss',

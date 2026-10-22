@@ -1,13 +1,14 @@
 @reference '../styles/tailwind.css';
 
 :host {
-  &.workletjs-landing-page {
+  &[data-ng-doc-is-landing='true'] {
     --ng-doc-page-max-width: auto;
     --ng-doc-page-padding: 0;
-    --ng-doc-main-padding: 0;
+    --ng-doc-main-padding: var(--ng-doc-navbar-height) 0 0 0;
 
+    // The landing header lines up with the landing's 1200px content column.
     ng-doc-navbar {
-      --ng-doc-navbar-background: transparent;
+      --ng-doc-app-max-width: calc(1200px + var(--ng-doc-navbar-horizontal-padding) * 2);
     }
   }
 }

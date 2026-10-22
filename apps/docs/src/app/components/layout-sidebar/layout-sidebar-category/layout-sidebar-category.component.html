@@ -1,0 +1,37 @@
+@if (expandable()) {
+  <button
+    type="button"
+    class="wol-docs-layout-sidebar-category-button"
+    [attr.aria-expanded]="isExpanded()"
+    [attr.aria-controls]="childrenId"
+    (click)="toggle()"
+  >
+    <span class="wol-docs-layout-sidebar-category-title">{{ category().title }}</span>
+    <svg
+      class="wol-docs-layout-sidebar-category-chevron"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  </button>
+} @else {
+  <div class="wol-docs-layout-sidebar-category-button">
+    <span class="wol-docs-layout-sidebar-category-title">{{ category().title }}</span>
+  </div>
+}
+<ng-doc-expander [expanded]="isExpanded()" [content]="contentTemplate" collapseMod="hide" />
+<ng-template #contentTemplate>
+  <!-- The content comes through a template, so the child components keep their state. -->
+  <div class="wol-docs-layout-sidebar-category-children" [id]="childrenId">
+    <ng-content></ng-content>
+    <ng-container *polymorpheusOutlet="content() as text">{{ text }}</ng-container>
+  </div>
+</ng-template>
