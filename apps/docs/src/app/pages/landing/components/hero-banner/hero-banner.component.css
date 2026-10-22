@@ -1,0 +1,176 @@
+:host {
+  display: block;
+  min-width: 0;
+  color: var(--landing-ink, #172b3a);
+  font: inherit;
+}
+
+.map-preview {
+  overflow: hidden;
+  border: 1px solid var(--landing-line, #dbe4eb);
+  border-radius: 12px;
+  background: var(--landing-paper, #fff);
+}
+
+.preview-toolbar {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 16px;
+  background: var(--landing-paper, #fff);
+}
+
+.preview-title {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.location-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.location-controls button {
+  min-height: 32px;
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--landing-muted, #586774);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+.location-controls button:hover {
+  background: var(--landing-surface, #f4f7fa);
+  color: var(--landing-ink, #172b3a);
+}
+
+.location-controls button[aria-pressed='true'] {
+  background: var(--landing-surface, #f4f7fa);
+  color: var(--landing-accent, #0c6cbd);
+}
+
+.location-controls button:focus-visible,
+wol-map:focus-visible,
+pre:focus-visible {
+  outline: 2px solid var(--landing-accent, #0c6cbd);
+  outline-offset: -2px;
+}
+
+.map-stage {
+  position: relative;
+  height: 220px;
+  background: var(--landing-surface, #f4f7fa);
+}
+
+wol-map {
+  width: 100%;
+  height: 100%;
+}
+
+.map-error {
+  position: absolute;
+  right: 12px;
+  bottom: 26px;
+  left: 12px;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: var(--landing-paper, #fff);
+  color: var(--landing-ink, #172b3a);
+  font-size: 12px;
+  line-height: 1.5;
+  pointer-events: none;
+}
+
+.code-dock {
+  background: #172b3a;
+  color: #e4eef5;
+}
+
+.code-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 18px 0;
+  color: #a8bbc9;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+pre {
+  overflow-x: auto;
+  margin: 0;
+  padding: 10px 18px 16px;
+  scrollbar-color: #6b8293 #172b3a;
+  scrollbar-width: thin;
+  white-space: pre-wrap;
+}
+
+code {
+  font-family: var(--ng-doc-code-font-family, ui-monospace, monospace);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.code-tag {
+  color: #9bd3f3;
+}
+
+.code-attribute {
+  color: #e4eef5;
+}
+
+.code-value {
+  color: #b8ddbb;
+}
+
+::selection {
+  background: #b8ddbb;
+  color: #172b3a;
+}
+
+@media (max-width: 640px) {
+  .preview-toolbar {
+    padding-inline: 12px;
+  }
+
+  .map-stage {
+    height: 240px;
+  }
+
+  .location-controls button {
+    min-width: 44px;
+    min-height: 44px;
+    padding-inline: 9px;
+  }
+
+  wol-map {
+    /* OpenLayers sizes native control buttons at 1.375em: 32px yields 44px targets. */
+    font-size: 32px;
+  }
+
+  .code-caption,
+  pre {
+    padding-inline: 14px;
+  }
+
+  .code-caption span:last-child {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .location-controls button {
+    transition: none;
+  }
+}

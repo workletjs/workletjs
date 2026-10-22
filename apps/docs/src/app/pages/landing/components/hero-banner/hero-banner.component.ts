@@ -1,91 +1,63 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal, viewChild } from '@angular/core';
 
-import { WolWebGLTileLayerModule } from '@workletjs/ngx-openlayers/layer/webgl-tile';
-import { WolMapModule } from '@workletjs/ngx-openlayers/map';
-import { WolImageTileSourceModule } from '@workletjs/ngx-openlayers/source/image-tile';
-import { WolViewModule } from '@workletjs/ngx-openlayers/view';
+import { Coordinate } from 'ol/coordinate';
+import { fromLonLat } from 'ol/proj';
 
-const locations = [
-  {
-    center: [0, 4050000],
-    zoom: 2,
-  },
-  {
-    center: [-10026264.955714773, 3498225.377934253],
-    zoom: 12.3,
-  },
-  {
-    center: [-8120333.846364162, -5972314.327727663],
-    zoom: 10.15,
-  },
-  {
-    center: [12700564.586161729, 2575397.3413926377],
-    zoom: 13.8,
-  },
-  {
-    center: [8976666.32253083, 814262.3154676007],
-    zoom: 15.7,
-  },
-  {
-    center: [1284003.7367688504, 5950927.737276901],
-    zoom: 11.19,
-  },
-  {
-    center: [-8468554.506387988, 5696886.564463913],
-    zoom: 10.11,
-  },
-  {
-    center: [707717.3609533564, 6361291.958635207],
-    zoom: 10.02,
-  },
-  {
-    center: [3345381.3050933336, -216864.19183635892],
-    zoom: 13.9,
-  },
-  {
-    center: [3318257.9642649507, -1786301.1175574847],
-    zoom: 6.1,
-  },
-  {
-    center: [19365301.097574536, -5033096.120372388],
-    zoom: 10.77,
-  },
-  {
-    center: [-13542913.807564376, 5913315.884147839],
-    zoom: 11.59,
-  },
-  {
-    center: [9680854.2477813, 3231923.470902604],
-    zoom: 8.06,
-  },
-  {
-    center: [-10341383.185823392, 1826844.1155603195],
-    zoom: 9.27,
-  },
-  {
-    center: [3232422.751942559, 5017252.706810253],
-    zoom: 12.25,
-  },
-  {
-    center: [-16373943.169136822, 8651360.275919426],
-    zoom: 8.49,
-  },
-  {
-    center: [12475943.19806142, 4172022.2635435928],
-    zoom: 9.91,
-  },
-];
+import { WolTileLayerComponent } from '@workletjs/ngx-openlayers/layer/tile';
+import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
+import { WolOSMSourceComponent } from '@workletjs/ngx-openlayers/source/osm';
+import { WolViewComponent } from '@workletjs/ngx-openlayers/view';
+
+interface MapLocation {
+  readonly name: string;
+  readonly longitudeLatitude: Coordinate;
+  readonly zoom: number;
+}
 
 @Component({
   selector: 'wol-docs-hero-banner',
-  imports: [WolMapModule, WolViewModule, WolWebGLTileLayerModule, WolImageTileSourceModule],
+  imports: [WolMapComponent, WolViewComponent, WolTileLayerComponent, WolOSMSourceComponent],
   templateUrl: './hero-banner.component.html',
   styleUrl: './hero-banner.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeroBannerComponent {
-  readonly location = locations[Math.floor(Math.random() * locations.length)];
-  readonly url =
-    'https://api.maptiler.com/maps/outdoor-v2/256/{z}/{x}/{y}@2x.png?key=8OyphSYjlGSuAe4ZUCkV';
-  readonly attributions = '© MapTiler © OpenStreetMap contributors';
+  readonly locations: readonly MapLocation[] = [
+    { name: 'Alps', longitudeLatitude: [7.6586, 45.9763], zoom: 9 },
+    { name: 'London', longitudeLatitude: [-0.1276, 51.5072], zoom: 11 },
+    { name: 'Tokyo', longitudeLatitude: [139.7671, 35.6812], zoom: 11 },
+  ];
+  readonly center = signal<Coordinate | undefined>(fromLonLat(this.locations[0].longitudeLatitude));
+  readonly zoom = signal<number | undefined>(this.locations[0].zoom);
+  readonly selectedLocation = computed(() => {
+    const center = this.center();
+    const zoom = this.zoom();
+
+    return this.locations.find((location) => {
+      const expectedCenter = fromLonLat(location.longitudeLatitude);
+
+      return (
+        center !== undefined &&
+        zoom !== undefined &&
+        Math.abs(zoom - location.zoom) < 0.000001 &&
+        expectedCenter.every((coordinate, index) => Math.abs(center[index] - coordinate) < 0.01)
+      );
+    });
+  });
+  readonly tileError = signal(false);
+  readonly centerCode = computed(() =>
+    (this.center() ?? []).map((coordinate) => Number(coordinate.toFixed(2))).join(', '),
+  );
+  readonly zoomCode = computed(() => Number((this.zoom() ?? 0).toFixed(2)));
+  private readonly source = viewChild(WolOSMSourceComponent);
+
+  selectLocation(location: MapLocation): void {
+    if (this.tileError()) {
+      this.source()?.getInstance()?.refresh();
+    }
+
+    this.center.set(fromLonLat(location.longitudeLatitude));
+    this.zoom.set(location.zoom);
+    this.tileError.set(false);
+  }
 }
