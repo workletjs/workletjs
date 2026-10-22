@@ -1,41 +1,446 @@
-@reference 'tailwindcss';
-
 :host {
-  .workletjs-hero-greeting-buttons {
-    @apply mt-8 inline-flex items-center gap-4;
+  --landing-ink: var(--ng-doc-heading-color, #172b3a);
+  --landing-muted: var(--ng-doc-text, #586774);
+  --landing-accent: var(--ng-doc-primary, #0c6cbd);
+  --landing-success: var(--ng-doc-success, #15803d);
+  --landing-line: var(--ng-doc-border-color, #dbe4eb);
+  --landing-surface: var(--ng-doc-base-1, #f4f7fa);
+  --landing-paper: var(--ng-doc-base-0, #fff);
+  --landing-code-font: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+  display: block;
+  color: var(--landing-ink);
+  background: var(--landing-paper);
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+}
+* {
+  box-sizing: border-box;
+}
+::selection {
+  background: color-mix(in srgb, var(--landing-accent) 22%, transparent);
+}
+:is(a, button):focus-visible {
+  outline: 3px solid var(--landing-accent);
+  outline-offset: 5px;
+}
+svg {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.page-width {
+  width: min(1200px, calc(100% - 80px));
+  margin-inline: auto;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+h1,
+h2,
+h3 {
+  color: var(--landing-ink);
+  font-family: inherit;
+  text-wrap: balance;
+}
+h1 {
+  font-size: clamp(40px, 4.35vw, 62px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  span {
+    color: var(--landing-accent);
+  }
+}
+h2 {
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 800;
+  line-height: 1.22;
+  letter-spacing: -0.025em;
+}
+h3 {
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+p {
+  color: var(--landing-muted);
+  text-wrap: pretty;
+}
+a {
+  color: var(--landing-accent);
+  text-underline-offset: 4px;
+}
+code {
+  font-family: var(--landing-code-font);
+}
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+  align-items: center;
+  gap: 58px;
+  padding-block: 96px 88px;
+}
+.hero-description {
+  max-width: 440px;
+  margin-top: 24px;
+  font-size: 18px;
+  line-height: 1.7;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+.button {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 19px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+  transition:
+    background-color 180ms ease-out,
+    border-color 180ms ease-out;
+}
+.button-primary {
+  color: var(--ng-doc-primary-text, #fff);
+  background: var(--landing-accent);
+  &:hover {
+    background: color-mix(in srgb, var(--landing-accent) 85%, var(--landing-ink));
+  }
+}
+.button-secondary {
+  color: var(--landing-ink);
+  border-color: var(--landing-line);
+  &:hover {
+    background: var(--landing-surface);
+    border-color: var(--landing-muted);
+  }
+}
+.install {
+  max-width: 450px;
+  margin-top: 26px;
+}
+.install-command {
+  display: flex;
+  min-height: 58px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px 10px 16px;
+  border: 1px solid var(--landing-line);
+  border-radius: 7px;
+  background: var(--landing-surface);
+  code {
+    min-width: 0;
+    font-size: 12px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+  }
+  button {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    place-items: center;
+    margin-left: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 4px;
+    color: var(--landing-muted);
+    background: transparent;
+    cursor: pointer;
+    &:hover {
+      color: var(--landing-accent);
+      background: var(--landing-paper);
+    }
+    &:disabled {
+      opacity: 0.55;
+      cursor: wait;
+    }
+    &.is-copied {
+      color: var(--landing-success);
+      background: color-mix(in srgb, var(--landing-success) 12%, transparent);
 
-    a {
-      --ng-doc-button-padding: var(--ng-doc-base-gutter) calc(var(--ng-doc-base-gutter) * 2);
-      --ng-doc-font-size: 22px;
-      --ng-doc-line-height: 32px;
-      --ng-doc-font-weight: 600;
-
-      background: linear-gradient(-45deg, #ffa63d, #ff3d77, #338aff, #3cf0c5);
-      background-size: 600%;
-      -webkit-animation: anime 16s linear infinite;
-      animation: scale 16s linear infinite;
-      box-shadow: 0 0 23px 1px rgba(0, 0, 0, 0.2);
-      transition:
-        var(--ng-doc-transition) transform,
-        box-shadow;
-
-      &:hover {
-        transform: scale(1.05);
-      }
-
-      @keyframes scale {
-        0% {
-          background-position: 0 50%;
-        }
-
-        50% {
-          background-position: 100% 50%;
-        }
-
-        100% {
-          background-position: 0 50%;
-        }
+      svg {
+        stroke-width: 2.4;
       }
     }
+  }
+}
+.terminal-prompt {
+  color: var(--landing-muted);
+  font-family: var(--landing-code-font);
+  font-size: 13px;
+  user-select: none;
+}
+.install-note {
+  min-height: 20px;
+  margin-top: 8px;
+  font-size: 12px;
+}
+.copy-feedback {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.package-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 23px;
+  a,
+  img {
+    display: block;
+  }
+  a {
+    min-height: 24px;
+    padding-block: 2px;
+  }
+}
+.hero-demo {
+  min-width: 0;
+}
+.demo-caption {
+  margin-top: 14px;
+  font-size: 12px;
+  text-align: center;
+}
+.capabilities {
+  padding-block: 80px;
+  border-block: 1px solid var(--landing-line);
+  background: var(--landing-surface);
+}
+.capabilities-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+  gap: 100px;
+}
+.section-intro > p {
+  max-width: 390px;
+  margin-block: 20px;
+}
+.text-link {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+.composition {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 36px;
+  color: var(--landing-muted);
+  font-size: 13px;
+  > code {
+    color: var(--landing-accent);
+  }
+}
+.composition-branch,
+.composition-leaf {
+  position: relative;
+  margin-left: 8px;
+  padding-left: 25px;
+  &::before {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 16px;
+    height: 23px;
+    border-bottom: 1px solid var(--landing-line);
+    border-left: 1px solid var(--landing-line);
+    content: '';
+  }
+}
+.composition-leaf {
+  margin-left: 41px;
+}
+.feature-list article {
+  padding-block: 26px;
+  border-bottom: 1px solid var(--landing-line);
+  &:first-child {
+    padding-top: 0;
+  }
+  &:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+  p {
+    margin-block: 10px 9px;
+    font-size: 15px;
+  }
+}
+.getting-started {
+  padding-block: 82px 88px;
+}
+.getting-started-heading p {
+  margin-top: 14px;
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 42px;
+  margin: 44px 0 0;
+  padding: 0;
+  list-style: none;
+  li {
+    min-width: 0;
+  }
+  h3 {
+    margin-top: 17px;
+  }
+  p {
+    min-height: 78px;
+    margin-top: 12px;
+    font-size: 15px;
+  }
+}
+.step-number {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid var(--landing-line);
+  border-radius: 50%;
+  color: var(--landing-accent);
+  font-size: 13px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.step-code {
+  display: block;
+  margin-block: 16px 12px;
+  padding-block: 12px;
+  border-block: 1px solid var(--landing-line);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.closing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 72px;
+  padding: 38px 42px;
+  border-radius: 12px;
+  background: var(--landing-surface);
+  h2 {
+    font-size: 30px;
+  }
+  p {
+    margin-top: 8px;
+    font-size: 15px;
+  }
+  .button {
+    flex-shrink: 0;
+  }
+}
+@media (max-width: 1100px) {
+  .hero {
+    gap: 32px;
+    padding-top: 72px;
+  }
+  .capabilities-layout {
+    gap: 60px;
+  }
+}
+@media (max-width: 800px) {
+  .page-width {
+    width: calc(100% - 48px);
+  }
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    padding-block: 54px 50px;
+  }
+  h1 {
+    font-size: clamp(36px, 6.5vw, 54px);
+  }
+  .hero-description {
+    max-width: 540px;
+  }
+  .install {
+    max-width: 510px;
+  }
+  .install-command button {
+    width: 44px;
+    height: 44px;
+  }
+  .capabilities {
+    padding-block: 52px;
+  }
+  .capabilities-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+  .composition {
+    display: none;
+  }
+  .section-intro > p {
+    max-width: 540px;
+  }
+  .steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    margin-top: 32px;
+    p {
+      min-height: 0;
+    }
+  }
+  .getting-started {
+    padding-block: 52px;
+  }
+  .closing {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 40px;
+    padding: 28px;
+  }
+}
+@media (max-width: 380px) {
+  h1 {
+    font-size: clamp(30px, 8.5vw, 32px);
+  }
+
+  .hero {
+    gap: 28px;
+    padding-top: 36px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
   }
 }

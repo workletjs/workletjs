@@ -1,47 +1,168 @@
-<section class="px-6 py-24">
-  <div class="mx-auto flex max-w-300 flex-col items-center justify-between gap-14 lg:flex-row">
-    <div class="w-full max-w-md text-center lg:text-left">
-      <h1 class="font-nunito text-4xl font-black text-slate-800 dark:text-slate-100">
-        Angular Components for OpenLayers
-      </h1>
-      <p class="mt-6 text-2xl text-gray-700 dark:text-gray-300">
-        A modern map component library built with Angular and OpenLayers!
-      </p>
-      <div class="workletjs-hero-greeting-buttons">
-        <a
-          [rounded]="true"
-          [routerLink]="['/guides/get-started/installation']"
-          ng-doc-button-flat
-          size="large"
+<section class="hero page-width" aria-labelledby="landing-title">
+  <div class="hero-copy">
+    <h1 id="landing-title">OpenLayers power.<br /><span>Angular simplicity.</span></h1>
+    <p class="hero-description">
+      Build interactive maps with Angular components. Compose layers, connect your data, and let
+      OpenLayers do what it does best.
+    </p>
+    <div class="actions">
+      <a class="button button-primary" routerLink="/guides/get-started/installation">
+        Get started
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+      </a>
+      <a class="button button-secondary" routerLink="/guides/get-started/first-map">
+        Build your first map
+      </a>
+    </div>
+    <div class="install">
+      <div class="install-command">
+        <span class="terminal-prompt" aria-hidden="true">$</span>
+        <code>{{ installCommand }}</code>
+        <button
+          type="button"
+          (click)="copyInstallCommand()"
+          [disabled]="copyState() === 'copying'"
+          [class.is-copied]="copyState() === 'copied'"
+          [attr.aria-label]="
+            copyState() === 'copied' ? 'Install command copied' : 'Copy install command'
+          "
+          [title]="copyState() === 'copied' ? 'Copied!' : 'Copy install command'"
         >
-          <span ng-doc-text>
-            Get Started
-            <ng-doc-icon [size]="24" customIcon="right" ngDocTextRight />
-          </span>
-        </a>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            @if (copyState() === 'copied') {
+              <path d="m5 12 4 4L19 6" />
+            } @else {
+              <rect x="8" y="8" width="12" height="12" rx="2" />
+              <path d="M15 8V4H4v11h4" />
+            }
+          </svg>
+        </button>
       </div>
-      <div class="mt-20 inline-flex items-center gap-2">
-        @for (badge of badges; track $index) {
-          <a [href]="badge.link" target="_blank">
-            <img [src]="badge.img" [alt]="badge.name" />
-          </a>
+      <p class="install-note">
+        Check
+        <a routerLink="/guides/reference/compatibility">version compatibility</a> before installing.
+      </p>
+      <p class="copy-feedback" role="status" aria-live="polite" aria-atomic="true">
+        @switch (copyState()) {
+          @case ('copied') {
+            Command copied. Your first map is next.
+          }
+          @case ('error') {
+            Copy unavailable. Select and copy the command above.
+          }
         }
+      </p>
+    </div>
+    <div class="package-badges" aria-label="Project on npm and GitHub">
+      @for (badge of badges; track badge.name) {
+        <a [href]="badge.link" target="_blank" rel="noopener noreferrer">
+          <img [src]="badge.img" [alt]="badge.name" height="20" />
+        </a>
+      }
+    </div>
+  </div>
+  <div class="hero-demo">
+    <wol-docs-hero-banner />
+    <p class="demo-caption">Choose a location or move the map. The Angular values update below.</p>
+  </div>
+</section>
+
+<section class="capabilities" aria-labelledby="capabilities-title">
+  <div class="page-width capabilities-layout">
+    <div class="section-intro">
+      <h2 id="capabilities-title">Built the Angular way.<br />OpenLayers underneath.</h2>
+      <p>
+        Familiar templates for your map. The flexibility of OpenLayers for everything you build on
+        top.
+      </p>
+      <a class="text-link" routerLink="/components">
+        Explore the components <span aria-hidden="true">&rarr;</span>
+      </a>
+      <div class="composition" aria-label="Component composition">
+        <code>wol-map</code>
+        <span class="composition-branch"><code>wol-view</code></span>
+        <span class="composition-branch"><code>wol-tile-layer</code></span>
+        <span class="composition-leaf"><code>wol-osm-source</code></span>
       </div>
     </div>
-    <div class="w-full max-w-[900px]">
-      <wol-docs-hero-banner class="block h-108 overflow-hidden rounded-2xl shadow-2xl" />
+    <div class="feature-list">
+      <article>
+        <h3>Compose, don’t configure.</h3>
+        <p>
+          Put views, layers, and sources together in your template. Keep the structure of your map
+          as clear as the rest of your app.
+        </p>
+        <a class="text-link" routerLink="/guides/development/component-usage">
+          Component composition <span aria-hidden="true">&rarr;</span>
+        </a>
+      </article>
+      <article>
+        <h3>Your data. Your layers.</h3>
+        <p>
+          Start with map tiles, add vector features, or work with WebGL layers. Choose the
+          OpenLayers source that fits your data.
+        </p>
+        <a class="text-link" routerLink="/components/layers/webgl-tile">
+          Explore WebGL layers <span aria-hidden="true">&rarr;</span>
+        </a>
+      </article>
+      <article>
+        <h3>Stay in control.</h3>
+        <p>
+          Bind your view’s center and zoom, handle map events, and access the underlying OpenLayers
+          instance when you need it.
+        </p>
+        <a class="text-link" routerLink="/components/general/view">
+          Meet the view component <span aria-hidden="true">&rarr;</span>
+        </a>
+      </article>
     </div>
   </div>
 </section>
-<section class="border-t border-gray-200 px-6 py-24 dark:border-gray-700">
-  <div class="mx-auto flex max-w-300 flex-col items-start gap-8 lg:flex-row">
-    @for (feature of features; track $index) {
-      <div class="w-full text-center lg:w-1/3">
-        <h2 class="font-nunito text-xl font-bold text-slate-600 dark:text-slate-300">
-          {{ feature.title }}
-        </h2>
-        <p class="mt-4 text-base text-gray-500 dark:text-gray-400">{{ feature.description }}</p>
-      </div>
-    }
+
+<section class="getting-started page-width" aria-labelledby="getting-started-title">
+  <div class="getting-started-heading">
+    <h2 id="getting-started-title">From install to your first map.</h2>
+    <p>Start in your Angular app. Build from there.</p>
   </div>
+  <ol class="steps">
+    <li>
+      <span class="step-number" aria-hidden="true">1</span>
+      <h3>Add the library</h3>
+      <p>Install the package and its peers. Include the OpenLayers stylesheet in your app.</p>
+      <code class="step-code">$ ng add &#64;workletjs/ngx-openlayers</code>
+      <a class="text-link" routerLink="/guides/get-started/installation">
+        Installation guide <span aria-hidden="true">&rarr;</span>
+      </a>
+    </li>
+    <li>
+      <span class="step-number" aria-hidden="true">2</span>
+      <h3>Compose your map</h3>
+      <p>Import the components, compose your map, and give its container a height.</p>
+      <code class="step-code">wol-map &#123; height: 400px; &#125;</code>
+      <a class="text-link" routerLink="/guides/get-started/first-map">
+        First map walkthrough <span aria-hidden="true">&rarr;</span>
+      </a>
+    </li>
+    <li>
+      <span class="step-number" aria-hidden="true">3</span>
+      <h3>Make it yours</h3>
+      <p>Bind your view, add controls, and explore the component API.</p>
+      <code class="step-code">[(wolZoom)]="zoom"</code>
+      <a class="text-link" routerLink="/components/general/map">
+        Map component API <span aria-hidden="true">&rarr;</span>
+      </a>
+    </li>
+  </ol>
+</section>
+
+<section class="closing page-width" aria-labelledby="closing-title">
+  <div>
+    <h2 id="closing-title">Your next map starts here.</h2>
+    <p>Follow the guide. Put your first map on the page.</p>
+  </div>
+  <a class="button button-primary" routerLink="/guides/get-started/first-map">
+    Build your first map
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+  </a>
 </section>
