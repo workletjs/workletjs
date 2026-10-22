@@ -1,6 +1,49 @@
-<wol-map class="size-full">
-  <wol-view [wolCenter]="location.center" [wolZoom]="location.zoom" />
-  <wol-webgl-tile-layer>
-    <wol-image-tile-source [wolAttributions]="attributions" [wolUrl]="url" />
-  </wol-webgl-tile-layer>
-</wol-map>
+<div class="map-preview">
+  <div class="preview-toolbar">
+    <span class="preview-title">Live map</span>
+    <div class="location-controls" role="group" aria-label="Map location">
+      @for (location of locations; track location.name) {
+        <button
+          type="button"
+          [attr.aria-pressed]="selectedLocation() === location"
+          (click)="selectLocation(location)"
+        >
+          {{ location.name }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="map-stage">
+    <wol-map tabindex="0" role="region" aria-label="Interactive OpenStreetMap preview">
+      <wol-view [(wolCenter)]="center" [(wolZoom)]="zoom" />
+      <wol-tile-layer>
+        <wol-osm-source (wolTileLoadError)="tileError.set(true)" />
+      </wol-tile-layer>
+    </wol-map>
+    @if (tileError()) {
+      <p class="map-error" role="status">
+        Map tiles could not load. Check your connection, then choose a location to try again.
+      </p>
+    }
+  </div>
+
+  <div class="code-dock">
+    <div class="code-caption">
+      <span>map.component.html</span>
+      <span>Angular template</span>
+    </div>
+    <pre
+      role="region"
+      aria-label="Live map Angular template"
+      tabindex="0"
+    ><code><span class="code-tag">&lt;wol-map</span> <span class="code-attribute">tabindex</span>=<span class="code-value">"0"</span><span class="code-tag">&gt;</span>
+  <span class="code-tag">&lt;wol-view</span>
+    <span class="code-attribute">[wolCenter]</span>=<span class="code-value">"[{{ centerCode() }}]"</span>
+    <span class="code-attribute">[wolZoom]</span>=<span class="code-value">"{{ zoomCode() }}"</span> <span class="code-tag">/&gt;</span>
+  <span class="code-tag">&lt;wol-tile-layer&gt;</span>
+    <span class="code-tag">&lt;wol-osm-source /&gt;</span>
+  <span class="code-tag">&lt;/wol-tile-layer&gt;</span>
+<span class="code-tag">&lt;/wol-map&gt;</span></code></pre>
+  </div>
+</div>
