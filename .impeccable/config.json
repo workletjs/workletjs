@@ -1,0 +1,15 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": ["apps/docs/src/app/pages/landing/landing.component.html"],
+        "createdAt": "2026-10-22T06:52:03.224Z",
+        "reason": "Codex verified: all three Angular [src] badge bindings resolve to loaded images in the browser (naturalWidth 88, 60, 78); static markup scanning does not evaluate Angular bindings."
+      }
+    ]
+  }
+}

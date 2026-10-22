@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-22T06:53:41Z",
+  "title": "Design System: Workletjs Landing",
+  "extensions": {
+    "colorMeta": {
+      "accent": {
+        "role": "primary",
+        "displayName": "Documentation Blue"
+      },
+      "success": {
+        "role": "semantic",
+        "displayName": "Copy Success"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Heading Ink"
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Quiet Text"
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Quiet Rule"
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Raised Paper"
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper"
+      },
+      "primary-text": {
+        "role": "neutral",
+        "displayName": "Action Text"
+      },
+      "dock-background": {
+        "role": "neutral",
+        "displayName": "Code Ink"
+      },
+      "dock-text": {
+        "role": "neutral",
+        "displayName": "Code Text"
+      },
+      "dock-muted": {
+        "role": "neutral",
+        "displayName": "Code Caption"
+      },
+      "syntax-tag": {
+        "role": "neutral",
+        "displayName": "Code Tag Blue"
+      },
+      "syntax-value": {
+        "role": "neutral",
+        "displayName": "Code Value Green"
+      },
+      "dock-scrollbar": {
+        "role": "neutral",
+        "displayName": "Code Scrollbar"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Landing Display",
+        "purpose": "Hero heading; uses clamp(36px, 6.5vw, 54px) below 800px and clamp(30px, 8.5vw, 32px) below 380px."
+      },
+      "body": {
+        "displayName": "Landing Body",
+        "purpose": "Default prose and inherited control typography."
+      },
+      "install-code": {
+        "displayName": "Install Command",
+        "purpose": "The selectable package installation command."
+      },
+      "demo-code": {
+        "displayName": "Live Angular Template",
+        "purpose": "The map preview’s 13px code dock; preserves indentation with soft wrapping and inherits the NgDoc code font."
+      }
+    },
+    "motion": [
+      {
+        "name": "button-colors",
+        "value": "background-color 180ms ease-out, border-color 180ms ease-out",
+        "purpose": "Primary and secondary hover feedback; disabled with prefers-reduced-motion: reduce."
+      },
+      {
+        "name": "preset-colors",
+        "value": "color 160ms ease, background-color 160ms ease",
+        "purpose": "Location preset feedback; disabled with prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact-desktop",
+        "value": "1100px"
+      },
+      {
+        "name": "single-column",
+        "value": "800px"
+      },
+      {
+        "name": "narrow-demo",
+        "value": "640px"
+      },
+      {
+        "name": "narrow-hero",
+        "value": "380px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The filled action for installation and First Map.",
+      "html": "<a class=\"ds-button-primary\" href=\"/guides/get-started/installation\">Get started <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\" /></svg></a>",
+      "css": ".ds-button-primary{display:inline-flex;min-height:46px;align-items:center;justify-content:center;gap:12px;padding:10px 19px;border:1px solid transparent;border-radius:7px;font-family:'Nunito Sans', sans-serif;font-size:15px;font-weight:700;line-height:1.5;text-decoration:none;transition:background-color 180ms ease-out,border-color 180ms ease-out;color:var(--ng-doc-primary-text,#fff);background:var(--landing-accent, var(--ng-doc-primary, #0c6cbd));}.ds-button-primary svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}.ds-button-primary:hover{background:color-mix(in srgb,var(--landing-accent, var(--ng-doc-primary, #0c6cbd)) 85%,var(--landing-ink, var(--ng-doc-heading-color, #172b3a)));}.ds-button-primary:focus-visible{outline:3px solid var(--landing-accent, var(--ng-doc-primary, #0c6cbd));outline-offset:5px;}@media(prefers-reduced-motion:reduce){.ds-button-primary{transition:none;}}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "The bordered companion action.",
+      "html": "<a class=\"ds-button-secondary\" href=\"/guides/get-started/first-map\">Build your first map</a>",
+      "css": ".ds-button-secondary{display:inline-flex;min-height:46px;align-items:center;justify-content:center;gap:12px;padding:10px 19px;border:1px solid transparent;border-radius:7px;font-family:'Nunito Sans', sans-serif;font-size:15px;font-weight:700;line-height:1.5;text-decoration:none;transition:background-color 180ms ease-out,border-color 180ms ease-out;color:var(--landing-ink, var(--ng-doc-heading-color, #172b3a));background:transparent;border-color:var(--landing-line, var(--ng-doc-border-color, #dbe4eb));}.ds-button-secondary:hover{background:var(--landing-surface, var(--ng-doc-base-1, #f4f7fa));border-color:var(--landing-muted, var(--ng-doc-text, #586774));}.ds-button-secondary:focus-visible{outline:3px solid var(--landing-accent, var(--ng-doc-primary, #0c6cbd));outline-offset:5px;}@media(prefers-reduced-motion:reduce){.ds-button-secondary{transition:none;}}"
+    },
+    {
+      "name": "Installation Command",
+      "kind": "custom",
+      "refersTo": "install-command",
+      "description": "Angular CLI setup with ng add @workletjs/ngx-openlayers. The static note keeps version compatibility visible. A green check with a 12% success tint and 2.4px stroke confirms copying; root NgDocNotifyService presents success or failure in a bottom viewport overlay for two seconds. The clipped polite live region and overlay cause no layout shift. The copy target is 44px square below 800px. This preview shows the copied state.",
+      "html": "<div class=\"ds-install\"><span class=\"ds-prompt\" aria-hidden=\"true\">$</span><code class=\"ds-command\">ng add @workletjs/ngx-openlayers</code><button class=\"ds-copy is-copied\" type=\"button\" aria-label=\"Install command copied\" title=\"Copied!\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m5 12 4 4L19 6\" /></svg></button></div><p class=\"ds-compat\">Check <a href=\"/guides/reference/compatibility\">version compatibility</a> before installing.</p><p class=\"ds-copy-feedback\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\">Command copied. Your first map is next.</p>",
+      "css": ".ds-install{display:flex;min-height:58px;max-width:450px;align-items:center;gap:12px;padding:10px 10px 10px 16px;border:1px solid var(--landing-line, var(--ng-doc-border-color, #dbe4eb));border-radius:7px;background:var(--landing-surface, var(--ng-doc-base-1, #f4f7fa));color:var(--landing-ink, var(--ng-doc-heading-color, #172b3a));}.ds-prompt{color:var(--landing-muted, var(--ng-doc-text, #586774));font-family:'SFMono-Regular', Consolas, 'Liberation Mono', monospace;font-size:13px;user-select:none;}.ds-command{min-width:0;font-family:'SFMono-Regular', Consolas, 'Liberation Mono', monospace;font-size:12px;line-height:1.8;overflow-wrap:anywhere;}.ds-copy{display:grid;width:36px;height:36px;flex-shrink:0;place-items:center;margin-left:auto;padding:0;border:0;border-radius:4px;color:var(--landing-muted, var(--ng-doc-text, #586774));background:transparent;cursor:pointer;}.ds-copy svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}.ds-copy:hover{color:var(--landing-accent, var(--ng-doc-primary, #0c6cbd));background:var(--landing-paper, var(--ng-doc-base-0, #fff));}.ds-copy.is-copied{color:var(--landing-success, var(--ng-doc-success, #15803d));background:color-mix(in srgb,var(--landing-success, var(--ng-doc-success, #15803d)) 12%,transparent);}.ds-copy.is-copied svg{stroke-width:2.4;}.ds-copy:focus-visible{outline:3px solid var(--landing-accent, var(--ng-doc-primary, #0c6cbd));outline-offset:5px;}.ds-copy:disabled{opacity:.55;cursor:wait;}.ds-compat{min-height:20px;margin-top:8px;font-size:12px;color:var(--landing-muted, var(--ng-doc-text, #586774));}.ds-compat a{color:var(--landing-accent, var(--ng-doc-primary, #0c6cbd));text-underline-offset:4px;}.ds-copy-feedback{position:absolute;width:1px;height:1px;overflow:hidden;margin:-1px;padding:0;border:0;clip-path:inset(50%);white-space:nowrap;}@media(max-width:800px){.ds-copy{width:44px;height:44px;}}"
+    },
+    {
+      "name": "Location Presets",
+      "kind": "custom",
+      "refersTo": "location-preset",
+      "description": "Alps, London, and Tokyo buttons start with the Alps selected at zoom 9 and expose selection derived from the current center and zoom; a freely moved view has no pressed preset. Narrow-screen targets are at least 44px square. Below 640px the map font is 32px, making OpenLayers’ native 1.375em zoom controls 44px without changing the attribution text size.",
+      "html": "<div class=\"ds-locations\" role=\"group\" aria-label=\"Map location\"><button class=\"ds-location\" type=\"button\" aria-pressed=\"true\">Alps</button><button class=\"ds-location\" type=\"button\" aria-pressed=\"false\">London</button><button class=\"ds-location\" type=\"button\" aria-pressed=\"false\">Tokyo</button></div>",
+      "css": ".ds-locations{display:flex;gap:2px;}.ds-location{min-height:32px;padding:5px 10px;border:0;border-radius:5px;background:transparent;color:var(--landing-muted, var(--ng-doc-text, #586774));cursor:pointer;font-family:'Nunito Sans', sans-serif;font-size:12px;font-weight:600;line-height:1.65;transition:color 160ms ease,background-color 160ms ease;}.ds-location:hover{background:var(--landing-surface, var(--ng-doc-base-1, #f4f7fa));color:var(--landing-ink, var(--ng-doc-heading-color, #172b3a));}.ds-location[aria-pressed=\"true\"]{background:var(--landing-surface, var(--ng-doc-base-1, #f4f7fa));color:var(--landing-accent, var(--ng-doc-primary, #0c6cbd));}.ds-location:focus-visible{outline:2px solid var(--landing-accent, var(--ng-doc-primary, #0c6cbd));outline-offset:-2px;}@media(max-width:640px){.ds-location{min-width:44px;min-height:44px;padding-inline:9px;}}@media(prefers-reduced-motion:reduce){.ds-location{transition:none;}}"
+    },
+    {
+      "name": "Angular Code Dock",
+      "kind": "custom",
+      "refersTo": "code-dock",
+      "description": "The map preview’s dark, keyboard-focusable 13px template region with soft wrapping; center and zoom stay synchronized with the actual map.",
+      "html": "<div class=\"ds-dock\"><div class=\"ds-code-caption\"><span>map.component.html</span><span>Angular template</span></div><pre class=\"ds-code\" tabindex=\"0\" role=\"region\" aria-label=\"Angular template\"><code><span class=\"ds-tag\">&lt;wol-map</span> <span class=\"ds-attribute\">tabindex</span>=<span class=\"ds-value\">\"0\"</span><span class=\"ds-tag\">&gt;</span>\n  <span class=\"ds-tag\">&lt;wol-view</span>\n    <span class=\"ds-attribute\">[wolCenter]</span>=<span class=\"ds-value\">\"[852551.45, 5776552.09]\"</span>\n    <span class=\"ds-attribute\">[wolZoom]</span>=<span class=\"ds-value\">\"9\"</span> <span class=\"ds-tag\">/&gt;</span>\n  <span class=\"ds-tag\">&lt;wol-tile-layer&gt;</span>\n    <span class=\"ds-tag\">&lt;wol-osm-source /&gt;</span>\n  <span class=\"ds-tag\">&lt;/wol-tile-layer&gt;</span>\n<span class=\"ds-tag\">&lt;/wol-map&gt;</span></code></pre></div>",
+      "css": ".ds-dock{background:#172b3a;color:#e4eef5;font-family:'Nunito Sans', sans-serif;}.ds-code-caption{display:flex;justify-content:space-between;gap:12px;padding:12px 18px 0;color:#a8bbc9;font-size:11px;line-height:1.5;}.ds-code{overflow-x:auto;margin:0;padding:10px 18px 16px;scrollbar-color:#6b8293 #172b3a;scrollbar-width:thin;white-space:pre-wrap;}.ds-code code{font-family:var(--ng-doc-code-font-family,ui-monospace,monospace);font-size:13px;line-height:1.65;}.ds-tag{color:#9bd3f3;}.ds-attribute{color:#e4eef5;}.ds-value{color:#b8ddbb;}.ds-code:focus-visible{outline:2px solid var(--landing-accent, var(--ng-doc-primary, #0c6cbd));outline-offset:-2px;}.ds-dock ::selection{background:#b8ddbb;color:#172b3a;}@media(max-width:640px){.ds-code-caption,.ds-code{padding-inline:14px;}.ds-code-caption span:last-child{display:none;}}"
+    },
+    {
+      "name": "Ordered Step",
+      "kind": "custom",
+      "refersTo": "step-number",
+      "description": "An open instructional step with circular number, ruled code, and a documentation link. Compose your map includes the required container height; Make it yours follows with optional view binding and controls.",
+      "html": "<div class=\"ds-step\"><span class=\"ds-step-number\" aria-hidden=\"true\">1</span><h3 class=\"ds-step-title\">Add the library</h3><p class=\"ds-step-copy\">Install the package and its peers. Include the OpenLayers stylesheet in your app.</p><code class=\"ds-step-code\">$ ng add @workletjs/ngx-openlayers</code><a class=\"ds-step-link\" href=\"/guides/get-started/installation\">Installation guide <span aria-hidden=\"true\">→</span></a></div>",
+      "css": ".ds-step{max-width:372px;font-family:'Nunito Sans', sans-serif;color:var(--landing-ink, var(--ng-doc-heading-color, #172b3a));line-height:1.65;}.ds-step-number{display:grid;width:30px;height:30px;place-items:center;border:1px solid var(--landing-line, var(--ng-doc-border-color, #dbe4eb));border-radius:50%;color:var(--landing-accent, var(--ng-doc-primary, #0c6cbd));font-size:13px;font-weight:800;font-variant-numeric:tabular-nums;}.ds-step-title{margin:17px 0 0;font-size:21px;font-weight:800;line-height:1.35;letter-spacing:-.015em;}.ds-step-copy{margin:12px 0 0;color:var(--landing-muted, var(--ng-doc-text, #586774));font-size:15px;}.ds-step-code{display:block;margin-block:16px 12px;padding-block:12px;border-block:1px solid var(--landing-line, var(--ng-doc-border-color, #dbe4eb));font-family:'SFMono-Regular', Consolas, 'Liberation Mono', monospace;font-size:12px;overflow-wrap:anywhere;}.ds-step-link{display:inline-flex;min-height:30px;align-items:center;gap:10px;color:var(--landing-accent, var(--ng-doc-primary, #0c6cbd));font-size:14px;font-weight:700;text-decoration:none;text-underline-offset:4px;}.ds-step-link:hover{text-decoration:underline;}.ds-step-link:focus-visible{outline:3px solid var(--landing-accent, var(--ng-doc-primary, #0c6cbd));outline-offset:5px;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "First Map",
+    "overview": "This local system describes the Landing components in this directory. It inherits the NgDoc theme through the custom properties recorded above. The visual character is clear, practical developer documentation: Nunito Sans, paper surfaces, quiet rules, a blue action color, and a deep ink-blue code dock.\n\nThe working OpenStreetMap preview and its synchronized Angular template provide the visual evidence. Type and spacing make installation and the First Map path easy to scan. The map is live content; the implementation adds no decorative raster imagery.",
+    "keyCharacteristics": [
+      "Theme-aware paper and blue controls.",
+      "Strong, compact headings with readable supporting copy.",
+      "Flat sections, fine dividers, and modestly rounded controls.",
+      "A live map connected to readable Angular code."
+    ],
+    "rules": [
+      {
+        "name": "The Theme Inheritance Rule",
+        "body": "Use the existing NgDoc property with its recorded fallback for Landing surfaces and controls. Keep the dock's implemented syntax palette intact.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "Do preserve NgDoc color inheritance and the recorded fallbacks.",
+      "Do keep the map, location presets, and displayed Angular values synchronized.",
+      "Do retain keyboard outlines, selectable code, and copy-status feedback.",
+      "Do preserve the single-column reading order on narrow screens."
+    ],
+    "donts": [
+      "Don't add decorative gradients or a card grid to this Landing surface.",
+      "Don't substitute a static image for the working map demonstration.",
+      "Don't add entrance animation; honor reduced motion for existing control transitions.",
+      "Don't treat this local document as a design contract for the surrounding app shell."
+    ]
+  }
+}
