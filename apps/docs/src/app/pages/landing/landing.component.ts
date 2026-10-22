@@ -1,63 +1,48 @@
-import {
-  NgDocButtonComponent,
-  NgDocIconComponent,
-  NgDocTextComponent,
-  NgDocTextRightDirective,
-} from '@ng-doc/ui-kit';
+import { NgDocNotifyService } from '@ng-doc/ui-kit/services/notify';
 
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { HeroBannerComponent } from './components';
 
 @Component({
   selector: 'wol-docs-landing',
-  imports: [
-    RouterLink,
-    NgDocTextComponent,
-    NgDocTextRightDirective,
-    NgDocButtonComponent,
-    NgDocIconComponent,
-    NgDocTextRightDirective,
-    HeroBannerComponent,
-  ],
+  imports: [RouterLink, HeroBannerComponent],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LandingComponent {
-  readonly badges = [
+  protected readonly installCommand = 'ng add @workletjs/ngx-openlayers';
+  protected readonly copyState = signal<'idle' | 'copying' | 'copied' | 'error'>('idle');
+  private readonly notifyService = inject(NgDocNotifyService);
+  protected readonly badges = [
     {
-      name: 'version',
-      img: 'https://img.shields.io/npm/v/@workletjs/ngx-openlayers.svg?style=for-the-badge',
+      name: 'npm version',
+      img: 'https://img.shields.io/npm/v/@workletjs/ngx-openlayers.svg?style=flat&label=npm&color=0c6cbd',
       link: 'https://www.npmjs.com/package/@workletjs/ngx-openlayers',
     },
     {
-      name: 'stars',
-      img: 'https://img.shields.io/github/stars/workletjs/workletjs?style=for-the-badge',
+      name: 'GitHub stars',
+      img: 'https://img.shields.io/github/stars/workletjs/workletjs?style=flat&color=0c6cbd',
       link: 'https://github.com/workletjs/workletjs/stargazers',
     },
     {
-      name: 'license',
-      img: 'https://img.shields.io/github/license/workletjs/workletjs.svg?style=for-the-badge',
+      name: 'MIT license',
+      img: 'https://img.shields.io/github/license/workletjs/workletjs.svg?style=flat&color=0c6cbd',
       link: 'https://github.com/workletjs/workletjs/blob/main/LICENSE',
     },
   ];
-  readonly features = [
-    {
-      title: 'Declarative Mapping',
-      description:
-        'Encapsulate complex OpenLayers APIs into intuitive Angular components, enabling rapid development of interactive maps through data binding.',
-    },
-    {
-      title: 'High-Performance Layers',
-      description:
-        'Leverage WebGL-powered layers for smooth rendering of large datasets, ensuring optimal performance even with complex visualizations.',
-    },
-    {
-      title: 'Modular Map Controls',
-      description:
-        'Easily add and customize map controls like zoom, rotation, and attribution with pre-built Angular components designed for flexibility.',
-    },
-  ];
+
+  protected async copyInstallCommand(): Promise<void> {
+    this.copyState.set('copying');
+    try {
+      await navigator.clipboard.writeText(this.installCommand);
+      this.copyState.set('copied');
+      this.notifyService.notify('Command copied. Your first map is next.');
+    } catch {
+      this.copyState.set('error');
+      this.notifyService.notify('Copy unavailable. Select and copy the command above.');
+    }
+  }
 }
