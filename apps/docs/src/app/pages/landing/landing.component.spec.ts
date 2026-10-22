@@ -101,6 +101,6 @@ describe('LandingComponent', () => {
   it('renders the get started call to action', () => {
     const link: HTMLAnchorElement = fixture.nativeElement.querySelector('a[ng-doc-button-flat]');
     expect(link.textContent?.trim()).toBe('Get Started');
-    expect(link.getAttribute('href')).toBe('/get-started/installation');
+    expect(link.getAttribute('href')).toBe('/guides/get-started/installation');
   });
 });

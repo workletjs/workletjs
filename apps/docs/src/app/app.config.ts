@@ -19,7 +19,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 
-import { appRoutes } from './app.routes';
+import { APP_ROUTES } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -44,7 +44,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withXhr(), withInterceptorsFromDi()),
     // Add generated routes to the application
     provideRouter(
-      appRoutes,
+      APP_ROUTES,
       // Enable anchor scrolling
       withInMemoryScrolling({
         scrollPositionRestoration: 'enabled',
