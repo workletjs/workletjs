@@ -2,7 +2,7 @@
   "name": "docs",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "app",
+  "prefix": "wol-docs",
   "sourceRoot": "apps/docs/src",
   "tags": [],
   "targets": {

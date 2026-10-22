@@ -77,7 +77,7 @@ const locations = [
 ];
 
 @Component({
-  selector: 'app-hero-banner',
+  selector: 'wol-docs-hero-banner',
   imports: [WolMapModule, WolViewModule, WolWebGLTileLayerModule, WolImageTileSourceModule],
   templateUrl: './hero-banner.component.html',
   styleUrl: './hero-banner.component.css',

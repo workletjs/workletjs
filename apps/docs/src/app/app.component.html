@@ -1,32 +1,68 @@
-<ng-doc-root [sidebar]="showSidebar()" [footerContent]="footerContent">
-  <ng-doc-navbar>
-    <div ngDocNavbarLeft>
-      <a class="text-slate-800 no-underline dark:text-slate-200" routerLink="/">
-        <h3 class="m-0 flex items-center text-2xl">
-          <img class="mr-2 h-9" src="workletjs.png" alt="workletjs logo" />
-          <span class="font-nunito font-extrabold">Workletjs</span>
-        </h3>
-      </a>
-    </div>
-    <div class="flex items-center" ngDocNavbarRight>
-      <ng-doc-theme-toggle class="ms-4" />
+<ng-doc-root
+  [sidebar]="!isLandingPage()"
+  [noWidthLimit]="isLandingPage()"
+  [footerContent]="footerContent"
+>
+  <ng-doc-navbar [hamburger]="!isLandingPage()">
+    <a
+      class="text-slate-800 no-underline dark:text-slate-200"
+      routerLink="/"
+      aria-label="Workletjs Home"
+      ngDocNavbarLeft
+    >
+      <h3 class="m-0 flex items-center text-2xl">
+        <img class="mr-2 h-9" src="workletjs.png" alt="workletjs" width="36" height="36" />
+        <span class="font-nunito font-extrabold">Workletjs</span>
+      </h3>
+    </a>
+    <nav
+      class="[&>a]:text-ng-doc-text [&>a]:hover:text-ng-doc-heading-color [&>a[aria-current]]:text-ng-doc-primary font-ng-doc-font-family flex gap-5 text-sm font-medium [&>a]:no-underline"
+      aria-label="Primary"
+      ngDocNavbarCenter
+    >
       <a
-        class="ms-4"
-        href="https://github.com/workletjs/workletjs"
-        ng-doc-button-icon
-        ngDocTooltip="Repository on GitHub"
-        size="large"
-        target="_blank"
+        routerLink="/guides/get-started/overview"
+        [attr.aria-current]="section() === 'guides' ? 'page' : null"
+        >Guides</a
       >
-        <ng-doc-icon [size]="24" customIcon="github" />
-      </a>
-    </div>
+      <a routerLink="/components" [attr.aria-current]="section() === 'components' ? 'page' : null"
+        >Components</a
+      >
+    </nav>
+    <ng-doc-theme-toggle ngDocNavbarRight />
+    <a
+      href="https://github.com/workletjs/workletjs"
+      ng-doc-button-icon
+      size="large"
+      [rounded]="false"
+      aria-label="Workletjs on GitHub"
+      ngDocTooltip="Repository on GitHub"
+      target="_blank"
+      rel="noopener"
+      ngDocNavbarRight
+    >
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path
+          d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"
+        />
+      </svg>
+    </a>
   </ng-doc-navbar>
-  <app-sidebar ngDocCustomSidebar />
+  <wol-docs-layout-sidebar [wolNavigation]="navigation()" ngDocCustomSidebar />
   <router-outlet />
   <ng-template #footerContent>
     <div class="flex items-center justify-center p-6 text-xs text-gray-400">
-      MIT © 2025 WORKLETJS Contributors
+      MIT License · © {{ year }} Workletjs Contributors
     </div>
   </ng-template>
 </ng-doc-root>

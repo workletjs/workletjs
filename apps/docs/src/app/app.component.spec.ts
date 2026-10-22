@@ -1,4 +1,6 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+import { NG_DOC_CONTEXT, NgDocNavigation } from '@ng-doc/app';
+
+import { Location } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavigationEnd, Router } from '@angular/router';
 
@@ -6,142 +8,146 @@ import { Subject } from 'rxjs';
 
 import { AppComponent } from './app.component';
 
-vi.mock('@ng-doc/app', () => {
-  class NgDocCustomSidebarDirective {}
-  class NgDocNavbarComponent {}
-  class NgDocRootComponent {}
-  class NgDocThemeToggleComponent {}
-
-  Object.defineProperty(NgDocCustomSidebarDirective, 'ɵdir', { value: { standalone: true } });
-  Object.defineProperty(NgDocNavbarComponent, 'ɵcmp', { value: { standalone: true } });
-  Object.defineProperty(NgDocRootComponent, 'ɵcmp', { value: { standalone: true } });
-  Object.defineProperty(NgDocThemeToggleComponent, 'ɵcmp', { value: { standalone: true } });
-
-  return {
-    NgDocCustomSidebarDirective,
-    NgDocNavbarComponent,
-    NgDocRootComponent,
-    NgDocThemeToggleComponent,
-  };
-});
-
-vi.mock('@ng-doc/ui-kit', () => {
-  class NgDocButtonIconComponent {}
-  class NgDocIconComponent {}
-  class NgDocTooltipDirective {}
-
-  Object.defineProperty(NgDocButtonIconComponent, 'ɵcmp', { value: { standalone: true } });
-  Object.defineProperty(NgDocIconComponent, 'ɵcmp', { value: { standalone: true } });
-  Object.defineProperty(NgDocTooltipDirective, 'ɵdir', { value: { standalone: true } });
-
-  return {
-    NgDocButtonIconComponent,
-    NgDocIconComponent,
-    NgDocTooltipDirective,
-  };
-});
-
-vi.mock('./components', () => {
-  class SidebarComponent {}
-
-  Object.defineProperty(SidebarComponent, 'ɵcmp', { value: { standalone: true } });
-
-  return {
-    SidebarComponent,
-  };
-});
-
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let routerEvents: Subject<unknown>;
-  let breakpointMatches: Subject<{ matches: boolean }>;
-  let observeBreakpoint: ReturnType<typeof vi.fn>;
+  let locationPath: string;
+
+  const navigation: NgDocNavigation[] = [
+    {
+      title: 'Guides',
+      route: '/guides',
+      children: [{ title: 'Overview', route: '/guides/get-started/overview' }],
+    },
+    {
+      title: 'Components',
+      route: '/components',
+      children: [{ title: 'Map', route: '/components/general/map' }],
+    },
+  ];
+
+  const createComponent = () => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  };
+
+  const navigate = (path: string, requestedPath = path) => {
+    locationPath = path;
+    routerEvents.next(new NavigationEnd(1, requestedPath, path));
+    fixture.detectChanges();
+  };
 
   beforeEach(async () => {
     routerEvents = new Subject();
-    breakpointMatches = new Subject();
-    observeBreakpoint = vi.fn(() => breakpointMatches);
+    locationPath = '';
 
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
+        { provide: NG_DOC_CONTEXT, useValue: { navigation } },
         { provide: Router, useValue: { events: routerEvents } },
-        { provide: BreakpointObserver, useValue: { observe: observeBreakpoint } },
+        { provide: Location, useValue: { path: () => locationPath } },
       ],
     })
-      // Strip the NgDoc-heavy template so this stays a unit test of AppComponent's own logic.
+      // Test route state independently of NgDoc's layout and search services.
       .overrideComponent(AppComponent, { set: { template: '' } })
       .compileComponents();
-
-    fixture = TestBed.createComponent(AppComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('defaults to the landing page without an active documentation section', () => {
+    createComponent();
 
-  it('defaults to the landing page and small-screen state', () => {
     expect(component['isLandingPage']()).toBe(true);
-    expect(component['isSmallScreen']()).toBe(true);
+    expect(component['section']()).toBeNull();
+    expect(component['navigation']()).toBe(navigation);
+    expect(fixture.nativeElement.getAttribute('data-ng-doc-is-landing')).toBe('true');
   });
 
-  it('marks the landing page inactive once navigation leaves "/"', () => {
-    routerEvents.next(new NavigationEnd(1, '/guide', '/guide'));
+  it.each([
+    ['/guides', 'guides'],
+    ['/guides/get-started/overview', 'guides'],
+    ['/components', 'components'],
+    ['/components/general/map/api', 'components'],
+  ])('recognizes the section on an initial visit to %s', (path, section) => {
+    locationPath = path;
+    createComponent();
 
+    expect(component['section']()).toBe(section);
     expect(component['isLandingPage']()).toBe(false);
+    expect(fixture.nativeElement.getAttribute('data-ng-doc-is-landing')).toBe('false');
   });
 
-  it('marks the landing page active again when navigating back to "/"', () => {
-    routerEvents.next(new NavigationEnd(1, '/guide', '/guide'));
-    routerEvents.next(new NavigationEnd(2, '/', '/'));
+  it('switches sections as the reader navigates between Guides and Components', () => {
+    createComponent();
+    navigate('/guides/get-started/overview');
+    expect(component['section']()).toBe('guides');
+    expect(component['navigation']()).toBe(navigation[0].children);
 
+    navigate('/components/general/map');
+    expect(component['section']()).toBe('components');
+    expect(component['navigation']()).toBe(navigation[1].children);
+
+    navigate('/guides/development/component-usage');
+    expect(component['section']()).toBe('guides');
+  });
+
+  it('uses the final location after a redirect', () => {
+    createComponent();
+    navigate('/guides/get-started/overview', '/guides');
+
+    expect(component['section']()).toBe('guides');
+  });
+
+  it('clears the documentation section when returning to the landing page', () => {
+    createComponent();
+    navigate('/components/general/map');
+    navigate('/');
+
+    expect(component['section']()).toBeNull();
+    expect(component['isLandingPage']()).toBe(true);
+    expect(fixture.nativeElement.getAttribute('data-ng-doc-is-landing')).toBe('true');
+  });
+
+  it.each(['/guides-extra', '/components-extra', '/other/guides'])(
+    'requires a complete section segment in %s',
+    (path) => {
+      createComponent();
+      navigate(path);
+
+      expect(component['section']()).toBeNull();
+    },
+  );
+
+  it.each([
+    ['/?search=map#top', null, true],
+    ['/guides?search=map#top', 'guides', false],
+    ['/components/general/map?search=map#api', 'components', false],
+  ])('ignores query parameters and fragments in %s', (path, section, isLandingPage) => {
+    locationPath = path;
+    createComponent();
+
+    expect(component['section']()).toBe(section);
+    expect(component['isLandingPage']()).toBe(isLandingPage);
+  });
+
+  it('waits for NavigationEnd before updating the current section', () => {
+    createComponent();
+    locationPath = '/components/general/map';
+    routerEvents.next({ url: locationPath });
+
+    expect(component['section']()).toBeNull();
     expect(component['isLandingPage']()).toBe(true);
   });
 
-  it('ignores non-NavigationEnd router events', () => {
-    routerEvents.next({ url: '/guide' });
+  it('stops observing navigation when destroyed', () => {
+    createComponent();
+    navigate('/guides/get-started/overview');
+    fixture.destroy();
+    locationPath = '/components/general/map';
+    routerEvents.next(new NavigationEnd(2, locationPath, locationPath));
 
-    expect(component['isLandingPage']()).toBe(true);
-  });
-
-  it('tracks the small-screen breakpoint state', () => {
-    breakpointMatches.next({ matches: false });
-
-    expect(component['isSmallScreen']()).toBe(false);
-  });
-
-  it('uses the 900px boundary of the NgDoc sidebar overlay', () => {
-    expect(observeBreakpoint).toHaveBeenCalledWith(['(max-width: 900px)']);
-  });
-
-  it('hides the sidebar only on the landing page for large screens', () => {
-    breakpointMatches.next({ matches: false });
-
-    expect(component['showSidebar']()).toBe(false);
-  });
-
-  it('shows the sidebar on large screens once navigated away from the landing page', () => {
-    breakpointMatches.next({ matches: false });
-    routerEvents.next(new NavigationEnd(1, '/guide', '/guide'));
-
-    expect(component['showSidebar']()).toBe(true);
-  });
-
-  it('shows the sidebar on the landing page for small screens', () => {
-    expect(component['showSidebar']()).toBe(true);
-  });
-
-  it('applies the landing-page host class by default', () => {
-    expect(fixture.nativeElement.classList.contains('workletjs-landing-page')).toBe(true);
-  });
-
-  it('removes the landing-page host class after navigating away from "/"', () => {
-    routerEvents.next(new NavigationEnd(1, '/guide', '/guide'));
-    fixture.detectChanges();
-
-    expect(fixture.nativeElement.classList.contains('workletjs-landing-page')).toBe(false);
+    expect(component['section']()).toBe('guides');
   });
 });
