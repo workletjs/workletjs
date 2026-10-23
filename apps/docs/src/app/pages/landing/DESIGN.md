@@ -255,10 +255,10 @@ secondary button color transitions are brief (180ms, ease-out); reduced motion d
 ### Installation Command
 
 A tinted, outlined command row holds the terminal prompt, Angular CLI setup command
-`ng add @workletjs/ngx-openlayers`, and a compact copy button. The static note below keeps the
-version compatibility link visible. The copy button becomes blue on paper when hovered; its pending
-state reduces opacity and uses the wait cursor. After a successful copy, the button shows a green
-check using `success`, a 12% tinted background, and a 2.4px stroke.
+`ng add @workletjs/ngx-openlayers@22.2.0`, and a compact copy button. The static note below keeps
+the version compatibility link visible. The copy button becomes blue on paper when hovered; its
+pending state reduces opacity and uses the wait cursor. After a successful copy, the button shows a
+green check using `success`, a 12% tinted background, and a 2.4px stroke.
 
 The root `NgDocNotifyService` presents success or failure feedback in a bottom-of-viewport overlay
 that closes after two seconds. The separate polite live status region remains absolutely positioned

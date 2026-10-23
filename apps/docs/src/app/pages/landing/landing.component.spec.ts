@@ -156,7 +156,7 @@ describe('LandingComponent', () => {
     await fixture.whenStable();
     fixture.detectChanges();
 
-    expect(writeText).toHaveBeenCalledExactlyOnceWith('ng add @workletjs/ngx-openlayers');
+    expect(writeText).toHaveBeenCalledExactlyOnceWith('ng add @workletjs/ngx-openlayers@22.2.0');
     expect(element.querySelector('[aria-live="polite"]')?.textContent).toContain('Command copied.');
     expect(copyButton().getAttribute('aria-label')).toBe('Install command copied');
     expect(copyButton().disabled).toBe(false);
@@ -203,7 +203,7 @@ describe('LandingComponent', () => {
       'Copy unavailable. Select and copy the command above.',
     );
     expect(element.querySelector('.install code')?.textContent).toBe(
-      'ng add @workletjs/ngx-openlayers',
+      'ng add @workletjs/ngx-openlayers@22.2.0',
     );
     expect(copyButton().disabled).toBe(false);
     expect(copyButton().classList.contains('is-copied')).toBe(false);
@@ -226,7 +226,7 @@ describe('LandingComponent', () => {
       'Copy unavailable. Select and copy the command above.',
     );
     expect(element.querySelector('.install code')?.textContent).toBe(
-      'ng add @workletjs/ngx-openlayers',
+      'ng add @workletjs/ngx-openlayers@22.2.0',
     );
     expect(copyButton().getAttribute('aria-label')).toBe('Copy install command');
     expect(copyButton().disabled).toBe(false);

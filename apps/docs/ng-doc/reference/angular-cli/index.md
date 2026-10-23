@@ -1,11 +1,11 @@
-These schematics support **Angular CLI 22.2.x standard workspaces**. Use a build or release that
-contains this collection; these commands are not retroactively available in earlier published
-`22.0.x` packages. Nx host workspaces are outside this first version's support.
+The Angular CLI collection introduced in `22.2.0` supports **Angular CLI 22.2.x standard
+workspaces**. Earlier `22.0.x` packages do not contain this collection. Nx host workspaces are
+outside this collection's support.
 
 Run from an existing Angular workspace:
 
 ```bash
-ng add @workletjs/ngx-openlayers --project my-app
+ng add @workletjs/ngx-openlayers@22.2.0 --project my-app
 ```
 
 The command saves the library as an application dependency, adds missing compatible CDK and
@@ -17,9 +17,9 @@ An interactive prompt asks whether to generate a **map example**, defaulting to 
 `--example` or `--no-example` skips that prompt; non-interactive runs also default to no example.
 
 ```bash
-ng add @workletjs/ngx-openlayers --project my-app --no-example
-ng add @workletjs/ngx-openlayers --project my-app --example
-ng add @workletjs/ngx-openlayers --project my-app --example --example-name demo-map --route demo
+ng add @workletjs/ngx-openlayers@22.2.0 --project my-app --no-example
+ng add @workletjs/ngx-openlayers@22.2.0 --project my-app --example
+ng add @workletjs/ngx-openlayers@22.2.0 --project my-app --example --example-name demo-map --route demo
 ```
 
 The default example is `map-example` at `/map`; the customized example above is available at
@@ -29,7 +29,8 @@ lazy route is inserted first while retaining the relative order of existing rout
 
 ## Create a map application
 
-In an existing workspace that has this library installed, generate a **map application template**:
+In an existing workspace with `@workletjs/ngx-openlayers@22.2.0` installed, generate a **map
+application template**:
 
 ```bash
 ng generate @workletjs/ngx-openlayers:application map-app

@@ -28,7 +28,7 @@ Read the documentation: [Installation](https://workletjs.github.io/get-started/i
 
 ## 🛠 Prerequisites
 
-Builds from the current source require the following peer dependencies:
+Version `22.2.0` requires the following peer dependencies:
 
 - [`@angular/core`](https://angular.dev/): ~22.2.0
 - [`@angular/cdk`](https://material.angular.dev/cdk): ~22.2.0
@@ -39,20 +39,19 @@ Make sure these dependencies are installed in your project.
 Text along paths requires `Intl.Segmenter`. Host applications supporting browsers without it must
 provide a [polyfill](https://formatjs.github.io/docs/polyfills/intl-segmenter/).
 
-The source package version remains `22.0.1`; the Angular 22.2 and OpenLayers 10.11 upgrades have not
-been released. Previously published packages retain their original peer dependencies: the published
-`22.0.x` series requires Angular Core and CDK `~22.0.0` and OpenLayers `~10.9.0`.
+Earlier `22.0.x` releases retain their original peer dependencies: Angular Core and CDK `~22.0.0`
+and OpenLayers `~10.9.0`. Check the peer dependencies of the version you install.
 
-## Angular CLI setup (current source)
+## Angular CLI setup
 
-These schematics support **Angular CLI 22.2.x standard workspaces**. Use a build or release that
-contains this collection; these commands are not retroactively available in earlier published
-`22.0.x` packages. Nx host workspaces are outside this first version's support.
+The Angular CLI collection introduced in `22.2.0` supports **Angular CLI 22.2.x standard
+workspaces**. Earlier `22.0.x` packages do not contain this collection. Nx host workspaces are
+outside this collection's support.
 
 Run from an existing Angular workspace:
 
 ```bash
-ng add @workletjs/ngx-openlayers --project my-app
+ng add @workletjs/ngx-openlayers@22.2.0 --project my-app
 ```
 
 The command saves the library as an application dependency, adds missing compatible CDK and
@@ -64,9 +63,9 @@ An interactive prompt asks whether to generate a **map example**, defaulting to 
 `--example` or `--no-example` skips that prompt; non-interactive runs also default to no example.
 
 ```bash
-ng add @workletjs/ngx-openlayers --project my-app --no-example
-ng add @workletjs/ngx-openlayers --project my-app --example
-ng add @workletjs/ngx-openlayers --project my-app --example --example-name demo-map --route demo
+ng add @workletjs/ngx-openlayers@22.2.0 --project my-app --no-example
+ng add @workletjs/ngx-openlayers@22.2.0 --project my-app --example
+ng add @workletjs/ngx-openlayers@22.2.0 --project my-app --example --example-name demo-map --route demo
 ```
 
 The default example is `map-example` at `/map`; the customized example above is available at
@@ -76,7 +75,8 @@ lazy route is inserted first while retaining the relative order of existing rout
 
 ### Create a map application
 
-In an existing workspace that has this library installed, generate a **map application template**:
+In an existing workspace with `@workletjs/ngx-openlayers@22.2.0` installed, generate a **map
+application template**:
 
 ```bash
 ng generate @workletjs/ngx-openlayers:application map-app
@@ -134,28 +134,19 @@ The collection follows the
 
 ## 📦 Manual Installation
 
-For the current source build, use an Angular 22.2.x application and install matching peer
+For version `22.2.0`, use an Angular 22.2.x application and install the library with compatible peer
 dependencies:
 
 ```bash
-npm install 'ol@~10.11.0' '@angular/cdk@~22.2.0' --save
-// or
-yarn add 'ol@~10.11.0' '@angular/cdk@~22.2.0'
-// or
-pnpm add 'ol@~10.11.0' '@angular/cdk@~22.2.0'
+npm install @workletjs/ngx-openlayers@22.2.0 'ol@~10.11.0' '@angular/cdk@~22.2.0' --save
+# or
+yarn add @workletjs/ngx-openlayers@22.2.0 'ol@~10.11.0' '@angular/cdk@~22.2.0'
+# or
+pnpm add @workletjs/ngx-openlayers@22.2.0 'ol@~10.11.0' '@angular/cdk@~22.2.0'
 ```
 
-To install a published release, use the commands below. Choose Angular, CDK and OpenLayers versions
-from that release's peer dependencies instead of the current-source requirements above. Check them
-with `npm view @workletjs/ngx-openlayers@<version> peerDependencies`.
-
-```bash
-npm install @workletjs/ngx-openlayers --save
-// or
-yarn add @workletjs/ngx-openlayers
-// or
-pnpm add @workletjs/ngx-openlayers
-```
+For another library version, choose Angular, CDK and OpenLayers versions from that release's peer
+dependencies. Check them with `npm view @workletjs/ngx-openlayers@<version> peerDependencies`.
 
 ## 🔨 Usage
 

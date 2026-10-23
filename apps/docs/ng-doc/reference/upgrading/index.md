@@ -1,10 +1,12 @@
 Review [Compatibility](reference/compatibility) and the installed package's peer dependencies before
-upgrading. The Angular 22.2 and OpenLayers 10.11 requirements described here apply to the current
-source; they have not been released under the existing `22.0.1` version.
+upgrading. Version `22.2.0` requires Angular Core and CDK `~22.2.0` and OpenLayers `~10.11.0`.
+Applications upgrading from `22.0.x` must update these dependencies together. The Angular CLI
+collection supports standard Angular CLI 22.2.x workspaces and reports incompatible dependencies
+instead of upgrading Angular; see [Angular CLI](reference/angular-cli) for setup options.
 
 ## Upgrading to OpenLayers 10.11
 
-The current source adopts the upstream behavior changes in
+Version `22.2.0` adopts the upstream behavior changes in
 [OpenLayers 10.10](https://github.com/openlayers/openlayers/releases/tag/v10.10.0) and
 [OpenLayers 10.11](https://github.com/openlayers/openlayers/releases/tag/v10.11.0), while preserving
 the existing Angular component API:

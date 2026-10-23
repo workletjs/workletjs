@@ -16,7 +16,7 @@ function parseChangelogMarkdown(contents) {
    */
   const CHANGELOG_RELEASE_HEAD_RE = new RegExp(
     '^#+\\s*\\[?(\\d+\\.\\d+\\.\\d+(?:-[a-zA-Z0-9\\.]+)?)\\]?',
-    'gm'
+    'gm',
   );
 
   const headings = [...contents.matchAll(CHANGELOG_RELEASE_HEAD_RE)];
@@ -27,10 +27,7 @@ function parseChangelogMarkdown(contents) {
     const nextHeading = headings[i + 1];
     const version = heading[1];
     let body = contents
-      .slice(
-        heading.index + heading[0].length,
-        nextHeading ? nextHeading.index : contents.length
-      )
+      .slice(heading.index + heading[0].length, nextHeading ? nextHeading.index : contents.length)
       .trim();
     const date = extractReleaseDate(body);
 
@@ -53,7 +50,7 @@ function parseChangelogMarkdown(contents) {
  */
 function extractReleaseDate(content) {
   const firstLine = content.split(/\r?\n/)[0];
-  const dateMatch = firstLine.match(/\((\d{4}-\d{2}-\d{2})\)/)
+  const dateMatch = firstLine.match(/\((\d{4}-\d{2}-\d{2})\)/);
   return dateMatch ? dateMatch[1] : null;
 }
 
@@ -91,7 +88,7 @@ function main() {
   const release = releases.find((r) => r.version === version);
 
   if (!release) {
-    console.error(`❌ No changelog entry found for version ${release.version}`);
+    console.error(`❌ No changelog entry found for version ${version}`);
     process.exit(1);
   }
 

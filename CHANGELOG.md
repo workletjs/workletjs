@@ -1,3 +1,43 @@
+## 22.2.0 (2026-10-23)
+
+### 🚀 Features
+
+- **docs:** add top-level documentation navigation ([3330d1e](https://github.com/workletjs/workletjs/commit/3330d1e))
+- **docs:** rebuild section navigation and sidebar layout ([f7fedda](https://github.com/workletjs/workletjs/commit/f7fedda))
+- **docs:** improve page titles and navigation loading ([c672baa](https://github.com/workletjs/workletjs/commit/c672baa))
+- **docs:** add interactive landing map demo ([d2616e8](https://github.com/workletjs/workletjs/commit/d2616e8))
+- **docs:** rebuild landing quick-start journey ([cdd4663](https://github.com/workletjs/workletjs/commit/cdd4663))
+- **geozarr-source:** add GeoZarr source component and public behavior tests ([9e925c7](https://github.com/workletjs/workletjs/commit/9e925c7))
+- **geozarr-source:** add interactive GeoZarr example ([47b34b9](https://github.com/workletjs/workletjs/commit/47b34b9))
+- **google-source:** add wolFetchSessionToken input ([f408ca5](https://github.com/workletjs/workletjs/commit/f408ca5))
+- **raster-source:** add Raster source interpolation input ([595b455](https://github.com/workletjs/workletjs/commit/595b455))
+- **schematics:** add collection build and library packaging ([76978c0](https://github.com/workletjs/workletjs/commit/76978c0))
+- **schematics:** configure ng add dependencies and styles ([db8683e](https://github.com/workletjs/workletjs/commit/db8683e))
+- **schematics:** add optional routed map example ([6f807fe](https://github.com/workletjs/workletjs/commit/6f807fe))
+- **schematics:** generate a complete map application ([e42529b](https://github.com/workletjs/workletjs/commit/e42529b))
+- **sentinel-hub-source:** add SentinelHub wolFormat input ([374dafb](https://github.com/workletjs/workletjs/commit/374dafb))
+- **source:** add DataTile alpha band input ([320b7e8](https://github.com/workletjs/workletjs/commit/320b7e8))
+
+### 🩹 Fixes
+
+- **docs:** allow generated NgDoc imports ([f8edf7a](https://github.com/workletjs/workletjs/commit/f8edf7a))
+- **docs:** align custom layout with ng-doc 22 sidebar ([2d348d3](https://github.com/workletjs/workletjs/commit/2d348d3))
+- **docs:** normalize absent legacy route fragments ([0bcaaf7](https://github.com/workletjs/workletjs/commit/0bcaaf7))
+- **docs:** reset the usage example view synchronously ([62ced6d](https://github.com/workletjs/workletjs/commit/62ced6d))
+- **schematics:** isolate generated map tests from library runtime ([bd952cf](https://github.com/workletjs/workletjs/commit/bd952cf))
+- **schematics:** handle deferred styles and mutable aliases ([a28397a](https://github.com/workletjs/workletjs/commit/a28397a))
+- **schematics:** ignore outlets in non-bindable subtrees ([919e102](https://github.com/workletjs/workletjs/commit/919e102))
+- **source:** preserve native Raster sampling for dynamic inputs ([32083ea](https://github.com/workletjs/workletjs/commit/32083ea))
+
+### ⬆️ Core Dependency Updates
+
+- clarify Angular 22.2 source compatibility ([14437dd](https://github.com/workletjs/workletjs/commit/14437dd))
+- **deps:** upgrade OpenLayers to 10.11.0 ([5bb09eb](https://github.com/workletjs/workletjs/commit/5bb09eb))
+
+### ❤️ Thank You
+
+- Jonnytoshen
+
 ## 22.0.1 (2026-08-13)
 
 ### 🩹 Fixes

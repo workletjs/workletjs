@@ -1,6 +1,6 @@
 {
   "name": "@workletjs/source",
-  "version": "22.0.1",
+  "version": "22.2.0",
   "license": "MIT",
   "scripts": {
     "start": "nx serve docs",
@@ -12,7 +12,7 @@
     "format:check": "nx format:check --projects=ngx-openlayers,docs,schematics",
     "test:lib": "nx test ngx-openlayers && nx test schematics",
     "test:docs": "nx test docs",
-    "test:scripts": "node --test scripts/core-dependency-changelog-renderer.spec.cjs scripts/deploy-workflow.spec.mjs scripts/ng-doc-dependency-resolution.spec.mjs scripts/npm-dist-tag.spec.mjs",
+    "test:scripts": "node --test scripts/core-dependency-changelog-renderer.spec.cjs scripts/deploy-workflow.spec.mjs scripts/extract-release-notes.spec.mjs scripts/ng-doc-dependency-resolution.spec.mjs scripts/npm-dist-tag.spec.mjs",
     "test": "pnpm run test:scripts && pnpm run test:lib && pnpm run test:docs",
     "prepare": "husky",
     "commitlint": "commitlint --edit"

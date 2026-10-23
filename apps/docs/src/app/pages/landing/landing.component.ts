@@ -13,7 +13,7 @@ import { HeroBannerComponent } from './components';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LandingComponent {
-  protected readonly installCommand = 'ng add @workletjs/ngx-openlayers';
+  protected readonly installCommand = 'ng add @workletjs/ngx-openlayers@22.2.0';
   protected readonly copyState = signal<'idle' | 'copying' | 'copied' | 'error'>('idle');
   private readonly notifyService = inject(NgDocNotifyService);
   protected readonly badges = [
