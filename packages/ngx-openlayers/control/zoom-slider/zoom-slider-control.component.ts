@@ -21,6 +21,11 @@ import BaseEvent from 'ol/events/Event';
 import { useControlHostRef } from '@workletjs/ngx-openlayers/control/control';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 
+/**
+ * Provides a slider for changing the map zoom across the view's available resolution range. See
+ * [OpenLayers ZoomSlider](https://openlayers.org/en/latest/apidoc/module-ol_control_ZoomSlider-ZoomSlider.html)
+ * .
+ */
 @Component({
   selector: 'wol-zoom-slider-control',
   exportAs: 'wolZoomSliderControl',
@@ -29,14 +34,43 @@ import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolZoomSliderControlComponent implements OnChanges {
+  /**
+   * CSS class for the slider. Defaults to `ol-zoomslider`. Read at creation.
+   */
   readonly wolClassName = input<string>();
+  /**
+   * Duration of the animation when clicking the slider track, in milliseconds. Defaults to `200`
+   * . Read at creation.
+   */
   readonly wolDuration = input<number>();
+  /**
+   * Custom rendering callback that receives the map render event on an animation frame. It
+   * replaces the default control renderer. Read at creation.
+   */
   readonly wolRender = input<(event: MapEvent) => void>();
+  /**
+   * Element or element ID to host the control. The default is the map's control container. Set
+   * this before the control is added to its map. Changing the target after attachment does not
+   * move the control.
+   */
   readonly wolTarget = input<HTMLElement | string>();
+  /**
+   * Observable properties to set on the OpenLayers instance. Updates assign the supplied keys and
+   * leave other properties in place.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits the native `change` event when the instance revision increases.
+   */
   readonly wolChange = output<BaseEvent>();
+  /**
+   * Emits the native `error` event when the OpenLayers instance dispatches one.
+   */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits the native `propertychange` event with the changed property key and its previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
 
   private instance?: ZoomSlider;
@@ -118,8 +152,10 @@ export class WolZoomSliderControlComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers ZoomSlider instance.
-   * @returns The ZoomSlider instance
+   * Accesses the OpenLayers ZoomSlider control.
+   *
+   * @returns The underlying instance, or `undefined` before creation and after component
+   * teardown.
    */
   getInstance(): ZoomSlider | undefined {
     return this.instance;

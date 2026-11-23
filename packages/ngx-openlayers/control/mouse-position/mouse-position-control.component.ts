@@ -24,6 +24,11 @@ import { ProjectionLike } from 'ol/proj';
 import { useControlHostRef } from '@workletjs/ngx-openlayers/control/control';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 
+/**
+ * Shows the mouse pointer's map coordinates, with optional formatting and projection. See
+ * [OpenLayers MousePosition](https://openlayers.org/en/latest/apidoc/module-ol_control_MousePosition-MousePosition.html)
+ * .
+ */
 @Component({
   selector: 'wol-mouse-position-control',
   exportAs: 'wolMousePositionControl',
@@ -32,17 +37,61 @@ import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolMousePositionControlComponent implements OnChanges {
+  /**
+   * CSS class for the coordinate display. Defaults to `ol-mouse-position`. Read at creation.
+   */
   readonly wolClassName = input<string>();
+  /**
+   * Formats the displayed coordinate. Without a formatter, OpenLayers displays the coordinate
+   * values as text. This model applies binding changes and reflects changes made on the
+   * OpenLayers control.
+   */
   readonly wolCoordinateFormat = model<CoordinateFormat>();
+  /**
+   * Projection used to display coordinates. Defaults to the view projection when no user
+   * projection is configured. This model applies binding changes and reflects changes made on the
+   * OpenLayers control.
+   */
   readonly wolProjection = model<ProjectionLike>();
+  /**
+   * Custom rendering callback that receives the map render event on an animation frame. It
+   * replaces the default control renderer. Read at creation.
+   */
   readonly wolRender = input<(event: MapEvent) => void>();
+  /**
+   * Element or element ID to host the control. The default is the map's control container. Set
+   * this before the control is added to its map. Changing the target after attachment does not
+   * move the control.
+   */
   readonly wolTarget = input<string | HTMLElement>();
+  /**
+   * Markup displayed when pointer coordinates are unavailable. When omitted, the control starts
+   * with a non-breaking space and retains the last position when the pointer leaves the viewport.
+   * Read at creation.
+   */
   readonly wolPlaceholder = input<string>();
+  /**
+   * Whether to wrap coordinates at the antimeridian in a global projection. Defaults to `true`.
+   * Read at creation.
+   */
   readonly wolWrapX = input<boolean>();
+  /**
+   * Observable properties to set on the OpenLayers instance. Updates assign the supplied keys and
+   * leave other properties in place.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits the native `change` event when the instance revision increases.
+   */
   readonly wolChange = output<BaseEvent>();
+  /**
+   * Emits the native `error` event when the OpenLayers instance dispatches one.
+   */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits the native `propertychange` event with the changed property key and its previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
 
   private instance?: MousePosition;
@@ -141,8 +190,10 @@ export class WolMousePositionControlComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers MousePosition instance.
-   * @returns The MousePosition instance
+   * Accesses the OpenLayers MousePosition control.
+   *
+   * @returns The underlying instance, or `undefined` before creation and after component
+   * teardown.
    */
   getInstance(): MousePosition | undefined {
     return this.instance;
