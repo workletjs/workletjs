@@ -22,6 +22,10 @@ import PinchZoom from 'ol/interaction/PinchZoom';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
+/**
+ * Changes the map resolution as the user pinches or spreads two touch pointers. See
+ * [OpenLayers PinchZoom](https://openlayers.org/en/latest/apidoc/module-ol_interaction_PinchZoom-PinchZoom.html).
+ */
 @Component({
   selector: 'wol-pinch-zoom-interaction',
   exportAs: 'wolPinchZoomInteraction',
@@ -30,14 +34,39 @@ import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/int
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolPinchZoomInteractionComponent implements OnChanges {
+  /**
+   * Whether the interaction handles events. Defaults to `true`. This model updates the
+   * interaction and reflects active-state changes from OpenLayers.
+   */
   readonly wolActive = model(true);
+  /**
+   * Duration in milliseconds of the animation after the pinch ends. Defaults to `400`. Read at
+   * creation.
+   */
   readonly wolDuration = input<number>();
+  /**
+   * Observable properties to set on the OpenLayers instance. Updates assign the supplied keys and
+   * leave other properties in place.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits the native `change` event when the instance revision increases.
+   */
   readonly wolChange = output<BaseEvent>();
+  /**
+   * Emits the native `error` event when the OpenLayers instance dispatches one.
+   */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits the native `propertychange` event with the changed property key and its previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
 
+  /**
+   * Signal for the OpenLayers PinchZoom instance. Its value is `undefined` before creation and
+   * after component teardown.
+   */
   readonly pinchZoomInstance = signal<PinchZoom | undefined>(undefined);
 
   /**
@@ -121,8 +150,10 @@ export class WolPinchZoomInteractionComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers PinchZoom interaction instance.
-   * @returns The PinchZoom interaction instance
+   * Accesses the OpenLayers PinchZoom interaction.
+   *
+   * @returns The underlying instance, or `undefined` before creation and after component
+   * teardown.
    */
   getInstance(): PinchZoom | undefined {
     return this.pinchZoomInstance();

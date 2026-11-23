@@ -22,6 +22,10 @@ import PinchRotate from 'ol/interaction/PinchRotate';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
+/**
+ * Rotates the map as the user turns two touch pointers around their shared center. See
+ * [OpenLayers PinchRotate](https://openlayers.org/en/latest/apidoc/module-ol_interaction_PinchRotate-PinchRotate.html).
+ */
 @Component({
   selector: 'wol-pinch-rotate-interaction',
   exportAs: 'wolPinchRotateInteraction',
@@ -30,15 +34,43 @@ import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/int
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolPinchRotateInteractionComponent implements OnChanges {
+  /**
+   * Whether the interaction handles events. Defaults to `true`. This model updates the
+   * interaction and reflects active-state changes from OpenLayers.
+   */
   readonly wolActive = model(true);
+  /**
+   * Duration in milliseconds of the animation after the rotation gesture ends. Defaults to `250`.
+   * Read at creation.
+   */
   readonly wolDuration = input<number>();
+  /**
+   * Minimum rotation in radians before rotating the view. Defaults to `0.3`. Read at creation.
+   */
   readonly wolThreshold = input<number>();
+  /**
+   * Observable properties to set on the OpenLayers instance. Updates assign the supplied keys and
+   * leave other properties in place.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits the native `change` event when the instance revision increases.
+   */
   readonly wolChange = output<BaseEvent>();
+  /**
+   * Emits the native `error` event when the OpenLayers instance dispatches one.
+   */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits the native `propertychange` event with the changed property key and its previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
 
+  /**
+   * Signal for the OpenLayers PinchRotate instance. Its value is `undefined` before creation and
+   * after component teardown.
+   */
   readonly pinchRotateInstance = signal<PinchRotate | undefined>(undefined);
 
   /**
@@ -123,8 +155,10 @@ export class WolPinchRotateInteractionComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers PinchRotate interaction instance.
-   * @returns The PinchRotate interaction instance
+   * Accesses the OpenLayers PinchRotate interaction.
+   *
+   * @returns The underlying instance, or `undefined` before creation and after component
+   * teardown.
    */
   getInstance(): PinchRotate | undefined {
     return this.pinchRotateInstance();

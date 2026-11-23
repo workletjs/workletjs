@@ -22,6 +22,10 @@ import DragRotateAndZoom from 'ol/interaction/DragRotateAndZoom';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
+/**
+ * Rotates and zooms the view together by dragging relative to the viewport center. See
+ * [OpenLayers DragRotateAndZoom](https://openlayers.org/en/latest/apidoc/module-ol_interaction_DragRotateAndZoom-DragRotateAndZoom.html).
+ */
 @Component({
   selector: 'wol-drag-rotate-and-zoom-interaction',
   exportAs: 'wolDragRotateAndZoomInteraction',
@@ -30,13 +34,38 @@ import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/int
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolDragRotateAndZoomInteractionComponent implements OnChanges {
+  /**
+   * Whether the interaction handles events. Defaults to `true`. This model updates the
+   * interaction and reflects active-state changes from OpenLayers.
+   */
   readonly wolActive = model(true);
+  /**
+   * Predicate that decides whether the drag can start. Defaults to the Shift-only condition. Read
+   * at creation.
+   */
   readonly wolCondition = input<Condition>();
+  /**
+   * Animation duration in milliseconds when the gesture ends. Defaults to `400`. Read at
+   * creation.
+   */
   readonly wolDuration = input<number>();
+  /**
+   * Observable properties to set on the OpenLayers instance. Updates assign the supplied keys and
+   * leave other properties in place.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits the native `change` event when the instance revision increases.
+   */
   readonly wolChange = output<BaseEvent>();
+  /**
+   * Emits the native `error` event when the OpenLayers instance dispatches one.
+   */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits the native `propertychange` event with the changed property key and its previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
 
   private instance?: DragRotateAndZoom;
@@ -124,8 +153,10 @@ export class WolDragRotateAndZoomInteractionComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers DragRotateAndZoom control instance.
-   * @returns The DragRotateAndZoom control instance
+   * Accesses the OpenLayers DragRotateAndZoom interaction.
+   *
+   * @returns The underlying instance, or `undefined` before creation and after component
+   * teardown.
    */
   getInstance(): DragRotateAndZoom | undefined {
     return this.instance;

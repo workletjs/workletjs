@@ -25,6 +25,10 @@ import { StyleLike } from 'ol/style/Style';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
+/**
+ * Draws and edits a rectangular extent and synchronizes it with a template binding. See
+ * [OpenLayers Extent](https://openlayers.org/en/latest/apidoc/module-ol_interaction_Extent-Extent.html).
+ */
 @Component({
   selector: 'wol-extent-interaction',
   exportAs: 'wolExtentInteraction',
@@ -33,19 +37,64 @@ import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/int
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolExtentInteractionComponent implements OnChanges {
+  /**
+   * Whether the interaction handles events. Defaults to `true`. This model updates the
+   * interaction and reflects active-state changes from OpenLayers.
+   */
   readonly wolActive = model(true);
+  /**
+   * Predicate for map browser events used to draw or edit the extent. By default, every otherwise
+   * eligible event is accepted. Read at creation.
+   */
   readonly wolCondition = input<Condition>();
+  /**
+   * Initial or externally supplied extent in the view projection. This model also reports the
+   * drawn extent in the configured user projection, or the view projection by default. OpenLayers
+   * reports a cleared extent as `null`.
+   */
   readonly wolExtent = model<Extent>();
+  /**
+   * Style for the extent rectangle. Defaults to the OpenLayers polygon editing style. Read at
+   * creation.
+   */
   readonly wolBoxStyle = input<StyleLike>();
+  /**
+   * Maximum pointer distance in pixels for editing a nearby extent edge or vertex. Defaults to
+   * `10`. Read at creation.
+   */
   readonly wolPixelTolerance = input<number>();
+  /**
+   * Style for the edit handle. Defaults to the OpenLayers point editing style. Read at creation.
+   */
   readonly wolPointerStyle = input<StyleLike>();
+  /**
+   * Whether the drawn rectangle is displayed across world copies. Defaults to `false` and affects
+   * rendering only. Read at creation.
+   */
   readonly wolWrapX = input<boolean>();
+  /**
+   * Observable properties to set on the OpenLayers instance. Updates assign the supplied keys and
+   * leave other properties in place.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits the native `change` event when the instance revision increases.
+   */
   readonly wolChange = output<BaseEvent>();
+  /**
+   * Emits the native `error` event when the OpenLayers instance dispatches one.
+   */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits the native `propertychange` event with the changed property key and its previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
 
+  /**
+   * Signal for the OpenLayers Extent instance. Its value is `undefined` before creation and after
+   * component teardown.
+   */
   readonly extentInstance = signal<ExtentInteraction | undefined>(undefined);
 
   /**
@@ -143,8 +192,10 @@ export class WolExtentInteractionComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers Extent interaction instance.
-   * @returns The Extent interaction instance
+   * Accesses the OpenLayers Extent interaction.
+   *
+   * @returns The underlying instance, or `undefined` before creation and after component
+   * teardown.
    */
   getInstance(): ExtentInteraction | undefined {
     return this.extentInstance();
