@@ -24,6 +24,11 @@ import { AttributionLike } from 'ol/source/Source';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { DisposeRef, useImageSourceHostRef } from '@workletjs/ngx-openlayers/source/image';
 
+/**
+ * Places one image at a fixed extent in the source projection.
+ *
+ * See the [OpenLayers Static reference](https://openlayers.org/en/latest/apidoc/module-ol_source_ImageStatic-Static.html).
+ */
 @Component({
   selector: 'wol-image-static-source',
   imports: [],
@@ -33,21 +38,54 @@ import { DisposeRef, useImageSourceHostRef } from '@workletjs/ngx-openlayers/sou
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolImageStaticSourceComponent implements OnChanges {
+  /** Source credits shown by the attribution control. Changes update the existing source. */
   readonly wolAttributions = input<AttributionLike>();
+  /**
+   * Cross-origin mode for image requests. Reading pixels from a cross-origin image on a canvas also
+   * requires the corresponding server CORS headers. Read at source creation.
+   */
   readonly wolCrossOrigin = input<null | string>();
+  /**
+   * Required image bounds as `[minX, minY, maxX, maxY]` in the image projection. Read at source
+   * creation.
+   */
   readonly wolImageExtent = input.required<Extent>();
+  /**
+   * Callback that loads an image using the supplied URL. By default, OpenLayers assigns the URL to
+   * the image. Read at source creation.
+   */
   readonly wolImageLoadFunction = input<LoadFunction>();
+  /**
+   * Whether to use linear interpolation when resampling. Defaults to `true`. Set to `false` for
+   * nearest-neighbor sampling. Read at source creation.
+   */
   readonly wolInterpolate = input<boolean>();
+  /**
+   * Projection of the image extent. Specify it when the coordinates use a different projection than
+   * the map view. Read at source creation.
+   */
   readonly wolProjection = input<ProjectionLike>();
+  /** Required URL of the image to display. Read at source creation. */
   readonly wolUrl = input.required<string>();
+  /** Referrer policy applied to outgoing image requests. Read at source creation. */
   readonly wolReferrerPolicy = input<ReferrerPolicy>();
+  /**
+   * Additional OpenLayers source properties to merge when the binding changes after source
+   * creation.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /** Emits when the OpenLayers source revision advances, including source state changes. */
   readonly wolChange = output<BaseEvent>();
+  /** Forwards the OpenLayers source's `error` event. */
   readonly wolError = output<BaseEvent>();
+  /** Emits when a source image finishes loading. The event identifies the loaded image. */
   readonly wolImageLoadEnd = output<ImageSourceEvent>();
+  /** Emits when a source image fails to load. The event identifies the image that failed. */
   readonly wolImageLoadError = output<ImageSourceEvent>();
+  /** Emits when a source image starts loading. The event identifies the image being loaded. */
   readonly wolImageLoadStart = output<ImageSourceEvent>();
+  /** Forwards the native `propertychange` notification as a `BaseEvent`. */
   readonly wolPropertyChange = output<BaseEvent>();
 
   private instance?: Static;
@@ -150,8 +188,10 @@ export class WolImageStaticSourceComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers Static instance.
-   * @returns The OpenLayers Static instance (or `undefined` if not yet initialized)
+   * Gets the OpenLayers source created by this component.
+   *
+   * @returns The OpenLayers `Static` instance, or `undefined` before creation and after
+   * destruction.
    */
   getInstance(): Static | undefined {
     return this.instance;

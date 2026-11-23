@@ -5,10 +5,9 @@ keyword: GoogleSourcePage
 A tile layer source component that renders tiles from the
 [Google Map Tiles API](https://developers.google.com/maps/documentation/tile/overview).
 
-After the component initialized, it takes properties that are bind to the component to create a
-session token. Refer to the
-[documentation](https://developers.google.com/maps/documentation/tile/session_tokens#required_fields)
-for additional details.
+The component reads the initial bindings to create a session. Recreate it to apply new session
+configuration. See the
+[session token documentation](https://developers.google.com/maps/documentation/tile/session_tokens#required_fields).
 
 ## Examples
 
@@ -20,11 +19,10 @@ application. See the
 [Map Tiles API documentation](https://developers.google.com/maps/documentation/tile/overview) for
 instructions.
 
-The `Google` source component can be used with a [tile layer](/layers/tile) and is configured by
-binding properties to the component that are used in creating the
-[session token request](https://developers.google.com/maps/documentation/tile/session_tokens) for
-accessing the tiles. The `wolMapType` defaults to `'roadmap'` and can be changed to any of the
-[supported map types](https://developers.google.com/maps/documentation/tile/session_tokens#required_fields).
+Use the source with a [tile layer](components/layers/tile). The `wolMapType` for the initial session
+defaults to `'roadmap'`. Choose another
+[supported map type](https://developers.google.com/maps/documentation/tile/session_tokens#required_fields)
+when creating the source.
 
 When using the `Google` source component, please make sure you comply with the Google
 [Map Tiles API Policies](https://developers.google.com/maps/documentation/tile/policies), by adding

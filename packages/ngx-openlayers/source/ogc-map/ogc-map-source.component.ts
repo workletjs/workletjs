@@ -24,6 +24,11 @@ import { AttributionLike } from 'ol/source/Source';
 import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
 import { DisposeRef, useImageSourceHostRef } from '@workletjs/ngx-openlayers/source/image';
 
+/**
+ * Requests single, untiled images from an OGC API Maps service.
+ *
+ * See the [OpenLayers OGCMap reference](https://openlayers.org/en/latest/apidoc/module-ol_source_OGCMap-OGCMap.html).
+ */
 @Component({
   selector: 'wol-ogc-map-source',
   exportAs: 'wolOGCMapSource',
@@ -33,96 +38,86 @@ import { DisposeRef, useImageSourceHostRef } from '@workletjs/ngx-openlayers/sou
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolOGCMapSourceComponent implements OnChanges {
-  /**
-   * Attributions.
-   */
+  /** Source credits shown by the attribution control. Changes update the existing source. */
   readonly wolAttributions = input<AttributionLike>();
 
   /**
-   * Cross-origin setting for loaded images. Note that you must provide a `crossOrigin` value if you want to access pixel data with the Canvas renderer.
-   * See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail.
+   * Cross-origin mode for image requests. Reading pixels from a cross-origin image on a canvas also
+   * requires the corresponding server CORS headers. Read at source creation.
    */
   readonly wolCrossOrigin = input<null | string>();
 
-  /**
-   * Referrer policy for loaded images. See https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy for more detail.
-   */
+  /** Referrer policy applied to outgoing image requests. Read at source creation. */
   readonly wolReferrerPolicy = input<ReferrerPolicy>();
 
   /**
-   * If `true`, the device pixel ratio is used to request higher resolution tiles.
-   * The `wolTileLoadFunction` will be called with a tile that has a higher resolution than the map's view resolution.
+   * Uses the map's pixel ratio when requesting a single image from the OGC Maps service. Defaults
+   * to `true`. The resulting image URL is passed to `wolImageLoadFunction`. Read at source
+   * creation.
    */
   readonly wolHidpi = input<boolean>();
 
   /**
-   * Optional function to load an image given a URL.
+   * Callback that loads an image using the supplied URL. By default, OpenLayers assigns the URL to
+   * the image. Changes update the existing source.
    */
   readonly wolImageLoadFunction = input<LoadFunction>();
 
   /**
-   * Use interpolated values when resampling. By default, linear interpolation is used when resampling. Set to false to use the nearest neighbor instead.
+   * Whether to use linear interpolation when resampling. Defaults to `true`. Set to `false` for
+   * nearest-neighbor sampling. Read at source creation.
    */
   readonly wolInterpolate = input<boolean>();
 
   /**
-   * OGC Maps request parameters. No param is required by default. `width`, `height`, `bbox`, `crs` and `bbox-crs` will be set dynamically.
+   * Optional OGC Maps request parameters. OpenLayers computes `width`, `height`, `bbox`, `crs`, and
+   * `bbox-crs`. Changes replace the request parameters.
    */
   readonly wolParams = input<{ [key: string]: WolSafeAny }>();
 
   /**
-   * Projection. Default is the view projection.
+   * Projection of the requested imagery. OpenLayers uses the map view projection when omitted. Read
+   * at source creation.
    */
   readonly wolProjection = input<ProjectionLike>();
 
   /**
-   * Ratio. `1` means image requests are the size of the map viewport, `2` means twice the width and height of the map viewport, and so on. Must be `1` or higher.
+   * Factor by which to scale the requested image extent in each dimension. Defaults to `1.5`.
+   * Values start at `1`, which requests the viewport extent. Read at source creation.
    */
   readonly wolRatio = input<number>();
 
   /**
-   * Resolutions. If specified, requests will be made for these resolutions only.
+   * Restricts image requests to the supplied resolutions, in projection units per pixel. Read at
+   * source creation.
    */
   readonly wolResolutions = input<number[]>();
 
-  /**
-   * OGC Maps service URL.
-   */
+  /** OGC Maps service URL. Changes update the existing source. */
   readonly wolUrl = input<string>();
 
   /**
-   * Arbitrary properties that will be set on the source.
+   * Additional OpenLayers source properties. Binding changes add or update keys on the existing
+   * source.
    */
   readonly wolProperties = input<WolProperties>();
 
-  /**
-   * Event emitted when the source state changes.
-   */
+  /** Emits when the OpenLayers source revision advances, including source state changes. */
   readonly wolChange = output<BaseEvent>();
 
-  /**
-   * Event emitted when the source encounters an error.
-   */
+  /** Forwards the OpenLayers source's `error` event. */
   readonly wolError = output<BaseEvent>();
 
-  /**
-   * Event emitted when an image loading ends.
-   */
+  /** Emits when a source image finishes loading. The event identifies the loaded image. */
   readonly wolImageLoadEnd = output<ImageSourceEvent>();
 
-  /**
-   * Event emitted when an image loading encounters an error.
-   */
+  /** Emits when a source image fails to load. The event identifies the image that failed. */
   readonly wolImageLoadError = output<ImageSourceEvent>();
 
-  /**
-   * Event emitted when an image starts loading.
-   */
+  /** Emits when a source image starts loading. The event identifies the image being loaded. */
   readonly wolImageLoadStart = output<ImageSourceEvent>();
 
-  /**
-   * Event emitted when a property of the source changes.
-   */
+  /** Emits a `propertychange` event with the changed property name and its previous value. */
   readonly wolPropertyChange = output<ObjectEvent>();
 
   private instance?: OGCMap;
@@ -237,8 +232,10 @@ export class WolOGCMapSourceComponent implements OnChanges {
   }
 
   /**
-   * Get the OpenLayers OGCMap instance.
-   * @returns The OpenLayers OGCMap instance or undefined if not yet created.
+   * Gets the OpenLayers source created by this component.
+   *
+   * @returns The OpenLayers `OGCMap` instance, or `undefined` before creation and after
+   * destruction.
    */
   getInstance(): OGCMap | undefined {
     return this.instance;

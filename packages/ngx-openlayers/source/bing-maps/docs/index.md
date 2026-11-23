@@ -7,10 +7,10 @@ key at [https://www.bingmapsportal.com/](https://www.bingmapsportal.com/).
 
 <ng-doc-blockquote type="alert" label="Deprecated">
 
-OpenLayers deprecated the BingMaps source in 10.10 because Bing Maps for Enterprise is retiring.
-This component remains available with its existing API. See the
-[upstream migration guidance](https://github.com/openlayers/openlayers/releases/tag/v10.10.0) when
-planning a replacement service.
+OpenLayers deprecated the BingMaps source in 10.10 because Bing Maps for Enterprise is retiring. See
+the [Azure Maps example](https://openlayers.org/en/latest/examples/azure-maps.html) for a
+replacement using `ImageTile` and the
+[upstream release note](https://github.com/openlayers/openlayers/releases/tag/v10.10.0) for context.
 
 </ng-doc-blockquote>
 
@@ -19,9 +19,8 @@ planning a replacement service.
 ### Bing Maps
 
 When the Bing Maps tile service doesn't have tiles for a given resolution and region it returns
-"placeholder" tiles by default for `Aerial` and `OrdnanceSurvey` styles. To display stretched tiles
-instead of "placeholder" tiles at zoom levels where Bing Maps does not have tiles available, set the
-wolPlaceholderTiles property to false in the properties passed to the BingMaps source component.
+placeholder tiles by default for `Aerial` and `OrdnanceSurvey` styles. Set `wolPlaceholderTiles` to
+`false` before creating the source to suppress those placeholders.
 
 {{ NgDocActions.demo("WolBingMapsExampleComponent") }}
 

@@ -23,9 +23,12 @@ import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { DisposeRef, useDataTileSourceHostRef } from '@workletjs/ngx-openlayers/source/data-tile';
 
 /**
- * Provides GeoZarr raster data to a Raster, WebGLTile, Tile or Flow host.
- * Constructor inputs are read once. Remount this component to apply new configuration,
- * or use the instance's `updateDimensions()` method to change non-spatial dimension indices.
+ * Provides tiled GeoZarr raster data to a Raster, WebGLTile, Tile, or Flow host.
+ *
+ * See the [OpenLayers GeoZarr reference](https://github.com/openlayers/openlayers/blob/v10.11.0/src/ol/source/GeoZarr.js).
+ *
+ * Recreate the component to apply a new store configuration. Use the instance's
+ * `updateDimensions()` method to update non-spatial dimension indices.
  *
  * @experimental GeoZarr is experimental in OpenLayers and its API may change.
  */
@@ -37,40 +40,91 @@ import { DisposeRef, useDataTileSourceHostRef } from '@workletjs/ngx-openlayers/
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolGeoZarrSourceComponent implements OnChanges {
-  /** The GeoZarr group or store URL. Required; read only at initialization. */
+  /**
+   * Required URL of the data group. For band/group pairs, supply the base URL from which the group
+   * paths are resolved. Read at source creation.
+   */
   readonly wolUrl = input.required<Options['url']>();
-  /** Band names or band/group pairs. Mutually exclusive with `wolVariable`. */
+  /**
+   * Band names from a single group or pairs of band names and group paths. Choose this for stores
+   * with separate band arrays. Supply either `wolBands` or `wolVariable`. Read at source creation.
+   */
   readonly wolBands = input<Options['bands']>();
-  /** Request headers and credentials forwarded to the store. */
+  /**
+   * Fetch options such as headers and credentials forwarded to the Zarr store. Read at source
+   * creation.
+   */
   readonly wolStoreOptions = input<Options['storeOptions']>();
-  /** Source projection; inferred from metadata when omitted. */
+  /**
+   * Source projection. OpenLayers infers it from GeoZarr metadata when omitted. Read at source
+   * creation.
+   */
   readonly wolProjection = input<Options['projection']>();
-  /** Opacity transition duration; use zero to disable it. */
+  /**
+   * Tile fade-in duration in milliseconds. Defaults to `250`. Set to `0` to disable the fade. Read
+   * at source creation.
+   */
   readonly wolTransition = input<Options['transition']>();
-  /** Whether tiles may render beyond the tile grid extent. */
+  /**
+   * Whether tiles may wrap horizontally beyond the tile grid extent. Defaults to `false`. Read at
+   * source creation.
+   */
   readonly wolWrapX = input<Options['wrapX']>();
-  /** Resampling method for bands unavailable at a multi-scale level. */
+  /**
+   * Resampling method used when the requested band is unavailable at a multiscale level. Defaults
+   * to `'linear'`. Read at source creation.
+   */
   readonly wolResample = input<Options['resample']>();
-  /** Initial non-spatial dimension indices, labels or band selections. */
+  /**
+   * Initial indices or coordinate labels keyed by non-spatial dimension name. Unspecified
+   * dimensions start at index `0`. With `wolVariable`, one dimension can select multiple entries as
+   * separate output bands. Use `updateDimensions()` on the native instance to change a single-value
+   * dimension by integer index. Read at source creation.
+   */
   readonly wolDimensions = input<Options['dimensions']>();
-  /** A single multi-dimensional variable. Mutually exclusive with `wolBands`. */
+  /**
+   * Name of the multidimensional array to render when it contains all the bands. Supply either
+   * `wolVariable` or `wolBands`. Read at source creation.
+   */
   readonly wolVariable = input<Options['variable']>();
-  /** Fallback extent in source coordinates when metadata cannot provide one. */
+  /**
+   * Fallback data extent in source coordinates. OpenLayers uses this when metadata and coordinate
+   * arrays provide no extent. Read at source creation.
+   */
   readonly wolExtent = input<Options['extent']>();
-  /** Fallback south-up orientation when metadata cannot provide one. */
+  /**
+   * Fallback row orientation for south-up data. Set to `true` when the y coordinates increase and
+   * the store provides no orientation information. Read at source creation.
+   */
   readonly wolFlipY = input<Options['flipY']>();
-  /** Attribution; updates the existing source when changed. */
+  /** Source credits shown by the attribution control. Changes update the existing source. */
   readonly wolAttributions = input<AttributionLike>();
-  /** Additional source properties; updates the existing source when changed. */
+  /**
+   * Additional OpenLayers source properties. Binding changes add or update keys on the existing
+   * source.
+   */
   readonly wolProperties = input<WolProperties>();
 
-  /** Native change event; inspect `getState()` to track initialization failures. */
+  /**
+   * Emits when the source changes. Inspect `getState()` on the source for `loading`, `ready`, or
+   * `error` during metadata initialization.
+   */
   readonly wolChange = output<BaseEvent>();
-  /** Native error event. GeoZarr initialization failures do not emit this event. */
+  /**
+   * Forwards the native `error` event. Use `wolChange` to detect a metadata initialization failure
+   * and `wolTileLoadError` for a tile read failure.
+   */
   readonly wolError = output<BaseEvent>();
+  /** Emits a `propertychange` event with the changed property name and its previous value. */
   readonly wolPropertyChange = output<ObjectEvent>();
+  /** Emits when a source tile starts loading. The event identifies the tile. */
   readonly wolTileLoadStart = output<TileSourceEvent>();
+  /** Emits when a source tile finishes loading. The event identifies the tile. */
   readonly wolTileLoadEnd = output<TileSourceEvent>();
+  /**
+   * Emits when an individual tile fails to load. Metadata initialization failures are reported
+   * through `wolChange` with source state `error`.
+   */
   readonly wolTileLoadError = output<TileSourceEvent>();
 
   private instance?: GeoZarr;
@@ -152,7 +206,12 @@ export class WolGeoZarrSourceComponent implements OnChanges {
     }
   }
 
-  /** Returns the native GeoZarr source, or undefined before creation and after destruction. */
+  /**
+   * Gets the OpenLayers source created by this component.
+   *
+   * @returns The OpenLayers `GeoZarr` instance, or `undefined` before creation and after
+   * destruction.
+   */
   getInstance(): GeoZarr | undefined {
     return this.instance;
   }

@@ -24,6 +24,11 @@ import { ServerType } from 'ol/source/wms';
 import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
 import { DisposeRef, useImageSourceHostRef } from '@workletjs/ngx-openlayers/source/image';
 
+/**
+ * Requests a single georeferenced map image from a WMS service.
+ *
+ * See the [OpenLayers ImageWMS reference](https://openlayers.org/en/latest/apidoc/module-ol_source_ImageWMS-ImageWMS.html).
+ */
 @Component({
   selector: 'wol-image-wms-source',
   imports: [],
@@ -33,25 +38,75 @@ import { DisposeRef, useImageSourceHostRef } from '@workletjs/ngx-openlayers/sou
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolImageWMSSourceComponent implements OnChanges {
+  /** Source credits shown by the attribution control. Changes update the existing source. */
   readonly wolAttributions = input<AttributionLike>();
+  /**
+   * Cross-origin mode for image requests. Reading pixels from a cross-origin image on a canvas also
+   * requires the corresponding server CORS headers. Read at source creation.
+   */
   readonly wolCrossOrigin = input<null | string>();
+  /**
+   * Uses the map's pixel ratio in image requests when `wolServerType` is set. Defaults to `true`.
+   * Read at source creation.
+   */
   readonly wolHidpi = input<boolean>();
+  /**
+   * Server's vendor identifier used for high-DPI requests. Accepted values are `'mapserver'`,
+   * `'geoserver'`, `'carmentaserver'`, and `'qgis'`. Read at source creation.
+   */
   readonly wolServerType = input<ServerType>();
+  /**
+   * Callback that loads an image using the supplied URL. By default, OpenLayers assigns the URL to
+   * the image. Changes update the existing source.
+   */
   readonly wolImageLoadFunction = input<LoadFunction>();
+  /**
+   * Whether to use linear interpolation when resampling. Defaults to `true`. Set to `false` for
+   * nearest-neighbor sampling. Read at source creation.
+   */
   readonly wolInterpolate = input<boolean>();
+  /**
+   * WMS request parameters including `LAYERS`. The default `VERSION` is `'1.3.0'` and `STYLES` is
+   * empty. OpenLayers computes `WIDTH`, `HEIGHT`, `BBOX`, and `CRS` or `SRS`. Changes replace the
+   * request parameters.
+   */
   readonly wolParams = input<{ [key: string]: WolSafeAny }>();
+  /**
+   * Projection of the requested imagery. OpenLayers uses the map view projection when omitted. Read
+   * at source creation.
+   */
   readonly wolProjection = input<ProjectionLike>();
+  /**
+   * Factor by which to scale the requested image extent in each dimension. Defaults to `1.5`.
+   * Values start at `1`, which requests the viewport extent. Read at source creation.
+   */
   readonly wolRatio = input<number>();
+  /**
+   * Restricts image requests to the supplied resolutions, in projection units per pixel. Read at
+   * source creation.
+   */
   readonly wolResolutions = input<number[]>();
+  /** WMS service URL. Changes update the existing source. */
   readonly wolUrl = input<string>();
+  /** Referrer policy applied to outgoing image requests. Read at source creation. */
   readonly wolReferrerPolicy = input<ReferrerPolicy>();
+  /**
+   * Additional OpenLayers source properties to merge when the binding changes after source
+   * creation.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /** Emits when the OpenLayers source revision advances, including source state changes. */
   readonly wolChange = output<BaseEvent>();
+  /** Forwards the OpenLayers source's `error` event. */
   readonly wolError = output<BaseEvent>();
+  /** Emits when a source image finishes loading. The event identifies the loaded image. */
   readonly wolImageLoadEnd = output<ImageSourceEvent>();
+  /** Emits when a source image fails to load. The event identifies the image that failed. */
   readonly wolImageLoadError = output<ImageSourceEvent>();
+  /** Emits when a source image starts loading. The event identifies the image being loaded. */
   readonly wolImageLoadStart = output<ImageSourceEvent>();
+  /** Emits a `propertychange` event with the changed property name and its previous value. */
   readonly wolPropertyChange = output<BaseEvent>();
 
   private instance?: ImageWMS;
@@ -167,8 +222,10 @@ export class WolImageWMSSourceComponent implements OnChanges {
   }
 
   /**
-   * Get the OpenLayers ImageWMS instance.
-   * @returns The OpenLayers ImageWMS instance or undefined if not yet created.
+   * Gets the OpenLayers source created by this component.
+   *
+   * @returns The OpenLayers `ImageWMS` instance, or `undefined` before creation and after
+   * destruction.
    */
   getInstance(): ImageWMS | undefined {
     return this.instance;

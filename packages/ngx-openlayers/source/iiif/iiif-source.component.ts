@@ -26,6 +26,14 @@ import { AttributionLike, State } from 'ol/source/Source';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
 
+/**
+ * Provides tiles for a raster image from a IIIF Image API service.
+ *
+ * See the [OpenLayers IIIF reference](https://openlayers.org/en/latest/apidoc/module-ol_source_IIIF-IIIF.html).
+ *
+ * Use OpenLayers `IIIFInfo` to parse the service's `info.json` into image sizes, scale factors, and
+ * capabilities.
+ */
 @Component({
   selector: 'wol-iiif-source',
   exportAs: 'wolIIIFSource',
@@ -34,34 +42,110 @@ import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/sour
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolIIIFSourceComponent implements OnChanges {
+  /** Source credits shown by the attribution control. Changes update the existing source. */
   readonly wolAttributions = input<AttributionLike>();
+  /**
+   * Whether the attribution control may collapse this source's credits. Defaults to `true`. Read at
+   * source creation.
+   */
   readonly wolAttributionCollapsible = input<boolean>();
+  /**
+   * Capacity of the source tile cache. Read at source creation.
+   *
+   * @deprecated Configure `wolCacheSize` on the tile layer.
+   */
   readonly wolCacheSize = input<number>();
+  /**
+   * Cross-origin mode for image requests. Reading pixels from a cross-origin image on a canvas also
+   * requires the corresponding server CORS headers. Read at source creation.
+   */
   readonly wolCrossOrigin = input<null | string>();
+  /**
+   * Image extent in source coordinates. Defaults to `[0, -height, width, 0]`. Read at source
+   * creation.
+   */
   readonly wolExtent = input<Extent>();
+  /** Image format requested from the service. Defaults to `'jpg'`. Read at source creation. */
   readonly wolFormat = input<string>();
+  /**
+   * Whether to use linear interpolation when resampling. Defaults to `true`. Set to `false` for
+   * nearest-neighbor sampling. Read at source creation.
+   */
   readonly wolInterpolate = input<boolean>();
+  /** Projection of the image extent and tile grid. Read at source creation. */
   readonly wolProjection = input<ProjectionLike>();
+  /**
+   * IIIF image quality to request. Defaults to `'native'` for version 1 and `'default'` for
+   * versions 2 and 3. Read at source creation.
+   */
   readonly wolQuality = input<string>();
+  /**
+   * Maximum reprojection error in pixels. Defaults to `0.5`. Increasing this value trades accuracy
+   * for faster reprojection. Read at source creation.
+   */
   readonly wolReprojectionErrorThreshold = input<number>();
+  /** Supported image downsampling factors from IIIF `scaleFactors`. Read at source creation. */
   readonly wolResolutions = input<number[]>();
+  /**
+   * Required full image width and height in pixels. Both values must be positive. Read at source
+   * creation.
+   */
   readonly wolSize = input.required<Size>();
+  /**
+   * Image sizes the service offers at reduced resolutions, expressed as width and height pairs from
+   * `info.json`. Read at source creation.
+   */
   readonly wolSizes = input<Size[]>();
+  /** Initial OpenLayers source state. Defaults to `'ready'`. Read at source creation. */
   readonly wolState = input<State>();
+  /**
+   * IIIF capabilities used to decide which region and size operations the service can handle.
+   * Defaults to an empty list. Read at source creation.
+   */
   readonly wolSupports = input<string[]>();
+  /** Image pixels per logical tile pixel. Defaults to `1`. Read at source creation. */
   readonly wolTilePixelRatio = input<number>();
+  /**
+   * Tile width and height from the service metadata. A single value gives a square tile. For
+   * services supporting arbitrary tiling, the default is `256` pixels. Read at source creation.
+   */
   readonly wolTileSize = input<number | Size>();
+  /**
+   * Tile fade-in duration in milliseconds. Defaults to `250`. Set to `0` to disable the fade. Read
+   * at source creation.
+   */
   readonly wolTransition = input<number>();
+  /**
+   * Base image service URL matching the IIIF image identifier. Recreate the component to build IIIF
+   * tile requests for a different image. On an existing source, the binding is forwarded to
+   * OpenLayers `setUrl()`.
+   */
   readonly wolUrl = input<string>();
+  /** IIIF Image API version. Defaults to version 2. Read at source creation. */
   readonly wolVersion = input<Versions>();
+  /**
+   * Chooses the tile zoom at intermediate view resolutions. Defaults to `0` for the nearest level.
+   * Use `1` to favor the coarser level, `-1` for the finer level, or provide a function. Read at
+   * source creation.
+   */
   readonly wolZDirection = input<number | NearestDirectionFunction>();
+  /**
+   * Additional OpenLayers source properties. Binding changes add or update keys on the existing
+   * source.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /** Emits when the OpenLayers source revision advances, including source state changes. */
   readonly wolChange = output<BaseEvent>();
+  /** Forwards the OpenLayers source's `error` event. */
   readonly wolError = output<BaseEvent>();
+  /** Emits a `propertychange` event with the changed property name and its previous value. */
   readonly wolPropertyChange = output<ObjectEvent>();
+  /** Forwards the native `tileloadend` event as a `BaseEvent` after a tile loads. */
   readonly wolTileLoadEnd = output<BaseEvent>();
+  /** Forwards the native `tileloaderror` event as a `BaseEvent` when a tile fails. */
   readonly wolTileLoadError = output<BaseEvent>();
+  /** Forwards the native `tileloadstart` event as a `BaseEvent` when a tile starts loading. */
   readonly wolTileLoadStart = output<BaseEvent>();
 
   private instance?: IIIF;
@@ -176,8 +260,9 @@ export class WolIIIFSourceComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers IIIF instance.
-   * @returns The IIIF instance
+   * Gets the OpenLayers source created by this component.
+   *
+   * @returns The OpenLayers `IIIF` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): IIIF | undefined {
     return this.instance;

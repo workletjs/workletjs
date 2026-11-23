@@ -24,6 +24,12 @@ import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 
 import { DisposeRef, useImageSourceHostRef } from './use-image-source-host-ref';
 
+/**
+ * Provides a single image for the requested extent and resolution through an OpenLayers image
+ * loader.
+ *
+ * See the [OpenLayers ImageSource reference](https://openlayers.org/en/latest/apidoc/module-ol_source_Image-ImageSource.html).
+ */
 @Component({
   selector: 'wol-image-source',
   imports: [],
@@ -33,19 +39,44 @@ import { DisposeRef, useImageSourceHostRef } from './use-image-source-host-ref';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolImageSourceComponent implements OnChanges {
+  /** Source credits shown by the attribution control. Changes update the existing source. */
   readonly wolAttributions = input<AttributionLike>();
+  /**
+   * Whether to use linear interpolation when resampling. Defaults to `true`. Set to `false` for
+   * nearest-neighbor sampling. Read at source creation.
+   */
   readonly wolInterpolate = input<boolean>();
+  /**
+   * Image loader called with the requested extent, resolution, and pixel ratio. Use a custom loader
+   * or a loader factory from OpenLayers, such as WMS or ArcGIS REST. Read at source creation.
+   */
   readonly wolLoader = input<Loader>();
+  /** Coordinate reference system of the loaded images. Read at source creation. */
   readonly wolProjection = input<ProjectionLike>();
+  /**
+   * Resolutions from which to choose the nearest to a requested view resolution, in projection
+   * units per pixel. Read at source creation.
+   */
   readonly wolResolutions = input<number[]>();
+  /** Initial OpenLayers source state. Defaults to `'ready'`. Read at source creation. */
   readonly wolState = input<State>();
+  /**
+   * Additional OpenLayers source properties. Binding changes add or update keys silently on the
+   * existing source.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /** Emits when the OpenLayers source revision advances, including source state changes. */
   readonly wolChange = output<BaseEvent>();
+  /** Forwards the OpenLayers source's `error` event. */
   readonly wolError = output<BaseEvent>();
+  /** Emits when a source image finishes loading. The event identifies the loaded image. */
   readonly wolImageLoadEnd = output<ImageSourceEvent>();
+  /** Emits when a source image fails to load. The event identifies the image that failed. */
   readonly wolImageLoadError = output<ImageSourceEvent>();
+  /** Emits when a source image starts loading. The event identifies the image being loaded. */
   readonly wolImageLoadStart = output<ImageSourceEvent>();
+  /** Emits a `propertychange` event with the changed property name and its previous value. */
   readonly wolPropertyChange = output<ObjectEvent>();
 
   private instanece?: ImageSource;
@@ -146,8 +177,10 @@ export class WolImageSourceComponent implements OnChanges {
   }
 
   /**
-   * Get the OpenLayers ImageSource instance.
-   * @returns The OpenLayers ImageSource instance or undefined if not yet created.
+   * Gets the OpenLayers source created by this component.
+   *
+   * @returns The OpenLayers `ImageSource` instance, or `undefined` before creation and after
+   * destruction.
    */
   getInstance(): ImageSource | undefined {
     return this.instanece;

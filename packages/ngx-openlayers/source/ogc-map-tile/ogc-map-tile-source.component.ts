@@ -24,6 +24,14 @@ import { TileSourceEvent } from 'ol/source/Tile';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
 
+/**
+ * Discovers and loads raster map tiles from an OGC API Tiles tileset.
+ *
+ * See the [OpenLayers OGCMapTile reference](https://openlayers.org/en/latest/apidoc/module-ol_source_OGCMapTile-OGCMapTile.html).
+ *
+ * The service must expose the core and tileset conformance classes. Selecting collections requires
+ * the collections selection conformance class.
+ */
 @Component({
   selector: 'wol-ogc-map-tile-source',
   exportAs: 'wolOGCMapTileSource',
@@ -32,27 +40,92 @@ import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/sour
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolOGCMapTileSourceComponent implements OnChanges {
+  /**
+   * Required URL of the OGC map tileset metadata endpoint. Recreate the component to read metadata
+   * from another endpoint. On a running source, binding changes are forwarded to the tile URL
+   * setter.
+   */
   readonly wolUrl = input.required<string>();
+  /**
+   * Values for extra placeholders in the service's tile URL template. OpenLayers provides
+   * `tileMatrix`, `tileRow`, and `tileCol`. Read at source creation.
+   */
   readonly wolContext = input<object>();
+  /**
+   * Tile media type to request, such as `'image/png'`. When omitted, OpenLayers chooses an item
+   * link offering a supported image format. Read at source creation.
+   */
   readonly wolMediaType = input<string>();
+  /**
+   * Projection override for the tileset. OpenLayers normally takes it from the tile matrix set's
+   * coordinate reference system. Read at source creation.
+   */
   readonly wolProjection = input<ProjectionLike>();
+  /** Source credits shown by the attribution control. Changes update the existing source. */
   readonly wolAttributions = input<AttributionLike>();
+  /**
+   * Capacity of the source tile cache. Read at source creation.
+   *
+   * @deprecated Configure `wolCacheSize` on the tile layer.
+   */
   readonly wolCacheSize = input<number>();
+  /**
+   * Cross-origin mode for image requests. Reading pixels from a cross-origin image on a canvas also
+   * requires the corresponding server CORS headers. Read at source creation.
+   */
   readonly wolCrossOrigin = input<string | null>();
+  /**
+   * Whether to use linear interpolation when resampling. Defaults to `true`. Set to `false` for
+   * nearest-neighbor sampling. Read at source creation.
+   */
   readonly wolInterpolate = input<boolean>();
+  /**
+   * Maximum reprojection error in pixels. Defaults to `0.5`. Increasing this value trades accuracy
+   * for faster reprojection. Read at source creation.
+   */
   readonly wolReprojectionErrorThreshold = input<number>();
+  /**
+   * Callback that loads a tile using its URL. By default, OpenLayers assigns the URL to the tile
+   * image. Changes update the loader on the existing source.
+   */
   readonly wolTileLoadFunction = input<LoadFunction>();
+  /**
+   * Whether tiles wrap horizontally beyond the antimeridian. Defaults to `true`. Read at source
+   * creation.
+   */
   readonly wolWrapX = input<boolean>();
+  /**
+   * Tile fade-in duration in milliseconds. Defaults to `250`. Set to `0` to disable the fade. Read
+   * at source creation.
+   */
   readonly wolTransition = input<number>();
+  /**
+   * Names of collections to include for a dataset tileset. Omit to use the complete dataset. Select
+   * collections only when the endpoint serves multiple collections. Read at source creation.
+   */
   readonly wolCollections = input<string[]>();
+  /** Referrer policy applied to outgoing image requests. Read at source creation. */
   readonly wolReferrerPolicy = input<ReferrerPolicy>();
+  /**
+   * Additional OpenLayers source properties. Binding changes add or update keys on the existing
+   * source.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits when the source changes. Check the source state during tileset metadata retrieval,
+   * including state `error` on failure.
+   */
   readonly wolChange = output<BaseEvent>();
+  /** Forwards the OpenLayers source's `error` event. */
   readonly wolError = output<BaseEvent>();
+  /** Emits a `propertychange` event with the changed property name and its previous value. */
   readonly wolPropertyChange = output<ObjectEvent>();
+  /** Emits when a source tile finishes loading. The event identifies the tile. */
   readonly wolTileLoadEnd = output<TileSourceEvent>();
+  /** Emits when a source tile fails to load. The event identifies the tile. */
   readonly wolTileLoadError = output<TileSourceEvent>();
+  /** Emits when a source tile starts loading. The event identifies the tile. */
   readonly wolTileLoadStart = output<TileSourceEvent>();
 
   private instance?: OGCMapTile;
@@ -166,8 +239,10 @@ export class WolOGCMapTileSourceComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers OGCMapTile instance.
-   * @returns The OGCMapTile instance
+   * Gets the OpenLayers source created by this component.
+   *
+   * @returns The OpenLayers `OGCMapTile` instance, or `undefined` before creation and after
+   * destruction.
    */
   getInstance(): OGCMapTile | undefined {
     return this.instance;
