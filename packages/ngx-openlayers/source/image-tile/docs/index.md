@@ -2,7 +2,7 @@
 keyword: ImageTileSourcePage
 ---
 
-A source for typed array data tiles.
+Loads image tiles from URL templates or a custom tile loader.
 
 ## Examples
 
@@ -15,15 +15,14 @@ and tile grid x/y coordinates.
 
 ### XYZ Esri
 
-ArcGIS REST tile services are supported by [XYZ Source](/source/xyz).
+This example loads ArcGIS REST tiles by supplying a URL template to `wolUrl`.
 
 {{ NgDocActions.demo("WolImageTileXYZEsriExampleComponent") }}
 
 ### XYZ Retina Tiles
 
-The ImageTile generates 256x256 pixel tiles by default. If the requested images are larger than
-that, they will be scaled to fit. This example uses 512x512 tiles, which are scaled to 256x256 for
-display.
+The default tile size is 256 by 256 pixels. This example requests 512-by-512-pixel images and
+renders them at 256 by 256 pixels.
 
 {{ NgDocActions.demo("WolImageTileXYZRetinaExampleComponent") }}
 

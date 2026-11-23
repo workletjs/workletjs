@@ -27,6 +27,11 @@ import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 
 import { DisposeRef, useDataTileSourceHostRef } from './use-data-tile-source-host-ref';
 
+/**
+ * Provides tiles containing raster band values or images from a custom loader.
+ *
+ * See the [OpenLayers DataTileSource reference](https://openlayers.org/en/latest/apidoc/module-ol_source_DataTile-DataTileSource.html).
+ */
 @Component({
   selector: 'wol-data-tile-source',
   imports: [],
@@ -36,19 +41,67 @@ import { DisposeRef, useDataTileSourceHostRef } from './use-data-tile-source-hos
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolDataTileSourceComponent implements OnChanges {
+  /**
+   * Loads a tile using its `z`, `x`, and `y` coordinates and loader options. Return tile data or a
+   * promise for it. When returning an image promise, resolve it once the image has loaded. Read at
+   * source creation.
+   */
   readonly wolLoader = input<Loader>();
+  /** Source credits shown by the attribution control. Changes update the existing source. */
   readonly wolAttributions = input<AttributionLike>();
+  /**
+   * Whether the attribution control may collapse this source's credits. Defaults to `true`. Read at
+   * source creation.
+   */
   readonly wolAttributionsCollapsible = input<boolean>();
+  /**
+   * Maximum zoom level for the default tile grid. Defaults to `42`. Supply this only when
+   * OpenLayers creates the tile grid. Read at source creation.
+   */
   readonly wolMaxZoom = input<number>();
+  /**
+   * Minimum zoom level for the default tile grid. Defaults to `0`. Supply this only when OpenLayers
+   * creates the tile grid. Read at source creation.
+   */
   readonly wolMinZoom = input<number>();
+  /**
+   * Width and height of the source tiles in pixels. A single number specifies square tiles.
+   * Defaults to `[256, 256]` with the default grid. Read at source creation.
+   */
   readonly wolTileSize = input<number | Size>();
+  /**
+   * Border pixels to discard on each edge of a source tile. Defaults to `0`. Include twice the
+   * gutter in the image or data dimensions returned by the loader. Read at source creation.
+   */
   readonly wolGutter = input<number>();
+  /**
+   * Resolution in projection units per pixel at zoom level zero. This sets the scale of the default
+   * tile grid. Read at source creation.
+   */
   readonly wolMaxResolution = input<number>();
+  /**
+   * Initial tile projection. Defaults to `'EPSG:3857'`. After creation, this input identifies the
+   * target projection when registering `wolTileGrid` for reprojection.
+   */
   readonly wolProjection = input<ProjectionLike>();
+  /**
+   * Initial tile grid. After creation, a new grid is registered for a supplied projection only if
+   * OpenLayers has yet to assign a grid to that projection.
+   */
   readonly wolTileGrid = input<TileGrid>();
+  /** Initial OpenLayers source state. Defaults to `'ready'`. Read at source creation. */
   readonly wolState = input<State>();
+  /**
+   * Whether tiles wrap horizontally beyond the antimeridian. Defaults to `false`. Read at source
+   * creation.
+   */
   readonly wolWrapX = input<boolean>();
+  /**
+   * Tile fade-in duration in milliseconds. Defaults to `250`. Set to `0` to disable the fade. Read
+   * at source creation.
+   */
   readonly wolTransition = input<number>();
+  /** Number of bands in the tile data. Defaults to `4`. Read at source creation. */
   readonly wolBandCount = input<number>();
 
   /**
@@ -61,17 +114,41 @@ export class WolDataTileSourceComponent implements OnChanges {
    */
   readonly wolHasAlpha = input<boolean>();
 
+  /**
+   * Whether to use linear interpolation when resampling. Defaults to `false`, which uses
+   * nearest-neighbor sampling. Read at source creation.
+   */
   readonly wolInterpolate = input<boolean>();
+  /**
+   * Cross-origin mode passed to the loader for image data. It corresponds to the OpenLayers
+   * `crossOrigin` option and defaults to `'anonymous'`. Read at source creation.
+   */
   readonly wolCrop = input<CrossOriginAttribute>();
+  /** Cache key used for tiles from this source. Read at source creation. */
   readonly wolKey = input<string>();
+  /**
+   * Chooses the tile zoom at intermediate view resolutions. Defaults to `0` for the nearest level.
+   * Use `1` to favor the coarser level, `-1` for the finer level, or provide a function. Read at
+   * source creation.
+   */
   readonly wolZDirection = input<number | NearestDirectionFunction>();
+  /**
+   * Additional OpenLayers source properties to merge when the binding changes after source
+   * creation.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /** Emits when the OpenLayers source revision advances, including source state changes. */
   readonly wolChange = output<BaseEvent>();
+  /** Forwards the OpenLayers source's `error` event. */
   readonly wolError = output<BaseEvent>();
+  /** Emits a `propertychange` event with the changed property name and its previous value. */
   readonly wolPropertychange = output<ObjectEvent>();
+  /** Emits when a source tile finishes loading. The event identifies the tile. */
   readonly wolTileLoadEnd = output<TileSourceEvent>();
+  /** Emits when a source tile fails to load. The event identifies the tile. */
   readonly wolTileLoadError = output<TileSourceEvent>();
+  /** Emits when a source tile starts loading. The event identifies the tile. */
   readonly wolTileLoadStart = output<TileSourceEvent>();
 
   private instance?: DataTileSource;
@@ -192,8 +269,10 @@ export class WolDataTileSourceComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying ol DataTileSource instance.
-   * @returns The ol DataTileSource instance.
+   * Gets the OpenLayers source created by this component.
+   *
+   * @returns The OpenLayers `DataTileSource` instance, or `undefined` before creation and after
+   * destruction.
    */
   getInstance(): DataTileSource | undefined {
     return this.instance;

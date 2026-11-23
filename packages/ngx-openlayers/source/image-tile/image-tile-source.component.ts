@@ -27,6 +27,11 @@ import { TileGrid } from 'ol/tilegrid';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
 
+/**
+ * Provides image tiles from URL templates or a custom tile image loader.
+ *
+ * See the [OpenLayers ImageTileSource reference](https://openlayers.org/en/latest/apidoc/module-ol_source_ImageTile-ImageTileSource.html).
+ */
 @Component({
   selector: 'wol-image-tile-source',
   imports: [],
@@ -36,31 +41,109 @@ import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/sour
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolImageTileSourceComponent implements OnChanges {
+  /**
+   * A URL template, array of templates, or function that returns a URL from `z`, `x`, `y`, and
+   * loader options. A supplied URL takes precedence over `wolLoader`. Changes replace the loader
+   * with one based on the new URL.
+   */
   readonly wolUrl = input<UrlLike>();
+  /**
+   * Custom loader that receives `z`, `x`, `y` and loader options and returns a tile image or a
+   * promise for a loaded image. Used when `wolUrl` is omitted. Read at source creation.
+   */
   readonly wolLoader = input<Loader>();
+  /** Source credits shown by the attribution control. Changes update the existing source. */
   readonly wolAttributions = input<AttributionLike>();
+  /**
+   * Whether the attribution control may collapse this source's credits. Defaults to `true`. Read at
+   * source creation.
+   */
   readonly wolAttributionsCollapsible = input<boolean>();
+  /**
+   * Maximum zoom level for the default tile grid. Defaults to `42`. Supply this only when
+   * OpenLayers creates the tile grid. Read at source creation.
+   */
   readonly wolMaxZoom = input<number>();
+  /**
+   * Minimum zoom level for the default tile grid. Defaults to `0`. Supply this only when OpenLayers
+   * creates the tile grid. Read at source creation.
+   */
   readonly wolMinZoom = input<number>();
+  /**
+   * Width and height of the source tiles in pixels. A single number specifies square tiles.
+   * Defaults to `[256, 256]` with the default grid. Read at source creation.
+   */
   readonly wolTileSize = input<number | Size>();
+  /**
+   * Border pixels to discard on each edge of a source tile. Defaults to `0`. Include twice the
+   * gutter in the image or data dimensions returned by the loader. Read at source creation.
+   */
   readonly wolGutter = input<number>();
+  /**
+   * Resolution in projection units per pixel at zoom level zero. This sets the scale of the default
+   * tile grid. Read at source creation.
+   */
   readonly wolMaxResolution = input<number>();
+  /**
+   * Initial tile projection. Defaults to `'EPSG:3857'`. After creation, this input identifies the
+   * target projection when registering `wolTileGrid` for reprojection.
+   */
   readonly wolProjection = input<ProjectionLike>();
+  /**
+   * Initial tile grid. After creation, a new grid is registered for a supplied projection only if
+   * OpenLayers has yet to assign a grid to that projection.
+   */
   readonly wolTileGrid = input<TileGrid>();
+  /**
+   * Initial source state when a loader is available. Defaults to `'ready'`. Without a loader or
+   * URL, the source initially reports `'loading'`. Read at source creation.
+   */
   readonly wolState = input<State>();
+  /**
+   * Whether tiles wrap horizontally beyond the antimeridian. Defaults to `true`. Read at source
+   * creation.
+   */
   readonly wolWrapX = input<boolean>();
+  /**
+   * Tile fade-in duration in milliseconds. Defaults to `250`. Set to `0` to disable the fade. Read
+   * at source creation.
+   */
   readonly wolTransition = input<number>();
+  /**
+   * Whether to use linear interpolation when resampling. Defaults to `true`. Set to `false` for
+   * nearest-neighbor sampling. Read at source creation.
+   */
   readonly wolInterpolate = input<boolean>();
+  /**
+   * Cross-origin mode passed to image tile loaders. Defaults to `'anonymous'`. Read at source
+   * creation.
+   */
   readonly wolCrossOrigin = input<CrossOriginAttribute>();
+  /**
+   * Chooses the tile zoom at intermediate view resolutions. Defaults to `0` for the nearest level.
+   * Use `1` to favor the coarser level, `-1` for the finer level, or provide a function. Read at
+   * source creation.
+   */
   readonly wolZDirection = input<number | NearestDirectionFunction>();
+  /** Referrer policy applied to outgoing image requests. Read at source creation. */
   readonly wolReferrerPolicy = input<ReferrerPolicy>();
+  /**
+   * Additional OpenLayers source properties to merge when the binding changes after source
+   * creation.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /** Emits when the OpenLayers source revision advances, including source state changes. */
   readonly wolChange = output<BaseEvent>();
+  /** Forwards the OpenLayers source's `error` event. */
   readonly wolError = output<BaseEvent>();
+  /** Emits a `propertychange` event with the changed property name and its previous value. */
   readonly wolPropertyChange = output<ObjectEvent>();
+  /** Emits when a source tile finishes loading. The event identifies the tile. */
   readonly wolTileLoadEnd = output<TileSourceEvent>();
+  /** Emits when a source tile fails to load. The event identifies the tile. */
   readonly wolTileLoadError = output<TileSourceEvent>();
+  /** Emits when a source tile starts loading. The event identifies the tile. */
   readonly wolTileLoadStart = output<TileSourceEvent>();
 
   private instance?: ImageTileSource;
@@ -185,8 +268,10 @@ export class WolImageTileSourceComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers instance.
-   * @returns The OpenLayers ImageTileSource instance or undefined if not yet created.
+   * Gets the OpenLayers source created by this component.
+   *
+   * @returns The OpenLayers `ImageTileSource` instance, or `undefined` before creation and after
+   * destruction.
    */
   getInstance(): ImageTileSource | undefined {
     return this.instance;
