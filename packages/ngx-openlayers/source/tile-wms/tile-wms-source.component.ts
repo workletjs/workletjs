@@ -28,6 +28,11 @@ import { TileGrid } from 'ol/tilegrid';
 import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
 import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
 
+/**
+ * Requests raster tiles from a Web Map Service (WMS) using the service URL and GetMap parameters.
+ *
+ * @see [OpenLayers TileWMS](https://openlayers.org/en/latest/apidoc/module-ol_source_TileWMS-TileWMS.html)
+ */
 @Component({
   selector: 'wol-tile-wms-source',
   exportAs: 'wolTileWMSSource',
@@ -36,32 +41,126 @@ import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/sour
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolTileWMSSourceComponent implements OnChanges {
+  /**
+   * Credits displayed for this source. Accepts a string, an array of strings, or a function.
+   * Changes update the source.
+   */
   readonly wolAttributions = input<AttributionLike>();
+  /**
+   * Whether the attribution control can collapse the source credits. Defaults to `true`. Set when
+   * creating the source.
+   */
   readonly wolAtrributionCollapsible = input<boolean>();
+  /**
+   * Legacy source-level tile cache option. Set when creating the source.
+   *
+   * @deprecated Configure `wolCacheSize` on the tile layer instead.
+   */
   readonly wolCacheSize = input<number>();
+  /**
+   * CORS mode for the tile images. Set a value and enable CORS on the server for canvas pixel
+   * access. Read at creation.
+   */
   readonly wolCrossOrigin = input<string | null>();
+  /**
+   * Uses linear interpolation when resampling by default. Set to `false` for nearest-neighbor
+   * sampling. Read at creation.
+   */
   readonly wolInterpolate = input<boolean>();
+  /**
+   * Required WMS parameters. Include `LAYERS`. OpenLayers defaults `STYLES` to an empty string and
+   * `VERSION` to `1.3.0`, and derives `WIDTH`, `HEIGHT`, `BBOX`, and `CRS` or `SRS` per request.
+   * Changes replace the parameter set.
+   */
   readonly wolParams = input.required<{ [x: string]: WolSafeAny }>();
+  /**
+   * Extra pixels on each side of a requested tile, cropped before rendering to reduce seams.
+   * Defaults to `0`. Read at creation.
+   */
   readonly wolGutter = input<number>();
+  /**
+   * Whether requests use the map pixel ratio when `wolServerType` is supplied. Defaults to `true`.
+   * Read at creation.
+   */
   readonly wolHidpi = input<boolean>();
+  /**
+   * Projection of the source. OpenLayers uses the view projection when this input is omitted. Read
+   * at creation.
+   */
   readonly wolProjection = input<ProjectionLike>();
+  /**
+   * Maximum reprojection error in pixels. Defaults to `0.5`. A larger value trades precision for
+   * faster reprojection. Read at creation.
+   */
   readonly wolReprojectionErrorThreshold = input<number>();
+  /**
+   * Class used to create image tiles. Defaults to the OpenLayers `ImageTile` class. Read at
+   * creation.
+   */
   readonly wolTileClass = input<typeof ImageTile>();
+  /**
+   * Grid for tile requests. Match the service's resolutions, tile size, and extent. Without a
+   * grid, OpenLayers derives one from the projection or a global fallback. Read at creation.
+   */
   readonly wolTileGrid = input<TileGrid>();
+  /**
+   * Server implementation used for HiDPI requests. Supports `mapserver`, `geoserver`,
+   * `carmentaserver`, and `qgis`. Read at creation.
+   */
   readonly wolServerType = input<ServerType>();
+  /**
+   * Callback that receives an image tile and its URL. The default assigns the URL to the tile
+   * image. Changes update the callback.
+   */
   readonly wolTileLoadFunction = input<LoadFunction>();
+  /**
+   * WMS service URL. At creation, `wolUrls` takes precedence when supplied. Changes replace the
+   * source's URL list with this endpoint.
+   */
   readonly wolUrl = input<string>();
+  /**
+   * WMS endpoints used to distribute GetMap requests. At creation this list takes precedence over
+   * `wolUrl`. Changes replace the endpoints.
+   */
   readonly wolUrls = input<string[]>();
+  /**
+   * Whether the source wraps horizontally across world boundaries. Defaults to `true`. Set when
+   * creating the source.
+   */
   readonly wolWrapX = input<boolean>();
+  /**
+   * Tile fade-in duration in milliseconds. Set to `0` to disable the transition. Read at creation.
+   */
   readonly wolTransition = input<number>();
+  /**
+   * Selects the tile level between available resolutions. Positive favors coarser tiles, negative
+   * favors finer tiles, and `0` (the default) selects the nearest. A function can choose the
+   * direction. Read at creation.
+   */
   readonly wolZDirection = input<number | NearestDirectionFunction>();
+  /**
+   * Observable OpenLayers properties to set on the source. New values update the supplied keys.
+   * Omitted keys keep their current values.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /** Emits the source's `change` event when its revision increases. */
   readonly wolChange = output<BaseEvent>();
+  /** Forwards the native `error` event emitted by the source. */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits when an observable source property changes. The event provides the property key and its
+   * previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
+  /**
+   * Emits when tile loading finishes, including when a tile that is no longer needed is canceled.
+   * The event carries the tile.
+   */
   readonly wolTileLoadEnd = output<TileSourceEvent>();
+  /** Emits when a tile fails to load. The event carries the failed tile. */
   readonly wolTileLoadError = output<TileSourceEvent>();
+  /** Emits when a tile begins loading. The event carries the tile. */
   readonly wolTileLoadStart = output<TileSourceEvent>();
 
   private instance?: TileWMS;
@@ -183,8 +282,9 @@ export class WolTileWMSSourceComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers TileWMS instance.
-   * @returns The TileWMS instance
+   * Returns the OpenLayers TileWMS instance.
+   *
+   * @returns The source after rendering, or `undefined` before creation and after destruction.
    */
   getInstance(): TileWMS | undefined {
     return this.instance;

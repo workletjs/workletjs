@@ -24,6 +24,11 @@ import { TileSourceEvent } from 'ol/source/Tile';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
 
+/**
+ * Provides raster basemap tiles from Stadia Maps, with a selected layer and optional retina tiles.
+ *
+ * @see [OpenLayers StadiaMaps](https://openlayers.org/en/latest/apidoc/module-ol_source_StadiaMaps-StadiaMaps.html)
+ */
 @Component({
   selector: 'wol-stadia-maps-source',
   exportAs: 'wolStadiaMapsSource',
@@ -32,35 +37,105 @@ import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/sour
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolStadiaMapsSourceComponent implements OnChanges {
+  /**
+   * Credits displayed for this source. Stadia Maps supplies the default credits for the selected
+   * layer. Changes update the source.
+   */
   readonly wolAttributions = input<AttributionLike>();
+  /**
+   * Legacy source-level tile cache option. Set when creating the source.
+   *
+   * @deprecated Configure `wolCacheSize` on the tile layer instead.
+   */
   readonly wolCacheSize = input<number>();
+  /**
+   * Uses linear interpolation when resampling by default. Set to `false` for nearest-neighbor
+   * sampling. Read at creation.
+   */
   readonly wolInterpolate = input<boolean>();
 
   /**
-   * Layer name.
-   * Valid values: `alidade_smooth`, `alidade_smooth_dark`, `outdoors`, `stamen_terrain`,
-   * `stamen_terrain_background`, `stamen_terrain_labels`, `stamen_terrain_lines`, `stamen_toner_background`,
-   * `stamen_toner`, `stamen_toner_labels`, `stamen_toner_lines`, `stamen_toner_lite`, `stamen_watercolor`,
-   * and `osm_bright`.
+   * Required Stadia Maps layer identifier. Available names include `alidade_smooth`,
+   * `alidade_smooth_dark`, `outdoors`, `osm_bright`, `stamen_terrain`,
+   * `stamen_terrain_background`, `stamen_terrain_labels`, `stamen_terrain_lines`, `stamen_toner`,
+   * `stamen_toner_background`, `stamen_toner_labels`, `stamen_toner_lines`, `stamen_toner_lite`,
+   * and `stamen_watercolor`. Read at creation.
    */
   readonly wolLayer = input.required<string>();
+  /**
+   * Lowest tile zoom level to request. When omitted, OpenLayers uses its preset for the chosen
+   * layer. Read at creation.
+   */
   readonly wolMinZoom = input<number>();
+  /**
+   * Highest tile zoom level to request. When omitted, OpenLayers uses its preset for the chosen
+   * layer. Read at creation.
+   */
   readonly wolMaxZoom = input<number>();
+  /**
+   * Maximum reprojection error in pixels. Defaults to `0.5`. A larger value trades precision for
+   * faster reprojection. Read at creation.
+   */
   readonly wolReprojectionErrorThreshold = input<number>();
+  /**
+   * Callback that receives an image tile and its URL. The default assigns the URL to the tile
+   * image. Changes update the callback.
+   */
   readonly wolTileLoadFunction = input<LoadFunction>();
+  /**
+   * Tile fade-in duration in milliseconds. Defaults to `250`. Set to `0` to disable it. Read at
+   * creation.
+   */
   readonly wolTransition = input<number>();
+  /**
+   * Custom tile URL template with `{z}`, `{x}`, and `{y}` or `{-y}`. When omitted, the initial URL
+   * is generated from `wolLayer`, `wolRetina`, and `wolApiKey`. Changes update the URL template.
+   */
   readonly wolUrl = input<string>();
+  /**
+   * Whether the source wraps horizontally across world boundaries. Defaults to `true`. Set when
+   * creating the source.
+   */
   readonly wolWrapX = input<boolean>();
+  /**
+   * Selects the tile level between available resolutions. Positive favors coarser tiles, negative
+   * favors finer tiles, and `0` (the default) selects the nearest. A function can choose the
+   * direction. Read at creation.
+   */
   readonly wolZDirection = input<number | NearestDirectionFunction>();
+  /**
+   * API key appended to the generated Stadia Maps URL. Supply any required authentication yourself
+   * when providing a custom `wolUrl`. Read at creation.
+   */
   readonly wolApiKey = input<string>();
+  /**
+   * Requests double-resolution tiles for layers that provide them. Stamen Watercolor uses
+   * standard-resolution tiles. Read at creation.
+   */
   readonly wolRetina = input<boolean>();
+  /**
+   * Observable OpenLayers properties to set on the source. New values update the supplied keys.
+   * Omitted keys keep their current values.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /** Emits the source's `change` event when its revision increases. */
   readonly wolChange = output<BaseEvent>();
+  /** Forwards the native `error` event emitted by the source. */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits when an observable source property changes. The event provides the property key and its
+   * previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
+  /**
+   * Emits when tile loading finishes, including when a tile that is no longer needed is canceled.
+   * The event carries the tile.
+   */
   readonly wolTileLoadEnd = output<TileSourceEvent>();
+  /** Emits when a tile fails to load. The event carries the failed tile. */
   readonly wolTileLoadError = output<TileSourceEvent>();
+  /** Emits when a tile begins loading. The event carries the tile. */
   readonly wolTileLoadStart = output<TileSourceEvent>();
 
   private instance?: StadiaMaps;
@@ -176,8 +251,9 @@ export class WolStadiaMapsSourceComponent implements OnChanges {
   }
 
   /**
-   * Get the OpenLayers StadiaMaps instance.
-   * @returns The OpenLayers StadiaMaps instance or undefined if not yet created.
+   * Returns the OpenLayers StadiaMaps instance.
+   *
+   * @returns The source after rendering, or `undefined` before creation and after destruction.
    */
   getInstance(): StadiaMaps | undefined {
     return this.instance;
