@@ -25,6 +25,12 @@ import TileJSON, { Config } from 'ol/source/TileJSON';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/source/tile';
 
+/**
+ * Reads a TileJSON configuration and uses its tile endpoints, zoom limits, and other metadata to
+ * render a raster tile layer.
+ *
+ * @see [OpenLayers TileJSON](https://openlayers.org/en/latest/apidoc/module-ol_source_TileJSON-TileJSON.html)
+ */
 @Component({
   selector: 'wol-tile-json-source',
   imports: [],
@@ -34,26 +40,101 @@ import { DisposeRef, useTileSourceHostRef } from '@workletjs/ngx-openlayers/sour
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolTileJSONSourceComponent implements OnChanges {
+  /**
+   * Credits displayed for this source. Without explicit credits, OpenLayers can use attribution
+   * from the TileJSON metadata. Changes update the source.
+   */
   readonly wolAttributions = input<AttributionLike>();
+  /**
+   * Legacy source-level tile cache option. Set when creating the source.
+   *
+   * @deprecated Configure `wolCacheSize` on the tile layer instead.
+   */
   readonly wolCacheSize = input<number>();
+  /**
+   * CORS mode for the tile images. Set a value and enable CORS on the server for canvas pixel
+   * access. Read at creation.
+   */
   readonly wolCrossOrigin = input<null | string>();
+  /**
+   * Uses linear interpolation when resampling by default. Set to `false` for nearest-neighbor
+   * sampling. Read at creation.
+   */
   readonly wolInterpolate = input<boolean>();
+  /**
+   * Loads remote TileJSON by JSONP when `true`. The default is an XMLHttpRequest. Read at
+   * creation.
+   */
   readonly wolJsonp = input<boolean>();
+  /**
+   * Maximum reprojection error in pixels. Defaults to `0.5`. A larger value trades precision for
+   * faster reprojection. Read at creation.
+   */
   readonly wolReprojectionErrorThreshold = input<number>();
+  /**
+   * Inline TileJSON configuration. Supply it when `wolUrl` is omitted. A metadata URL takes
+   * precedence if both are supplied at creation.
+   */
   readonly wolTileJSON = input<Config>();
+  /**
+   * Callback that receives an image tile and its URL. The default assigns the URL to the tile
+   * image. Changes update the callback.
+   */
   readonly wolTileLoadFunction = input<LoadFunction>();
+  /**
+   * Tile size in pixels for the grid. Defaults to `[256, 256]`. Set it here to use a different
+   * size, since OpenLayers ignores the nonstandard `tileSize` field in the TileJSON document. Read
+   * at creation.
+   */
   readonly wolTileSize = input<number | Size>();
+  /**
+   * TileJSON document URL when creating the source. Supply this or `wolTileJSON`. After creation,
+   * changes set the tile URL template on the existing source. Recreate the component to fetch a
+   * different TileJSON document.
+   */
   readonly wolUrl = input<string>();
+  /**
+   * Whether the source wraps horizontally across world boundaries. Defaults to `true`. Set when
+   * creating the source.
+   */
   readonly wolWrapX = input<boolean>();
+  /**
+   * Tile fade-in duration in milliseconds. Defaults to `250`. Set to `0` to disable it. Read at
+   * creation.
+   */
   readonly wolTransition = input<number>();
+  /**
+   * Selects the tile level between available resolutions. Positive favors coarser tiles, negative
+   * favors finer tiles, and `0` (the default) selects the nearest. A function can choose the
+   * direction. Read at creation.
+   */
   readonly wolZDirection = input<number | NearestDirectionFunction>();
+  /**
+   * Observable OpenLayers properties to set on the source. New values update the supplied keys.
+   * Omitted keys keep their current values.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits when the source revision increases. Check the source state for metadata load completion
+   * or failure.
+   */
   readonly wolChange = output<BaseEvent>();
+  /** Forwards the native `error` event emitted by the source. */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits when an observable source property changes. The event provides the property key and its
+   * previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
+  /**
+   * Emits when tile loading finishes, including when a tile that is no longer needed is canceled.
+   * The event carries the tile.
+   */
   readonly wolTileLoadEnd = output<TileSourceEvent>();
+  /** Emits when a tile fails to load. The event carries the failed tile. */
   readonly wolTileLoadError = output<TileSourceEvent>();
+  /** Emits when a tile begins loading. The event carries the tile. */
   readonly wolTileLoadStart = output<TileSourceEvent>();
 
   private instance?: TileJSON;
@@ -163,8 +244,9 @@ export class WolTileJSONSourceComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying TileJSON instance.
-   * @returns The TileJSON instance or undefined if not yet created.
+   * Returns the OpenLayers TileJSON instance.
+   *
+   * @returns The source after rendering, or `undefined` before creation and after destruction.
    */
   getInstance(): TileJSON | undefined {
     return this.instance;

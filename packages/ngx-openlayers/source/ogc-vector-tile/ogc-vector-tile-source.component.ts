@@ -29,6 +29,11 @@ import {
   useVectorTileSourceHostRef,
 } from '@workletjs/ngx-openlayers/source/vector-tile';
 
+/**
+ * Reads vector tiles and their tile matrix metadata from an OGC API - Tiles service.
+ *
+ * @see [OpenLayers OGCVectorTile](https://openlayers.org/en/latest/apidoc/module-ol_source_OGCVectorTile-OGCVectorTile.html)
+ */
 @Component({
   selector: 'wol-ogc-vector-tile-source',
   exportAs: 'wolOGCVectorTileSource',
@@ -37,27 +42,105 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolOGCVectorTileSourceComponent implements OnChanges {
+  /**
+   * Required OGC vector tileset metadata URL. Supply it at creation. After creation, changing this
+   * input sets the tile URL template on the existing source. Recreate the component to load a
+   * different tileset and its metadata.
+   */
   readonly wolUrl = input.required<string>();
+  /**
+   * Extra values for the service's tile URL template. The source supplies `{tileMatrix}`,
+   * `{tileRow}`, and `{tileCol}` itself. Read at creation.
+   */
   readonly wolContext = input<Record<string, WolSafeAny>>();
+  /**
+   * Feature parser for the service's tiles, such as MVT. The default tile loader requires a
+   * format. Its supported media types also help choose a tile link. Read at creation.
+   */
   readonly wolFormat = input<FeatureFormat<FeatureLike>>();
+  /**
+   * Tile MIME type to select from the tileset links, for example
+   * `application/vnd.mapbox-vector-tile`. By default the source looks for a vector tile link
+   * compatible with `wolFormat`. Read at creation.
+   */
   readonly wolMediaType = input<string>();
+  /**
+   * Credits displayed for this source. Accepts a string, an array of strings, or a function.
+   * Changes update the source.
+   */
   readonly wolAttributions = input<AttributionLike>();
+  /**
+   * Whether the attribution control can collapse the source credits. Defaults to `true`. Set when
+   * creating the source.
+   */
   readonly wolAttributionsCollapsible = input<boolean>();
+  /**
+   * Legacy source-level tile cache option. Set when creating the source.
+   *
+   * @deprecated Configure `wolCacheSize` on the tile layer instead.
+   */
   readonly wolCacheSize = input<number>();
+  /**
+   * Allows overlapping geometries by default. Set to `false` if features do not overlap so the
+   * renderer can optimize fills and strokes. Read at creation.
+   */
   readonly wolOverlaps = input<boolean>();
+  /**
+   * Projection code for the tile grid. OpenLayers starts with `EPSG:3857` by default and resolves
+   * the grid against the tileset metadata. Read at creation.
+   */
   readonly wolProjection = input<string>();
+  /**
+   * Class used to create vector tiles. Defaults to the OpenLayers `VectorTile` class. Read at
+   * creation.
+   */
   readonly wolTileClass = input<typeof VectorTile>();
+  /**
+   * Tile fade-in duration in milliseconds. Set to `0` to disable the transition. Read at creation.
+   */
   readonly wolTransition = input<number>();
+  /**
+   * Whether the source wraps horizontally across world boundaries. Defaults to `true`. Set when
+   * creating the source.
+   */
   readonly wolWrapX = input<boolean>();
+  /**
+   * Selects the tile level between available resolutions. Defaults to `1` (coarser tiles). A
+   * negative value favors finer tiles, and `0` selects the nearest. A function can choose the
+   * direction. Read at creation.
+   */
   readonly wolZDirection = input<number | NearestDirectionFunction>();
+  /**
+   * Identifiers of collections to include from a dataset-level tileset. Omit to request the entire
+   * dataset. Set when creating the source.
+   */
   readonly wolCollections = input<string[]>();
+  /**
+   * Observable OpenLayers properties to set on the source. New values update the supplied keys.
+   * Omitted keys keep their current values.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits when the source revision increases. Check its state for `ready` or `error` after loading
+   * the tileset metadata.
+   */
   readonly wolChange = output<BaseEvent>();
+  /** Forwards the native `error` event emitted by the source. */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits when an observable source property changes. The event provides the property key and its
+   * previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
+  /**
+   * Emits when tile loading finishes, including when a tile that is no longer needed is canceled.
+   * The event carries the tile.
+   */
   readonly wolTileLoadEnd = output<TileSourceEvent>();
+  /** Emits when a tile fails to load. The event carries the failed tile. */
   readonly wolTileLoadError = output<TileSourceEvent>();
+  /** Emits when a tile begins loading. The event carries the tile. */
   readonly wolTileLoadStart = output<TileSourceEvent>();
 
   private instance?: OGCVectorTile<FeatureLike>;
@@ -167,8 +250,9 @@ export class WolOGCVectorTileSourceComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OGCVectorTile instance.
-   * @returns The OGCVectorTile instance or undefined if not initialized.
+   * Returns the OpenLayers OGCVectorTile instance.
+   *
+   * @returns The source after rendering, or `undefined` before creation and after destruction.
    */
   getInstance(): OGCVectorTile<FeatureLike> | undefined {
     return this.instance;
