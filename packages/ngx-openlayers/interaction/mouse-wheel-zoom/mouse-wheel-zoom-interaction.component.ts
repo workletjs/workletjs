@@ -22,6 +22,10 @@ import MouseWheelZoom from 'ol/interaction/MouseWheelZoom';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
+/**
+ * Zooms the map with wheel and trackpad gestures. See
+ * [OpenLayers MouseWheelZoom](https://openlayers.org/en/latest/apidoc/module-ol_interaction_MouseWheelZoom-MouseWheelZoom.html).
+ */
 @Component({
   selector: 'wol-mouse-wheel-zoom-interaction',
   exportAs: 'wolMouseWheelZoomInteraction',
@@ -30,18 +34,63 @@ import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/int
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolMouseWheelZoomInteractionComponent implements OnChanges {
+  /**
+   * Whether the interaction handles events. Defaults to `true`. This model updates the
+   * interaction and reflects active-state changes from OpenLayers.
+   */
   readonly wolActive = model(true);
+  /**
+   * Predicate that decides whether to handle the wheel event. The default accepts wheel events.
+   * Read at creation.
+   */
   readonly wolCondition = input<Condition>();
+  /**
+   * Requires map focus when the target has a `tabindex` attribute. Defaults to `false`. Read at
+   * creation.
+   */
   readonly wolOnFocusOnly = input<boolean>();
+  /**
+   * Maximum zoom-level change applied to an accumulated mouse-wheel gesture. Defaults to `1`.
+   * Read at creation.
+   */
   readonly wolMaxDelta = input<number>();
+  /**
+   * Duration in milliseconds of the mouse-wheel zoom animation. Defaults to `250`. Read at
+   * creation.
+   */
   readonly wolDuration = input<number>();
+  /**
+   * Time window in milliseconds for accumulating mouse-wheel input. Defaults to `80`. Read at
+   * creation.
+   */
   readonly wolTimeout = input<number>();
+  /**
+   * Uses the pointer as the zoom anchor when `true`, or the view center when `false`. Defaults to
+   * `true`. Changes update the existing interaction.
+   */
   readonly wolUseAnchor = input<boolean>();
+  /**
+   * Whether this interaction forces discrete zoom levels. Defaults to `false`. A view-level
+   * resolution constraint still applies. Read at creation.
+   */
   readonly wolConstrainResolution = input<boolean>();
+  /**
+   * Observable properties to set on the OpenLayers instance. Updates assign the supplied keys and
+   * leave other properties in place.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits the native `change` event when the instance revision increases.
+   */
   readonly wolChange = output<BaseEvent>();
+  /**
+   * Emits the native `error` event when the OpenLayers instance dispatches one.
+   */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits the native `propertychange` event with the changed property key and its previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
 
   private instance?: MouseWheelZoom;
@@ -138,8 +187,10 @@ export class WolMouseWheelZoomInteractionComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers MouseWheelZoom control instance.
-   * @returns The MouseWheelZoom control instance
+   * Accesses the OpenLayers MouseWheelZoom interaction.
+   *
+   * @returns The underlying instance, or `undefined` before creation and after component
+   * teardown.
    */
   getInstance(): MouseWheelZoom | undefined {
     return this.instance;

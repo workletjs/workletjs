@@ -22,6 +22,10 @@ import PointerInteraction from 'ol/interaction/Pointer';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
+/**
+ * Builds a custom pointer interaction from callbacks for browser events and drag sequences. See
+ * [OpenLayers PointerInteraction](https://openlayers.org/en/latest/apidoc/module-ol_interaction_Pointer-PointerInteraction.html).
+ */
 @Component({
   selector: 'wol-pointer-interaction',
   exportAs: 'wolPointerInteraction',
@@ -30,17 +34,57 @@ import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/int
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolPointerInteractionComponent implements OnChanges {
+  /**
+   * Whether the interaction handles events. Defaults to `true`. This model updates the
+   * interaction and reflects active-state changes from OpenLayers.
+   */
   readonly wolActive = model(true);
+  /**
+   * Handles a pointer-down map browser event. Return `true` to start a drag sequence. Read at
+   * creation.
+   */
   readonly wolHandleDownEvent = input<(event: MapBrowserEvent) => boolean>();
+  /**
+   * Handles pointer-drag events while a drag sequence is active. Read at creation.
+   */
   readonly wolHandleDragEvent = input<(event: MapBrowserEvent) => void>();
+  /**
+   * Replaces the built-in pointer event handler. Return `false` to stop the map browser event
+   * from reaching later interactions. Read at creation.
+   */
   readonly wolHandleEvent = input<(event: MapBrowserEvent) => boolean>();
+  /**
+   * Handles pointer-move events while no drag sequence is active. Read at creation.
+   */
   readonly wolHandleMoveEvent = input<(event: MapBrowserEvent) => void>();
+  /**
+   * Handles a pointer-up event in a drag sequence. Return `false` to end the sequence. Read at
+   * creation.
+   */
   readonly wolHandleUpEvent = input<(event: MapBrowserEvent) => boolean>();
+  /**
+   * Decides whether to stop a pointer-down event from reaching other interactions. Receives
+   * whether the down event was handled and returns `true` to stop it. The default stops handled
+   * events. Read at creation.
+   */
   readonly wolStopDown = input<(isDblClick: boolean) => boolean>();
+  /**
+   * Observable properties to set on the OpenLayers instance. Updates assign the supplied keys and
+   * leave other properties in place.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits the native `change` event when the instance revision increases.
+   */
   readonly wolChange = output<BaseEvent>();
+  /**
+   * Emits the native `error` event when the OpenLayers instance dispatches one.
+   */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits the native `propertychange` event with the changed property key and its previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
 
   private instance?: PointerInteraction;
@@ -134,8 +178,10 @@ export class WolPointerInteractionComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers PointerInteraction control instance.
-   * @returns The PointerInteraction control instance
+   * Accesses the OpenLayers PointerInteraction interaction.
+   *
+   * @returns The underlying instance, or `undefined` before creation and after component
+   * teardown.
    */
   getInstance(): PointerInteraction | undefined {
     return this.instance;

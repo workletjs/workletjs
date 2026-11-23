@@ -22,6 +22,10 @@ import KeyboardZoom from 'ol/interaction/KeyboardZoom';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
+/**
+ * Changes the zoom when the keyboard event target receives the plus or minus key. See
+ * [OpenLayers KeyboardZoom](https://openlayers.org/en/latest/apidoc/module-ol_interaction_KeyboardZoom-KeyboardZoom.html).
+ */
 @Component({
   selector: 'wol-keyboard-zoom-interaction',
   exportAs: 'wolKeyboardZoomInteraction',
@@ -30,14 +34,41 @@ import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/int
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolKeyboardZoomInteractionComponent implements OnChanges {
+  /**
+   * Whether the interaction handles events. Defaults to `true`. This model updates the
+   * interaction and reflects active-state changes from OpenLayers.
+   */
   readonly wolActive = model(true);
+  /**
+   * Duration in milliseconds of a keyboard zoom animation. Defaults to `100`. Read at creation.
+   */
   readonly wolDuration = input<number>();
+  /**
+   * Predicate for keyboard zoom events. By default, it accepts events outside editable elements
+   * when the platform modifier key is released. Read at creation.
+   */
   readonly wolCondition = input<Condition>();
+  /**
+   * Change in zoom levels per key press. Defaults to `1`. Read at creation.
+   */
   readonly wolDelta = input<number>();
+  /**
+   * Observable properties to set on the OpenLayers instance. Updates assign the supplied keys and
+   * leave other properties in place.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits the native `change` event when the instance revision increases.
+   */
   readonly wolChange = output<BaseEvent>();
+  /**
+   * Emits the native `error` event when the OpenLayers instance dispatches one.
+   */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits the native `propertychange` event with the changed property key and its previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
 
   private instance?: KeyboardZoom;
@@ -127,8 +158,10 @@ export class WolKeyboardZoomInteractionComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers KeyboardZoom control instance.
-   * @returns The KeyboardZoom control instance
+   * Accesses the OpenLayers KeyboardZoom interaction.
+   *
+   * @returns The underlying instance, or `undefined` before creation and after component
+   * teardown.
    */
   getInstance(): KeyboardZoom | undefined {
     return this.instance;

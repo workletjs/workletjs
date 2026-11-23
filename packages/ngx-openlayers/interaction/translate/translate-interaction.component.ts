@@ -26,6 +26,11 @@ import Layer from 'ol/layer/Layer';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
+/**
+ * Moves features by dragging them on the map, optionally moving all features in a collection
+ * together. See
+ * [OpenLayers Translate](https://openlayers.org/en/latest/apidoc/module-ol_interaction_Translate-Translate.html).
+ */
 @Component({
   selector: 'wol-translate-interaction',
   exportAs: 'wolTranslateInteraction',
@@ -34,23 +39,72 @@ import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/int
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolTranslateInteractionComponent implements OnChanges {
+  /**
+   * Whether the interaction handles events. Defaults to `true`. This model updates the
+   * interaction and reflects active-state changes from OpenLayers.
+   */
   readonly wolActive = model(true);
+  /**
+   * Predicate for map browser events used for translation. The default accepts every otherwise
+   * eligible event. Read at creation.
+   */
   readonly wolCondition = input<Condition>();
+  /**
+   * Collection of features to move together. A provided collection takes precedence over
+   * `wolLayers` and `wolFilter`. Read at creation.
+   */
   readonly wolFeatures = input<Collection<Feature>>();
+  /**
+   * Array of eligible layers or a predicate that accepts candidate layers. When `wolFeatures` is
+   * omitted, the default considers all visible layers. Read at creation.
+   */
   readonly wolLayers = input<Layer[] | ((layer: Layer) => boolean)>();
+  /**
+   * Predicate called with a candidate feature and layer. Return `true` to allow translation.
+   * Applies when `wolFeatures` is omitted. Read at creation.
+   */
   readonly wolFilter = input<FilterFunction>();
+  /**
+   * Hit-test radius in pixels. Defaults to `0` at creation and can be updated afterward.
+   */
   readonly wolHitTolerance = input<number>();
+  /**
+   * Observable properties to set on the OpenLayers instance. Updates assign the supplied keys and
+   * leave other properties in place.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits the native `change` event when the instance revision increases.
+   */
   readonly wolChange = output<BaseEvent>();
+  /**
+   * Emits the native `error` event when the OpenLayers instance dispatches one.
+   */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits the native `propertychange` event with the changed property key and its previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
+  /**
+   * Emits when dragging ends. The event includes the moved features, the start and final
+   * coordinates, and the map browser event.
+   */
   readonly wolTranslateEnd = output<TranslateEvent>();
+  /**
+   * Emits when dragging starts. The event includes the features, the starting coordinate, and the
+   * map browser event.
+   */
   readonly wolTranslateStart = output<TranslateEvent>();
+  /**
+   * Emits as features move. The event includes the features, the start and current coordinates,
+   * and the map browser event.
+   */
   readonly wolTranslating = output<TranslateEvent>();
 
   /**
-   * The Translate interaction instance.
+   * Signal for the OpenLayers Translate instance. Its value is `undefined` before creation and
+   * after component teardown.
    */
   readonly translateInstance = signal<Translate | undefined>(undefined);
 
@@ -156,8 +210,10 @@ export class WolTranslateInteractionComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers Translate interaction instance.
-   * @returns The Translate interaction instance
+   * Accesses the OpenLayers Translate interaction.
+   *
+   * @returns The underlying instance, or `undefined` before creation and after component
+   * teardown.
    */
   getInstance(): Translate | undefined {
     return this.translateInstance();

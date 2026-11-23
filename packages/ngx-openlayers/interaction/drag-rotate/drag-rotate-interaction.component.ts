@@ -22,6 +22,10 @@ import DragRotate from 'ol/interaction/DragRotate';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
+/**
+ * Rotates the map around the viewport center when the user drags with the mouse. See
+ * [OpenLayers DragRotate](https://openlayers.org/en/latest/apidoc/module-ol_interaction_DragRotate-DragRotate.html).
+ */
 @Component({
   selector: 'wol-drag-rotate-interaction',
   exportAs: 'wolDragRotateInteraction',
@@ -30,13 +34,38 @@ import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/int
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolDragRotateInteractionComponent implements OnChanges {
+  /**
+   * Whether the interaction handles events. Defaults to `true`. This model updates the
+   * interaction and reflects active-state changes from OpenLayers.
+   */
   readonly wolActive = model(true);
+  /**
+   * Predicate that decides whether a mouse drag can rotate the view. Defaults to the
+   * Alt-and-Shift-only condition. Read at creation.
+   */
   readonly wolCondition = input<Condition>();
+  /**
+   * Animation duration in milliseconds when the rotation gesture ends. Defaults to `250`. Read at
+   * creation.
+   */
   readonly wolDuration = input<number>();
+  /**
+   * Observable properties to set on the OpenLayers instance. Updates assign the supplied keys and
+   * leave other properties in place.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits the native `change` event when the instance revision increases.
+   */
   readonly wolChange = output<BaseEvent>();
+  /**
+   * Emits the native `error` event when the OpenLayers instance dispatches one.
+   */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits the native `propertychange` event with the changed property key and its previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
 
   private instance?: DragRotate;
@@ -122,8 +151,10 @@ export class WolDragRotateInteractionComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers DragRotate control instance.
-   * @returns The DragRotate control instance
+   * Accesses the OpenLayers DragRotate interaction.
+   *
+   * @returns The underlying instance, or `undefined` before creation and after component
+   * teardown.
    */
   getInstance(): DragRotate | undefined {
     return this.instance;

@@ -23,6 +23,10 @@ import DragPan from 'ol/interaction/DragPan';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
+/**
+ * Pans the map in response to pointer dragging, with optional kinetic movement. See
+ * [OpenLayers DragPan](https://openlayers.org/en/latest/apidoc/module-ol_interaction_DragPan-DragPan.html).
+ */
 @Component({
   selector: 'wol-drag-pan-interaction',
   exportAs: 'wolDragPanInteraction',
@@ -31,14 +35,43 @@ import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/int
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolDragPanInteractionComponent implements OnChanges {
+  /**
+   * Whether the interaction handles events. Defaults to `true`. This model updates the
+   * interaction and reflects active-state changes from OpenLayers.
+   */
   readonly wolActive = model(true);
+  /**
+   * Predicate that decides whether a map browser event starts a pan. By default, it accepts the
+   * primary action with no modifier keys. Read at creation.
+   */
   readonly wolCondition = input<Condition>();
+  /**
+   * Requires map focus when the target has a `tabindex` attribute. Defaults to `false`. Read at
+   * creation.
+   */
   readonly wolOnFocusOnly = input<boolean>();
+  /**
+   * Kinetic inertia configuration used to continue a fast pan after the pointer is released. Read
+   * at creation.
+   */
   readonly wolKinetic = input<Kinetic>();
+  /**
+   * Observable properties to set on the OpenLayers instance. Updates assign the supplied keys and
+   * leave other properties in place.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits the native `change` event when the instance revision increases.
+   */
   readonly wolChange = output<BaseEvent>();
+  /**
+   * Emits the native `error` event when the OpenLayers instance dispatches one.
+   */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits the native `propertychange` event with the changed property key and its previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
 
   private instance?: DragPan;
@@ -125,8 +158,10 @@ export class WolDragPanInteractionComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers DragPan control instance.
-   * @returns The DragPan control instance
+   * Accesses the OpenLayers DragPan interaction.
+   *
+   * @returns The underlying instance, or `undefined` before creation and after component
+   * teardown.
    */
   getInstance(): DragPan | undefined {
     return this.instance;

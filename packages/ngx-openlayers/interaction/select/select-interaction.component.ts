@@ -27,6 +27,11 @@ import { StyleLike } from 'ol/style/Style';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
+/**
+ * Selects vector features under the pointer and exposes selection changes and the selected
+ * collection. See
+ * [OpenLayers Select](https://openlayers.org/en/latest/apidoc/module-ol_interaction_Select-Select.html).
+ */
 @Component({
   selector: 'wol-select-interaction',
   exportAs: 'wolSelectInteraction',
@@ -35,24 +40,88 @@ import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/int
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolSelectInteractionComponent implements OnChanges {
+  /**
+   * Whether the interaction handles events. Defaults to `true`. This model updates the
+   * interaction and reflects active-state changes from OpenLayers.
+   */
   readonly wolActive = model(true);
+  /**
+   * Predicate that adds hit features when `wolCondition` is satisfied. Defaults to `never`. Use
+   * it to configure a separate action for adding features. Read at creation.
+   */
   readonly wolAddCondition = input<Condition>();
+  /**
+   * Predicate that triggers selection. Defaults to a single click, which normally replaces the
+   * selection or clears it when no feature is hit. Read at creation.
+   */
   readonly wolCondition = input<Condition>();
+  /**
+   * Array of selectable layers or a predicate that accepts candidate layers. By default, visible
+   * layers are considered. Read at creation.
+   */
   readonly wolLayers = input<Layer[] | ((layer: Layer) => boolean)>();
+  /**
+   * Style for selected features. Defaults to the OpenLayers editing style. Use `null` to preserve
+   * each feature's style. Read at creation.
+   */
   readonly wolStyle = input<StyleLike | null>();
+  /**
+   * Predicate that removes hit features when `wolCondition` is satisfied. Defaults to `never`.
+   * Use it to configure a separate action for removing features. Read at creation.
+   */
   readonly wolRemoveCondition = input<Condition>();
+  /**
+   * Predicate for toggling the hit feature in the current selection when `wolCondition` is
+   * satisfied. Defaults to the Shift-only condition. Read at creation.
+   */
   readonly wolToggleCondition = input<Condition>();
+  /**
+   * Whether to select all overlapping eligible features at the hit location. Defaults to `false`,
+   * which selects one feature per event. Read at creation.
+   */
   readonly wolMulti = input<boolean>();
+  /**
+   * Collection in which selected features are stored. OpenLayers creates one when omitted. The
+   * collection is available from the native interaction's `getFeatures()`. Read at creation.
+   */
   readonly wolFeatures = input<Collection<Feature>>();
+  /**
+   * Predicate called with the candidate feature and layer. Return `true` to allow selection. Read
+   * at creation.
+   */
   readonly wolFilter = input<FilterFunction>();
+  /**
+   * Hit-test radius in pixels. Defaults to `0` at creation and can be updated afterward.
+   */
   readonly wolHitTolerance = input<number>();
+  /**
+   * Observable properties to set on the OpenLayers instance. Updates assign the supplied keys and
+   * leave other properties in place.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits the native `change` event when the instance revision increases.
+   */
   readonly wolChange = output<BaseEvent>();
+  /**
+   * Emits the native `error` event when the OpenLayers instance dispatches one.
+   */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits the native `propertychange` event with the changed property key and its previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
+  /**
+   * Emits when selection changes. The event carries newly selected and deselected features and
+   * the map browser event.
+   */
   readonly wolSelect = output<SelectEvent>();
 
+  /**
+   * Signal for the OpenLayers Select instance. Its value is `undefined` before creation and after
+   * component teardown.
+   */
   readonly selectInstance = signal<Select | undefined>(undefined);
 
   /**
@@ -150,8 +219,10 @@ export class WolSelectInteractionComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers Select interaction instance.
-   * @returns The Select interaction instance
+   * Accesses the OpenLayers Select interaction.
+   *
+   * @returns The underlying instance, or `undefined` before creation and after component
+   * teardown.
    */
   getInstance(): Select | undefined {
     return this.selectInstance();

@@ -21,6 +21,10 @@ import DoubleClickZoom from 'ol/interaction/DoubleClickZoom';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
+/**
+ * Zooms at the pointer position on double click. Holding Shift reverses the direction. See
+ * [OpenLayers DoubleClickZoom](https://openlayers.org/en/latest/apidoc/module-ol_interaction_DoubleClickZoom-DoubleClickZoom.html).
+ */
 @Component({
   selector: 'wol-double-click-zoom-interaction',
   exportAs: 'wolDoubleClickZoomInteraction',
@@ -29,13 +33,38 @@ import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/int
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolDoubleClickZoomInteractionComponent implements OnChanges {
+  /**
+   * Whether the interaction handles events. Defaults to `true`. This model updates the
+   * interaction and reflects active-state changes from OpenLayers.
+   */
   readonly wolActive = model(true);
+  /**
+   * Duration of a double-click zoom animation in milliseconds. Defaults to `250`. The component
+   * reads this model at creation. Read at creation.
+   */
   readonly wolDuration = model<number>();
+  /**
+   * Change in zoom levels per double click. Defaults to `1`. The component reads this model at
+   * creation. Read at creation.
+   */
   readonly wolDelta = model<number>();
+  /**
+   * Observable properties to set on the OpenLayers instance. Updates assign the supplied keys and
+   * leave other properties in place.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits the native `change` event when the instance revision increases.
+   */
   readonly wolChange = output<BaseEvent>();
+  /**
+   * Emits the native `error` event when the OpenLayers instance dispatches one.
+   */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits the native `propertychange` event with the changed property key and its previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
 
   private instance?: DoubleClickZoom;
@@ -121,8 +150,10 @@ export class WolDoubleClickZoomInteractionComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers DoubleClickZoom control instance.
-   * @returns The DoubleClickZoom control instance
+   * Accesses the OpenLayers DoubleClickZoom interaction.
+   *
+   * @returns The underlying instance, or `undefined` before creation and after component
+   * teardown.
    */
   getInstance(): DoubleClickZoom | undefined {
     return this.instance;

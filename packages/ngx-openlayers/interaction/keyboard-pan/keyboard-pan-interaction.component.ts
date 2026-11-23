@@ -22,6 +22,10 @@ import KeyboardPan from 'ol/interaction/KeyboardPan';
 import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/interaction';
 
+/**
+ * Pans the map when the keyboard event target receives an arrow key. See
+ * [OpenLayers KeyboardPan](https://openlayers.org/en/latest/apidoc/module-ol_interaction_KeyboardPan-KeyboardPan.html).
+ */
 @Component({
   selector: 'wol-keyboard-pan-interaction',
   exportAs: 'wolKeyboardPanInteraction',
@@ -30,14 +34,41 @@ import { useInteractionHostRef } from '@workletjs/ngx-openlayers/interaction/int
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WolKeyboardPanInteractionComponent implements OnChanges {
+  /**
+   * Whether the interaction handles events. Defaults to `true`. This model updates the
+   * interaction and reflects active-state changes from OpenLayers.
+   */
   readonly wolActive = model(true);
+  /**
+   * Predicate for keyboard pan events. By default, it accepts keys without modifiers when the
+   * event target is outside an editable element. Read at creation.
+   */
   readonly wolCondition = input<Condition>();
+  /**
+   * Duration in milliseconds of a keyboard pan animation. Defaults to `100`. Read at creation.
+   */
   readonly wolDuration = input<number>();
+  /**
+   * Number of pixels to pan per arrow-key press. Defaults to `128`. Read at creation.
+   */
   readonly wolPixelDelta = input<number>();
+  /**
+   * Observable properties to set on the OpenLayers instance. Updates assign the supplied keys and
+   * leave other properties in place.
+   */
   readonly wolProperties = input<WolProperties>();
 
+  /**
+   * Emits the native `change` event when the instance revision increases.
+   */
   readonly wolChange = output<BaseEvent>();
+  /**
+   * Emits the native `error` event when the OpenLayers instance dispatches one.
+   */
   readonly wolError = output<BaseEvent>();
+  /**
+   * Emits the native `propertychange` event with the changed property key and its previous value.
+   */
   readonly wolPropertyChange = output<ObjectEvent>();
 
   private instance?: KeyboardPan;
@@ -127,8 +158,10 @@ export class WolKeyboardPanInteractionComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers KeyboardPan control instance.
-   * @returns The KeyboardPan control instance
+   * Accesses the OpenLayers KeyboardPan interaction.
+   *
+   * @returns The underlying instance, or `undefined` before creation and after component
+   * teardown.
    */
   getInstance(): KeyboardPan | undefined {
     return this.instance;
