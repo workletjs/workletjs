@@ -92,8 +92,8 @@ export class WolDrawInteractionComponent implements OnChanges {
    */
   readonly wolMinPoints = input<number>();
   /**
-   * Predicate that decides whether a map browser event may finish a drawing. The default accepts
-   * finishing events. Point and multi-point drawing bypass this predicate. Read at creation.
+   * Predicate that decides whether a map browser event may finish a drawing, including a point
+   * or multi-point sketch. The default accepts finishing events. Read at creation.
    */
   readonly wolFinishCondition = input<Condition>();
   /**
