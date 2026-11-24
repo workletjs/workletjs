@@ -27,8 +27,11 @@ import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 
 /**
- * Wraps an OpenLayers [WebGLVectorLayer](https://openlayers.org/en/latest/apidoc/module-ol_layer_WebGLVector-WebGLVectorLayer.html),
+ * Wraps an OpenLayers [WebGLVectorLayer](https://github.com/openlayers/openlayers/blob/v10.11.0/src/ol/layer/WebGLVector.js),
  * used for WebGL rendering of vector data.
+ *
+ * @experimental This component follows an experimental OpenLayers layer and may change between
+ * releases.
  *
  * @example
  * ```html
@@ -37,7 +40,7 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
  * </wol-map>
  * ```
  *
- * @see https://openlayers.org/en/latest/apidoc/module-ol_layer_WebGLVector-WebGLVectorLayer.html
+ * @see [WebGL Vector Layer example](https://openlayers.org/en/latest/examples/webgl-vector-layer.html)
  */
 @Component({
   selector: 'wol-webgl-vector-layer',
@@ -49,6 +52,8 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 export class WolWebGLVectorLayerComponent implements OnChanges {
   /**
    * A CSS class name to set to the layer element. Defaults to `'ol-layer'`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolClassName = input<string>();
 
@@ -63,8 +68,9 @@ export class WolWebGLVectorLayerComponent implements OnChanges {
   readonly wolVisible = model<boolean>();
 
   /**
-   * The bounding extent for layer rendering. The layer will not be rendered outside of this
-   * extent.
+   * Rendering extent of the layer.
+   *
+   * @remarks OpenLayers 10.11.0 does not support extent clipping for this renderer.
    */
   readonly wolExtent = model<Extent>();
 
@@ -113,12 +119,16 @@ export class WolWebGLVectorLayerComponent implements OnChanges {
   readonly wolVariables = input<StyleVariables>();
 
   /**
-   * Background color for the layer. No background will be rendered when not specified.
+   * Background color option passed to the layer at creation.
+   *
+   * @remarks OpenLayers 10.11.0 does not support background rendering for this layer.
    */
   readonly wolBackground = input<BackgroundColor>();
 
   /**
    * When `true`, disables hit detection for this layer.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolDisableHitDetection = input<boolean>();
 
@@ -322,8 +332,9 @@ export class WolWebGLVectorLayerComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying WebGLVectorLayer instance.
-   * @returns The WebGLVectorLayer instance or undefined if not yet created.
+   * Gets the OpenLayers `WebGLVectorLayer` instance managed by the component.
+   *
+   * @returns The `WebGLVectorLayer` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): WebGLVectorLayer | undefined {
     return this.instance;

@@ -52,6 +52,8 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 export class WolVectorLayerComponent implements OnChanges {
   /**
    * A CSS class name to set to the layer element. Defaults to `'ol-layer'`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolClassName = input<string>();
 
@@ -99,12 +101,17 @@ export class WolVectorLayerComponent implements OnChanges {
   readonly wolMaxZoom = model<number>();
 
   /**
-   * Render order function used to sort features before rendering.
+   * Function that sorts features before drawing. OpenLayers uses feature creation order by default.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolRenderOrder = input<OrderFunction>();
 
   /**
-   * The buffer in pixels around the viewport used to query features from the vector source.
+   * Buffer in pixels around the viewport used to select features for rendering and hit detection.
+   * Defaults to `100`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolRenderBuffer = input<number>();
 
@@ -114,8 +121,11 @@ export class WolVectorLayerComponent implements OnChanges {
   readonly wolSource = model<VectorSource>();
 
   /**
-   * Sets the layer as an overlay rendered on top of all other layers on a map. The map will not
-   * manage this layer in its layers collection. Use `map.addLayer()` for managed layers.
+   * Map to which OpenLayers also attaches the layer outside that map’s layer collection.
+   *
+   * @remarks The component still registers the layer with its host. Passing the host map to
+   * `wolMap` as well triggers a duplicate registration assertion. For ordinary use, nest the
+   * component in the map without setting `wolMap`.
    */
   readonly wolMap = input<Map>();
 
@@ -131,16 +141,24 @@ export class WolVectorLayerComponent implements OnChanges {
 
   /**
    * Background color for the layer. No background will be rendered when not specified.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolBackground = input<BackgroundColor>();
 
   /**
-   * Whether feature batches are recreated while animating interactions.
+   * Rebuilds feature batches during animations when `true`. This can reduce clipping at a
+   * performance cost. Defaults to `false`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolUpdateWhileAnimating = input<boolean>();
 
   /**
-   * Whether feature batches are recreated while user interactions are in progress.
+   * Rebuilds feature batches while the user interacts with the map when `true`. Defaults to
+   * `false`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolUpdateWhileInteracting = input<boolean>();
 
@@ -350,8 +368,9 @@ export class WolVectorLayerComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying VectorLayer instance.
-   * @returns The VectorLayer instance or undefined if not yet created.
+   * Gets the OpenLayers `VectorLayer` instance managed by the component.
+   *
+   * @returns The `VectorLayer` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): VectorLayer | undefined {
     return this.instance;

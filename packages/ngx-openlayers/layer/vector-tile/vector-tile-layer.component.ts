@@ -52,6 +52,8 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 export class WolVectorTileLayerComponent implements OnChanges {
   /**
    * A CSS class name to set to the layer element. Defaults to `'ol-layer'`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolClassName = input<string>();
 
@@ -99,17 +101,25 @@ export class WolVectorTileLayerComponent implements OnChanges {
   readonly wolMaxZoom = model<number>();
 
   /**
-   * Render order function used to sort features before rendering.
+   * Function that sorts features before drawing. OpenLayers uses feature creation order by default.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolRenderOrder = input<OrderFunction>();
 
   /**
-   * Buffer in pixels around the viewport used to query tiles.
+   * Buffer in pixels around each tile extent used to select features for rendering and hit
+   * detection. Defaults to `100`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolRenderBuffer = input<number>();
 
   /**
-   * Rendering mode. OpenLayers supports `'hybrid'` and `'vector'`.
+   * Defaults to `hybrid`, where lines and polygons are rendered as images and point symbols and
+   * labels remain vectors. `vector` renders every feature as a vector and preserves drawing order.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolRenderMode = input<VectorTileRenderType>();
 
@@ -119,8 +129,11 @@ export class WolVectorTileLayerComponent implements OnChanges {
   readonly wolSource = model<VectorTileSource>();
 
   /**
-   * Sets the layer as an overlay rendered on top of all other layers on a map. The map will not
-   * manage this layer in its layers collection. Use `map.addLayer()` for managed layers.
+   * Map to which OpenLayers also attaches the layer outside that map’s layer collection.
+   *
+   * @remarks The component still registers the layer with its host. Passing the host map to
+   * `wolMap` as well triggers a duplicate registration assertion. For ordinary use, nest the
+   * component in the map without setting `wolMap`.
    */
   readonly wolMap = input<Map>();
 
@@ -140,12 +153,18 @@ export class WolVectorTileLayerComponent implements OnChanges {
   readonly wolBackground = input<BackgroundColor>();
 
   /**
-   * Whether feature batches are recreated while animating interactions.
+   * Rebuilds feature batches during animations when `true`. This can reduce clipping at a
+   * performance cost. Defaults to `false`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolUpdateWhileAnimating = input<boolean>();
 
   /**
-   * Whether feature batches are recreated while user interactions are in progress.
+   * Rebuilds feature batches while the user interacts with the map when `true`. Defaults to
+   * `false`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolUpdateWhileInteracting = input<boolean>();
 
@@ -155,7 +174,9 @@ export class WolVectorTileLayerComponent implements OnChanges {
   readonly wolPreload = model<number>();
 
   /**
-   * Whether interim tiles are used when a tile load error occurs.
+   * Compatibility model for the native interim tile setting. Defaults to `true`.
+   *
+   * @deprecated The OpenLayers 10.11.0 renderer handles interim tiles independently of this setting.
    */
   readonly wolUseInterimTilesOnError = model<boolean>();
 
@@ -165,7 +186,10 @@ export class WolVectorTileLayerComponent implements OnChanges {
   readonly wolProperties = input<WolProperties>();
 
   /**
-   * The internal texture cache size. Must be large enough to render two zoom levels of tiles.
+   * Internal tile cache size. Defaults to `0`. OpenLayers grows the cache when necessary to
+   * accommodate two zoom levels of tiles.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolCacheSize = input<number>();
 
@@ -391,8 +415,9 @@ export class WolVectorTileLayerComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers VectorTileLayer instance.
-   * @returns The VectorTileLayer instance or `undefined` if not yet created.
+   * Gets the OpenLayers `VectorTileLayer` instance managed by the component.
+   *
+   * @returns The `VectorTileLayer` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): VectorTileLayer | undefined {
     return this.instance;

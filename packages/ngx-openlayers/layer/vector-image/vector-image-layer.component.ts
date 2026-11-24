@@ -52,6 +52,8 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 export class WolVectorImageLayerComponent implements OnChanges {
   /**
    * A CSS class name to set to the layer element. Defaults to `'ol-layer'`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolClassName = input<string>();
 
@@ -99,12 +101,17 @@ export class WolVectorImageLayerComponent implements OnChanges {
   readonly wolMaxZoom = model<number>();
 
   /**
-   * Render order function used to sort features before rendering.
+   * Function that sorts features before drawing. OpenLayers uses feature creation order by default.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolRenderOrder = input<OrderFunction>();
 
   /**
-   * The buffer in pixels around the viewport used to query features from the vector source.
+   * Buffer in pixels around the viewport used to select features for rendering and hit detection.
+   * Defaults to `100`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolRenderBuffer = input<number>();
 
@@ -114,13 +121,17 @@ export class WolVectorImageLayerComponent implements OnChanges {
   readonly wolSource = model<VectorSource>();
 
   /**
-   * Sets the layer as an overlay rendered on top of all other layers on a map. The map will not
-   * manage this layer in its layers collection. Use `map.addLayer()` for managed layers.
+   * Map to which OpenLayers also attaches the layer outside that map’s layer collection.
+   *
+   * @remarks The component still registers the layer with its host. Passing the host map to
+   * `wolMap` as well triggers a duplicate registration assertion. For ordinary use, nest the
+   * component in the map without setting `wolMap`.
    */
   readonly wolMap = input<Map>();
 
   /**
-   * Declutter mode for text and image styles. Accepts a boolean or a declutter group key.
+   * Controls overlap between images and labels on this layer. Defaults to `false`. Decluttering is
+   * local to the layer because the features are rendered to an image.
    */
   readonly wolDeclutter = input<boolean | string | number>();
 
@@ -131,11 +142,16 @@ export class WolVectorImageLayerComponent implements OnChanges {
 
   /**
    * Background color for the layer. No background will be rendered when not specified.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolBackground = input<BackgroundColor>();
 
   /**
-   * The size ratio between rendered image and viewport. Higher values can reduce edge artifacts.
+   * Size of the rendered image relative to the viewport. Defaults to `1`. A larger ratio gives the
+   * image more room during pan animations at a rendering cost.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolImageRatio = input<number>();
 
@@ -344,8 +360,9 @@ export class WolVectorImageLayerComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers VectorImageLayer instance.
-   * @returns The VectorImageLayer instance.
+   * Gets the OpenLayers `VectorImageLayer` instance managed by the component.
+   *
+   * @returns The `VectorImageLayer` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): VectorImageLayer | undefined {
     return this.instance;

@@ -254,8 +254,9 @@ export class WolLayerGroupComponent implements OnChanges {
   }
 
   /**
-   * Get the OpenLayers LayerGroup instance.
-   * @returns The OpenLayers LayerGroup instance
+   * Gets the OpenLayers `LayerGroup` instance managed by the component.
+   *
+   * @returns The `LayerGroup` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): LayerGroup | undefined {
     return this.instance;

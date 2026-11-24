@@ -8,7 +8,7 @@ keyword: WebGLVectorLayerPage
 > in the latest release.
 
 Wraps an OpenLayers
-[WebGLVectorLayer](https://openlayers.org/en/latest/apidoc/module-ol_layer_WebGLVector-WebGLVectorLayer.html),
+[WebGLVectorLayer](https://github.com/openlayers/openlayers/blob/v10.11.0/src/ol/layer/WebGLVector.js),
 used for WebGL rendering of vector data.
 
 ## Usage

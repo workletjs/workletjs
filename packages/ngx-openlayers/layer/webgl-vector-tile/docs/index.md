@@ -7,7 +7,7 @@ keyword: WebGLVectorTileLayerPage
 > applications without understanding the risks.
 
 Wraps an OpenLayers
-[WebGLVectorTileLayer](https://openlayers.org/en/latest/apidoc/module-ol_layer_WebGLVectorTile-WebGLVectorTileLayer.html),
+[WebGLVectorTileLayer](https://github.com/openlayers/openlayers/blob/v10.11.0/src/ol/layer/WebGLVectorTile.js),
 used for WebGL rendering of vector tiles with flat style expressions.
 
 > **Note** A `WebGLVectorTileLayer` must be **manually disposed** when removed, otherwise the
