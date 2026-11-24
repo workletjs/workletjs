@@ -57,58 +57,67 @@ import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 })
 export class WolOverlayComponent implements OnChanges {
   /**
-   * The overlay id. The overlay id can be used with the
-   * [getOverlayById](https://openlayers.org/en/latest/apidoc/module-ol_Map-Map.html#getOverlayById) method.
+   * Overlay identifier for lookup with [Map.getOverlayById](https://openlayers.org/en/latest/apidoc/module-ol_Map-Map.html#getOverlayById).
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolId = input<number | string>();
 
   /**
-   * The overlay element. Defaults to a newly created `div` element when not provided.
+   * Element that holds the overlay content. At creation the component defaults to a new `div`. This
+   * model updates the native overlay element and reflects element changes from OpenLayers.
    */
   readonly wolElement = model<HTMLElement>();
 
   /**
-   * Offsets in pixels used when positioning the overlay, as `[horizontal, vertical]`. A positive
-   * horizontal value shifts the overlay right; a positive vertical value shifts it down. Defaults
-   * to `[0, 0]`.
+   * Pixel offset as `[horizontal, vertical]`, defaulting to `[0, 0]`. Positive values move the
+   * overlay right and down. This model tracks offset changes in both directions.
    */
   readonly wolOffset = model<number[]>();
 
   /**
-   * The overlay position, in map projection. Setting this to `undefined` hides the overlay.
+   * Map coordinate to which the overlay is anchored. Use the configured user projection when set,
+   * or the view projection otherwise. Setting this model to `undefined` hides the overlay.
+   * Native position changes are reflected in the model.
    */
   readonly wolPosition = model<Coordinate>();
 
   /**
-   * Defines how the overlay is positioned relative to its `wolPosition`. Possible values are
-   * `'bottom-left'`, `'bottom-center'`, `'bottom-right'`, `'center-left'`, `'center-center'`,
-   * `'center-right'`, `'top-left'`, `'top-center'`, and `'top-right'`. Defaults to `'top-left'`.
+   * Anchor alignment relative to `wolPosition`. Combine `top`, `center` or `bottom` with
+   * `left`, `center` or `right`, as in the default `top-left`. The model reflects native
+   * positioning changes and sets the alignment when updated.
    */
   readonly wolPositioning = model<Positioning>();
 
   /**
-   * Whether event propagation to the map viewport should be stopped. If `true`, the overlay is
-   * placed in the same container as the controls (CSS class `ol-overlaycontainer-stopevent`); if
-   * `false`, it is placed in the container with the CSS class specified by `wolClassName`.
-   * Defaults to `true`.
+   * When `true`, stops overlay events from reaching the map viewport and mounts the overlay beside
+   * the controls in `ol-overlaycontainer-stopevent`. When `false`, mounts the overlay in
+   * `ol-overlaycontainer`. Defaults to `true`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolStopEvent = input<boolean>();
 
   /**
-   * Whether the overlay is inserted first in the overlay container, or appended. If placed in the
-   * same container as the controls (see `wolStopEvent`), set this to `true` so the overlay is
-   * displayed below the controls. Defaults to `true`.
+   * Inserts the overlay at the start of its map container when `true`, or appends it when `false`.
+   * Defaults to `true`, which places it below controls in the shared container.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolInsertFirst = input<boolean>();
 
   /**
-   * Pan the map when the overlay position is set, so that the overlay is entirely visible in the
-   * current viewport. Defaults to `false`.
+   * Pans the map to bring the overlay into view when its position is set. Pass `true` or pan
+   * options to enable it. Defaults to `false`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolAutoPan = input<PanIntoViewOptions | boolean>();
 
   /**
-   * CSS class name for the overlay container. Defaults to `'ol-overlay-container ol-selectable'`.
+   * CSS classes on this overlay’s outer element. Defaults to `ol-overlay-container ol-selectable`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolClassName = input<string>();
 
@@ -253,8 +262,9 @@ export class WolOverlayComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers Overlay instance.
-   * @returns The OpenLayers Overlay instance
+   * Gets the OpenLayers `Overlay` instance managed by the component.
+   *
+   * @returns The `Overlay` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): Overlay | undefined {
     return this.instance;
