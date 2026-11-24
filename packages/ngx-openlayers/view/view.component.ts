@@ -112,16 +112,16 @@ export class WolViewComponent implements OnChanges {
   readonly wolMinResolution = input<number>();
 
   /**
-   * The maximum zoom level used to determine the resolution constraint. It is used together with
-   * `wolMinZoom` (or `wolMaxResolution`) and `wolZoomFactor`. If `wolMinResolution` is also
-   * provided, it takes precedence. Defaults to `28`.
+   * The maximum zoom level used to determine the resolution constraint. Defaults to `28`.
+   * With a custom list, see `wolResolutions` for how this index applies. Without a custom list,
+   * `wolMinResolution` takes precedence when provided.
    */
   readonly wolMaxZoom = input<number>();
 
   /**
-   * The minimum zoom level used to determine the resolution constraint. It is used together with
-   * `wolMaxZoom` (or `wolMinResolution`) and `wolZoomFactor`. If `wolMaxResolution` is also
-   * provided, it takes precedence. Defaults to `0`.
+   * The minimum zoom level used to determine the resolution constraint. Defaults to `0`.
+   * With a custom list, see `wolResolutions` for how this index applies. Without a custom list,
+   * `wolMaxResolution` takes precedence when provided.
    */
   readonly wolMinZoom = input<number>();
 
@@ -172,9 +172,11 @@ export class WolViewComponent implements OnChanges {
   readonly wolResolution = model<number>();
 
   /**
-   * Resolutions that determine the zoom levels. The array index corresponds to the zoom level, so
-   * values must be in descending order. When set, `wolMaxResolution`, `wolMinResolution`,
-   * `wolMinZoom`, `wolMaxZoom` and `wolZoomFactor` are ignored.
+   * Descending list of resolutions indexed by zoom level. The list replaces `wolMaxResolution`,
+   * `wolMinResolution`, and `wolZoomFactor`.
+   *
+   * With `wolConstrainResolution` enabled, OpenLayers snaps against the full list.
+   * Otherwise, `wolMinZoom` and `wolMaxZoom` select the resolution bounds by index.
    *
    * @remarks The component reads this option when creating the OpenLayers instance.
    */
