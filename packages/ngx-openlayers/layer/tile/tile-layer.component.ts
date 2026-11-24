@@ -137,8 +137,7 @@ export class WolTileLayerComponent implements OnChanges {
   readonly wolProperties = input<WolProperties>();
 
   /**
-   * Internal tile cache size. Defaults to `512`; allocate enough capacity for two zoom levels of
-   * tiles.
+   * Internal tile cache size, which should hold tiles for two zoom levels. Defaults to `512`.
    *
    * @remarks The component reads this option when creating the OpenLayers instance.
    */
