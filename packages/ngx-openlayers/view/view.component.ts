@@ -48,8 +48,9 @@ import { WolMapComponent } from '@workletjs/ngx-openlayers/map';
 })
 export class WolViewComponent implements OnChanges {
   /**
-   * The initial center for the view, in the coordinate system of `wolProjection`. Layer sources
-   * will not be fetched if this is not set, but the center can be set later.
+   * View center. Use the configured user projection if one is set, or `wolProjection` otherwise.
+   * Updating this model sets the center, and OpenLayers center changes are reflected in the model.
+   * Layer sources need a view center before loading.
    */
   readonly wolCenter = model<Coordinate>();
 
@@ -57,42 +58,56 @@ export class WolViewComponent implements OnChanges {
    * Rotation constraint. `false` means no constraint. `true` means no constraint, but snap to
    * zero near zero. A number constrains the rotation to that number of values, e.g. `4` constrains
    * the rotation to 0, 90, 180, and 270 degrees. Defaults to `true`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolConstrainRotation = input<boolean | number>();
 
   /**
    * Enable rotation. If `false`, a rotation constraint that always sets the rotation to zero is
    * used and `wolConstrainRotation` has no effect. Defaults to `true`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolEnableRotation = input<boolean>();
 
   /**
-   * The extent that constrains the view center, in other words, nothing outside of this extent
-   * can be visible on the map.
+   * Extent used to constrain the view. By default it constrains the visible area.
+   * `wolConstrainOnlyCenter` and `wolSmoothExtentConstraint` adjust how the constraint is applied.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolExtent = input<Extent>();
 
   /**
    * If `true`, the extent constraint will only apply to the view center and not the whole extent.
    * Defaults to `false`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolConstrainOnlyCenter = input<boolean>();
 
   /**
    * If `true`, the extent constraint is applied smoothly, allowing the view to go slightly outside
    * of the given extent. Defaults to `true`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolSmoothExtentConstraint = input<boolean>();
 
   /**
    * The maximum resolution used to determine the resolution constraint. It is used together with
    * `wolMinResolution` (or `wolMaxZoom`) and `wolZoomFactor`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolMaxResolution = input<number>();
 
   /**
    * The minimum resolution used to determine the resolution constraint. It is used together with
    * `wolMaxResolution` (or `wolMinZoom`) and `wolZoomFactor`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolMinResolution = input<number>();
 
@@ -114,6 +129,8 @@ export class WolViewComponent implements OnChanges {
    * If `false`, the view is constrained so only one world is visible and panning off the edge is
    * not allowed. If `true`, the map may show multiple worlds at low zoom levels. Only used if the
    * projection is global, and `wolExtent` takes precedence when set. Defaults to `false`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolMultiWorld = input<boolean>();
 
@@ -126,24 +143,31 @@ export class WolViewComponent implements OnChanges {
   /**
    * If `true`, the resolution min/max values are applied smoothly, allowing the view to slightly
    * exceed the given resolution or zoom bounds. Defaults to `true`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolSmoothResolutionConstraint = input<boolean>();
 
   /**
    * Allow the view to be zoomed out to show the full extent configured in `wolExtent`, even if the
    * viewport exceeds the height or width of that extent. Defaults to `false`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolShowFullExtent = input<boolean>();
 
   /**
-   * The projection of the view. Determines the coordinate system of the center and the units of
-   * the resolution. Defaults to `'EPSG:3857'` (Web Mercator).
+   * Projection of the view. Its coordinate units determine the units of `wolResolution`. Defaults
+   * to `EPSG:3857` (Web Mercator).
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolProjection = input<ProjectionLike>();
 
   /**
-   * The initial resolution for the view, in projection units per pixel. An alternative to setting
-   * this is `wolZoom`. Layer sources will not be fetched if neither is defined.
+   * View resolution in projection units per pixel. At creation an explicit resolution takes
+   * precedence over `wolZoom`. After creation, assigning a resolution updates the view, and
+   * OpenLayers resolution changes update both this model and `wolZoom`.
    */
   readonly wolResolution = model<number>();
 
@@ -151,23 +175,28 @@ export class WolViewComponent implements OnChanges {
    * Resolutions that determine the zoom levels. The array index corresponds to the zoom level, so
    * values must be in descending order. When set, `wolMaxResolution`, `wolMinResolution`,
    * `wolMinZoom`, `wolMaxZoom` and `wolZoomFactor` are ignored.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolResolutions = input<number[]>();
 
   /**
-   * The initial rotation for the view in radians, positive clockwise, `0` means North. Defaults to
-   * `0`.
+   * View rotation in radians, measured clockwise from north. Defaults to `0`. Assigning a value
+   * updates the view, and OpenLayers rotation changes are reflected in the model.
    */
   readonly wolRotation = model<number>();
 
   /**
-   * Zoom level used to calculate the initial resolution for the view. Only used if
-   * `wolResolution` is not defined.
+   * View zoom level. At creation it is used when `wolResolution` is omitted. After creation,
+   * assigning a zoom changes the view resolution, and OpenLayers resolution changes update both
+   * this model and `wolResolution`.
    */
   readonly wolZoom = model<number>();
 
   /**
    * The zoom factor used to compute the corresponding resolution. Defaults to `2`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolZoomFactor = input<number>();
 
@@ -175,6 +204,8 @@ export class WolViewComponent implements OnChanges {
    * Padding, in CSS pixels, in `[top, right, bottom, left]` order. Shifts the center of the
    * viewport away from content, such as overlays, that partially covers the map along its edges.
    * Defaults to `[0, 0, 0, 0]`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolPadding = input<number[]>();
 
@@ -322,8 +353,9 @@ export class WolViewComponent implements OnChanges {
   }
 
   /**
-   * Get the internal OpenLayers View instance
-   * @returns The internal OpenLayers View instance
+   * Gets the OpenLayers `View` instance managed by the component.
+   *
+   * @returns The `View` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): View | undefined {
     return this.instance;
