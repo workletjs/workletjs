@@ -23,6 +23,11 @@ import LineString from 'ol/geom/LineString';
 import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
 import { useGeometryHostRef } from '@workletjs/ngx-openlayers/geom/geometry';
 
+/**
+ * Supplies an OpenLayers [LineString](https://openlayers.org/en/latest/apidoc/module-ol_geom_LineString-LineString.html) geometry to a parent `wol-feature`.
+ *
+ * The ordered coordinates define a connected sequence of line segments.
+ */
 @Component({
   selector: 'wol-line-string-geometry',
   exportAs: 'wolLineStringGeometry',
@@ -32,12 +37,14 @@ import { useGeometryHostRef } from '@workletjs/ngx-openlayers/geom/geometry';
 })
 export class WolLineStringGeometryComponent implements OnChanges {
   /**
-   * The coordinates of the line string geometry.
+   * Required ordered coordinates for the line. To initialize from a flat number array, also supply
+   * `wolLayout`. Use an array of coordinates when replacing the line at runtime.
    */
   readonly wolCoordinates = input.required<Coordinate[] | number[]>();
 
   /**
-   * The layout of the line string geometry.
+   * Coordinate layout, such as `XY` or `XYZ`. When omitted, the layout is inferred from nested
+   * coordinates. Rebind `wolCoordinates` to apply a new layout.
    */
   readonly wolLayout = input<GeometryLayout>();
 
@@ -62,7 +69,8 @@ export class WolLineStringGeometryComponent implements OnChanges {
   readonly wolPropertyChange = output<ObjectEvent>();
 
   /**
-   * The instance of the underlying OpenLayers LineString geometry.
+   * Signal holding the OpenLayers `LineString` instance. Its value is `undefined` before creation
+   * and after destruction.
    */
   readonly instance = signal<LineString | undefined>(undefined);
 
@@ -142,8 +150,9 @@ export class WolLineStringGeometryComponent implements OnChanges {
   }
 
   /**
-   * Get the internal OpenLayers LineString instance
-   * @returns The internal OpenLayers LineString instance
+   * Gets the OpenLayers `LineString` instance managed by the component.
+   *
+   * @returns The `LineString` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): LineString | undefined {
     return this.instance();

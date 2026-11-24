@@ -23,6 +23,11 @@ import { GeometryLayout } from 'ol/geom/Geometry';
 import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
 import { useGeometryHostRef } from '@workletjs/ngx-openlayers/geom/geometry';
 
+/**
+ * Supplies an OpenLayers [Point](https://openlayers.org/en/latest/apidoc/module-ol_geom_Point-Point.html) geometry to a parent `wol-feature`.
+ *
+ * Use a single coordinate to place a point feature.
+ */
 @Component({
   selector: 'wol-point-geometry',
   exportAs: 'wolPointGeometry',
@@ -32,12 +37,13 @@ import { useGeometryHostRef } from '@workletjs/ngx-openlayers/geom/geometry';
 })
 export class WolPointGeometryComponent implements OnChanges {
   /**
-   * The coordinates of the point geometry.
+   * Required point coordinate. Rebind it to update the point position.
    */
   readonly wolCoordinates = input.required<Coordinate>();
 
   /**
-   * The layout of the point geometry.
+   * Coordinate layout, such as `XY` or `XYZ`. When omitted, OpenLayers infers the layout from
+   * `wolCoordinates`. Rebinding the layout reapplies the point coordinates.
    */
   readonly wolLayout = input<GeometryLayout>();
 
@@ -62,7 +68,8 @@ export class WolPointGeometryComponent implements OnChanges {
   readonly wolPropertyChange = output<ObjectEvent>();
 
   /**
-   * The Point instance.
+   * Signal holding the OpenLayers `Point` instance. Its value is `undefined` before creation and
+   * after destruction.
    */
   readonly instance = signal<Point | undefined>(undefined);
 
@@ -139,8 +146,9 @@ export class WolPointGeometryComponent implements OnChanges {
   }
 
   /**
-   * Get the internal OpenLayers Point instance
-   * @returns The internal OpenLayers Point instance
+   * Gets the OpenLayers `Point` instance managed by the component.
+   *
+   * @returns The `Point` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): Point | undefined {
     return this.instance();

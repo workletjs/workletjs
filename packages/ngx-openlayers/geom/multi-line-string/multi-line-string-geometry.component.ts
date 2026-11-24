@@ -25,6 +25,11 @@ import MultiLineString from 'ol/geom/MultiLineString';
 import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
 import { useGeometryHostRef } from '@workletjs/ngx-openlayers/geom/geometry';
 
+/**
+ * Supplies an OpenLayers [MultiLineString](https://openlayers.org/en/latest/apidoc/module-ol_geom_MultiLineString-MultiLineString.html) geometry to a parent `wol-feature`.
+ *
+ * Groups multiple lines in one feature geometry.
+ */
 @Component({
   selector: 'wol-multi-line-string-geometry',
   exportAs: 'wolMultiLineStringGeometry',
@@ -34,18 +39,20 @@ import { useGeometryHostRef } from '@workletjs/ngx-openlayers/geom/geometry';
 })
 export class WolMultiLineStringGeometryComponent implements OnChanges {
   /**
-   * The coordinates of the multi-line string geometry.
-   * For internal use, flat coordinates in combination with layout and ends are also accepted.
+   * Required line coordinates or OpenLayers `LineString` objects. Flat numeric coordinates need
+   * both `wolLayout` and `wolEnds`.
    */
   readonly wolCoordinates = input.required<Coordinate[][] | LineString[] | number[]>();
 
   /**
-   * The layout of the multi-line string geometry.
+   * Coordinate layout, such as `XY` or `XYZ`. Required with flat coordinates. Rebind
+   * `wolCoordinates` to apply a new layout.
    */
   readonly wolLayout = input<GeometryLayout>();
 
   /**
-   * Flat coordinate ends for internal use.
+   * Exclusive end offsets in the flat number array, one per line. Rebind `wolCoordinates` to apply
+   * new offsets.
    */
   readonly wolEnds = input<number[]>();
 
@@ -70,7 +77,8 @@ export class WolMultiLineStringGeometryComponent implements OnChanges {
   readonly wolPropertyChange = output<ObjectEvent>();
 
   /**
-   * The MultiLineString instance.
+   * Signal holding the OpenLayers `MultiLineString` instance. Its value is `undefined` before
+   * creation and after destruction.
    */
   readonly instance = signal<MultiLineString | undefined>(undefined);
 
@@ -181,8 +189,9 @@ export class WolMultiLineStringGeometryComponent implements OnChanges {
   }
 
   /**
-   * Get the internal OpenLayers MultiLineString instance
-   * @returns The internal OpenLayers MultiLineString instance
+   * Gets the OpenLayers `MultiLineString` instance managed by the component.
+   *
+   * @returns The `MultiLineString` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): MultiLineString | undefined {
     return this.instance();
