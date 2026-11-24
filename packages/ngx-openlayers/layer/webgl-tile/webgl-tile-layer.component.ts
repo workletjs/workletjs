@@ -145,8 +145,8 @@ export class WolWebGLTileLayerComponent implements OnChanges {
   readonly wolUseInterimTilesOnError = model<boolean>();
 
   /**
-   * Internal WebGL texture cache size. Defaults to `512`; allocate enough capacity for two zoom
-   * levels of tiles.
+   * Internal WebGL texture cache size, which should hold tiles for two zoom levels. Defaults to
+   * `512`.
    *
    * @remarks The component reads this option when creating the OpenLayers instance.
    */
