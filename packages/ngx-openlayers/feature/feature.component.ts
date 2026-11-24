@@ -26,6 +26,12 @@ import { isNotNil } from '@workletjs/ngx-openlayers/core/utils';
 
 import { useFeatureHostRef } from './feature-host-ref';
 
+/**
+ * Adds an OpenLayers [Feature](https://openlayers.org/en/latest/apidoc/module-ol_Feature-Feature.html) to its host vector or cluster source.
+ *
+ * Configure its geometry, style, and observable attributes with inputs, or nest a geometry
+ * component to supply the default geometry.
+ */
 @Component({
   selector: 'wol-feature',
   exportAs: 'wolFeature',
@@ -40,21 +46,25 @@ export class WolFeatureComponent implements OnChanges {
   readonly wolId = input<string | number>();
 
   /**
-   * The default geometry for the feature. This will update the property with the name returned
-   * by `wolGeometryName`.
+   * Geometry stored in the `geometry` property when this component initializes. Once the instance
+   * is created, changes to this model update the property selected by `wolGeometryName`.
+   *
+   * @remarks When using a custom geometry name, supply that named geometry through `wolProperties`
+   * for initialization. A nested geometry component supplies its geometry after the feature has
+   * been created.
    */
   readonly wolGeometry = model<Geometry>();
 
   /**
-   * The property name to be used when getting the feature's default geometry. When calling [getGeometry](https://openlayers.org/en/latest/apidoc/module-ol_Feature-Feature.html#getGeometry),
-   * the value of the property with this name will be returned.
+   * Name of the property used for the default geometry, which OpenLayers uses to render the
+   * feature. Defaults to `geometry`. Supply a matching property in `wolProperties` to initialize a
+   * custom named geometry.
    */
   readonly wolGeometryName = input<string>();
 
   /**
-   * The style for the feature to override the layer style. This can be a single style object,
-   * an array of styles, or a function that takes a resolution and returns an array of styles.
-   * To unset the feature style, set the value to `undefined`.
+   * Feature-level style as one style, an array of styles, or a function of the feature and view
+   * resolution. Use `undefined` to fall back to the layer style.
    */
   readonly wolStyle = input<StyleLike>();
 
@@ -184,8 +194,9 @@ export class WolFeatureComponent implements OnChanges {
   }
 
   /**
-   * Get the internal OpenLayers Feature instance
-   * @returns The internal OpenLayers Feature instance
+   * Gets the OpenLayers `Feature` instance managed by the component.
+   *
+   * @returns The `Feature` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): Feature | undefined {
     return this.featureInstance();
