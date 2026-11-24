@@ -40,9 +40,10 @@ export class WolCartoDBSourceComponent implements OnChanges {
   /** Source credits shown by the attribution control. Changes update the existing source. */
   readonly wolAttributions = input<AttributionLike>();
   /**
-   * Capacity of the source tile cache. Read at source creation.
+   * Legacy tile cache option supplied at source creation for compatibility.
+   * OpenLayers 10.11.0 manages the cache on the rendering layer.
    *
-   * @deprecated Configure `wolCacheSize` on the tile layer.
+   * @deprecated Configure `wolCacheSize` on a compatible layer.
    */
   readonly wolCacheSize = input<number>();
   /**

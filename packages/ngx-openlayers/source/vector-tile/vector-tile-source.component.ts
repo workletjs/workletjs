@@ -56,8 +56,10 @@ export class WolVectorTileSourceComponent implements OnChanges {
    */
   readonly wolAttributionsCollapsible = input<boolean>();
   /**
-   * Initial source tile cache size. OpenLayers can grow it to hold at least twice the tiles in the
-   * viewport. Read at creation.
+   * Legacy tile cache option supplied at source creation for compatibility.
+   * OpenLayers 10.11.0 manages the cache on the rendering layer.
+   *
+   * @deprecated Configure `wolCacheSize` on a compatible layer.
    */
   readonly wolCacheSize = input<number>();
   /**
@@ -162,7 +164,7 @@ export class WolVectorTileSourceComponent implements OnChanges {
    */
   readonly wolPropertyChange = output<ObjectEvent>();
   /**
-   * Emits when tile loading finishes, including when a tile that is no longer needed is canceled.
+   * Emits when a tile finishes loading successfully.
    * The event carries the tile.
    */
   readonly wolTileLoadEnd = output<TileSourceEvent>();

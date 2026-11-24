@@ -88,7 +88,7 @@ export class WolTileDebugSourceComponent implements OnChanges {
    */
   readonly wolPropertyChange = output<ObjectEvent>();
   /**
-   * Emits when tile loading finishes, including when a tile that is no longer needed is canceled.
+   * Emits when a tile finishes loading successfully.
    * The event carries the tile.
    */
   readonly wolTileLoadEnd = output<TileSourceEvent>();

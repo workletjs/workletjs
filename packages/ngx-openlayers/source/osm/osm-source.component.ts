@@ -44,9 +44,10 @@ export class WolOSMSourceComponent implements OnChanges {
    */
   readonly wolAttributions = input<AttributionLike>();
   /**
-   * Legacy source-level tile cache option. Set when creating the source.
+   * Legacy tile cache option supplied at source creation for compatibility.
+   * OpenLayers 10.11.0 manages the cache on the rendering layer.
    *
-   * @deprecated Configure `wolCacheSize` on the tile layer instead.
+   * @deprecated Configure `wolCacheSize` on a compatible layer.
    */
   readonly wolCacheSize = input<number>();
   /** CORS mode for the tile images. Defaults to `anonymous`. Set when creating the source. */
@@ -110,7 +111,7 @@ export class WolOSMSourceComponent implements OnChanges {
    */
   readonly wolPropertyChange = output<ObjectEvent>();
   /**
-   * Emits when tile loading finishes, including when a tile that is no longer needed is canceled.
+   * Emits when a tile finishes loading successfully.
    * The event carries the tile.
    */
   readonly wolTileLoadEnd = output<TileSourceEvent>();

@@ -51,9 +51,10 @@ export class WolXYZSourceComponent implements OnChanges {
    */
   readonly wolAttributionsCollapsible = input<boolean>();
   /**
-   * Legacy source-level tile cache option. Set when creating the source.
+   * Legacy tile cache option supplied at source creation for compatibility.
+   * OpenLayers 10.11.0 manages the cache on the rendering layer.
    *
-   * @deprecated Configure `wolCacheSize` on the tile layer instead.
+   * @deprecated Configure `wolCacheSize` on a compatible layer.
    */
   readonly wolCacheSize = input<number>();
   /**
@@ -121,7 +122,8 @@ export class WolXYZSourceComponent implements OnChanges {
   readonly wolGutter = input<number>();
   /**
    * Callback that chooses the URL from the tile coordinate, pixel ratio, and projection. Omit URL
-   * templates to use this callback. The binding is read only at creation.
+   * templates to use this callback. The binding is read at creation. Recreate the component to
+   * apply a different function.
    *
    * @deprecated Use a `wolUrl` function on `WolImageTileSourceComponent` instead.
    */
@@ -173,7 +175,7 @@ export class WolXYZSourceComponent implements OnChanges {
    */
   readonly wolPropertyChange = output<ObjectEvent>();
   /**
-   * Emits when tile loading finishes, including when a tile that is no longer needed is canceled.
+   * Emits when a tile finishes loading successfully.
    * The event carries the tile.
    */
   readonly wolTileLoadEnd = output<TileSourceEvent>();

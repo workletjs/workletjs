@@ -60,11 +60,13 @@ export class WolVectorSourceComponent<FeatureType extends FeatureLike = Feature<
   readonly wolFormat = input<FeatureFormat<FeatureType>>();
   /**
    * Custom feature loader for each extent selected by `wolStrategy`. If omitted and `wolUrl` is
-   * set, OpenLayers uses its XHR loader. Changes update the loader on the source.
+   * set, OpenLayers uses its XHR loader. Changes replace the loader while retaining features and
+   * loaded extents. To clear both before reloading, use `getInstance()` to call `refresh()`.
    *
-   * @remarks A promise-based loader returns the features in the requested projection. For a
-   * callback-style loader, invoke the success or failure callback so the corresponding load event
-   * is emitted.
+   * @remarks Return a promise of features in the requested projection. OpenLayers adds the
+   * resolved features to the source. The legacy `void` form with `success` and `failure`
+   * callbacks is deprecated. With that form, add features to the source yourself and invoke
+   * the appropriate callback to emit the corresponding load event.
    */
   readonly wolLoader = input<FeatureLoader<FeatureType>>();
   /**
@@ -80,7 +82,9 @@ export class WolVectorSourceComponent<FeatureType extends FeatureLike = Feature<
   /**
    * URL or a function that calculates the URL from the requested extent, resolution, and
    * projection. With the default loader, OpenLayers uses `wolFormat` and parses features into the
-   * view projection. Changing the URL after creation installs a new XHR loader.
+   * view projection. Changing the URL after creation installs a new XHR loader while retaining
+   * features and loaded extents. To clear both before reloading, use `getInstance()` to call
+   * `refresh()`.
    */
   readonly wolUrl = input<string | FeatureUrlFunction>();
   /**

@@ -89,8 +89,8 @@ export class WolSentinelHubSourceComponent implements OnChanges {
   /** Projection for tile requests. Defaults to `EPSG:3857`. Set when creating the source. */
   readonly wolProjection = input<Projection>();
   /**
-   * Uses linear interpolation when resampling by default. Set to `false` for nearest-neighbor
-   * sampling. Read at creation.
+   * Uses nearest-neighbor sampling by default. Set to `true` for linear interpolation when
+   * resampling. Read at creation.
    */
   readonly wolInterpolate = input<boolean>();
   /**
@@ -121,7 +121,7 @@ export class WolSentinelHubSourceComponent implements OnChanges {
    */
   readonly wolPropertyChange = output<ObjectEvent>();
   /**
-   * Emits when tile loading finishes, including when a tile that is no longer needed is canceled.
+   * Emits when a tile finishes loading successfully.
    * The event carries the tile.
    */
   readonly wolTileLoadEnd = output<TileSourceEvent>();
