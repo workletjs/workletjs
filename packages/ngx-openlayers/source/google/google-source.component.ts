@@ -91,8 +91,10 @@ export class WolGoogleSourceComponent implements OnChanges {
    */
   readonly wolInterpolate = input<boolean>();
   /**
-   * Initial source tile cache capacity. OpenLayers grows it as needed to hold the viewport's tiles.
-   * Read at source creation.
+   * Legacy tile cache option supplied at source creation for compatibility.
+   * OpenLayers 10.11.0 manages the cache on the rendering layer.
+   *
+   * @deprecated Configure `wolCacheSize` on a compatible layer.
    */
   readonly wolCacheSize = input<number>();
   /**

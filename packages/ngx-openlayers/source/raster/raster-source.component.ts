@@ -90,9 +90,13 @@ export class WolRasterSourceComponent implements OnChanges {
    */
   readonly wolOperationType = input<RasterOperationType>();
   /**
-   * Resolutions at which the operation runs. By default OpenLayers takes the first input with
-   * configured resolutions, if any. Use `null` to work at any view resolution. Changes update the
-   * source.
+   * Resolutions at which the operation runs. Pass `null` at creation to use any view resolution
+   * for the life of the source. Otherwise, OpenLayers initially takes the resolutions from the
+   * first input that specifies them, if any.
+   *
+   * @remarks In the mode that uses input resolutions, updating the list after creation sets
+   * explicit resolutions, and setting it to `null` falls back to the input resolutions.
+   * Recreate the component to switch modes.
    */
   readonly wolResolutions = input<number[] | null>();
   /**
