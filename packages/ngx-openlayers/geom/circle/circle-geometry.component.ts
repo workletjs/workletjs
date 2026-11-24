@@ -23,6 +23,11 @@ import { GeometryLayout } from 'ol/geom/Geometry';
 import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
 import { useGeometryHostRef } from '@workletjs/ngx-openlayers/geom/geometry';
 
+/**
+ * Supplies an OpenLayers [Circle](https://openlayers.org/en/latest/apidoc/module-ol_geom_Circle-Circle.html) geometry to a parent `wol-feature`.
+ *
+ * Use a center coordinate and radius in projection units to define the circle.
+ */
 @Component({
   selector: 'wol-circle-geometry',
   exportAs: 'wolCircleGeometry',
@@ -32,17 +37,22 @@ import { useGeometryHostRef } from '@workletjs/ngx-openlayers/geom/geometry';
 })
 export class WolCircleGeometryComponent implements OnChanges {
   /**
-   * The center of the circle geometry.
+   * Required center coordinate of the circle. Rebind it to move the circle.
    */
   readonly wolCenter = input.required<Coordinate>();
 
   /**
-   * Radius in units of the projection.
+   * Radius in projection units. For a center coordinate with an inferred layout, the default radius
+   * is `0`. Set a radius explicitly when supplying a layout for an ordinary center coordinate.
    */
   readonly wolRadius = input<number>();
 
   /**
-   * The layout of the circle geometry.
+   * Coordinate layout, such as `XY` or `XYZ`. If a layout is supplied with no radius, OpenLayers
+   * interprets `wolCenter` as flat circle coordinates at creation.
+   *
+   * @remarks To apply a layout change later, update both `wolCenter` and `wolRadius` in the same
+   * binding update.
    */
   readonly wolLayout = input<GeometryLayout>();
 
@@ -67,7 +77,8 @@ export class WolCircleGeometryComponent implements OnChanges {
   readonly wolPropertyChange = output<ObjectEvent>();
 
   /**
-   * The instance of the circle geometry.
+   * Signal holding the OpenLayers `Circle` instance. Its value is `undefined` before creation and
+   * after destruction.
    */
   readonly instance = signal<Circle | undefined>(undefined);
 
@@ -155,8 +166,9 @@ export class WolCircleGeometryComponent implements OnChanges {
   }
 
   /**
-   * Get the internal OpenLayers Circle instance
-   * @returns The internal OpenLayers Circle instance
+   * Gets the OpenLayers `Circle` instance managed by the component.
+   *
+   * @returns The `Circle` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): Circle | undefined {
     return this.instance();

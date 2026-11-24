@@ -23,6 +23,11 @@ import MultiPoint from 'ol/geom/MultiPoint';
 import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
 import { useGeometryHostRef } from '@workletjs/ngx-openlayers/geom/geometry';
 
+/**
+ * Supplies an OpenLayers [MultiPoint](https://openlayers.org/en/latest/apidoc/module-ol_geom_MultiPoint-MultiPoint.html) geometry to a parent `wol-feature`.
+ *
+ * Groups multiple point coordinates in one feature geometry.
+ */
 @Component({
   selector: 'wol-multi-point-geometry',
   exportAs: 'wolMultiPointGeometry',
@@ -32,13 +37,14 @@ import { useGeometryHostRef } from '@workletjs/ngx-openlayers/geom/geometry';
 })
 export class WolMultiPointGeometryComponent implements OnChanges {
   /**
-   * The coordinates of the multi-point geometry.
-   * For internal use, flat coordinates in combination with `wolLayout` are also accepted.
+   * Required point coordinates. A flat numeric array can also be supplied with `wolLayout`. Rebind
+   * to replace the points.
    */
   readonly wolCoordinates = input.required<Coordinate[] | number[]>();
 
   /**
-   * The layout of the multi-point geometry.
+   * Coordinate layout, such as `XY` or `XYZ`. Required with flat coordinates. Rebind
+   * `wolCoordinates` to apply a new layout.
    */
   readonly wolLayout = input<GeometryLayout>();
 
@@ -63,7 +69,8 @@ export class WolMultiPointGeometryComponent implements OnChanges {
   readonly wolPropertyChange = output<ObjectEvent>();
 
   /**
-   * The MultiPoint instance.
+   * Signal holding the OpenLayers `MultiPoint` instance. Its value is `undefined` before creation
+   * and after destruction.
    */
   readonly instance = signal<MultiPoint | undefined>(undefined);
 
@@ -150,8 +157,9 @@ export class WolMultiPointGeometryComponent implements OnChanges {
   }
 
   /**
-   * Get the internal OpenLayers MultiPoint instance
-   * @returns The internal OpenLayers MultiPoint instance
+   * Gets the OpenLayers `MultiPoint` instance managed by the component.
+   *
+   * @returns The `MultiPoint` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): MultiPoint | undefined {
     return this.instance();

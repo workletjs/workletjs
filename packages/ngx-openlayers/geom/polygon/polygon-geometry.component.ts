@@ -23,6 +23,11 @@ import Polygon from 'ol/geom/Polygon';
 import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
 import { useGeometryHostRef } from '@workletjs/ngx-openlayers/geom/geometry';
 
+/**
+ * Supplies an OpenLayers [Polygon](https://openlayers.org/en/latest/apidoc/module-ol_geom_Polygon-Polygon.html) geometry to a parent `wol-feature`.
+ *
+ * Defines an area from an exterior ring and optional interior rings.
+ */
 @Component({
   selector: 'wol-polygon-geometry',
   exportAs: 'wolPolygonGeometry',
@@ -32,23 +37,21 @@ import { useGeometryHostRef } from '@workletjs/ngx-openlayers/geom/geometry';
 })
 export class WolPolygonGeometryComponent implements OnChanges {
   /**
-   * Array of linear rings that define the polygon.
-   * The first linear ring of the array defines the outer-boundary or surface of the polygon.
-   * Each subsequent linear ring defines a hole in the surface of the polygon.
-   * A linear ring is an array of vertices' coordinates where the first coordinate and the last are equivalent.
-   * (For internal use, flat coordinates in combination with `wolLayout` and `wolEnds` are also accepted.)
+   * Required polygon coordinates. Supply the exterior ring followed by any holes, with each ring
+   * closed by repeating its first coordinate. Flat numeric coordinates need both `wolLayout` and
+   * `wolEnds`.
    */
   readonly wolCoordinates = input.required<Coordinate[][] | number[]>();
 
   /**
-   * Layout of the geometry coordinates.
+   * Coordinate layout, such as `XY` or `XYZ`. Required with flat coordinates. Rebind
+   * `wolCoordinates` to apply a new layout.
    */
   readonly wolLayout = input<GeometryLayout>();
 
   /**
-   * Array of numbers representing the end indices of each linear ring
-   * in the flat coordinates array. Only used when `wolCoordinates` is provided
-   * as a flat array of numbers.
+   * Exclusive end offsets in the flat number array, one per ring. Supply this with `wolLayout` for
+   * flat coordinates. Rebind `wolCoordinates` to apply new offsets.
    */
   readonly wolEnds = input<number[]>();
 
@@ -73,7 +76,8 @@ export class WolPolygonGeometryComponent implements OnChanges {
   readonly wolPropertyChange = output<ObjectEvent>();
 
   /**
-   * The Polygon instance created by this component.
+   * Signal holding the OpenLayers `Polygon` instance. Its value is `undefined` before creation and
+   * after destruction.
    */
   readonly instance = signal<Polygon | undefined>(undefined);
 
@@ -163,8 +167,9 @@ export class WolPolygonGeometryComponent implements OnChanges {
   }
 
   /**
-   * Get the internal OpenLayers Polygon instance
-   * @returns The internal OpenLayers Polygon instance
+   * Gets the OpenLayers `Polygon` instance managed by the component.
+   *
+   * @returns The `Polygon` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): Polygon | undefined {
     return this.instance();

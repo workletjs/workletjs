@@ -25,6 +25,11 @@ import Polygon from 'ol/geom/Polygon';
 import { WolProperties, WolSafeAny } from '@workletjs/ngx-openlayers/core/types';
 import { useGeometryHostRef } from '@workletjs/ngx-openlayers/geom/geometry';
 
+/**
+ * Supplies an OpenLayers [MultiPolygon](https://openlayers.org/en/latest/apidoc/module-ol_geom_MultiPolygon-MultiPolygon.html) geometry to a parent `wol-feature`.
+ *
+ * Groups multiple polygons in one feature geometry.
+ */
 @Component({
   selector: 'wol-multi-polygon-geometry',
   exportAs: 'wolMultiPolygonGeometry',
@@ -34,18 +39,20 @@ import { useGeometryHostRef } from '@workletjs/ngx-openlayers/geom/geometry';
 })
 export class WolMultiPolygonGeometryComponent implements OnChanges {
   /**
-   * The coordinates of the multi-polygon geometry.
-   * For internal use, flat coordinates in combination with `wolLayout` and `wolEnds` are also accepted.
+   * Required polygon coordinates or OpenLayers `Polygon` objects. Each nested polygon is an array
+   * of closed rings. Flat numeric coordinates need both `wolLayout` and `wolEndss`.
    */
   readonly wolCoordinates = input.required<Coordinate[][][] | Polygon[] | number[]>();
 
   /**
-   * The layout of the multi-polygon geometry.
+   * Coordinate layout, such as `XY` or `XYZ`. Required with flat coordinates. Rebind
+   * `wolCoordinates` to apply a new layout.
    */
   readonly wolLayout = input<GeometryLayout>();
 
   /**
-   * Array of ends for internal use with flat coordinates.
+   * Exclusive ring-end offsets in the flat number array, grouped by polygon. Supply this with
+   * `wolLayout` for flat coordinates. Rebind `wolCoordinates` to apply new offsets.
    */
   readonly wolEndss = input<number[][]>();
 
@@ -70,7 +77,8 @@ export class WolMultiPolygonGeometryComponent implements OnChanges {
   readonly wolPropertyChange = output<ObjectEvent>();
 
   /**
-   * The MultiPolygon instance.
+   * Signal holding the OpenLayers `MultiPolygon` instance. Its value is `undefined` before creation
+   * and after destruction.
    */
   readonly instance = signal<MultiPolygon | undefined>(undefined);
 
@@ -183,8 +191,9 @@ export class WolMultiPolygonGeometryComponent implements OnChanges {
   }
 
   /**
-   * Get the internal OpenLayers MultiPolygon instance
-   * @returns The internal OpenLayers MultiPolygon instance
+   * Gets the OpenLayers `MultiPolygon` instance managed by the component.
+   *
+   * @returns The `MultiPolygon` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): MultiPolygon | undefined {
     return this.instance();
