@@ -57,64 +57,71 @@ import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 })
 export class WolMapComponent implements OnChanges {
   /**
-   * Controls initially added to the map. If not specified, the default controls are used. In a
-   * worker, no controls are added by default.
+   * Controls for the map. OpenLayers supplies its default controls when omitted.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolControls = input<Collection<Control> | Control[]>();
 
   /**
-   * The ratio between physical pixels and device-independent pixels (dips) on the device.
-   * Defaults to `window.devicePixelRatio`.
+   * Ratio of physical pixels to CSS pixels. OpenLayers defaults to the device pixel ratio. Assign a
+   * new number to update the existing map.
    */
   readonly wolPixelRatio = input<number>();
 
   /**
-   * Interactions initially added to the map. If not specified, the default interactions are used.
-   * In a worker, no interactions are added by default.
+   * Map interactions. OpenLayers supplies its default interactions when omitted.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolInteractions = input<Collection<Interaction> | Interaction[]>();
 
   /**
-   * The element to listen to keyboard events on. This determines when the `KeyboardPan` and
-   * `KeyboardZoom` interactions trigger. If not specified, keyboard events are listened to on the
-   * map target. If set to something other than `document`, the target element needs a `tabindex`
-   * attribute for key events to be emitted.
+   * Element, element ID, or document on which the map listens for keyboard events. The map target
+   * is used by default. For an element target, set `tabindex` so it can receive focus.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolKeyboardEventTarget = input<HTMLElement | Document | string>();
 
   /**
-   * Layers to render. If not defined, a map with no layers will be rendered. Layers are rendered
-   * in the order supplied, so a layer meant to appear on top must come after the layers below it.
+   * Layers in the map as an array, collection, or `LayerGroup`. Updating this binding replaces the
+   * map layers or the layer group. Layers with the same z-index are drawn in collection order.
    */
   readonly wolLayers = input<BaseLayer[] | Collection<BaseLayer> | LayerGroup>();
 
   /**
-   * Maximum number of tiles to load simultaneously. Defaults to `16`.
+   * Maximum number of tiles the map loads at once. Defaults to `16`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolMaxTilesLoading = input<number>();
 
   /**
-   * The minimum distance in pixels the cursor must move to be detected as a map move event
-   * instead of a click. Increasing this value can make it easier to click on the map. Defaults to
+   * Pointer movement threshold in CSS pixels for distinguishing a drag from a click. Defaults to
    * `1`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolMoveTolerance = input<number>();
 
   /**
-   * Overlays initially added to the map. By default, no overlays are added.
+   * Overlays for the map. Defaults to an empty collection.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolOverlays = input<Collection<Overlay> | Overlay[]>();
 
   /**
-   * The container for the map, either the element itself or the id of the element. Updated
-   * automatically when the map's target changes.
+   * Map container element or its ID. It defaults to the `wol-map` host element at creation.
+   * Updating this model sets the target, and OpenLayers target changes are reflected in the model.
    */
   readonly wolTarget = model<HTMLElement | string>();
 
   /**
-   * The map's view. No layer sources will be fetched unless this is specified. Can also be a
-   * promise that resolves to `ViewOptions`, allowing view properties to be resolved by sources or
-   * other components that load view-related metadata.
+   * Map view, or a promise that supplies `ViewOptions`. Updating this model sets the view, and
+   * OpenLayers view changes are reflected in the model. A view with a center and resolution is
+   * needed to request layer data.
    */
   readonly wolView = model<View | Promise<ViewOptions>>();
 
@@ -185,7 +192,8 @@ export class WolMapComponent implements OnChanges {
   readonly wolPointerMove = output<MapBrowserEvent<PointerEvent>>();
 
   /**
-   * Triggered after layers are composed. Only WebGL layers currently dispatch this event.
+   * Emits the map-level render event after the layers are composited. The event has `context` set
+   * to `undefined`.
    */
   readonly wolPostCompose = output<RenderEvent>();
 
@@ -195,7 +203,8 @@ export class WolMapComponent implements OnChanges {
   readonly wolPostRender = output<MapEvent>();
 
   /**
-   * Triggered before layers are composed. Only WebGL layers currently dispatch this event.
+   * Emits the map-level render event before the layers are composited. The event has `context` set
+   * to `undefined`.
    */
   readonly wolPreCompose = output<RenderEvent>();
 
