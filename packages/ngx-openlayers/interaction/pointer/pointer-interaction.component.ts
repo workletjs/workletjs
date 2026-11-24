@@ -63,9 +63,9 @@ export class WolPointerInteractionComponent implements OnChanges {
    */
   readonly wolHandleUpEvent = input<(event: MapBrowserEvent) => boolean>();
   /**
-   * Decides whether to stop a pointer-down event from reaching other interactions. Receives
-   * whether the down event was handled and returns `true` to stop it. The default stops handled
-   * events. Read at creation.
+   * Decides whether to stop a pointer-down event from reaching other interactions. The
+   * `isDblClick` argument is the boolean returned by `wolHandleDownEvent` for that event.
+   * Return `true` to stop propagation. The default stops handled events. Read at creation.
    */
   readonly wolStopDown = input<(isDblClick: boolean) => boolean>();
   /**
