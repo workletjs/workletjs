@@ -50,6 +50,8 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 export class WolTileLayerComponent implements OnChanges {
   /**
    * A CSS class name to set to the layer element. Defaults to `'ol-layer'`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolClassName = input<string>();
 
@@ -107,18 +109,25 @@ export class WolTileLayerComponent implements OnChanges {
   readonly wolSource = model<TileSource>();
 
   /**
-   * Sets the layer as an overlay rendered on top of all other layers on a map. The map will not
-   * manage this layer in its layers collection. Use `map.addLayer()` for managed layers.
+   * Map to which OpenLayers also attaches the layer outside that map’s layer collection.
+   *
+   * @remarks The component still registers the layer with its host. Passing the host map to
+   * `wolMap` as well triggers a duplicate registration assertion. For ordinary use, nest the
+   * component in the map without setting `wolMap`.
    */
   readonly wolMap = input<Map>();
 
   /**
    * Background color for the layer. No background will be rendered when not specified.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolBackground = input<BackgroundColor>();
 
   /**
-   * Whether interim tiles are used when a tile load error occurs.
+   * Compatibility model for the native interim tile setting. Defaults to `true`.
+   *
+   * @deprecated The OpenLayers 10.11.0 renderer handles interim tiles independently of this setting.
    */
   readonly wolUseInterimTilesOnError = model<boolean>();
 
@@ -128,7 +137,10 @@ export class WolTileLayerComponent implements OnChanges {
   readonly wolProperties = input<WolProperties>();
 
   /**
-   * The internal texture cache size. Must be large enough to render two zoom levels of tiles.
+   * Internal tile cache size. Defaults to `512`; allocate enough capacity for two zoom levels of
+   * tiles.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolCacheSize = input<number>();
 
@@ -336,8 +348,9 @@ export class WolTileLayerComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers TileLayer instance.
-   * @returns The TileLayer instance or `undefined` if not yet created.
+   * Gets the OpenLayers `TileLayer` instance managed by the component.
+   *
+   * @returns The `TileLayer` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): TileLayer | undefined {
     return this.instance;

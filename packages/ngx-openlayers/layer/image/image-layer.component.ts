@@ -50,6 +50,8 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 export class WolImageLayerComponent implements OnChanges {
   /**
    * A CSS class name to set to the layer element. Defaults to `'ol-layer'`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolClassName = input<string>();
 
@@ -97,8 +99,11 @@ export class WolImageLayerComponent implements OnChanges {
   readonly wolMaxZoom = model<number>();
 
   /**
-   * Sets the layer as an overlay rendered on top of all other layers on a map. The map will not
-   * manage this layer in its layers collection. Use `map.addLayer()` for managed layers.
+   * Map to which OpenLayers also attaches the layer outside that map’s layer collection.
+   *
+   * @remarks The component still registers the layer with its host. Passing the host map to
+   * `wolMap` as well triggers a duplicate registration assertion. For ordinary use, nest the
+   * component in the map without setting `wolMap`.
    */
   readonly wolMap = input<Map>();
 
@@ -305,8 +310,9 @@ export class WolImageLayerComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers ImageLayer instance.
-   * @returns The OpenLayers ImageLayer instance or `undefined` if not yet initialized.
+   * Gets the OpenLayers `ImageLayer` instance managed by the component.
+   *
+   * @returns The `ImageLayer` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): ImageLayer<ImageSource> | undefined {
     return this.instance;

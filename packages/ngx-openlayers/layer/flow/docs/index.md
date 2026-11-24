@@ -5,15 +5,16 @@ keyword: FlowLayerPage
 > **Warning** **CRITICAL:** FlowLayer is experimental. The component may change in future releases.
 > Avoid using experimental components in production applications without understanding the risks.
 
-`wol-flow-layer` wraps OpenLayers `FlowLayer`, a WebGL-based tile layer that animates particles from
-vector-field data. In practice, you provide a `DataTile` source whose bands encode velocity
-components, set `wolMaxSpeed` to the maximum magnitude represented by that data, and optionally use
-`wolStyle` to colorize the particles with expressions.
+`wol-flow-layer` wraps OpenLayers
+[FlowLayer](https://github.com/openlayers/openlayers/blob/v10.11.0/src/ol/layer/Flow.js), a
+WebGL-based tile layer that animates particles from vector-field data. In practice, you provide a
+`DataTile` source whose bands encode velocity components, set `wolMaxSpeed` to the maximum magnitude
+represented by that data, and optionally use `wolStyle` to colorize the particles with expressions.
 
 The component exposes the underlying layer options through Angular inputs and models, so visibility,
 opacity, resolution limits, zoom constraints, preload behavior, and source changes can all be bound
-declaratively. Style variables can also be updated reactively through `wolStyle` to drive the flow
-color ramp from Angular state.
+declaratively. Set the initial style through `wolStyle`. To update the color ramp at runtime, call
+`updateStyleVariables()` on the layer from `getInstance()` and pass the variable names and values.
 
 ## Examples
 

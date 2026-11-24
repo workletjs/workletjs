@@ -30,8 +30,11 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 
 /**
  * Wraps an OpenLayers
- * [WebGLVectorTileLayer](https://openlayers.org/en/latest/apidoc/module-ol_layer_WebGLVectorTile-WebGLVectorTileLayer.html),
+ * [WebGLVectorTileLayer](https://github.com/openlayers/openlayers/blob/v10.11.0/src/ol/layer/WebGLVectorTile.js),
  * used for WebGL rendering of vector tiles with flat style expressions.
+ *
+ * @experimental This component follows an experimental OpenLayers layer and may change between
+ * releases.
  *
  * @example
  * ```html
@@ -43,7 +46,7 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
  * </wol-map>
  * ```
  *
- * @see https://openlayers.org/en/latest/apidoc/module-ol_layer_WebGLVectorTile-WebGLVectorTileLayer.html
+ * @see [WebGL Vector Tiles example](https://openlayers.org/en/latest/examples/webgl-vector-tiles.html)
  */
 @Component({
   selector: 'wol-webgl-vector-tile-layer',
@@ -55,6 +58,8 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 export class WolWebGLVectorTileLayerComponent implements OnChanges {
   /**
    * A CSS class name to set to the layer element.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolClassName = input<string>();
 
@@ -69,9 +74,9 @@ export class WolWebGLVectorTileLayerComponent implements OnChanges {
   readonly wolVisible = model<boolean>();
 
   /**
-   * The bounding extent for layer rendering. The layer will not be rendered outside of this extent.
+   * Rendering extent of the layer.
    *
-   * @remarks Not yet supported by the underlying OpenLayers `WebGLVectorTileLayer`.
+   * @remarks OpenLayers 10.11.0 does not support extent clipping for this renderer.
    */
   readonly wolExtent = model<Extent>();
 
@@ -123,9 +128,9 @@ export class WolWebGLVectorTileLayerComponent implements OnChanges {
   readonly wolVariables = input<StyleVariables>();
 
   /**
-   * Background color for the layer. If not specified, no background is rendered.
+   * Background color option passed to the layer at creation.
    *
-   * @remarks Not yet supported by the underlying OpenLayers `WebGLVectorTileLayer`.
+   * @remarks OpenLayers 10.11.0 does not support background rendering for this layer.
    */
   readonly wolBackground = input<BackgroundColor>();
 
@@ -133,6 +138,8 @@ export class WolWebGLVectorTileLayerComponent implements OnChanges {
    * When `true`, disables hit detection on this layer.
    * Provides a slight performance boost but prevents `forEachFeatureAtPixel` from matching
    * features on this layer.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolDisableHitDetection = input<boolean>();
 
@@ -351,8 +358,10 @@ export class WolWebGLVectorTileLayerComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying WebGLVectorTileLayer instance.
-   * @returns The WebGLVectorTileLayer instance or undefined if not yet created.
+   * Gets the OpenLayers `WebGLVectorTileLayer` instance managed by the component.
+   *
+   * @returns The `WebGLVectorTileLayer` instance, or `undefined` before creation and after
+   * destruction.
    */
   getInstance(): WebGLVectorTileLayer<VectorTileSource<RenderFeature>, RenderFeature> | undefined {
     return this.instance() ?? undefined;

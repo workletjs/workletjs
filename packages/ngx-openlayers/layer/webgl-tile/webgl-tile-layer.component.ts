@@ -47,7 +47,9 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 })
 export class WolWebGLTileLayerComponent implements OnChanges {
   /**
-   * WebGL style definition for this layer.
+   * Style for the tile renderer. Update style variables through `wolVariables`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolStyle = input<Style>();
 
@@ -58,6 +60,8 @@ export class WolWebGLTileLayerComponent implements OnChanges {
 
   /**
    * A CSS class name to set to the layer element. Defaults to `'ol-layer'`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolClassName = input<string>();
 
@@ -115,25 +119,36 @@ export class WolWebGLTileLayerComponent implements OnChanges {
   readonly wolSource = model<SourceType>();
 
   /**
-   * Multi-source factory for dynamic source selection per extent/resolution.
+   * Array of sources, or a function that returns sources for an extent and a resolution in
+   * projection units per pixel. Takes precedence over `wolSource`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolSources = input<
     SourceType[] | ((extent: Extent, resolution: number) => SourceType[])
   >();
 
   /**
-   * Sets the layer as an overlay rendered on top of all other layers on a map. The map will not
-   * manage this layer in its layers collection. Use `map.addLayer()` for managed layers.
+   * Map to which OpenLayers also attaches the layer outside that map’s layer collection.
+   *
+   * @remarks The component still registers the layer with its host. Passing the host map to
+   * `wolMap` as well triggers a duplicate registration assertion. For ordinary use, nest the
+   * component in the map without setting `wolMap`.
    */
   readonly wolMap = input<Map>();
 
   /**
-   * Whether interim tiles are used when a tile load error occurs.
+   * Compatibility model for the native interim tile setting. Defaults to `true`.
+   *
+   * @deprecated The OpenLayers 10.11.0 renderer handles interim tiles independently of this setting.
    */
   readonly wolUseInterimTilesOnError = model<boolean>();
 
   /**
-   * The internal texture cache size. Must be large enough to render two zoom levels of tiles.
+   * Internal WebGL texture cache size. Defaults to `512`; allocate enough capacity for two zoom
+   * levels of tiles.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolCacheSize = input<number>();
 
@@ -354,8 +369,9 @@ export class WolWebGLTileLayerComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying WebGLTileLayer instance.
-   * @returns The WebGLTileLayer instance or `undefined` if not yet created.
+   * Gets the OpenLayers `WebGLTileLayer` instance managed by the component.
+   *
+   * @returns The `WebGLTileLayer` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): WebGLTileLayer | undefined {
     return this.instance;

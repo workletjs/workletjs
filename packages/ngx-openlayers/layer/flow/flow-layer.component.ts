@@ -25,10 +25,10 @@ import { WolProperties } from '@workletjs/ngx-openlayers/core/types';
 import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 
 /**
- * Wraps an OpenLayers [FlowLayer](https://openlayers.org/en/latest/apidoc/module-ol_layer_Flow-FlowLayer.html)
+ * Wraps an OpenLayers [FlowLayer](https://github.com/openlayers/openlayers/blob/v10.11.0/src/ol/layer/Flow.js)
  * instance, an experimental WebGL tile layer that renders particles moving through a vector field.
- * Use this component with a `DataTile` source whose tiles encode velocity data and optionally provide
- * a flow style to colorize the rendered particles.
+ * Use this component with a `DataTile` source whose tiles encode velocity data. A flow style
+ * can colorize the rendered particles.
  *
  * @experimental FlowLayer is experimental in OpenLayers and this wrapper may change along with the
  * upstream API.
@@ -44,7 +44,7 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
  * </wol-map>
  * ```
  *
- * @see https://openlayers.org/en/latest/apidoc/module-ol_layer_Flow-FlowLayer.html
+ * @see [Wind example](https://openlayers.org/en/latest/examples/wind.html)
  */
 @Component({
   selector: 'wol-flow-layer',
@@ -57,29 +57,38 @@ export class WolFlowLayerComponent implements OnChanges {
   /**
    * The maximum particle speed used to normalize the velocity field. This value is required and
    * should match the maximum magnitude encoded in the source tiles.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolMaxSpeed = input.required<number>();
 
   /**
    * A larger factor increases the rate at which particles cross the screen. Defaults to `0.001`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolSpeedFactor = input<number>();
 
   /**
    * The number of particles to render. Higher values improve density at the cost of more GPU work.
    * Defaults to `65536`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolParticles = input<number>();
 
   /**
-   * Style to apply to the layer. Use `variables` and a `color` expression to map velocity values to
-   * rendered particle colors. Runtime style updates should provide the style variables to
-   * `wolStyle`, which are forwarded to `FlowLayer#updateStyleVariables`.
+   * Initial particle style, including a color expression and the variables used in it.
+   *
+   * @remarks For runtime variable changes, use `getInstance()` to call `updateStyleVariables()`
+   * with a flat object mapping variable names to their new values.
    */
   readonly wolStyle = input<Style>();
 
   /**
    * A CSS class name to set to the layer element. Defaults to `'ol-layer'`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolClassName = input<string>();
 
@@ -139,13 +148,17 @@ export class WolFlowLayerComponent implements OnChanges {
   readonly wolSource = model<SourceType | null>();
 
   /**
-   * Whether to keep using interim tiles after loading errors. Defaults to `true`.
+   * Compatibility model for the native interim tile setting. Defaults to `true`.
+   *
+   * @deprecated The OpenLayers 10.11.0 renderer handles interim tiles independently of this setting.
    */
   readonly wolUseInterimTilesOnError = model<boolean>();
 
   /**
    * The internal texture cache size. This needs to be large enough to render two zoom levels worth
    * of tiles. Defaults to `512`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolCacheSize = input<number>();
 
@@ -370,9 +383,9 @@ export class WolFlowLayerComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying FlowLayer instance.
+   * Gets the OpenLayers `FlowLayer` instance managed by the component.
    *
-   * @returns The FlowLayer instance or undefined if not yet created.
+   * @returns The `FlowLayer` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): FlowLayer | undefined {
     return this.instance() ?? undefined;

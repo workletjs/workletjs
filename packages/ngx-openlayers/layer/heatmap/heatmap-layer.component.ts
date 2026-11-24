@@ -50,6 +50,8 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 export class WolHeatmapLayerComponent implements OnChanges {
   /**
    * A CSS class name to set to the layer element. Defaults to `'ol-layer'`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolClassName = input<string>();
 
@@ -132,7 +134,8 @@ export class WolHeatmapLayerComponent implements OnChanges {
   readonly wolVariables = input<Record<string, number | number[] | string | boolean>>();
 
   /**
-   * Point vector source for the heatmap.
+   * Vector source containing the features used to draw the heatmap. This model updates the source
+   * and reflects changes from OpenLayers.
    */
   readonly wolSource = model<VectorSource<Feature<Geometry>>>();
 
@@ -356,8 +359,9 @@ export class WolHeatmapLayerComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying OpenLayers Heatmap instance
-   * @returns The underlying OpenLayers Heatmap instance
+   * Gets the OpenLayers `Heatmap` instance managed by the component.
+   *
+   * @returns The `Heatmap` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): Heatmap<FeatureLike> | undefined {
     return this.instance;

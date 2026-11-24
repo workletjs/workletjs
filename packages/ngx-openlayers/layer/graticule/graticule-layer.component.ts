@@ -49,6 +49,8 @@ import { useLayerHostRef } from '@workletjs/ngx-openlayers/layer/layer';
 export class WolGraticuleLayerComponent implements OnChanges {
   /**
    * A CSS class name to set to the layer element. Defaults to `'ol-layer'`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolClassName = input<string>();
 
@@ -99,23 +101,31 @@ export class WolGraticuleLayerComponent implements OnChanges {
    * The maximum number of meridians and parallels from the center of the map. A value of `100`
    * renders at most 200 meridians and 200 parallels. Increase this value for non-conformal
    * projections. Defaults to `100`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolMaxLines = input<number>();
 
   /**
    * The stroke style for drawing the graticule lines. Defaults to a semi-transparent black stroke
    * (`rgba(0, 0, 0, 0.2)`).
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolStrokeStyle = input<Stroke>();
 
   /**
    * The target size of the graticule cells, in pixels. Defaults to `100`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolTargetSize = input<number>();
 
   /**
    * Whether to render a label with the respective latitude/longitude for each graticule line.
    * Defaults to `false`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolShowLabels = input<boolean>();
 
@@ -123,6 +133,8 @@ export class WolGraticuleLayerComponent implements OnChanges {
    * Label formatter for longitudes. Called with the longitude in degrees and should return the
    * formatted label string. By default labels are formatted as degrees, minutes, seconds and
    * hemisphere.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolLonLabelFormatter = input<(lon: number) => string>();
 
@@ -130,40 +142,54 @@ export class WolGraticuleLayerComponent implements OnChanges {
    * Label formatter for latitudes. Called with the latitude in degrees and should return the
    * formatted label string. By default labels are formatted as degrees, minutes, seconds and
    * hemisphere.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolLatLabelFormatter = input<(lat: number) => string>();
 
   /**
    * Longitude label position in fractions (`0`..`1`) of view extent. `0` means at the bottom of
    * the viewport, `1` means at the top. Defaults to `0`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolLonLabelPosition = input<number>();
 
   /**
    * Latitude label position in fractions (`0`..`1`) of view extent. `0` means at the left of the
    * viewport, `1` means at the right. Defaults to `1`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolLatLabelPosition = input<number>();
 
   /**
    * Longitude label text style. When not provided a default style with `textBaseline: 'bottom'`
    * is used.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolLonLabelStyle = input<Text>();
 
   /**
    * Latitude label text style. When not provided a default style with `textAlign: 'end'` is used.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolLatLabelStyle = input<Text>();
 
   /**
    * Intervals in degrees for the graticule lines, in descending order. Defaults to a set covering
    * from 90° down to 1/3600°. Example to limit to 30° and 10° intervals: `[30, 10]`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolIntervals = input<number[]>();
 
   /**
    * Whether to repeat the graticule horizontally. Defaults to `true`.
+   *
+   * @remarks The component reads this option when creating the OpenLayers instance.
    */
   readonly wolWrapX = input<boolean>();
 
@@ -360,8 +386,9 @@ export class WolGraticuleLayerComponent implements OnChanges {
   }
 
   /**
-   * Get the underlying Graticule instance.
-   * @returns The Graticule instance or undefined if not yet created.
+   * Gets the OpenLayers `Graticule` instance managed by the component.
+   *
+   * @returns The `Graticule` instance, or `undefined` before creation and after destruction.
    */
   getInstance(): Graticule | undefined {
     return this.instance;
